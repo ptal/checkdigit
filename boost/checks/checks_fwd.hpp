@@ -82,31 +82,28 @@ namespace boost{
 
 // Provides forward declaration of all Boost.Checks functions:
 
-    template <class In>
-    bool Is_isbn10(In isbn_begin, In isbn_end);
+	template <typename Out, typename in>
+    inline Out compute_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
 
-    template <class In>
-    char isbn10_check_digit(In isbn_begin, In isbn_end);
+	template <typename in>
+    inline char compute_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
 
-	template <typename Out, typename In>
-    inline Out compute_luhn(In &begin, const In &end, unsigned int nbr_digits=0);
-
-	template <typename In>
-    inline char compute_luhn(In &begin, const In &end, unsigned int nbr_digits=0);
-
-    template <typename In>
-    inline bool check_luhn(In &begin, const In &end, unsigned int nbr_digits=0);
+    template <typename in>
+    inline bool check_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
 	
-    template <typename In>
-    inline bool check_mod11(In &begin, const In &end, unsigned int nbr_digits=0);
+    template <typename in>
+    inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
 
-    template <typename Out, typename In>
-    inline Out compute_mod11(In &begin, const In &end, unsigned int nbr_digits=0);
+    template <typename Out, typename in>
+    inline Out compute_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
 
-    template <typename In>
-    inline bool check_mod10(In &begin, const In &end, unsigned int weight[], unsigned int nbr_digits=0);
+    template <typename in>
+    inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
 
-    template <typename In>
-    inline char compute_mod10(In &begin, const In &end, unsigned int weight[], unsigned int nbr_digits=0);
+    template <typename in>
+    inline bool check_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits=0);
+
+    template <typename in>
+    inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits=0);
   }
 }
