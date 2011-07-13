@@ -82,8 +82,8 @@ namespace boost{
 
 // Provides forward declaration of all Boost.Checks functions:
 
-	template <typename Out, typename in>
-    inline Out compute_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
+	template <typename out, typename in>
+    inline out compute_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
 
 	template <typename in>
     inline char compute_luhn(in &begin, const in &end, unsigned int nbr_digits=0);
@@ -94,8 +94,8 @@ namespace boost{
     template <typename in>
     inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
 
-    template <typename Out, typename in>
-    inline Out compute_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
+    template <typename out, typename in>
+    inline out compute_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
 
     template <typename in>
     inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits=0);
@@ -105,5 +105,8 @@ namespace boost{
 
     template <typename in>
     inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits=0);
+    
+    template <typename out, typename in>
+    inline out compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits=0);
   }
 }
