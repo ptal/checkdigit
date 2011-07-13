@@ -244,6 +244,62 @@ inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsig
   return (10 - sum % 10) % 10 | '0' ;
 }
 
+/** Compute the check digit of the number provided with the modulus 10 algorithm.
+ * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
+ * \tparam unsigned int[] which represents an array of weight.
+ * \tparam unsigned int which represents a size.
+ * \param [in] begin Represents the beginning of the sequence to check.
+ * \param [in] end Represents one off the limit of the sequence to check.
+ * \param [unsigned int\[\]] weight Represents the weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
+ * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will calculate the check digit with all the digit encountered.
+ * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
+ * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
+ * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
+ */
+
+template <typename out, typename in>
+inline out compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+{
+  // If the weight is null we apply a weight of 1 on each digit.
+  if(weight == NULL)
+  {
+    unsigned int weight_tmp[] = {1};
+    weight = weight_tmp;
+  }
+  // If the number of digits isn't given (equal to 0), we count these.
+  if(!nbr_digits)
+  {
+	in iter = begin;
+	while(iter != end)
+	{
+      if(*iter >= '0' && *iter <= '9')
+        ++nbr_digits;
+	  ++iter;
+	}
+	// Return false if there is no digit in the expression given.
+	if(!nbr_digits)
+	{
+	  begin = end;
+	  return 0;
+	}
+  }
+  int sum = 0;
+  int weight_size = sizeof(weight) / sizeof(weight[0]) ;
+  /* We start with the leftmost digit and we multiply by the weight indicated.
+   * The sum of all digits is computed. */
+  for(int i=0; nbr_digits > 0 && begin != end; ++i, --nbr_digits)
+  {
+    if(*begin >= '0' && *begin <= '9')
+		sum += (*begin & 15) * weight[i % weight_size] ;
+	++begin;
+  }
+  if(nbr_digits > 0)
+  {
+    begin = end;
+    return 0;
+  }
+  return (10 - sum % 10) % 10 | '0' ;
+}
 
 /** Calculate the check digit of the number provided with the modulus 11 algorithm.
  * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
@@ -266,6 +322,11 @@ inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits)
 	{
       if(*iter >= '0' && *iter <= '9')
         ++nbr_digits;
+      else if(*iter == 'x' || *iter == 'X')
+      {
+        ++nbr_digits;
+        break;
+      }
 	  ++iter;
 	}
 	// Return false if there is no digit in the expression given.
@@ -282,7 +343,7 @@ inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits)
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += *begin & 15 * nbr_digits--;
+	  sum += (*begin & 15) * nbr_digits--;
 	++begin;
   }
   // Add the check digit to the sum (add 10 if the check digit equals 'x' or 'X').
@@ -325,7 +386,7 @@ inline out compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
   {
 	while(iter != end)
 	{
-      if(*iter >= '0' && *iter <= '9')
+      if(*iter >= '0' && *iter <= '9') // 'X' is only the check digit so we ignore it...
         ++nbr_digits;
 	  ++iter;
 	}
@@ -344,7 +405,7 @@ inline out compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += *begin & 15 * nbr_digits-- ;
+	  sum += (*begin & 15) * nbr_digits-- ;
 	++begin;
   }
   if(nbr_digits > 1)
@@ -376,7 +437,7 @@ inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
   {
 	while(iter != end)
 	{
-      if(*iter >= '0' && *iter <= '9')
+      if(*iter >= '0' && *iter <= '9') // 'X' is only the check digit so we ignore it...
         ++nbr_digits;
 	  ++iter;
 	}
@@ -395,7 +456,7 @@ inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += *begin & 15 * nbr_digits-- ;
+	  sum += (*begin & 15) * nbr_digits-- ;
 	++begin;
   }
   if(nbr_digits > 1)
