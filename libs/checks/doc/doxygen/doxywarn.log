@@ -1,2 +1,31 @@
-Style sheet 'doxygen.css' specified by HTML_STYLESHEET does not exist!
-Project logo 'boost.png' specified by PROJECT_LOGO does not exist!
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:14: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::check_luhn(in &begin, const in &end, unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:14: warning: The following parameters of boost::checks::check_luhn(in &begin, const in &end, unsigned int nbr_digits) are not documented:
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:137: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::check_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:137: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::check_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:137: warning: The following parameters of boost::checks::check_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits) are not documented:
+  parameter 'weight'
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:248: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::check_mod11(in &begin, const in &end, unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:248: warning: The following parameters of boost::checks::check_mod11(in &begin, const in &end, unsigned int nbr_digits) are not documented:
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:416: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::check_mod97(in &begin, const in &end, unsigned int nbr_digit)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:416: warning: The following parameters of boost::checks::check_mod97(in &begin, const in &end, unsigned int nbr_digit) are not documented:
+  parameter 'nbr_digit'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:59: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_luhn(in &begin, const in &end, unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:59: warning: The following parameters of boost::checks::compute_luhn(in &begin, const in &end, unsigned int nbr_digits) are not documented:
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:190: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:190: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:190: warning: The following parameters of boost::checks::compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits) are not documented:
+  parameter 'weight'
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:309: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:309: warning: The following parameters of boost::checks::compute_mod11(in &begin, const in &end, unsigned int nbr_digits) are not documented:
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:360: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:360: warning: The following parameters of boost::checks::compute_mod11(in &begin, const in &end, unsigned int nbr_digits) are not documented:
+  parameter 'nbr_digits'
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:433: warning: argument 'unsigned' of command @param is not found in the argument list of boost::checks::compute_mod97(in &begin, const in &end, unsigned int nbr_digit)
+I:/boost-sandbox/SOC/2011/checks/boost/checks/modulus.hpp:433: warning: The following parameters of boost::checks::compute_mod97(in &begin, const in &end, unsigned int nbr_digit) are not documented:
+  parameter 'nbr_digit'

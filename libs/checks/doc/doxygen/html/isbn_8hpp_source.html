@@ -15,7 +15,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 
   <!-- Add your title here ! -->
-  <title>Boost.Checks Thu Jun 16 2011 18:14:52 Checks </title>
+  <title>Boost.Checks Wed Jul 13 2011 17:16:02 Checks </title>
 
   <!-- Add your custom stylesheet here ! -->
   <link href="../checks_doxygen.css" rel="stylesheet" type="text/css"/>
@@ -112,44 +112,40 @@
 <a name="l00062"></a>00062 <span class="keyword">template</span> &lt;<span class="keyword">class</span> In&gt;
 <a name="l00063"></a><a class="code" href="namespaceboost_1_1checks.html#a55ebac5b09011de6794b92c787b48a94">00063</a> <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#a55ebac5b09011de6794b92c787b48a94">isbn10_check_digit</a>(In isbn_begin, In isbn_end)
 <a name="l00064"></a>00064 {
-<a name="l00065"></a>00065   <span class="keywordflow">if</span>( isbn_begin == isbn_end ) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00065"></a>00065   <span class="keywordflow">if</span>( isbn_begin == isbn_end ) <span class="keywordflow">return</span> -1;
 <a name="l00066"></a>00066   In iter = isbn_begin;
 <a name="l00067"></a>00067   <span class="keywordtype">int</span> check = 0, i;
-<a name="l00068"></a>00068   <span class="keywordflow">for</span>(i=9; i&gt;0 &amp;&amp; iter != isbn_end;)
+<a name="l00068"></a>00068   <span class="keywordflow">for</span>(i=10; i&gt;1 &amp;&amp; iter != isbn_end;)
 <a name="l00069"></a>00069   {
-<a name="l00070"></a>00070     <span class="keywordflow">if</span>( *iter != <span class="charliteral">&#39;-&#39;</span>)
+<a name="l00070"></a>00070     <span class="keywordflow">if</span>(isdigit(*iter))
 <a name="l00071"></a>00071     {
-<a name="l00072"></a>00072       <span class="keywordflow">if</span>(!isdigit(*iter))
-<a name="l00073"></a>00073         <span class="keywordflow">if</span>(i==1 &amp;&amp; (*iter == <span class="charliteral">&#39;x&#39;</span> || *iter == <span class="charliteral">&#39;X&#39;</span>))  check += 10;
-<a name="l00074"></a>00074         <span class="keywordflow">else</span>  <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00075"></a>00075       <span class="keywordflow">else</span>
-<a name="l00076"></a>00076         check +=  i * (*iter - 48);
-<a name="l00077"></a>00077       --i;
-<a name="l00078"></a>00078     }
-<a name="l00079"></a>00079     ++iter;
-<a name="l00080"></a>00080   }
-<a name="l00081"></a>00081   <span class="keywordflow">if</span>(i &gt; 0 || iter != isbn_end) <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00082"></a>00082   check = 11 - check % 11;
-<a name="l00083"></a>00083   <span class="keywordflow">return</span> (check == 10) ? <span class="charliteral">&#39;X&#39;</span> : <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(check + 48);
-<a name="l00084"></a>00084 }
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086 
-<a name="l00089"></a>00089 <span class="keyword">template</span> &lt;<span class="keyword">class</span> In&gt;
-<a name="l00090"></a><a class="code" href="namespaceboost_1_1checks.html#a07a02f63af77f5de71f53ba43b7a44ad">00090</a> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a07a02f63af77f5de71f53ba43b7a44ad">Is_isbn13</a>(In isbn_begin, In isbn_end)
-<a name="l00091"></a>00091 {
-<a name="l00092"></a>00092   <span class="comment">// Call Is_ean13 with limitation on the 3 first number (978 - 979).</span>
-<a name="l00093"></a>00093 }
-<a name="l00094"></a>00094 
-<a name="l00097"></a>00097 <span class="keyword">template</span> &lt;<span class="keyword">class</span> In&gt;
-<a name="l00098"></a><a class="code" href="namespaceboost_1_1checks.html#adec31a107b4601923eec76252ca95102">00098</a> <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#adec31a107b4601923eec76252ca95102">isbn13_check_digit</a>(In isbn_begin, In isbn_end)
-<a name="l00099"></a>00099 {
-<a name="l00100"></a>00100   <span class="comment">// Call ean13_check_digit with limitation on the 3 first number (978 - 979).</span>
-<a name="l00101"></a>00101 }
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 } <span class="comment">// namespace checks</span>
-<a name="l00104"></a>00104 } <span class="comment">// namespace boost</span>
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif</span>
+<a name="l00072"></a>00072       check +=  i * (*iter - 48);
+<a name="l00073"></a>00073       --i;
+<a name="l00074"></a>00074     }
+<a name="l00075"></a>00075     ++iter;
+<a name="l00076"></a>00076   }
+<a name="l00077"></a>00077   <span class="keywordflow">if</span>(i &gt; 1 || iter != isbn_end) <span class="keywordflow">return</span> -1;
+<a name="l00078"></a>00078   check = 11 - check % 11;
+<a name="l00079"></a>00079   <span class="keywordflow">return</span> (check == 10) ? <span class="charliteral">&#39;X&#39;</span> : <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(check + 48);
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 
+<a name="l00085"></a>00085 <span class="keyword">template</span> &lt;<span class="keyword">class</span> In&gt;
+<a name="l00086"></a><a class="code" href="namespaceboost_1_1checks.html#a07a02f63af77f5de71f53ba43b7a44ad">00086</a> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a07a02f63af77f5de71f53ba43b7a44ad">Is_isbn13</a>(In isbn_begin, In isbn_end)
+<a name="l00087"></a>00087 {
+<a name="l00088"></a>00088   <span class="comment">// Call Is_ean13 with limitation on the 3 first number (978 - 979).</span>
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00093"></a>00093 <span class="keyword">template</span> &lt;<span class="keyword">class</span> In&gt;
+<a name="l00094"></a><a class="code" href="namespaceboost_1_1checks.html#adec31a107b4601923eec76252ca95102">00094</a> <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#adec31a107b4601923eec76252ca95102">isbn13_check_digit</a>(In isbn_begin, In isbn_end)
+<a name="l00095"></a>00095 {
+<a name="l00096"></a>00096   <span class="comment">// Call ean13_check_digit with limitation on the 3 first number (978 - 979).</span>
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 } <span class="comment">// namespace checks</span>
+<a name="l00100"></a>00100 } <span class="comment">// namespace boost</span>
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
 <!-- custom Doxygen footer checks_doxygen_footer.html  -->-
@@ -170,7 +166,7 @@
       <!-- Change copyright to YOUR name (and affiliation, if any) below:  -->
      <p>Copyright © 2011 Pierre Talbot</p>
       <!-- 2011 becomes the current year, for example 2010, so claims copyright for a range of years, 2009 - 2010. -->
-     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.4</a>, Revised at Thu Jun 16 2011 18:14:52</p>
+     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.4</a>, Revised at Wed Jul 13 2011 17:16:02</p>
   </address>
   </tr>
 </tbody>
