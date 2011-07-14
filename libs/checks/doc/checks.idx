@@ -33,7 +33,9 @@ IBM
 italic \<italic\w*\>
 # index index and indexes (assume not using plural indices!)
 index  \<index\w*\>
+Luhn
 Mastercard
+modulus
 path  \<path\w*\>
 pre-conditions \<pre\w*\>
 post-conditions \<post\w*\>
