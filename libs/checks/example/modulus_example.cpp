@@ -77,6 +77,13 @@ int main()
   example1();
 
   // Other tests / examples - Obsolete.
+
+ // std::string mod10_test = "471-9-5120-0288-";
+  std::string mod11_test = "12345678910";
+  unsigned int w[] = {1,2,3,4};
+  std::cout << "mod11 : " << boost::checks::compute_mod11( mod11_test.begin(), mod11_test.end(), 11) << std::endl;
+  //std::cout << "mod11 : " << boost::checks::check_mod11( mod11_test.begin(), mod11_test.end(), 9) << std::endl;
+
   std::string luhn_transposition = "12345678900"; // even  
   std::cout << "ok : "<< boost::checks::compute_luhn( luhn_transposition.begin(), luhn_transposition.end(), luhn_transposition.size() ) << std::endl;
   luhn_transposition = "173456289003"; // even  
@@ -85,9 +92,11 @@ int main()
   test(NULL);
 
   std::string luhn2 = "1234567814";
+  std::cout << luhn2[1] << luhn2[2] << std::endl;
   std::wstring luhn1(luhn2.begin(), luhn2.end());
+  std::cout << luhn1[1] << luhn1[2] << std::endl;
   std::wstring::iterator iter1 = luhn1.begin();
-  wchar_t w = f<wchar_t>(luhn1.begin(), luhn1.end());
+//  wchar_t w = f<wchar_t>(luhn1.begin(), luhn1.end());
  // std::cout << w;
 
  std::string luhn_alterate = "1234567871";
