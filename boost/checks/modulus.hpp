@@ -5,29 +5,23 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_MOD_INCLUDED
-#define BOOST_CHECK_MOD_INCLUDED
+#ifndef BOOST_CHECK_MODULUS_HPP
+#define BOOST_CHECK_MODULUS_HPP
+
+#ifdef _MSC_VER
+    #pragma once
+#endif // _MSC_VER
 
 namespace boost {
     namespace checks{
 
-/** Validate the check digit of the number provided with the Luhn algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the Luhn algorithm will operate. If the size is < 1, the luhn algorithm will validate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the check digit plus one if the expression provided is correct, otherwise is equal to end.
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
- */
-template <typename in>
-inline bool check_luhn(in &begin, const in &end, unsigned int nbr_digits)
+template <typename luhn_iter>
+bool check_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
 {
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	in iter = begin;
+	luhn_iter iter = begin;
 	while(iter != end)
 	{
       if(*iter >= '0' && *iter <= '9')
@@ -56,57 +50,13 @@ inline bool check_luhn(in &begin, const in &end, unsigned int nbr_digits)
   return !nbr_digits && !(sum % 10) ;
 }
 
-/** Calculate the check digit of the number provided with the Luhn algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the Luhn algorithm will operate. If the size is < 1, the luhn algorithm will calculate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
- */
-template <typename out, typename in>
-inline out compute_luhn(in &begin, const in &end, unsigned int nbr_digits)
+template <typename luhn_iter>
+char compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
 {
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	in iter = begin;
-	while(iter != end)
-	{
-      if(*iter >= '0' && *iter <= '9')
-        ++nbr_digits;
-	  ++iter;
-	}
-	// Return 0 if there is no digit in the expression given.
-	if(!nbr_digits)
-	{
-	  begin = end;
-	  return 0;
-	}
-  }
-  int sum = 0,v;
-  /* We start with the leftmost digit and we multiply by two 
-   * if the total number of digit is even. We alternate the multiplication
-   * for all the digits. We subtract 9 from the digit greater than 9 
-   * after the multiplication. */
-  while(nbr_digits > 0 && begin != end)
-  {
-    if(*begin >= '0' && *begin <= '9')
-		sum += (v= (*begin & 15) << (nbr_digits--&1)) - 9 * (v>9);
-	++begin;
-  }
-  return ((10 - sum % 10) % 10) | '0';
-}
-
-template <typename in>
-inline char compute_luhn(in &begin, const in &end, unsigned int nbr_digits)
-{
-  // If the number of digits isn't given (equal to 0), we count these.
-  if(!nbr_digits)
-  {
-	in iter = begin;
+	luhn_iter iter = begin;
 	while(iter != end)
 	{
       if(*iter >= '0' && *iter <= '9')
@@ -134,21 +84,42 @@ inline char compute_luhn(in &begin, const in &end, unsigned int nbr_digits)
   return (10 - sum % 10) % 10 | '0';
 }
 
-/** Validate the check digit of the number provided with the modulus 10 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int[] which represents an array of weight.
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int\[\]] weight Represents the weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will validate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the check digit plus one if the expression provided is correct, otherwise is equal to end. 
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
- */
+template <typename out, typename luhn_iter>
+out compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
+{
+  // If the number of digits isn't given (equal to 0), we count these.
+  if(!nbr_digits)
+  {
+	luhn_iter iter = begin;
+	while(iter != end)
+	{
+      if(*iter >= '0' && *iter <= '9')
+        ++nbr_digits;
+	  ++iter;
+	}
+	// Return 0 if there is no digit in the expression given.
+	if(!nbr_digits)
+	{
+	  begin = end;
+	  return 0;
+	}
+  }
+  int sum = 0,v;
+  /* We start with the leftmost digit and we multiply by two 
+   * if the total number of digit is even. We alternate the multiplication
+   * for all the digits. We subtract 9 from the digit greater than 9 
+   * after the multiplication. */
+  while(nbr_digits > 0 && begin != end)
+  {
+    if(*begin >= '0' && *begin <= '9')
+		sum += (v= (*begin & 15) << (nbr_digits--&1)) - 9 * (v>9);
+	++begin;
+  }
+  return ((10 - sum % 10) % 10) | '0';
+}
 
-template <typename in>
-inline bool check_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename mod10_iter>
+bool check_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
 {
   // If the weight is null or have a size of zero, we apply a weight of 1 on each digit.
   if(weight == NULL)
@@ -159,7 +130,7 @@ inline bool check_mod10(in &begin, const in &end, unsigned int weight[], unsigne
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	in iter = begin;
+	mod10_iter iter = begin;
 	while(iter != end)
 	{
       if(*iter >= '0' && *iter <= '9')
@@ -187,21 +158,8 @@ inline bool check_mod10(in &begin, const in &end, unsigned int weight[], unsigne
   return !nbr_digits && !(sum % 10) ;
 }
 
-/** Compute the check digit of the number provided with the modulus 10 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int[] which represents an array of weight.
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int\[\]] weight Represents the weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will calculate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
- */
-
-template <typename in>
-inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename mod10_iter>
+char compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
 {
   // If the weight is null we apply a weight of 1 on each digit.
   if(weight == NULL)
@@ -212,7 +170,7 @@ inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsig
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	in iter = begin;
+	mod10_iter iter = begin;
 	while(iter != end)
 	{
       if(*iter >= '0' && *iter <= '9')
@@ -244,21 +202,8 @@ inline char compute_mod10(in &begin, const in &end, unsigned int weight[], unsig
   return (10 - sum % 10) % 10 | '0' ;
 }
 
-/** Compute the check digit of the number provided with the modulus 10 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int[] which represents an array of weight.
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int\[\]] weight Represents the weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will calculate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
- */
-
-template <typename out, typename in>
-inline out compute_mod10(in &begin, const in &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename out, typename mod10_iter>
+out compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
 {
   // If the weight is null we apply a weight of 1 on each digit.
   if(weight == NULL)
@@ -269,7 +214,7 @@ inline out compute_mod10(in &begin, const in &end, unsigned int weight[], unsign
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	in iter = begin;
+	mod10_iter iter = begin;
 	while(iter != end)
 	{
       if(*iter >= '0' && *iter <= '9')
@@ -301,20 +246,10 @@ inline out compute_mod10(in &begin, const in &end, unsigned int weight[], unsign
   return (10 - sum % 10) % 10 | '0' ;
 }
 
-/** Calculate the check digit of the number provided with the modulus 11 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the MOD11 algorithm will operate. If the size is < 1, the MOD11 algorithm will calculate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
-*/
-template <typename in>
-inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits)
+template <typename mod11_iter>
+bool check_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
 {
-  in iter = begin;
+  mod11_iter iter = begin;
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
@@ -367,71 +302,11 @@ inline bool check_mod11(in &begin, const in &end, unsigned int nbr_digits)
   // Return true if the number of digit is equal to the number specified and the sum is valid.
   return !nbr_digits && !(sum % 11);
 }
-/** Validate the check digit of the number provided with the modulus 11 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the Luhn algorithm will operate. If the size is < 1, the luhn algorithm will validate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the check digit plus one if the expression provided is correct, otherwise is equal to end.
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
- */
-template <typename out, typename in>
-inline out compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
-{
-  in iter = begin;
-  // If the number of digits isn't given (equal to 0), we count these.
-  if(!nbr_digits)
-  {
-	while(iter != end)
-	{
-      if(*iter >= '0' && *iter <= '9') // 'X' is only the check digit so we ignore it...
-        ++nbr_digits;
-	  ++iter;
-	}
-	// Return 0 if there is no digit in the expression given.
-	if(!nbr_digits)
-	{
-	  begin = end;
-	  return 0;
-	}
-    iter = begin;
-  }
-  int sum = 0;
-  // Sum the digits with a weigth of nbr_digits. (The weigth is the contribution
-  // of a digit to the final sum).
-  ++nbr_digits; // Adding the unknown check digit to the size...
-  while(nbr_digits > 1 && iter != end)
-  {
-    if(*begin >= '0' && *begin <= '9')
-	  sum += (*begin & 15) * nbr_digits-- ;
-	++begin;
-  }
-  if(nbr_digits > 1)
-    return 0;
-  
-  // Compute the check digit.
-  int check_digit = (11 - sum % 11) %11;
-  if(check_digit == 10)
-    return 'X';
-  return check_digit + '0';
-}
 
-/** Validate the check digit of the number provided with the modulus 11 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the Luhn algorithm will operate. If the size is < 1, the luhn algorithm will validate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the check digit plus one if the expression provided is correct, otherwise is equal to end.
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
- */
-template <typename in>
-inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
+template <typename mod11_iter>
+char compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
 {
-  in iter = begin;
+  mod11_iter iter = begin;
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
@@ -466,44 +341,58 @@ inline char compute_mod11(in &begin, const in &end, unsigned int nbr_digits)
   char check_digit = (11 - sum % 11) %11;
   if(check_digit == 10)
     return 'X';
-  return check_digit + '0';
+  return check_digit | '0';
 }
 
+template <typename out, typename mod11_iter>
+out compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
+{
+  mod11_iter iter = begin;
+  // If the number of digits isn't given (equal to 0), we count these.
+  if(!nbr_digits)
+  {
+	while(iter != end)
+	{
+      if(*iter >= '0' && *iter <= '9') // 'X' is only the check digit so we ignore it...
+        ++nbr_digits;
+	  ++iter;
+	}
+	// Return 0 if there is no digit in the expression given.
+	if(!nbr_digits)
+	{
+	  begin = end;
+	  return 0;
+	}
+    iter = begin;
+  }
+  int sum = 0;
+  // Sum the digits with a weigth of nbr_digits. (The weigth is the contribution
+  // of a digit to the final sum).
+  ++nbr_digits; // Adding the unknown check digit to the size...
+  while(nbr_digits > 1 && iter != end)
+  {
+    if(*begin >= '0' && *begin <= '9')
+	  sum += (*begin & 15) * nbr_digits-- ;
+	++begin;
+  }
+  if(nbr_digits > 1)
+    return 0;
+  
+  // Compute the check digit.
+  int check_digit = (11 - sum % 11) %11;
+  if(check_digit == 10)
+    return 'X';
+  return check_digit | '0';
+}
 
-/*!!!
-The modulus 97 algorithm wait for a sequence of numbers only ! and will not do anything else that sum the digits and calculate the modulus of this sum.
-If you need to check an IBAN use the algorithms in iban.hpp */
-
-/** Validate the check digit of the number provided with the modulus 97 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 97 algorithm will operate. If the size is < 1, the modulus 97 algorithm will validate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the check digits plus one if the expression provided is correct, otherwise is equal to end. 
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
- */
-
-template <typename in>
-inline bool check_mod97(in &begin, const in &end, unsigned int nbr_digit)
+template <typename mod97_iter>
+bool check_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits)
 {
   return false;
 }
 
-/** Compute the check digit of the number provided with the modulus 97 algorithm.
- * \tparam Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
- * \tparam unsigned int which represents a size.
- * \param [in] begin Represents the beginning of the sequence to check.
- * \param [in] end Represents one off the limit of the sequence to check.
- * \param [unsigned int] nbr_digits Represents the number of digits on which the modulus 97 algorithm will operate. If the size is < 1, the modulus 97 algorithm will calculate the check digit with all the digit encountered.
- * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
- * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII characters of the check digits are returned.
- */
-
-template <typename in>
-inline char compute_mod97(in &begin, const in &end, unsigned int nbr_digit)
+template <typename mod97_iter>
+char compute_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits)
 {
   return false;
 }
@@ -511,5 +400,5 @@ inline char compute_mod97(in &begin, const in &end, unsigned int nbr_digit)
 } // namespace checks
 } // namespace boost
 
-#endif // #define BOOST_CHECK_MOD_INCLUDED
+#endif // BOOST_CHECK_MODULUS_HPP
 
