@@ -44,7 +44,7 @@ PROJECT_BRIEF          = "Boost.Checks library of check functions"
 # exceed 55 pixels and the maximum width should not exceed 200 pixels. 
 # Doxygen will copy the logo to the output directory.
 
-PROJECT_LOGO           = boost.png
+PROJECT_LOGO           = D:/boost-sandbox/SOC/2011/checks/libs/checks/doc/doxygen/Proposed_for_Boost.png
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) 
 # base path where the generated documentation will be put. 
@@ -859,7 +859,7 @@ HTML_FOOTER            = checks_doxygen_footer.html
 # the style sheet file to the HTML output directory, so don't put your own 
 # stylesheet in the HTML output directory as well, or it will be erased!
 
-HTML_STYLESHEET        = doxygen.css
+HTML_STYLESHEET        = checks_doxygen.css
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or 
 # other source files which should be copied to the HTML output directory. Note 
@@ -1168,7 +1168,7 @@ SERVER_BASED_SEARCH    = NO
 # If the GENERATE_LATEX tag is set to YES (the default) Doxygen will 
 # generate Latex output.
 
-GENERATE_LATEX         = NO
+GENERATE_LATEX         = YES
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 

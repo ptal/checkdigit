@@ -15,7 +15,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 
   <!-- Add your title here ! -->
-  <title>Boost.Checks Wed Jul 13 2011 17:16:02 Checks </title>
+  <title>Boost.Checks Thu Jul 14 2011 16:31:10 Checks </title>
 
   <!-- Add your custom stylesheet here ! -->
   <link href="../checks_doxygen.css" rel="stylesheet" type="text/css"/>
@@ -61,7 +61,7 @@
   </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">I:/boost-sandbox/SOC/2011/checks/boost/checks/checks_fwd.hpp</div>  </div>
+<div class="title">D:/boost-sandbox/SOC/2011/checks/boost/checks/checks_fwd.hpp</div>  </div>
 </div>
 <div class="contents">
 <a href="checks__fwd_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//  Boost checks/checks_fwd.hpp header file //</span>
@@ -76,62 +76,58 @@
 <a name="l00010"></a>00010 <span class="comment">// Provides a (perhaps temporary) mainpage for standalone Doxygen.</span>
 <a name="l00011"></a>00011 <span class="comment">// This seems a convenient place to put this, but it could go somewhere else?</span>
 <a name="l00012"></a>00012 
-<a name="l00054"></a>00054 <span class="comment">/*</span>
-<a name="l00055"></a>00055 <span class="comment"></span>
-<a name="l00056"></a>00056 <span class="comment">DELETE THIS AFTER READING!</span>
-<a name="l00057"></a>00057 <span class="comment"></span>
-<a name="l00058"></a>00058 <span class="comment">It is redundant for production of html and pdf output,</span>
-<a name="l00059"></a>00059 <span class="comment">but useful to allow just Doxygen manuals (no Quickbook text or indexing).</span>
-<a name="l00060"></a>00060 <span class="comment"></span>
-<a name="l00061"></a>00061 <span class="comment">Standalone Doxygen can provide a more convenient compact index of</span>
-<a name="l00062"></a>00062 <span class="comment">the classes, files, namespaces and functions.</span>
-<a name="l00063"></a>00063 <span class="comment">They provide the Doxygen comments, but not any text from Quickbook.</span>
-<a name="l00064"></a>00064 <span class="comment"></span>
-<a name="l00065"></a>00065 <span class="comment">These manuals are quickly produced using the Doxywizard GUI frontend.</span>
-<a name="l00066"></a>00066 <span class="comment">A suitable doxyfile holding the list of files to include etc</span>
-<a name="l00067"></a>00067 <span class="comment">is conveniently placed in a /doc/doxygen sub-folder.</span>
-<a name="l00068"></a>00068 <span class="comment">Selecting this as the working directory from which doxygen will run as Step 1,</span>
-<a name="l00069"></a>00069 <span class="comment">and the run tab, and &quot;run doxygen&#39; in Step 2 should generate</span>
-<a name="l00070"></a>00070 <span class="comment">an html with index.html in the /doxygen sub-folder.</span>
-<a name="l00071"></a>00071 <span class="comment"></span>
-<a name="l00072"></a>00072 <span class="comment">The mainpage should give a pointer to the full html and/or pdf versions</span>
-<a name="l00073"></a>00073 <span class="comment">that provide the full Quickbook generated information.</span>
-<a name="l00074"></a>00074 <span class="comment"></span>
-<a name="l00075"></a>00075 <span class="comment">I:/boost-sandbox/tools/quick_auto_dox_index/libs/quick_auto_dox_index/doc/html/index.html</span>
-<a name="l00076"></a>00076 <span class="comment">QuickBook Auto Doxygen Indexed Manual</span>
-<a name="l00077"></a>00077 <span class="comment"></span>
-<a name="l00078"></a>00078 <span class="comment">*/</span>
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="keyword">namespace </span>boost{
-<a name="l00081"></a>00081   <span class="keyword">namespace </span>checks{
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="comment">// Provides forward declaration of all Boost.Checks functions:</span>
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Out, <span class="keyword">typename</span> in&gt;
-<a name="l00086"></a>00086     <span class="keyword">inline</span> Out <a class="code" href="namespaceboost_1_1checks.html#abed81f458a1895da97ebdef2fe4c0f50">compute_luhn</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00089"></a>00089     <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#abed81f458a1895da97ebdef2fe4c0f50">compute_luhn</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00092"></a>00092     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#aa777724ff6a7718fa843028f66034265">check_luhn</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00093"></a>00093         
-<a name="l00094"></a>00094     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00095"></a>00095     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#af896ab0cabf670fc0afeef965a219168">check_mod11</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Out, <span class="keyword">typename</span> in&gt;
-<a name="l00098"></a>00098     <span class="keyword">inline</span> Out <a class="code" href="namespaceboost_1_1checks.html#a9c371e4fbeeaf3601ab932ffa9f57b6f">compute_mod11</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00101"></a>00101     <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#a9c371e4fbeeaf3601ab932ffa9f57b6f">compute_mod11</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00054"></a>00054 <span class="preprocessor">#ifndef BOOST_CHECK_CHECKS_FWD_HPP</span>
+<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#define BOOST_CHECK_CHECKS_FWD_HPP</span>
+<a name="l00056"></a>00056 <span class="preprocessor"></span>
+<a name="l00057"></a>00057 <span class="preprocessor">#ifdef _MSC_VER</span>
+<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">    #pragma once</span>
+<a name="l00059"></a>00059 <span class="preprocessor"></span><span class="preprocessor">#endif // _MSC_VER</span>
+<a name="l00060"></a>00060 <span class="preprocessor"></span>
+<a name="l00061"></a>00061 <span class="keyword">namespace </span>boost{
+<a name="l00062"></a>00062   <span class="keyword">namespace </span>checks{
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="comment">// Provides forward declaration of all Boost.Checks functions:</span>
+<a name="l00065"></a>00065 
+<a name="l00075"></a>00075     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> luhn_iter&gt;
+<a name="l00076"></a>00076     <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a6e0f04750b2171307c115878a1877c08">check_luhn</a>(luhn_iter &amp;begin, <span class="keyword">const</span> luhn_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00077"></a>00077 
+<a name="l00087"></a>00087         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> luhn_iter&gt;
+<a name="l00088"></a>00088     <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#aa76b99ed71e4bdf75c75bf276d817a45">compute_luhn</a>(luhn_iter &amp;begin, <span class="keyword">const</span> luhn_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00089"></a>00089         
+<a name="l00100"></a>00100         <span class="keyword">template</span> &lt;<span class="keyword">typename</span> luhn_checkdigit, <span class="keyword">typename</span> luhn_iter&gt;
+<a name="l00101"></a>00101     luhn_checkdigit <a class="code" href="namespaceboost_1_1checks.html#aa76b99ed71e4bdf75c75bf276d817a45">compute_luhn</a>(luhn_iter &amp;begin, <span class="keyword">const</span> luhn_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00104"></a>00104     <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a0f8889fb420ade8a91b7fdec0596776c">check_mod10</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> weight[], <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> in&gt;
-<a name="l00107"></a>00107     <span class="keyword">inline</span> <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#ad08e6979058c99be56541dc37a0964a7">compute_mod10</a>(in &amp;begin, <span class="keyword">const</span> in &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> weight[], <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
-<a name="l00108"></a>00108   }
-<a name="l00109"></a>00109 }
+<a name="l00113"></a>00113     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod10_iter&gt;
+<a name="l00114"></a>00114     <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a7a28942c05910e5f8198b2f22bf6e860">check_mod10</a>(mod10_iter &amp;begin, <span class="keyword">const</span> mod10_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> weight[], <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00115"></a>00115 
+<a name="l00126"></a>00126     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod10_iter&gt;
+<a name="l00127"></a>00127     <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#a58add76b29afcb7ca0b0f86dba15b514">compute_mod10</a>(mod10_iter &amp;begin, <span class="keyword">const</span> mod10_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> weight[], <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00128"></a>00128 
+<a name="l00140"></a>00140     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod10_checkdigit, <span class="keyword">typename</span> mod10_iter&gt;
+<a name="l00141"></a>00141     mod10_checkdigit <a class="code" href="namespaceboost_1_1checks.html#a58add76b29afcb7ca0b0f86dba15b514">compute_mod10</a>(mod10_iter &amp;begin, <span class="keyword">const</span> mod10_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> weight[], <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00142"></a>00142 
+<a name="l00154"></a>00154     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod11_iter&gt;
+<a name="l00155"></a>00155     <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a141f2ede941324a9a0fda431ba5145a4">check_mod11</a>(mod11_iter &amp;begin, <span class="keyword">const</span> mod11_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00156"></a>00156 
+<a name="l00166"></a>00166     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod11_iter&gt;
+<a name="l00167"></a>00167     <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#a97253f39f90d3cd4fc4b6495b7efaacd">compute_mod11</a>(mod11_iter &amp;begin, <span class="keyword">const</span> mod11_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00168"></a>00168 
+<a name="l00179"></a>00179     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod11_checkdigit, <span class="keyword">typename</span> mod11_iter&gt;
+<a name="l00180"></a>00180     mod11_checkdigit <a class="code" href="namespaceboost_1_1checks.html#a97253f39f90d3cd4fc4b6495b7efaacd">compute_mod11</a>(mod11_iter &amp;begin, <span class="keyword">const</span> mod11_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00181"></a>00181 
+<a name="l00182"></a>00182     
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184 
+<a name="l00199"></a>00199   <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod97_iter&gt;
+<a name="l00200"></a>00200   <span class="keywordtype">char</span> <a class="code" href="namespaceboost_1_1checks.html#a8473f1d9c03b23410d0a49d65477ffea">compute_mod97</a>(mod97_iter &amp;begin, <span class="keyword">const</span> mod97_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00201"></a>00201 
+<a name="l00211"></a>00211     <span class="keyword">template</span> &lt;<span class="keyword">typename</span> mod97_iter&gt;
+<a name="l00212"></a>00212     <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#a1bc413dc495cd339e540cb0d9145facf">check_mod97</a>(mod97_iter &amp;begin, <span class="keyword">const</span> mod97_iter &amp;end, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbr_digits=0);
+<a name="l00213"></a>00213 
+<a name="l00214"></a>00214   }
+<a name="l00215"></a>00215 }
+<a name="l00216"></a>00216 
+<a name="l00217"></a>00217 <span class="preprocessor">#endif \\ BOOST_CHECK_CHECKS_FWD_HPP</span>
 </pre></div></div>
 </div>
 <!-- custom Doxygen footer checks_doxygen_footer.html  -->-
@@ -152,7 +148,7 @@
       <!-- Change copyright to YOUR name (and affiliation, if any) below:  -->
      <p>Copyright © 2011 Pierre Talbot</p>
       <!-- 2011 becomes the current year, for example 2010, so claims copyright for a range of years, 2009 - 2010. -->
-     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.4</a>, Revised at Wed Jul 13 2011 17:16:02</p>
+     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.4</a>, Revised at Thu Jul 14 2011 16:31:10</p>
   </address>
   </tr>
 </tbody>
