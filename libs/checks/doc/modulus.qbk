@@ -11,12 +11,12 @@ The next parts will present the three different algorithms that we have choose t
 
 [note We may add other algorithms later]
 
-[h4 Luhn algorithm]
+[section:luhn Luhn algorithm]
 
 [h5 Description]
 
 The Luhn algorithm is used with a lot of codes and numbers, the most well-known usage is the verification of the ['credit card numbers].
-It produce a check digit from a sequence with an unlimited length.
+It produces a check digit from a sequence with an unlimited length.
 The weigth pattern used is : from the rightmost digit (the check digit) double the value of every second digit.
 It use a modulus 10 on the sum, the range of the check digit is from 0 to 9.
 
@@ -27,13 +27,17 @@ It use a modulus 10 on the sum, the range of the check digit is from 0 to 9.
 [*Alterations] of one digit are all catched. The alterations of more than one digit are not all catched.
 All [*transpositions] on digits with different weight are catched but the sequence "90" or "09" because: 
 
-9*2 = 18 and 18-9 = 9 so 9*2 = 9
-0*2 = 0
+9*2 = 18 and 18-9 = 9 
+
+9 * 2 = 9 * 1
+
+0 * 2 = 0 * 1
 
 The two digits have the same value if there are doubled or not.
 Seeing that Luhn alternates a weight of 1 and 2, the transpositions on digits with the same weight are not catched.
 
-[h4 Modulus 10 algorithm]
+[endsect][/section:luhn Luhn algorithm]
+[section:mod10 Modulus 10 algorithm]
 
 [h5 Description]
 
@@ -42,11 +46,53 @@ The sum is made without subtraction if the multiplication of a digit exceeds 9.
 The custom weight pattern is interresting for many codes and numbers that aren't implemented in the high level library. 
 The user can easily craft his own check function with this weight pattern.
 
-[h4 Modulus 11 algorithm]
+[endsect][/section:mod10 Modulus 10 algorithm]
+[section:mod11 Modulus 11 algorithm]
 
 The modulus 11 algorithm use a modulus of 11, so we have 11 possible check digits. 
 The ten first characters are the figures from 0 to 9, the eleventh is a special character choose by the designer of the number. It is typically 'X' or 'x'.
 The weight of a digit is related to its position. The weight of the first character is equal to the total length of the number (with the check digit included). 
 The weight decrease by one for the second position, one again for the third, etc.
 
+[endsect][/section:mod11 Modulus 11 algorithm]
+[section:modexamples Examples]
+
+[import ..\example\modulus_example.cpp]
+
+In this part, we'll see some basic examples which show how to check or compute a number with an algorithm.
+After this, we'll discuss about a few specific cases.
+
+Firstly, we need to include the file including the check and compute functions.
+
+[modulus_include_file]
+
+[h5 Check a number]
+
+We can check a number which is delimitated by two iterators. The most simple is using std::string.
+
+[checks_modulus_example_1]
+
+This provides this output:
+
+[checks_modulus_output_1]
+
+[h5 Compute a check digit]
+
+We can compute a check digit which is in the range [0..9] ( + 'X' for the modulus 11 algorithm). 
+The check digit can be of the type "char" or a custom type such as ['wchar_t].
+
+This example will show how to compute a serie of check digit retrieved from a UTF-8 file and put the result into another UTF-8 file.
+
+[checks_modulus_example_2]
+
+The contents of the input and output files are showed on the following table. We tested the program with 3 differents numbers, the digits of this number are separated with the unicode character '\u2020'.
+
+[table:id Contents of the input and output files
+    [[Input file] [Output file]]
+    [[1\u20202\u20203\u20204\u20205\u20201]     [1\u20202\u20203\u20204\u20205\u20201 check digit : X]]
+    [[2\u20203\u20204\u20205\u20206\u20207]     [2\u20203\u20204\u20205\u20206\u20207 check digit : 6]]
+    [[3\u20204\u20205\u20206\u20207\u20208]     [3\u20204\u20205\u20206\u20207\u20208 check digit : 1]]
+]
+
+[endsect][/section:modexamples Examples]
 [endsect][/section:modulus Modular sum algorithms]
