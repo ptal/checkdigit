@@ -94,5 +94,9 @@ The contents of the input and output files are showed on the following table. We
     [[3\u20204\u20205\u20206\u20207\u20208]     [3\u20204\u20205\u20206\u20207\u20208 check digit : 1]]
 ]
 
+[h5 Use the weight pattern]
+
+[h5 Special cases]
+
 [endsect][/section:modexamples Examples]
 [endsect][/section:modulus Modular sum algorithms]
