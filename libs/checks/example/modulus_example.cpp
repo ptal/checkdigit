@@ -1,6 +1,5 @@
 //! \file
-//! \warning This example is entirely contrived to show how to embed into Quickbook.
-//! \brief A very simple example of checking an ISBN that is provided as a std::string.
+//! \brief Examples of the functions provided in the file modulus.hpp
 
 // Copyright Pierre Talbot 2011.
 
@@ -17,9 +16,7 @@
 
 
 #include <iostream>
-#include <iomanip>
 #include <string>
-#include <cassert>
 
 #include <sstream>
 #include <fstream> 
@@ -27,15 +24,58 @@
 #include <iterator>
 
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
-#include <boost/checks/modulus.hpp> // Modulus algorithms such as MOD11 or Luhn.
+//[modulus_include_file
+#include <boost/checks/modulus.hpp>
+//] [/modulus_include_file]
 
 // You need to [import modulus_example.cpp]
 // [include checks_isbn_example_1] where you want the include info - probably wrong now!
 // and then [include checks_isbn_example_2] where you want the program line
 // and then [include checks_isbn_output_1] when you want the output
 
-inline void example1()
+
+template <typename Out, typename In>
+inline Out f(In begin, In end)
 {
+	return *begin;
+}
+
+void test(unsigned int w[])
+{
+  if(w== NULL)
+  {    unsigned int t[1]={1};
+  
+  w = t;}
+}
+
+int main()
+{
+  //[checks_modulus_example_1
+
+  std::string luhn_number = "123455" ; // Initialisation
+  // Verification
+  if( boost::checks::check_luhn( luhn_number.begin(), luhn_number.end(), 6) )
+    std::cout << "The number " << luhn_number << " is a valid luhn number." << std::endl;
+
+  //] [/checks_modulus_example_1]
+
+  //[checks_modulus_example_2
+
+  std::wifstream mod11_ifile("files/checks_file_unicode_input.txt", std::ios::in);
+  std::wofstream mod11_ofile("files/checks_file_unicode_output.txt", std::ios::out | std::ios::trunc );
+
+  std::wstring tmp_mod11_number ;
+
+  while( std::getline(mod11_ifile, tmp_mod11_number) )
+  {
+    wchar_t check_digit = boost::checks::compute_mod11<wchar_t>(tmp_mod11_number.begin(), tmp_mod11_number.end() );
+    mod11_ofile << tmp_mod11_number << " check digit : " << check_digit << std::endl ;
+  }
+  mod11_ofile.close();
+  mod11_ifile.close();
+
+  //] [checks_modulus_example_2]
+
   // Create a string with numbers
   std::string luhn_numbers = "";
   for(int i=9; i >= 0; --i)
@@ -54,27 +94,6 @@ inline void example1()
       std::cout << "The number is valid." << std::endl;
     else
       std::cout << "The number is invalid." << std::endl;
-}
-
-template <typename Out, typename In>
-inline Out f(In begin, In end)
-{
-	return *begin;
-}
-
-void test(unsigned int w[])
-{
-  if(w== NULL)
-  {    unsigned int t[1]={1};
-  
-  w = t;}
-}
-
-int main()
-{
-  
-  // Example 1
-  example1();
 
   // Other tests / examples - Obsolete.
 
@@ -120,3 +139,14 @@ int main()
 
 } // int main()
 
+/*
+
+Example 1
+---------
+//[checks_modulus_output_1
+
+The number 123455 is a valid luhn number.
+
+//] [/checks_isbn_output_1] 
+
+*/
