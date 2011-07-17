@@ -28,26 +28,6 @@
 #include <boost/checks/modulus.hpp>
 //] [/modulus_include_file]
 
-// You need to [import modulus_example.cpp]
-// [include checks_isbn_example_1] where you want the include info - probably wrong now!
-// and then [include checks_isbn_example_2] where you want the program line
-// and then [include checks_isbn_output_1] when you want the output
-
-
-template <typename Out, typename In>
-inline Out f(In begin, In end)
-{
-	return *begin;
-}
-
-void test(unsigned int w[])
-{
-  if(w== NULL)
-  {    unsigned int t[1]={1};
-  
-  w = t;}
-}
-
 int main()
 {
   //[checks_modulus_example_1
@@ -74,7 +54,24 @@ int main()
   mod11_ofile.close();
   mod11_ifile.close();
 
-  //] [checks_modulus_example_2]
+  //] [/checks_modulus_example_2]
+
+  //[checks_modulus_example_3
+
+  // Design the weight pattern for the Routing transit number (RTN)
+  boost::array<unsigned int, 3> rtn_weight_pattern = {3,7,1};
+
+  std::string rtn_number = "12345678" ;
+
+  rtn_number += boost::checks::compute_mod10(rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 8) ;
+
+  std::cout << rtn_number << std::endl ;
+  if ( boost::checks::check_mod10( rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 9) )
+    std::cout << "The routing transit number (RTN) : " << rtn_number << " is valid." << std::endl ;
+
+  //] [/checks_modulus_example_3]
+
+  //[checks_modulus_example_4
 
   // Create a string with numbers
   std::string luhn_numbers = "";
@@ -94,47 +91,8 @@ int main()
       std::cout << "The number is valid." << std::endl;
     else
       std::cout << "The number is invalid." << std::endl;
+  //] [/checks_modulus_example_4]
 
-  // Other tests / examples - Obsolete.
-
- // std::string mod10_test = "471-9-5120-0288-";
-  std::string mod11_test = "12345678910";
-  unsigned int w[] = {1,2,3,4};
-  std::cout << "mod11 : " << boost::checks::compute_mod11( mod11_test.begin(), mod11_test.end(), 11) << std::endl;
-  //std::cout << "mod11 : " << boost::checks::check_mod11( mod11_test.begin(), mod11_test.end(), 9) << std::endl;
-
-  std::string luhn_transposition = "12345678900"; // even  
-  std::cout << "ok : "<< boost::checks::compute_luhn( luhn_transposition.begin(), luhn_transposition.end(), luhn_transposition.size() ) << std::endl;
-  luhn_transposition = "173456289003"; // even  
-  
-  std::cout << "ko : " << boost::checks::check_luhn( luhn_transposition.begin(), luhn_transposition.end(), luhn_transposition.size() ) << std::endl;
-  test(NULL);
-
-  std::string luhn2 = "1234567814";
-  std::cout << luhn2[1] << luhn2[2] << std::endl;
-  std::wstring luhn1(luhn2.begin(), luhn2.end());
-  std::cout << luhn1[1] << luhn1[2] << std::endl;
-  std::wstring::iterator iter1 = luhn1.begin();
-//  wchar_t w = f<wchar_t>(luhn1.begin(), luhn1.end());
- // std::cout << w;
-
- std::string luhn_alterate = "1234567871";
- std::cout << boost::checks::check_luhn (luhn_alterate.begin(), luhn_alterate.end(), luhn_alterate.size()) << std::endl;
- std::cout << boost::checks::check_luhn (luhn_alterate.begin(), luhn_alterate.end()) << std::endl;
- luhn_alterate[0] += 9;
- std::cout << luhn_alterate<< std::endl;
- std::cout << boost::checks::check_luhn (luhn_alterate.begin(), luhn_alterate.end(), luhn_alterate.size()) << std::endl;
- std::cout << boost::checks::check_luhn (luhn_alterate.begin(), luhn_alterate.end()) << std::endl;
-
- std::string testt="12345678900";
- std::cout << boost::checks::compute_luhn(testt.begin(), testt.end(), 10) << std::endl;
-
- /*
-  std::cout <<  boost::checks::check_luhn(luhn1.begin(), luhn1.end(), 10) << std::endl;
-
-	  std::cout <<  boost::checks::compute_luhn<char>(luhn2.begin(), luhn2.end(), 9) << std::endl;
-	  std::cout <<  boost::checks::compute_luhn<char>(luhn2.begin(), luhn2.end()) << std::endl;
-	   std::cout <<  boost::checks::compute_luhn(luhn2.begin(), luhn2.end(), 9) << std::endl;*/
   return 0;
 
 } // int main()
@@ -149,4 +107,29 @@ The number 123455 is a valid luhn number.
 
 //] [/checks_isbn_output_1] 
 
+Example 3
+---------
+
+//[checks_modulus_output_3
+
+//] [/checks_modulus_output_3]
+
+
+Example 4
+---------
+
+//[checks_modulus_output_4
+
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+The number is valid.
+
+//] [/checks_modulus_output_4]
 */
