@@ -62,7 +62,7 @@ may still be changed without notice.  The current version is available at
 
 [section:isbn ISBN checking]
 
-The functions defined at [@../../../../boost/checks/isbn.hpp <boost/checks/isbn.hpp>]
+The functions defined at [/ @../../../../boost/checks/isbn.hpp <boost/checks/isbn.hpp>]
 are for validating and computing check digits of
 [/  Use defined __ISBN instead of @http://en.wikipedia.org/wiki/International_Standard_Book_Number ISBN] 
 __ISBN strings.
@@ -88,7 +88,7 @@ You can reference its 'synopsis' but I can't recall how just now ;-)
 Exercise for the student, or wait till I get back!]
 
 [/funcref fully::qualified::function_name Link text]
-[funcref boost::checks::is_isbn10 is_isbn10 function]
+[/funcref boost::checks::is_isbn10 is_isbn10 function]
 
   // This function checks if an `isbn10` is a valid ISBN. 
   bool is_isbn10(const std::string& isbn);
@@ -148,20 +148,20 @@ followed by specific examples??
 
 Here is a really trivial example of making an ISBN check and also computing the check digit.
 
-[import ..\example\isbn_example.cpp]
+[/ import ..\example\isbn_example.cpp]
 
 First we need to include the appropriate file including the check and compute functions.
 
-[checks_isbn_example_1]
+[/ checks_isbn_example_1]
 
 Then assuming that the ISBN is in a `std::string`, we can check a complete ISBN,
 and also compute the check digit from one lacking the check digit.
 
-[checks_isbn_example_2]
+[/ checks_isbn_example_2]
 
 This provides this output:
 
-[checks_isbn_output_1]
+[/ checks_isbn_output_1]
 
 [endsect] [/section:isbn_example ISBN example]
 
