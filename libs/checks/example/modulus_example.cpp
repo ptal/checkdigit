@@ -65,7 +65,6 @@ int main()
 
   rtn_number += boost::checks::compute_mod10(rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 8) ;
 
-  std::cout << rtn_number << std::endl ;
   if ( boost::checks::check_mod10( rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 9) )
     std::cout << "The routing transit number (RTN) : " << rtn_number << " is valid." << std::endl ;
 
@@ -111,6 +110,8 @@ Example 3
 ---------
 
 //[checks_modulus_output_3
+
+The routing transit number (RTN) : 123456780 is valid.
 
 //] [/checks_modulus_output_3]
 
