@@ -27,11 +27,12 @@ It use a modulus 10 on the sum, the range of the check digit is from 0 to 9.
 [*Alterations] of one digit are all catched. The alterations of more than one digit are not all catched.
 All [*transpositions] on digits with different weight are catched but the sequence "90" or "09" because: 
 
+[teletype]
+``
 9*2 = 18 and 18-9 = 9 
-
 9 * 2 = 9 * 1
-
 0 * 2 = 0 * 1
+``
 
 The two digits have the same value if there are doubled or not.
 Seeing that Luhn alternates a weight of 1 and 2, the transpositions on digits with the same weight are not catched.
@@ -96,7 +97,36 @@ The contents of the input and output files are showed on the following table. We
 
 [h5 Use the weight pattern]
 
+We can use a custom weight pattern with the modulus 10 algorithm. 
+In the following example, we'll see how to compute and check a Routing transit number (RTN).
+
+[checks_modulus_example_3]
+
 [h5 Special cases]
 
+# [_ Numbers one beside the others]
+
+The first special case is to test a collection of number which are in the same container without special separation.
+
+[checks_modulus_example_4]
+
+This provides this output:
+
+[checks_modulus_output_4]
+
 [endsect][/section:modexamples Examples]
+
+[section:summary Summary]
+
+Here a summary of the different algorithms studied.
+
+[table:id Summary of the modular sum algorithms
+    [[Algorithm] [Modulus] [Weight pattern] [check digit range]]
+    [[Luhn] [10] [...21] [0..9]]
+	[[Modulus 10] [10] [custom] [0..9]]
+	[[Modulus 11] [11] [n...4321] [0..9 + 'X']]
+]
+
+[endsect][/section:summary Summary]
+
 [endsect][/section:modulus Modular sum algorithms]
