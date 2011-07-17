@@ -58,6 +58,8 @@ and C++ include files are in folder:
     #pragma once
 #endif // _MSC_VER
 
+#include <boost/array.hpp>
+
 namespace boost{
   namespace checks{
 
@@ -73,7 +75,7 @@ namespace boost{
  * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
  */
     template <typename luhn_iter>
-    bool check_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits=0);
+    bool check_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits=0);
 
 /** Calculate the check digit of the number provided with the Luhn algorithm.
  * \tparam luhn_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -85,7 +87,7 @@ namespace boost{
  * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
  */
 	template <typename luhn_iter>
-    char compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits=0);
+    char compute_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits=0);
 	
 /** Calculate the check digit of the number provided with the Luhn algorithm.
  * \tparam luhn_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -98,47 +100,50 @@ namespace boost{
  * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
  */
 	template <typename luhn_checkdigit, typename luhn_iter>
-    luhn_checkdigit compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits=0);
+    luhn_checkdigit compute_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits=0);
 
 /** Validate the check digit of the number provided with the modulus 10 algorithm.
  * \tparam mod10_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
+ * \tparam weight_t Contains numeric values (should be unsigned) assigned to the weight of the digits.
  * \param[in,out] begin The beginning of the sequence to check.
  * \param[in] end One off the limit of the sequence to check.
- * \param[in] weight The weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
+ * \param[in] weight The weight pattern of the sequence starting on the left of the expression. The size of weight should be greater than 0.
  * \param[in] nbr_digits The number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will validate the check digit with all the digit encountered.
  * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
  * \post begin is equal to the position of the check digit plus one if the expression provided is correct, otherwise is equal to end. 
- * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
+ * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0) and if the size of weight is greater than 0. Returns false otherwise.
  */
-    template <typename mod10_iter>
-    bool check_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits=0);
+    template <typename mod10_iter, typename weight_t >
+    bool check_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits=0);
 
 /** Compute the check digit of the number provided with the modulus 10 algorithm.
  * \tparam mod10_iter with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
+ * \tparam weight_t Contains numeric values (should be unsigned) assigned to the weight of the digits.
  * \param[in,out] begin The beginning of the sequence to check.
  * \param[in] end One off the limit of the sequence to check.
- * \param[in] weight The weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
+ * \param[in] weight The weight pattern of the sequence starting on the left of the expression. The size of weight should be greater than 0.
  * \param[in] nbr_digits The number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will calculate the check digit with all the digit encountered.
  * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
  * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
+ * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0) or weight have a size of 0. Otherwise the ASCII character of the check digit is returned.
  */
-    template <typename mod10_iter>
-    char compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits=0);
+    template <typename mod10_iter, typename weight_t>
+    char compute_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits=0);
 
 /** Compute the check digit of the number provided with the modulus 10 algorithm.
  * \tparam mod10_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
  * \tparam mod10_checkdigit Type in which the check digit will be returned.
+ * \tparam weight_t Contains numeric values (should be unsigned) assigned to the weight of the digits.
  * \param[in,out] begin The beginning of the sequence to check.
  * \param[in] end One off the limit of the sequence to check.
- * \param[in] weight The weight pattern of the sequence starting on the left of the expression. If weight is null, the algorithm will apply a weight of 1 on the sequence.
+ * \param[in] weight The weight pattern of the sequence starting on the left of the expression. The size of weight should be greater than 0.
  * \param[in] nbr_digits The number of digits on which the modulus 10 algorithm will operate. If the size is < 1, the modulus 10 algorithm will calculate the check digit with all the digit encountered.
  * \pre begin and end are valid initialized iterators. They represent a sequence of character encoded in big-endian mode in a format compatible with the 7 bits ASCII.
  * \post begin is equal to the position of the last digit encountered plus one if the expression provided is correct, otherwise is equal to end.
- * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
+ * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0) or weight have a size of 0. Otherwise the ASCII character of the check digit is returned.
  */
-    template <typename mod10_checkdigit, typename mod10_iter>
-    mod10_checkdigit compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits=0);
+    template <typename mod10_checkdigit, typename mod10_iter, typename weight_t>
+    mod10_checkdigit compute_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits=0);
 
 /** Calculate the check digit of the number provided with the modulus 11 algorithm.
  * \tparam mod11_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -152,7 +157,7 @@ namespace boost{
  * \returns 0 is returned if the expression given have not nbr_digits (or no digit if nbr_digits is equal to 0). Otherwise the ASCII character of the check digit is returned.
 */
     template <typename mod11_iter>
-    bool check_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits=0);
+    bool check_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits=0);
 
 /** Validate the check digit of the number provided with the modulus 11 algorithm.
  * \tparam mod11_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -164,7 +169,7 @@ namespace boost{
  * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
  */
     template <typename mod11_iter>
-    char compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits=0);
+    char compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits=0);
 
 /** Validate the check digit of the number provided with the modulus 11 algorithm.
  * \tparam mod11_iter Iterator with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -177,7 +182,7 @@ namespace boost{
  * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
  */
     template <typename mod11_checkdigit, typename mod11_iter>
-    mod11_checkdigit compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits=0);
+    mod11_checkdigit compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits=0);
 
     
 
@@ -197,7 +202,7 @@ If you need to check an IBAN use the algorithms in iban.hpp */
  */
 
   template <typename mod97_iter>
-  char compute_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits=0);
+  char compute_mod97(mod97_iter &begin, const mod97_iter &end, std::size_t nbr_digits=0);
 
 /** Validate the check digit of the number provided with the modulus 97 algorithm.
  * \tparam mod97_iter Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
@@ -209,7 +214,7 @@ If you need to check an IBAN use the algorithms in iban.hpp */
  * \returns true is returned if the expression given have a valid check digit and have nbr_digits (or more than 0 digit if nbr_digits is equal to 0).
  */
     template <typename mod97_iter>
-    bool check_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits=0);
+    bool check_mod97(mod97_iter &begin, const mod97_iter &end, std::size_t nbr_digits=0);
 
   }
 }
