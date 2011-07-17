@@ -16,7 +16,7 @@ namespace boost {
     namespace checks{
 
 template <typename luhn_iter>
-bool check_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
+bool check_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits)
 {
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
@@ -51,7 +51,7 @@ bool check_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
 }
 
 template <typename luhn_iter>
-char compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
+char compute_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits)
 {
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
@@ -84,8 +84,8 @@ char compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digit
   return (10 - sum % 10) % 10 | '0';
 }
 
-template <typename out, typename luhn_iter>
-out compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits)
+template <typename luhn_checkdigit, typename luhn_iter>
+luhn_checkdigit compute_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits)
 {
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
@@ -118,15 +118,13 @@ out compute_luhn(luhn_iter &begin, const luhn_iter &end, unsigned int nbr_digits
   return ((10 - sum % 10) % 10) | '0';
 }
 
-template <typename mod10_iter>
-bool check_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename mod10_iter, typename weight_t>
+bool check_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits)
 {
-  // If the weight is null or have a size of zero, we apply a weight of 1 on each digit.
-  if(weight == NULL)
-  {
-    unsigned int weight_tmp[] = {1};
-    weight = weight_tmp;
-  }
+  // If the weight have a size of zero, we apply a weight of 1 on each digit.
+  if( !weight.size() )
+    return false;
+
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
@@ -145,28 +143,25 @@ bool check_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[]
 	}
   }
   int sum = 0;
-  int weight_size = sizeof(weight) / sizeof(weight[0]) ;
   /* We start with the leftmost digit and we multiply by the weight indicated.
    * The sum of all digits is computed. */
   for(int i=0; nbr_digits > 0 && begin != end; ++i, --nbr_digits)
   {
     if(*begin >= '0' && *begin <= '9')
-		sum += (*begin & 15) * weight[i % weight_size] ;
+		sum += (*begin & 15) * weight[i % weight.size()] ;
 	++begin;
   }
   // Return true if the number of digit is equal to the number specified and the sum is valid.
   return !nbr_digits && !(sum % 10) ;
 }
 
-template <typename mod10_iter>
-char compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename mod10_iter, typename weight_t>
+char compute_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits)
 {
-  // If the weight is null we apply a weight of 1 on each digit.
-  if(weight == NULL)
-  {
-    unsigned int weight_tmp[] = {1};
-    weight = weight_tmp;
-  }
+  // If the weight have a size of zero, we apply a weight of 1 on each digit.
+  if( !weight.size() )
+    return 0;
+
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
@@ -185,13 +180,12 @@ char compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight
 	}
   }
   int sum = 0;
-  int weight_size = sizeof(weight) / sizeof(weight[0]) ;
   /* We start with the leftmost digit and we multiply by the weight indicated.
    * The sum of all digits is computed. */
   for(int i=0; nbr_digits > 0 && begin != end; ++i, --nbr_digits)
   {
     if(*begin >= '0' && *begin <= '9')
-		sum += (*begin & 15) * weight[i % weight_size] ;
+		sum += (*begin & 15) * weight[i % weight.size()] ;
 	++begin;
   }
   if(nbr_digits > 0)
@@ -202,15 +196,12 @@ char compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight
   return (10 - sum % 10) % 10 | '0' ;
 }
 
-template <typename out, typename mod10_iter>
-out compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[], unsigned int nbr_digits)
+template <typename mod10_checkdigit, typename mod10_iter, typename weight_t>
+mod10_checkdigit compute_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits)
 {
-  // If the weight is null we apply a weight of 1 on each digit.
-  if(weight == NULL)
-  {
-    unsigned int weight_tmp[] = {1};
-    weight = weight_tmp;
-  }
+  if( !weight.size() )
+    return 0;
+
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
@@ -229,13 +220,12 @@ out compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[
 	}
   }
   int sum = 0;
-  int weight_size = sizeof(weight) / sizeof(weight[0]) ;
   /* We start with the leftmost digit and we multiply by the weight indicated.
    * The sum of all digits is computed. */
   for(int i=0; nbr_digits > 0 && begin != end; ++i, --nbr_digits)
   {
     if(*begin >= '0' && *begin <= '9')
-		sum += (*begin & 15) * weight[i % weight_size] ;
+		sum += (*begin & 15) * weight[i % weight.size()] ;
 	++begin;
   }
   if(nbr_digits > 0)
@@ -247,7 +237,7 @@ out compute_mod10(mod10_iter &begin, const mod10_iter &end, unsigned int weight[
 }
 
 template <typename mod11_iter>
-bool check_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
+bool check_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits)
 {
   mod11_iter iter = begin;
   // If the number of digits isn't given (equal to 0), we count these.
@@ -304,7 +294,7 @@ bool check_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digi
 }
 
 template <typename mod11_iter>
-char compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
+char compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits)
 {
   mod11_iter iter = begin;
   // If the number of digits isn't given (equal to 0), we count these.
@@ -344,8 +334,8 @@ char compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_di
   return check_digit | '0';
 }
 
-template <typename out, typename mod11_iter>
-out compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_digits)
+template <typename mod11_checkdigit, typename mod11_iter>
+mod11_checkdigit compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits)
 {
   mod11_iter iter = begin;
   // If the number of digits isn't given (equal to 0), we count these.
@@ -386,13 +376,13 @@ out compute_mod11(mod11_iter &begin, const mod11_iter &end, unsigned int nbr_dig
 }
 
 template <typename mod97_iter>
-bool check_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits)
+bool check_mod97(mod97_iter &begin, const mod97_iter &end, std::size_t nbr_digits)
 {
   return false;
 }
 
 template <typename mod97_iter>
-char compute_mod97(mod97_iter &begin, const mod97_iter &end, unsigned int nbr_digits)
+char compute_mod97(mod97_iter &begin, const mod97_iter &end, std::size_t nbr_digits)
 {
   return false;
 }
