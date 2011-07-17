@@ -18,10 +18,10 @@
 
 #include <iostream>
 #include <iomanip>
-#include <cassert>
 #include <list>
 
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink,
+#include <boost/array.hpp>
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
 #include <boost/checks/modulus.hpp> // Modulo algorithms such the Luhn algorithm or the modulus 11 algorithm.
 
@@ -51,18 +51,19 @@ BOOST_AUTO_TEST_CASE(mod10_minimum_test)
 {
   // empty string
   std::string mod10 = "";
-  BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), NULL), 0);
-  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL), false);
-  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL, 0), false);
-  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL, 5), false); // wrong size
+  boost::array<unsigned int, 1> weight = {1} ;
+  BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight), 0);
+  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight), false);
+  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight, 0), false);
+  BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight, 5), false); // wrong size
   // One digit string
   mod10 = "0";
   char check_digit;
   for(int i =0; i<9; ++i)
   {
-    BOOST_CHECK_NE( check_digit = boost::checks::compute_mod10(mod10.begin(), mod10.end(), NULL, 1), 0);
+    BOOST_CHECK_NE( check_digit = boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight, 1), 0);
     mod10 += check_digit;
-    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL, 2), true);
+    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight, 2), true);
     mod10 = (char)(i+48);
   }
 }
@@ -173,6 +174,7 @@ BOOST_AUTO_TEST_CASE(luhn_remainders_test)
 BOOST_AUTO_TEST_CASE(mod10_remainders_test)
 {
   BOOST_TEST_MESSAGE( "Boost.Checks.Modulus.Modulus10 : tests on the remainders.");
+  boost::array<unsigned int, 1> weight = {1} ;
   std::string mod10_numbers_odd[] = 
   {    
     "102345690",
@@ -204,26 +206,26 @@ BOOST_AUTO_TEST_CASE(mod10_remainders_test)
   for(int i=0; i<10; ++i)
   {
 	// Test the validation of the check digit with the mod10 algorithm with the size precised.
-    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), NULL, mod10_numbers_even[i].size()) );
-    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  NULL, mod10_numbers_odd[i].size() ) );
+    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), weight, mod10_numbers_even[i].size()) );
+    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  weight, mod10_numbers_odd[i].size() ) );
 	// Test the validation of the check digit with the mod10 algorithm without the size precised.
-	BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), NULL) );
-    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  NULL) );
+	BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), weight) );
+    BOOST_CHECK( boost::checks::check_mod10 ( mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  weight) );
 	// Test the equality between the check digit computed and the last digit with the size precised.
-	BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), NULL, mod10_numbers_even[i].size()-1), *(--mod10_numbers_even[i].end()) );
-    BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  NULL, mod10_numbers_odd[i].size()-1),  *(--mod10_numbers_odd[i].end())  );
+	BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(), weight, mod10_numbers_even[i].size()-1), *(--mod10_numbers_even[i].end()) );
+    BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end(),  weight, mod10_numbers_odd[i].size()-1),  *(--mod10_numbers_odd[i].end())  );
 	// Test the equality between the check digit computed and the last digit without the size precised.
-	BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end()-1, NULL), *(--mod10_numbers_even[i].end()) );
-    BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end() -1, NULL), *(--mod10_numbers_odd[i].end())  );
+	BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end()-1, weight), *(--mod10_numbers_even[i].end()) );
+    BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10_numbers_odd[i].begin(),  mod10_numbers_odd[i].end() -1, weight), *(--mod10_numbers_odd[i].end())  );
     // Test the coherence between compute and check
     // compute
-    BOOST_REQUIRE_NE ( check_digit = boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(),NULL, mod10_numbers_even[i].size()) , 0);
+    BOOST_REQUIRE_NE ( check_digit = boost::checks::compute_mod10(mod10_numbers_even[i].begin(), mod10_numbers_even[i].end(),weight, mod10_numbers_even[i].size()) , 0);
     std::string new_mod10_even = mod10_numbers_even[i] + check_digit ;
-    BOOST_REQUIRE_NE ( check_digit = boost::checks::compute_mod10(mod10_numbers_odd[i].begin(), mod10_numbers_odd[i].end(), NULL, mod10_numbers_odd[i].size()) , 0);
+    BOOST_REQUIRE_NE ( check_digit = boost::checks::compute_mod10(mod10_numbers_odd[i].begin(), mod10_numbers_odd[i].end(), weight, mod10_numbers_odd[i].size()) , 0);
     std::string new_mod10_odd = mod10_numbers_odd[i] + check_digit ; 
     // check
-    BOOST_CHECK_EQUAL( boost::checks::check_mod10( new_mod10_even.begin(), new_mod10_even.end(), NULL, new_mod10_even.size()), true);
-    BOOST_CHECK_EQUAL( boost::checks::check_mod10( new_mod10_odd.begin(), new_mod10_odd.end(), NULL, new_mod10_odd.size()), true);
+    BOOST_CHECK_EQUAL( boost::checks::check_mod10( new_mod10_even.begin(), new_mod10_even.end(), weight, new_mod10_even.size()), true);
+    BOOST_CHECK_EQUAL( boost::checks::check_mod10( new_mod10_odd.begin(), new_mod10_odd.end(), weight, new_mod10_odd.size()), true);
   }
 } // BOOST_AUTO_TEST_CASE(mod10_remainders_test)
 
@@ -354,6 +356,7 @@ BOOST_AUTO_TEST_CASE(luhn_alteration_test)
 
 BOOST_AUTO_TEST_CASE(mod10_alteration_test)
 {
+  boost::array<unsigned int, 1> weight = {1} ;
   // Initialization of the numbers with a odd and even size of digit (10 digits for 10 remainders).
   std::string mod10_numbers_odd[] = 
   {    
@@ -392,8 +395,8 @@ BOOST_AUTO_TEST_CASE(mod10_alteration_test)
 	  {
         std::string mod10_alterate = mod10_numbers_odd[i] ;
 		mod10_alterate[j] = '0' + (mod10_alterate[j] + k) % 58  % 48 ;
-		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), NULL, mod10_alterate.size() ),  "The digit " << mod10_numbers_odd[i][j] << " is altered by " << mod10_alterate[j] << "." );
-		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), NULL),  "The digit " << mod10_numbers_odd[i][j] << " is altered by " << mod10_alterate[j] << "." );
+		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), weight, mod10_alterate.size() ),  "The digit " << mod10_numbers_odd[i][j] << " is altered by " << mod10_alterate[j] << "." );
+		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), weight),  "The digit " << mod10_numbers_odd[i][j] << " is altered by " << mod10_alterate[j] << "." );
 	  }
 	}
 	// even : test the alteration of each digits
@@ -404,8 +407,8 @@ BOOST_AUTO_TEST_CASE(mod10_alteration_test)
 	  {
         std::string mod10_alterate = mod10_numbers_even[i] ;
 		mod10_alterate[j] = '0' + (mod10_alterate[j] + k) % 58 % 48 ;
-		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), NULL, mod10_alterate.size() ), "The digit " << mod10_numbers_even[i][j] << " is altered by " << mod10_alterate[j] << "." );
-		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), NULL ), "The digit " << mod10_numbers_even[i][j] << " is altered by " << mod10_alterate[j] << ".");
+		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), weight, mod10_alterate.size() ), "The digit " << mod10_numbers_even[i][j] << " is altered by " << mod10_alterate[j] << "." );
+		BOOST_CHECK_MESSAGE ( !boost::checks::check_mod10( mod10_alterate.begin(), mod10_alterate.end(), weight ), "The digit " << mod10_numbers_even[i][j] << " is altered by " << mod10_alterate[j] << ".");
 	  }
 	}
   }
@@ -558,12 +561,13 @@ BOOST_AUTO_TEST_CASE(luhn_encoding_test)
 BOOST_AUTO_TEST_CASE(mod10_encoding_test)
 { 
   std::string raw_mod10 = "123456781";
+  boost::array<unsigned int, 1> weight = {1} ;
   std::wstring mod10(raw_mod10.begin(), raw_mod10.end());
-  BOOST_CHECK_EQUAL (boost::checks::compute_mod10<wchar_t>(mod10.begin(), mod10.end(), NULL), '3');
-  BOOST_CHECK_EQUAL (boost::checks::compute_mod10<wchar_t>(mod10.begin(), mod10.end(), NULL, 9), '3');
+  BOOST_CHECK_EQUAL (boost::checks::compute_mod10<wchar_t>(mod10.begin(), mod10.end(), weight), '3');
+  BOOST_CHECK_EQUAL (boost::checks::compute_mod10<wchar_t>(mod10.begin(), mod10.end(), weight, 9), '3');
   
   mod10 += '3';
-  BOOST_CHECK_EQUAL (boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL), true);
+  BOOST_CHECK_EQUAL (boost::checks::check_mod10(mod10.begin(), mod10.end(), weight), true);
 } // BOOST_AUTO_TEST_CASE(mod10_encoding_test)
 
 BOOST_AUTO_TEST_CASE(mod11_encoding_test)
@@ -596,14 +600,15 @@ BOOST_AUTO_TEST_CASE(luhn_collection_test)
 BOOST_AUTO_TEST_CASE(mod10_collection_test)
 { 
 	std::list<char> mod10;
+    boost::array<unsigned int, 1> weight = {1} ;
     for(char i=48; i < 53; ++i) 
       mod10.push_back(i);
     char check_digit;
-    BOOST_REQUIRE_NE( check_digit = boost::checks::compute_mod10(mod10.begin(), mod10.end(), NULL, 5) , 0);
-    BOOST_REQUIRE_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), NULL) , check_digit);
+    BOOST_REQUIRE_NE( check_digit = boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight, 5) , 0);
+    BOOST_REQUIRE_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight) , check_digit);
     mod10.push_back(check_digit);
-    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL, 6), true);
-    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), NULL), true);
+    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight, 6), true);
+    BOOST_CHECK_EQUAL( boost::checks::check_mod10(mod10.begin(), mod10.end(), weight), true);
 } // BOOST_AUTO_TEST_CASE(mod10_collection_test)
 
 BOOST_AUTO_TEST_CASE(mod11_collection_test)
@@ -628,17 +633,17 @@ BOOST_AUTO_TEST_CASE(mod10_weight_test)
 {
   // Test with a weight of 1 on each digit
   std::string mod10 = "1234";
-  unsigned int weight[] = {1,1,1,1};
+  boost::array<unsigned int, 4> weight = {1,1,1,1};
   BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight, 4),
-                     boost::checks::compute_mod10(mod10.begin(), mod10.end(), NULL,   4));
+                     boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight,   4));
 
   // Test with a weight of 1234
   for(int i=0; i<4; ++i) weight[i] = i+1;
   BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight, 4), '0');
 
   // Test with a weight of 0
-  for(int i=0; i<4; ++i) weight[i] = i+1;
-  unsigned int weight2[] = {0};
+  for(int i=0; i<4; ++i) weight[i] = 0 ;
+  boost::array<unsigned int, 1> weight2 = {0};
   BOOST_CHECK_EQUAL( boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight, 4),
                      boost::checks::compute_mod10(mod10.begin(), mod10.end(), weight2, 4));
 }// mod10_weight_test
