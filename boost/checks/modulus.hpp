@@ -165,12 +165,10 @@ char compute_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &wei
   // If the number of digits isn't given (equal to 0), we count these.
   if(!nbr_digits)
   {
-	mod10_iter iter = begin;
-	while(iter != end)
+	for(mod10_iter iter = begin; iter != end; ++iter)
 	{
       if(*iter >= '0' && *iter <= '9')
         ++nbr_digits;
-	  ++iter;
 	}
 	// Return false if there is no digit in the expression given.
 	if(!nbr_digits)
@@ -268,7 +266,7 @@ bool check_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digit
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += (*begin & 15) * nbr_digits--;
+	  sum += (*begin & 15) * (--nbr_digits % 10 + 1);
 	++begin;
   }
   // Add the check digit to the sum (add 10 if the check digit equals 'x' or 'X').
@@ -321,7 +319,7 @@ char compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_dig
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += (*begin & 15) * nbr_digits-- ;
+	  sum += (*begin & 15) * (--nbr_digits % 10 + 1);
 	++begin;
   }
   if(nbr_digits > 1)
@@ -362,7 +360,7 @@ mod11_checkdigit compute_mod11(mod11_iter &begin, const mod11_iter &end, std::si
   while(nbr_digits > 1 && iter != end)
   {
     if(*begin >= '0' && *begin <= '9')
-	  sum += (*begin & 15) * nbr_digits-- ;
+	  sum += (*begin & 15) * (--nbr_digits % 10 + 1);
 	++begin;
   }
   if(nbr_digits > 1)
