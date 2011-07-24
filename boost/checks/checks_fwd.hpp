@@ -58,10 +58,83 @@ and C++ include files are in folder:
     #pragma once
 #endif // _MSC_VER
 
-#include <boost/array.hpp>
+// MPL and PP includes
+#include <boost/mpl/vector_c.hpp>
+#include <boost/mpl/size.hpp>
+#include <boost/mpl/for_each.hpp>
+#include <boost/preprocessor/repetition.hpp>
+// Range include
+#include <boost/range/numeric.hpp>
+// Lexical include
+#include <boost/lexical_cast.hpp>
+
+#define BOOST_CHECK_LIMIT_WEIGHTS 10 // The maximum number of weights. (non-type template parameters)
+
 
 namespace boost{
   namespace checks{
+
+
+    /* check mod 10 function */
+
+// DEFAULT prototype. If any non-type template argument are passed to the function, we consider a weight of 1.
+template<typename mod10_range> 
+bool check_mod10(const mod10_range& mod10_number) ;
+
+// Prototypes for the different size of non-type template argument (weight).
+#define _CHECK_mod10(z,n,unused) \
+  template<BOOST_PP_ENUM_PARAMS(n, int weight) BOOST_PP_COMMA_IF(n) typename mod10_range> \
+  bool check_mod10(const mod10_range& mod10_number)  ; \
+
+// Develop the macro _CHECK_mod10 BOOST_CHECK_LIMIT_WEIGHTS times.
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_CHECK_LIMIT_WEIGHTS,_CHECK_mod10,~)
+#undef _CHECK_mod10
+
+  /* compute mod 10 function */
+
+  // DEFAULT prototype. If any non-type template argument are passed to the function, we consider a weight of 1.
+template<typename mod10_range> 
+typename boost::range_value<mod10_range>::type compute_mod10(const mod10_range& mod10_number) ;
+
+// Prototypes for the different size of non-type template argument (weight).
+#define _COMPUTE_mod10(z,n,unused) \
+  template<BOOST_PP_ENUM_PARAMS(n, int weight) BOOST_PP_COMMA_IF(n) typename mod10_range> \
+  typename boost::range_value<mod10_range>::type compute_mod10(const mod10_range& mod10_number) ; \
+
+// Develop the macro _COMPUTE_mod10 BOOST_CHECK_LIMIT_WEIGHTS times.
+BOOST_PP_REPEAT_FROM_TO(1, BOOST_CHECK_LIMIT_WEIGHTS, _COMPUTE_mod10, ~)
+#undef _COMPUTE_mod10
+
+  /* Check mod 11 function */
+
+// DEFAULT prototype. If any non-type template argument are passed to the function, we consider a weight of 1.
+template<typename mod11_range> 
+bool check_mod11(const mod11_range& mod11_number)  ;
+
+// Prototypes for the different size of non-type template argument (weight).
+#define _CHECK_mod11(z,n,unused) \
+  template<BOOST_PP_ENUM_PARAMS(n, int weight) BOOST_PP_COMMA_IF(n) typename mod11_range> \
+  bool check_mod11(const mod11_range& mod11_number) ; \
+
+// Develop the macro _CHECK_mod11 BOOST_CHECK_LIMIT_WEIGHTS times.
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_CHECK_LIMIT_WEIGHTS,_CHECK_mod11,~)
+#undef _CHECK_mod11
+
+
+  /* Compute mod 11 function */
+  
+// DEFAULT prototype. If any non-type template argument are passed to the function, we consider a weight of 1.
+template<typename mod11_range> 
+typename boost::range_value<mod11_range>::type compute_mod11(const mod11_range& mod11_number) ;
+
+// Prototypes for the different size of non-type template argument (weight).
+#define _COMPUTE_mod11(z,n,unused) \
+  template<BOOST_PP_ENUM_PARAMS(n, int weight) BOOST_PP_COMMA_IF(n) typename mod11_range> \
+  typename boost::range_value<mod11_range>::type compute_mod11(const mod11_range& mod11_number) ; \
+
+// Develop the macro _COMPUTE_mod11 BOOST_CHECK_LIMIT_WEIGHTS times.
+BOOST_PP_REPEAT_FROM_TO(1, BOOST_CHECK_LIMIT_WEIGHTS, _COMPUTE_mod11, ~)
+#undef _COMPUTE_mod11
 
 // Provides forward declaration of all Boost.Checks functions:
 
@@ -115,6 +188,8 @@ namespace boost{
  */
     template <typename mod10_iter, typename weight_t >
     bool check_mod10(mod10_iter &begin, const mod10_iter &end, const weight_t &weight, std::size_t nbr_digits=0);
+
+
 
 /** Compute the check digit of the number provided with the modulus 10 algorithm.
  * \tparam mod10_iter with at least the caracteristics of an input iterator. It The beginning or the ending of a sequence of character. 
@@ -183,13 +258,6 @@ namespace boost{
  */
     template <typename mod11_checkdigit, typename mod11_iter>
     mod11_checkdigit compute_mod11(mod11_iter &begin, const mod11_iter &end, std::size_t nbr_digits=0);
-
-    
-
-
-    /*!!!
-The modulus 97 algorithm wait for a sequence of numbers only ! and will not do anything else that sum the digits and calculate the modulus of this sum.
-If you need to check an IBAN use the algorithms in iban.hpp */
 
 /** Compute the check digit of the number provided with the modulus 97 algorithm.
  * \tparam mod97_iter Iterator with at least the caracteristics of an input iterator. It represents the beginning or the ending of a sequence of character. 
