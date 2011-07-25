@@ -5,8 +5,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_MODULUS_HPP
-#define BOOST_CHECK_MODULUS_HPP
+#ifndef BOOST_CHECK_BASIC_HPP
+#define BOOST_CHECK_BASIC_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -287,5 +287,5 @@ char compute_mod97(mod97_iter &begin, const mod97_iter &end, std::size_t nbr_dig
 } // namespace checks
 } // namespace boost
 
-#endif // BOOST_CHECK_MODULUS_HPP
+#endif // BOOST_CHECK_BASIC_HPP
 
