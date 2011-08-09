@@ -29,6 +29,106 @@
 namespace boost {
   namespace checks{
 
+    // Definition of the policy
+
+// Direction : sum the number from the rightmost or the leftmost digit.
+
+template <typename mod_range>
+struct rightmost
+{
+  typedef typename boost::range_reverse_iterator<mod_range>::type mod_iterator ;
+  typedef typename mod_range range ;
+
+  static mod_iterator begin(range &mod_number) { return boost::rbegin(mod_number) ; }
+  static mod_iterator end(range &mod_number)   { return boost::rend(mod_number) ; }
+};
+
+template <typename mod_range>
+struct leftmost
+{
+  typedef typename boost::range_iterator<mod_range>::type mod_iterator ;
+  typedef typename mod_range range ;
+  static mod_iterator begin(range &mod_number) { return boost::begin(mod_number) ; }
+  static mod_iterator end(range &mod_number)   { return boost::end(mod_number) ; }
+};
+
+// Size : wait for an expected number of digits or not.
+
+template <size_t digits_expected>
+struct mod_size
+{
+  static bool have_expected_size(unsigned int digits) { return digits == digits_expected ; }
+};
+
+struct no_size_set
+{ 
+  static bool have_expected_size(unsigned int digits) { return true ; }
+};
+
+// check digit : included (it's a check) or not, so we want it to be fictive (for a computation of it).
+struct fictive_checkdigit
+{
+  template <typename mod_iter>
+  static void skip_checkdigit(unsigned int &digit_counter, mod_iter &iter) { ++digit_counter ; ++iter; }
+};
+
+struct checkdigit_included
+{
+  template <typename mod_iter>
+  static void skip_checkdigit(unsigned int &digit_counter, mod_iter &iter) { }
+};
+
+// Caution : About to change !!
+// Weight policy
+
+// Prototypes for the different size of non-type template argument (weight).
+template <BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(BOOST_CHECK_LIMIT_WEIGHTS, int weight, -1)>
+struct weight_policy ;
+
+#define _WEIGHT_factory(z,n,unused) \
+  template<BOOST_PP_ENUM_PARAMS(n, int weight)> \
+  struct weight_policy<BOOST_PP_ENUM_PARAMS(n, weight)> \
+  { typedef typename boost::mpl::vector_c<int BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, weight)> weight ; } ; \
+
+// Develop the macro _WEIGHT_factory BOOST_CHECK_LIMIT_WEIGHTS times.
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_CHECK_LIMIT_WEIGHTS,_WEIGHT_factory,~)
+#undef _WEIGHT_factory 
+
+// Generic policy
+
+template <typename weight_policy, typename size_policy, typename checkdigit_policy, typename sum_direction>
+struct mod_policy
+{
+  typedef typename sum_direction::mod_iterator mod_iterator ;
+  typedef typename sum_direction::range mod_range ;
+
+  typedef typename weight_policy::weight weight ;
+
+  template <typename mod_iter>
+  static void skip_checkdigit(unsigned int &digit_counter, mod_iter &iter) { checkdigit_policy::skip_checkdigit(digit_counter, iter); }
+
+  static mod_iterator begin( mod_range &mod_number) { return sum_direction::begin( mod_number ) ; }
+  
+  static mod_iterator end( mod_range &mod_number) { return sum_direction::end( mod_number ) ; }
+
+  static bool have_expected_size( unsigned int &current_size) { return size_policy::have_expected_size( current_size ) ; }
+
+  template <typename character>
+  static unsigned int characterToDigit(const character& mod10_character) = 0;
+
+  template <typename opdata_t>
+  static void init_opdata( opdata_t &opdata) = 0;
+
+  template <typename weight_value, typename opdata_t>
+  static unsigned int sum_operation(unsigned int &sum, unsigned int &digit, opdata_t &opdata ) = 0;
+
+  static bool validate_checkdigit( const unsigned int &sum ) = 0;
+
+  template <typename character>
+  static character compute_checkdigit( const unsigned int &sum ) = 0;
+};
+
+
 // Here specialisation of policy for the handle of integer (return 10 instead of 'X') ? Use macro.. ?
 // template<>
 // struct policy_mod11<unsigned short> {};
@@ -36,34 +136,101 @@ namespace boost {
 // struct policy_mod11<unsigned int>{};
 // ...
 
-template <typename character>
-struct mod10_policy
-{
-  static unsigned int modulus() { return 10 ;}
-  static unsigned int characterToDigit(const character& mod10_character)
-  {
-    return boost::lexical_cast<unsigned int>(mod10_character);
-  }
-  static character return_check_digit( const unsigned int &check_digit )
-  {
-    return boost::lexical_cast<character>(check_digit) ;
-  }
-};
 
 template <typename character>
 struct mod11_policy
 {
-  static unsigned int modulus() { return 11 ;}
   static unsigned int characterToDigit(const character& mod11_character)
   {
     return (mod11_character == 'x' || mod11_character == 'X') ? 10 :  boost::lexical_cast<unsigned int>(mod11_character);
   }
-  static character return_check_digit( const unsigned int &check_digit)
+  static character compute_checkdigit( const unsigned int &check_digit)
   {
     return (check_digit == 10) ? 'X' : boost::lexical_cast<character>(check_digit) ;
   }
 };
 
+// Add to the running sum the digits of the sequence given.
+// The digits added are selected according to the position of the weight given.
+template<typename mod_policy, typename mod_range, size_t weight_sequence_size>
+struct sum_with_weight
+{
+  private:
+  // The position through the weight sequence.
+  unsigned int& weight_position ;
+  // The number.
+  const mod_range& mod_number ;
+  // Final sum.
+  unsigned int& sum ;
+ 
+  public:
+  // Constructor.
+  sum_with_weight(const mod_range& r, unsigned int &_sum, unsigned int &_weight_pos) : 
+    weight_position(_weight_pos), mod_number(r), sum(_sum) {}
+   
+  // Treatment : Multiply the weight with the digits accumulate from mod11_number.
+  template<typename weight, weight weight_value>
+  void operator()(const boost::mpl::integral_c< weight , weight_value >&)
+  {
+    // Get the iterators
+    mod_policy::mod_iterator mod_begin = mod_policy::begin(mod_number) ;
+    mod_policy::mod_iterator mod_end = mod_policy::end(mod_number) ;
+
+    // Should we skip a virtual checkdigit ..
+    unsigned int digits_counted = 1 ;
+    mod_policy::skip_checkdigit(digits_counted, mod_begin) ;
+
+    mod_policy::opdata_type opdata ;
+    mod_policy::init_operation_data( opdata );
+
+    for( unsigned int digits_weighted = 0 ; mod_begin != mod_end ; ++mod_begin )
+    {
+      try{
+        unsigned int current_digit = mod_policy::characterToDigit( *mod_begin ) ;
+        if ( digits_counted++ % ( weight_position + digits_weighted * weight_size ) == 0 )
+        {
+          ++digits_weighted ;
+          mod_policy::sum_operation<weight_value>(sum, current_digit, opdata ) ;
+        }
+      } catch( boost::bad_lexical_cast ) {} // Character ignored
+    }
+    ++weight_position ;
+    // If too few or too much digits has been encountered, we throw an exception.
+    if(digits_counted == 1 || !mod_policy::have_expected_size( digits_counted ))
+      throw std::invalid_argument("Not enough or too much digits found in the sequence");
+  }
+};
+
+// Internal check function.
+template<typename mod_policy, typename mod_range>
+unsigned int make_sum(const mod_range& mod_number)
+{ 
+  // If the sequence is empty we throw an exception.
+  if( boost::empty(mod_number) )
+    throw std::invalid_argument("Empty sequence");
+  // Final sum.
+  unsigned int sum = 0;
+  unsigned int weight_position = 1 ;
+  // For each weight, we call the functor "mod_sum".
+  sum_with_weight<mod_policy, mod_range,  boost::mpl::size<mod_policy::weight>::value> mod_sum(mod_number, sum, weight_position);
+  boost::mpl::for_each<mod_policy::weight>(mod_sum);
+  // We return true if the check digit is correct. We return false otherwise.
+  return sum;
+}
+
+template <typename mod_policy, typename mod_range>
+bool check_number (const mod_range& mod_number)
+{
+  return mod_policy::validate_checkdigit( make_sum<mod_policy>( mod_number ) ) ;
+}
+
+template <typename mod_policy, typename mod_range>
+typename boost::range_value<mod_range>::type compute_number (const mod_range& mod_number)
+{
+  return mod_policy::compute_checkdigit( make_sum<mod_policy>( mod_number ) ) ;
+}
+
+/*
 // Add to the running sum the digits of the sequence given.
 // The digits added are selected according to the position of the weight given.
 template<bool have_checkdigit, typename mod_policy, typename mod_range, size_t weight_sequence_size>
@@ -162,7 +329,7 @@ typename boost::range_value<mod_range>::type _compute_mod(const mod_range& mod_n
     throw std::invalid_argument("No digit found in the sequence");
   // We return the check digit
   return mod_policy::return_check_digit( (mod_policy::modulus() - sum % mod_policy::modulus() ) % mod_policy::modulus() ) ;
-}
+}*/
 
 /*--------------------------------------------------------------------
                    Modulus 10 Algorithm.
