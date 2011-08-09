@@ -36,7 +36,7 @@ bool check_luhn(luhn_iter &begin, const luhn_iter &end, std::size_t nbr_digits)
 	}
   }
   int sum = 0,v;
-  /* We start with the leftmost digit and we multiply by two 
+  /* We start with the rightmost digit and we multiply by two 
    * if the total number of digit is even. We alternate the multiplication
    * for all the digits. We subtract 9 from the digit greater than 9 
    * after the multiplication. */
