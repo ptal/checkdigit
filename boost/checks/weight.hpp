@@ -11,7 +11,7 @@
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 
-#define BOOST_CHECK_LIMIT_WEIGHTS 10
+#define BOOST_CHECK_LIMIT_WEIGHTS 100
 
 namespace boost{
   namespace checks{
