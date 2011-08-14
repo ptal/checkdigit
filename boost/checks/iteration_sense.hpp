@@ -18,6 +18,9 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 
+namespace boost{
+  namespace checks{
+
 struct rightmost
 {
 
@@ -49,4 +52,6 @@ struct leftmost
   static typename iterator<seq_range>::type end(seq_range &sequence)   { return boost::end(sequence) ; }
 };
 
+
+}}
 #endif // BOOST_CHECKS_ITERATION_SENSE_HPP
