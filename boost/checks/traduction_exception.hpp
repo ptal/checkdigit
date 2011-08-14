@@ -8,12 +8,14 @@
 #ifndef BOOST_CHECKS_TRADUCTION_EXCEPTION_HPP
 #define BOOST_CHECKS_TRADUCTION_EXCEPTION_HPP
 
+#include <exception>
+
 namespace boost{
   namespace checks{
 
-  class traduction_exception : std::exception
+  class traduction_exception : public std::exception
   {
-  }
+  };
   
 }}
 
