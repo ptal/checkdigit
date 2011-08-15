@@ -58,32 +58,40 @@ and C++ include files are in folder:
     #pragma once
 #endif // _MSC_VER
 
-// MPL and PP includes
-#include <boost/mpl/vector_c.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/for_each.hpp>
-#include <boost/preprocessor/repetition.hpp>
-// Range include
-#include <boost/range/numeric.hpp>
-// Lexical include
-#include <boost/lexical_cast.hpp>
-#include <boost/checks/modulus10.hpp>
+#include <boost/checks/luhn.hpp>
+#include <boost/checks/verhoeff.hpp>
 
 namespace boost{
   namespace checks{
 
-template <size_t size_expected, typename check_range>
-bool check_mod10 (const check_range& check_seq);
-
-template <typename check_range>
-bool check_mod10 (const check_range& check_seq);
+// Luhn
 
 template <size_t size_expected, typename check_range>
-typename boost::checks::mod10_algorithm::checkdigit<check_range>::type compute_mod10 (const check_range& check_seq);
+bool check_luhn (const check_range& check_seq) ;
 
 template <typename check_range>
-typename boost::checks::mod10_algorithm::checkdigit<check_range>::type compute_mod10 (const check_range& check_seq);
-  
-  
+bool check_luhn (const check_range& check_seq) ;
+
+template <size_t size_expected, typename check_range>
+typename boost::checks::luhn_compute_algorithm::checkdigit<check_range>::type compute_luhn (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::luhn_compute_algorithm::checkdigit<check_range>::type compute_luhn (const check_range& check_seq) ;
+
+// Verhoeff
+
+template <size_t size_expected, typename check_range>
+bool check_verhoeff (const check_range& check_seq) ;
+
+template <typename check_range>
+bool check_verhoeff (const check_range& check_seq) ;
+
+template <size_t size_expected, typename check_range>
+typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::type compute_verhoeff (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::type compute_verhoeff (const check_range& check_seq) ;
+
+
 }}
 #endif \\ BOOST_CHECK_CHECKS_FWD_HPP
