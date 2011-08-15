@@ -5,71 +5,54 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_LUHN_INCLUDED
-#define BOOST_LUHN_INCLUDED
+#ifndef BOOST_CHECKS_LUHN_INCLUDED
+#define BOOST_CHECKS_LUHN_INCLUDED
 
-#include <boost/checks/basic_checks.hpp>
+#include <boost/checks/modulus10.hpp>
 
 namespace boost {
     namespace checks{
 
-template <typename luhn_range, typename size_policy, typename checkdigit_policy>
-struct luhn_policy : mod_policy <weight_policy<1,2>, size_policy, checkdigit_policy, rightmost<luhn_range> >
+typedef boost::checks::weight<1,2> luhn_weight ;
+typedef boost::checks::rightmost luhn_sense ;
+
+template <unsigned int number_of_virtual_value_skipped = 0>
+struct luhn_algorithm : boost::checks::modulus10_algorithm < luhn_weight, luhn_sense, number_of_virtual_value_skipped>
 {
-  static const unsigned int modulus = 10;
-
-  template <typename character>
-  static unsigned int characterToDigit(const character& mod10_character)
+  static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
   {
-    return boost::lexical_cast<unsigned int>(mod10_character);
-  }
-  template <typename character>
-  static character compute_checkdigit( const unsigned int &sum )
-  {
-    return boost::lexical_cast<character>((10 - sum % 10 ) % 10) ;
-  }
-  static bool validate_checkdigit( const unsigned int &sum )
-  {
-    return !(sum % 10);
-  }
-
-  typedef unsigned int opdata_type ;
-
-  template <typename opdata_t>
-  static void init_opdata ( opdata_t &opdata){ }
-
-  template <typename weight_value, typename opdata_t>
-  static void sum_operation(unsigned int &sum, unsigned int &digit, opdata_t &opdata )
-  {
-    sum += (digit << (weight_value-1)) - 9 * ( digit << (weight_value-1)  > 9) ;
+    int current_weight = luhn_weight::weight_associated_with_pos( valid_value_counter + number_of_virtual_value_skipped ) ;
+    checksum += (current_valid_value << (current_weight - 1)) - 9 * ( current_valid_value << (current_weight - 1) > 9) ;
   }
 };
 
-template <size_t size_expected, typename luhn_range>
-bool check_luhn ( luhn_range luhn_number )
+typedef luhn_algorithm<0> luhn_check_algorithm ;
+typedef luhn_algorithm<1> luhn_compute_algorithm ;
+
+template <size_t size_expected, typename check_range>
+bool check_luhn (const check_range& check_seq)
 {
-  return check_number<luhn_policy<luhn_range, mod_size<size_expected>, checkdigit_included > >( luhn_number ) ;
+  return boost::checks::check_sequence<luhn_check_algorithm, size_expected> ( check_seq ) ;
 }
 
-template <typename luhn_range>
-bool check_luhn ( luhn_range luhn_number )
-{ 
-  return check_number<luhn_policy<luhn_range, no_size_set , checkdigit_included > >( luhn_number ) ;
-}
-
-template <size_t size_expected, typename luhn_range>
-typename boost::range_value<luhn_range>::type compute_luhn ( luhn_range luhn_number )
+template <typename check_range>
+bool check_luhn (const check_range& check_seq)
 {
-  return compute_number<luhn_policy<luhn_range, mod_size<size_expected>, virtual_checkdigit> >( luhn_number ) ;
+  return boost::checks::check_sequence<luhn_check_algorithm> ( check_seq ) ;
 }
 
-template <typename luhn_range>
-typename boost::range_value<luhn_range>::type compute_luhn ( luhn_range luhn_number )
-{ 
-  return compute_number<luhn_policy<luhn_range, no_size_set , virtual_checkdigit > >( luhn_number ) ;
+template <size_t size_expected, typename check_range>
+typename boost::checks::luhn_compute_algorithm::checkdigit<check_range>::type compute_luhn (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<luhn_compute_algorithm, size_expected> ( check_seq ) ;
 }
 
-} // namespace checks
-} // namespace boost
+template <typename check_range>
+typename boost::checks::luhn_compute_algorithm::checkdigit<check_range>::type compute_luhn (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<luhn_compute_algorithm> ( check_seq ) ;
+}
 
-#endif
+
+}}
+#endif // BOOST_CHECKS_LUHN_HPP
