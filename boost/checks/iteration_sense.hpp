@@ -23,7 +23,6 @@ namespace boost{
 
 struct rightmost
 {
-
   template <typename seq_range>
   struct iterator
   {
