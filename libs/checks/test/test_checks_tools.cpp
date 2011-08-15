@@ -66,30 +66,15 @@ BOOST_AUTO_TEST_CASE(limits_test)
   typedef boost::checks::strict_size_contract<5> size_expected ;
   typedef boost::checks::no_null_size_contract<> no_size_expected ;
 
-  try{
-    size_expected::respect_size_contract( 5 ) ;
-  }catch( std::invalid_argument ){
-    BOOST_FAIL("Launch an unexpected exception");
-  }
+  size_expected::respect_size_contract( 5 ) ;
 
   for(int i = 6 ; i < 14 ; ++i)
-    try{
-      size_expected::respect_size_contract( i%10+1 ) ;
-      BOOST_FAIL("Should not be a correct size");
-    }catch( std::invalid_argument ){}
-
+    BOOST_CHECK_THROW ( size_expected::respect_size_contract( i%10+1 ) , std::invalid_argument )
 
   for(int i=1 ; i < 10; ++i)
-    try{
-      no_size_expected::respect_size_contract (i) ;
-    }catch( std::invalid_argument ){
-      BOOST_FAIL("Should be a correct size" ) ;
-    }
+    no_size_expected::respect_size_contract (i) ;
 
-  try{
-    no_size_expected::respect_size_contract (0);
-    BOOST_FAIL("The size can't be of size zero");
-  }catch( std::invalid_argument ){}
+  BOOST_CHECK_THROW ( no_size_expected::respect_size_contract (0), std::invalid_argument )
 
   for(int i = 0 ; i < 6 ; ++i)
   {
