@@ -20,20 +20,18 @@ namespace boost {
   namespace checks{
 
 template <typename algorithm, typename size_contract, typename iterator>
-int compute_checksum(const iterator &seq_begin, const iterator &seq_end )
+int compute_checksum(iterator seq_begin, iterator seq_end )
 {
-  iterator seq_begin_cpy = iterator(seq_begin) ;
   unsigned int valid_value_counter = 0;
   int checksum = 0 ;
-  while( seq_begin_cpy != seq_end )
+  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(valid_value_counter) ; ++seq_begin )
   {
     try{
-      int current_valid_value = algorithm::traduce_to_valid_value( *seq_begin_cpy, valid_value_counter );
+      int current_valid_value = algorithm::traduce_to_valid_value( *seq_begin, valid_value_counter );
       algorithm::operate_on_valid_value( current_valid_value, valid_value_counter, checksum ) ;
       ++valid_value_counter ;
     }catch( boost::checks::traduction_exception ){
     }
-    ++seq_begin_cpy ;
   }
   size_contract::respect_size_contract( valid_value_counter );
   return checksum ;
