@@ -62,37 +62,6 @@ struct modulus10_algorithm
   };
 };
 
-typedef boost::checks::modulus10_algorithm < 
-          boost::checks::weight<1>,
-          boost::checks::leftmost,
-          0 
-        > mod10_algorithm ;
-
-
-template <size_t size_expected, typename check_range>
-bool check_mod10 (const check_range& check_seq)
-{
-  return boost::checks::check_sequence<mod10_algorithm, size_expected> ( check_seq ) ;
-}
-
-template <typename check_range>
-bool check_mod10 (const check_range& check_seq)
-{
-  return boost::checks::check_sequence<mod10_algorithm> ( check_seq ) ;
-}
-
-template <size_t size_expected, typename check_range>
-typename boost::checks::mod10_algorithm::checkdigit<check_range>::type compute_mod10 (const check_range& check_seq)
-{
-  return boost::checks::compute_checkdigit<mod10_algorithm, size_expected> ( check_seq ) ;
-}
-
-template <typename check_range>
-typename boost::checks::mod10_algorithm::checkdigit<check_range>::type compute_mod10 (const check_range& check_seq)
-{
-  return boost::checks::compute_checkdigit<mod10_algorithm> ( check_seq ) ;
-}
-
 }}
 
 #endif //BOOST_CHECKS_MOD10_HPP
