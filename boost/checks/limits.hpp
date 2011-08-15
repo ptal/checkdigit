@@ -22,6 +22,10 @@ struct strict_size_contract
     if( valid_values_counted != expected_size )
       throw exception_size_failure("Too few or too much valid values in the sequence.") ;
   }
+  static bool reach_one_past_the_end(size_t valid_values_counted)
+  {
+    return valid_values_counted > expected_size ;
+  }
 };
 
 template <class exception_size_failure = std::invalid_argument>
@@ -31,6 +35,11 @@ struct no_null_size_contract
   {
     if( valid_values_counted == 0 )
       throw exception_size_failure("No valid value in this sequence.") ;
+  }
+
+  static bool reach_one_past_the_end(size_t valid_values_counted)
+  {
+    return false ;
   }
 };
 
