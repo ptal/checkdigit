@@ -92,6 +92,20 @@ typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::typ
 template <typename check_range>
 typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::type compute_verhoeff (const check_range& check_seq) ;
 
+// Modulus 11
+
+template <size_t size_expected, typename check_range>
+bool check_modulus11 (const check_range& check_seq) ;
+
+template <typename check_range>
+bool check_modulus11 (const check_range& check_seq) ;
+
+template <size_t size_expected, typename check_range>
+typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_modulus11 (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_modulus11 (const check_range& check_seq) ;
+
 
 }}
 #endif \\ BOOST_CHECK_CHECKS_FWD_HPP
