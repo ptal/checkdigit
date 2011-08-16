@@ -60,6 +60,7 @@ and C++ include files are in folder:
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/verhoeff.hpp>
+#include <boost/checks/modulus11.hpp>
 
 namespace boost{
   namespace checks{
