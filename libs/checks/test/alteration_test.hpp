@@ -12,32 +12,34 @@
 #define BOOST_CHECK_TEST_ALTERATION_HPP
 
 template <typename functor>
-unsigned int alteration( const functor &compute_checkdigit )
+unsigned int alteration( const functor &compute_checkdigit , int number_of_position_to_test )
 {
-  unsigned int transposition_failures = 0 ;
+  unsigned int alteration_failures = 0 ;
 
-  std::string sequence = "00" ;
-  std::string transpose_seq = "00" ;
+  std::string sequence = std::string() ;
+  sequence.resize(number_of_position_to_test) ;
+  for(int i=0; i < number_of_position_to_test; ++i)
+    sequence[i] = '1' ;
 
-  for(int i=0; i <= 9; ++i )
+  std::string alterate_seq = std::string(); 
+  alterate_seq.resize(number_of_position_to_test) ;
+
+  char checkdigit = compute_checkdigit( sequence );
+
+  for(int i=0; i < number_of_position_to_test; ++i )
   {
-    for(int j=0; j <= 9; ++j)
+    for(int j=0; j < number_of_position_to_test; ++j)
+      alterate_seq[j] = '1' ;
+
+    for(int j=0; j < 9; ++j)
     {
-      if(i != j)
-      {
-        sequence[0] = i | '0' ;
-        sequence[1] = j | '0' ;
+      alterate_seq[i] = '0' + ((alterate_seq[i]-'0'+1) % 10) ;
 
-        transpose_seq[0] = sequence[1] ;
-        transpose_seq[1] = sequence[0] ;
-
-        if( compute_checkdigit( sequence ) ==
-            compute_checkdigit( transpose_seq) )
-            ++transposition_failures ;
-      }
+      if( compute_checkdigit( alterate_seq ) == checkdigit )
+        ++alteration_failures ;
     }
   }
-  return transposition_failures ;
+  return alteration_failures ;
 }
 
 #endif // BOOST_CHECK_TEST_ALTERATION_HPP
