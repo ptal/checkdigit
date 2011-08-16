@@ -49,6 +49,15 @@ struct verhoeff_functor
   }
 };
 
+struct modulus11_functor
+{
+  template <typename range>
+  typename boost::checks::mod11_compute_algorithm::checkdigit<range>::type operator ()( const range &check_range ) const
+  {
+    return boost::checks::compute_modulus11( check_range ) ;
+  }
+};
+
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition( luhn_functor() ) ;
@@ -58,5 +67,11 @@ BOOST_AUTO_TEST_CASE(luhn_test)
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition( verhoeff_functor() ) ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " catched on 90.") ;
+}
+
+BOOST_AUTO_TEST_CASE(modulus11_test)
+{
+  unsigned int transpositions_failures = transposition( modulus11_functor() ) ;
   BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " catched on 90.") ;
 }
