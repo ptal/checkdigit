@@ -16,8 +16,10 @@ unsigned int transposition( const functor &compute_checkdigit )
 {
   unsigned int transposition_failures = 0 ;
 
-  std::string sequence = "00" ;
-  std::string transpose_seq = "00" ;
+  std::string sequence = std::string() ;
+  sequence.resize(2);
+  std::string transpose_seq = std::string() ;
+  transpose_seq.resize(2);
 
   for(int i=0; i <= 9; ++i )
   {
