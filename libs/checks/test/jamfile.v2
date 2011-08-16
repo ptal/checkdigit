@@ -56,5 +56,6 @@ project checks
     ;
 
 test-suite "Checks"
-    : [ run testChecks.cpp  boost_unit_test ]
+    : [ run test_checks.cpp  boost_unit_test ]
+	: [ run test_checks_tools.cpp boost_unit_test ]
     ;
