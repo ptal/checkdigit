@@ -13,27 +13,16 @@
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/basic_checks.hpp>
+#include <boost/checks/basic_check_algorithm.hpp>
 
 namespace boost {
     namespace checks{
 
+typedef boost::checks::rightmost verhoeff_iteration_sense ;
+
 template <unsigned int number_of_virtual_value_skipped = 0>
-struct verhoeff_algorithm
+struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iteration_sense, number_of_virtual_value_skipped>
 {
-  typedef boost::checks::rightmost iteration_sense ;
-
-  template <typename value>
-  static int traduce_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
-  {
-    int valid_value = 0;
-    try{
-      valid_value = boost::lexical_cast<int>( current_value ) ;
-    }catch( boost::bad_lexical_cast ){
-      throw boost::checks::traduction_exception() ;
-    }
-    return valid_value ;
-  }
-
   static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
   {
     static const unsigned int d[10][10] =
@@ -84,12 +73,6 @@ struct verhoeff_algorithm
       throw boost::checks::traduction_exception() ;
     }
   }
-
-  template <typename check_range>
-  struct checkdigit
-  {
-    typedef typename boost::range_value<check_range>::type type;
-  };
 };
 
 
