@@ -75,6 +75,20 @@ typename algorithm::checkdigit<check_range>::type compute_checkdigit (const chec
 }
 
 
+template <typename algorithm, typename check_range,  typename checkdigit_iterator>
+typename checkdigit_iterator compute_multicheckdigit (const check_range& check_seq, checkdigit_iterator checkdigits)
+{
+  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >( check_seq ) ;
+  return algorithm::compute_multicheckdigit( checksum, checkdigits ) ;
+}
+
+template <typename algorithm, size_t size_expected, typename check_range, typename checkdigit_iterator>
+typename checkdigit_iterator compute_multicheckdigit (const check_range& check_seq,  checkdigit_iterator checkdigits)
+{
+  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >( check_seq ) ;
+  return algorithm::compute_multicheckdigit( checksum, checkdigits ) ;
+}
+
 }}
 #endif // BOOST_CHECK_BASIC_HPP
 
