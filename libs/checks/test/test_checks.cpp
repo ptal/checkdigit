@@ -23,6 +23,7 @@
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/modulus10.hpp>
+#include <boost/checks/modulus11.hpp>
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
 
 #include "alteration_test.hpp"
@@ -30,6 +31,9 @@
 
 template <typename functor>
 unsigned int transposition( const functor &compute_checkdigit );
+
+template <typename functor>
+unsigned int alteration( const functor &compute_checkdigit , unsigned int number_of_position_to_test );
 
 struct luhn_functor
 {
@@ -61,17 +65,26 @@ struct modulus11_functor
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition( luhn_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << transpositions_failures << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << (90-transpositions_failures) << " catched on 90.") ;
+
+  unsigned int alterations_failures = alteration( luhn_functor() , 2) ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (18-alterations_failures) << " catched on 18.") ;
 }
 
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition( verhoeff_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " catched on 90.") ;
+
+  unsigned int alterations_failures = alteration( verhoeff_functor() , 20) ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (180-alterations_failures) << " catched on 180.") ;
 }
 
 BOOST_AUTO_TEST_CASE(modulus11_test)
 {
   unsigned int transpositions_failures = transposition( modulus11_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " catched on 90.") ;
+
+  unsigned int alterations_failures = alteration( modulus11_functor() , 10) ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (90-alterations_failures) << " catched on 90.") ;
 }
