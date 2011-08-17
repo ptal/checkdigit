@@ -61,6 +61,7 @@ and C++ include files are in folder:
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/verhoeff.hpp>
 #include <boost/checks/modulus11.hpp>
+#include <boost/checks/modulus97.hpp>
 
 namespace boost{
   namespace checks{
@@ -107,6 +108,19 @@ typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type c
 template <typename check_range>
 typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_modulus11 (const check_range& check_seq) ;
 
+// Modulus 97-10 (ISO/IEC 7064:2003)
+
+template <size_t size_expected, typename check_range>
+bool check_mod97_10 (const check_range& check_seq) ;
+
+template <typename check_range>
+bool check_mod97_10 (const check_range& check_seq) ;
+
+template <size_t size_expected, typename check_range, typename checkdigits_iter>
+typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
+
+template <typename check_range, typename checkdigits_iter>
+typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
 
 }}
 #endif \\ BOOST_CHECK_CHECKS_FWD_HPP
