@@ -21,9 +21,6 @@
 
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/modulus11.hpp>
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
 
 #include "alteration_test.hpp"
@@ -34,6 +31,120 @@ unsigned int transposition( const functor &compute_checkdigit );
 
 template <typename functor>
 unsigned int alteration( const functor &compute_checkdigit , unsigned int number_of_position_to_test );
+
+BOOST_AUTO_TEST_SUITE( use_cases_tests )
+
+// IIN : Issuer Identification Number.
+// MII : Major Industry Identifier.
+
+BOOST_AUTO_TEST_CASE(visa_tests)
+{
+  std::string visa_valid = "4417 1234 5678 9113" ;
+  std::string visa_low_size_failure = "417 1234 5678 9113" ;
+  std::string visa_big_size_failure = "44417 1234 5678 9113" ;
+  std::string visa_mii_failure = "3417 1234 5678 9113" ;
+
+  BOOST_CHECK ( boost::checks::check_visa (visa_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_visa (visa_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_visa (visa_big_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_visa (visa_mii_failure) , std::invalid_argument ) ;
+
+  std::string visa_valid_without_checkdigit = "4417 1234 5678 911" ;
+  std::string visa_mii_failure_without_checkdigit = "3417 1234 5678 911" ;
+
+  BOOST_CHECK_EQUAL ( boost::checks::compute_visa (visa_valid_without_checkdigit) , '3' ) ;
+  BOOST_CHECK_THROW ( boost::checks::compute_visa (visa_mii_failure_without_checkdigit) , std::invalid_argument ) ;
+}
+
+BOOST_AUTO_TEST_CASE(amex_tests)
+{
+  std::string amex_valid = "3782 822463 10005" ;
+  std::string amex_low_size_failure = "378 822463 10005" ;
+  std::string amex_big_size_failure = "33782 822463 10005" ;
+  std::string amex_mii_failure = "4782 822463 10005" ;
+  std::string amex_iin_failure = "3882 822463 10005" ;
+
+  BOOST_CHECK ( boost::checks::check_amex (amex_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_amex (amex_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_amex (amex_big_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_amex (amex_mii_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_amex (amex_iin_failure) , std::invalid_argument ) ;
+
+  std::string amex_valid_without_checkdigit = "3782 822463 1000" ;
+  std::string amex_mii_failure_without_checkdigit = "4782 822463 1000" ;
+  std::string amex_iin_failure_without_checkdigit = "3682 822463 1000" ;
+
+  BOOST_CHECK_EQUAL ( boost::checks::compute_amex (amex_valid_without_checkdigit) , '5' ) ;
+  BOOST_CHECK_THROW ( boost::checks::compute_amex (amex_mii_failure_without_checkdigit) , std::invalid_argument ) ;
+}
+
+BOOST_AUTO_TEST_CASE(mastercard_tests)
+{
+  std::string mastercard_valid = "5105 1051 0510 5100" ;
+  std::string mastercard_low_size_failure = "515 1051 0510 5100" ;
+  std::string mastercard_big_size_failure = "51505 1051 0510 5100" ;
+  std::string mastercard_mii_failure = "4105 1051 0510 5100" ;
+  std::string mastercard_iin_failure = "5005 1051 0510 5100" ;
+
+  BOOST_CHECK ( boost::checks::check_mastercard (mastercard_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_mastercard (mastercard_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_mastercard (mastercard_big_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_mastercard (mastercard_mii_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_mastercard (mastercard_iin_failure) , std::invalid_argument ) ;
+
+  std::string mastercard_valid_without_checkdigit = "5105 1051 0510 510" ;
+  std::string mastercard_mii_failure_without_checkdigit = "6105 1051 0510 510" ;
+  std::string mastercard_iin_failure_without_checkdigit = "5605 1051 0510 510" ;
+
+  BOOST_CHECK_EQUAL ( boost::checks::compute_mastercard (mastercard_valid_without_checkdigit) , '0' ) ;
+  BOOST_CHECK_THROW ( boost::checks::compute_mastercard (mastercard_mii_failure_without_checkdigit) , std::invalid_argument ) ;
+}
+
+BOOST_AUTO_TEST_CASE(ean_tests)
+{
+  std::string ean13_valid = "5 412983 130028" ; // Belgium beer "Bon secours".
+  std::string ean13_low_size_failure = "05 412983 130028" ;
+  std::string ean13_big_size_failure = "412983 130028" ;
+
+  BOOST_CHECK ( boost::checks::check_ean13 (ean13_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_ean13 (ean13_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_ean13 (ean13_big_size_failure) , std::invalid_argument ) ;
+
+  std::string ean13_valid_without_checkdigit = "5 412983 13002" ;
+  BOOST_CHECK_EQUAL ( boost::checks::compute_ean13 (ean13_valid_without_checkdigit), '8' ) ; 
+
+  std::string ean8_valid = "5449 1472" ; // Bottle of Coke.
+  std::string ean8_low_size_failure = "5449 472" ;
+  std::string ean8_big_size_failure = "05449 1472" ;
+
+  BOOST_CHECK ( boost::checks::check_ean8 (ean8_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_ean8 (ean8_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_ean8 (ean8_big_size_failure) , std::invalid_argument ) ;
+
+  std::string ean8_valid_without_checkdigit = "5449 147" ;
+  BOOST_CHECK_EQUAL ( boost::checks::compute_ean8 (ean8_valid_without_checkdigit), '2' ) ; 
+}
+
+BOOST_AUTO_TEST_CASE(upc_tests)
+{
+  std::string upca_valid = "036000291452" ; // Box of tissues.
+  std::string upca_low_size_failure = "36000291452" ;
+  std::string upca_big_size_failure = "0036000291452" ;
+
+  BOOST_CHECK ( boost::checks::check_upca (upca_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_upca (upca_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_upca (upca_big_size_failure) , std::invalid_argument ) ;
+
+  std::string upca_valid_without_checkdigit = "03600029145" ;
+  BOOST_CHECK_EQUAL ( boost::checks::compute_upca (upca_valid_without_checkdigit), '2' ) ; 
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
+
+
+BOOST_AUTO_TEST_SUITE( technical_tests )
 
 struct luhn_functor
 {
@@ -88,3 +199,5 @@ BOOST_AUTO_TEST_CASE(modulus11_test)
   unsigned int alterations_failures = alteration( modulus11_functor() , 10) ;
   BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (90-alterations_failures) << " catched on 90.") ;
 }
+
+BOOST_AUTO_TEST_SUITE_END()
