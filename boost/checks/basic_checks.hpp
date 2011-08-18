@@ -19,6 +19,23 @@
 namespace boost {
   namespace checks{
 
+/*! \fn template <typename algorithm, typename size_contract, typename iterator>
+        int compute_checksum(iterator seq_begin, iterator seq_end )
+
+    \brief Run through a sequence and calculate the checksum with the algorithm policy class.
+
+    \pre seq_begin and seq_end are valid iterators.
+
+    \tparam algorithm is a set of static method use to traduce, filter and calculate the checksum.
+    \tparam size_contract is a contract concerning the size of the sequence.
+    \tparam iterator Must meet the InputIterator requirements.
+    \param seq_begin Beginning of the sequence.
+    \param seq_end Ending of the sequence.
+
+    \throws size_contract::exception_size_failure If the terms of the contract are not respected.
+
+    \returns The checksum of the sequence calculated with algorithm.
+  */
 template <typename algorithm, typename size_contract, typename iterator>
 int compute_checksum(iterator seq_begin, iterator seq_end )
 {
@@ -38,6 +55,24 @@ int compute_checksum(iterator seq_begin, iterator seq_end )
   size_contract::respect_size_contract( valid_value_counter );
   return checksum ;
 }
+
+/*! \fn template <typename algorithm, typename size_contract, typename check_range>
+        int compute_checksum( const check_range &check_seq )
+
+    \brief Create iterators according to the algorithm::iterator policy. And call the iterator overload version of compute_checksum.
+
+    \pre seq_begin and seq_end are valid iterators.
+
+    \tparam algorithm is a set of static method use to traduce, filter and calculate the checksum.
+    \tparam size_contract is a contract concerning the size of the sequence.
+    \tparam iterator Must meet the InputIterator requirements.
+    \param seq_begin Beginning of the sequence.
+    \param seq_end Ending of the sequence.
+
+    \throws size_contract::exception_size_failure If the terms of the contract are not respected.
+
+    \returns The checksum of the sequence calculated with algorithm.
+*/
 
 template <typename algorithm, typename size_contract, typename check_range>
 int compute_checksum( const check_range &check_seq )
