@@ -32,6 +32,10 @@ struct basic_check_algorithm
     return valid_value ;
   }
 
+  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position )
+  {
+  }
+
   template <typename check_range>
   struct checkdigit
   {
