@@ -6,97 +6,66 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 
-// Note on doxygen trip char.  It seems to be convention to use \param rather than @param.
+#ifndef BOOST_CHECKS_ISBN_HPP
+#define BOOST_CHECKS_ISBN_HPP
 
-// I can't fully remember the logic but Steven Watanabe did explain it to me.
-// Steven is a Quickbook Doxygen guru!
-// He also uses @ but for things like @c metafunction<_>  which just does typewirter font.
+#include <boost/checks/ean.hpp>
+#include <boost/checks/modulus11.hpp>
 
-
-
-#ifndef BOOST_ISBN_INCLUDED
-#define BOOST_ISBN_INCLUDED
+#define ISBN10_SIZE 10
+#define ISBN10_SIZE_WITHOUT_CHECKDIGIT 9
 
 namespace boost {
     namespace checks{
 
+// ISBN-13
 
-/** Check the validity of the International Standard Book Number (ISBN) of size 10.
- * \tparam In Iterator which represent the bound of a sequence of character.
- * \param [in] isbn_begin Represents the beginning of the ISBN sequence to check.
- * \param [in] isbn_end Represents one off the end of the ISBN sequence to check.
- * \pre isbn_begin and isbn_end are valid initialized iterators.The length of the sequence should be at least of size 10 and the sequence should contains only dash(es) and digits.
- * \post isbn_begin and isbn_end are inchanged.
- * \return true if the sequence is a valid ISBN of size 10, otherwise false.
- */
-template <class In>
-inline bool Is_isbn10(In isbn_begin, In isbn_end)
+template <unsigned int number_of_virtual_value_skipped = 0>
+struct isbn13_algorithm : boost::checks::modulus10_algorithm < boost::checks::ean_weight, boost::checks::ean_sense, number_of_virtual_value_skipped >
 {
-  if( isbn_begin == isbn_end ) return false;
-  In iter = isbn_begin;
-  int check = 0, i;
-  for(i=10; i>0 && iter != isbn_end;)
+  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position )
   {
-    if( *iter != '-')
-    {
-      if(!isdigit(*iter))
-        if(i==1 && (*iter == 'x' || *iter == 'X'))  check += 10;
-        else  return false;
-      else
-        check +=  i * (*iter - 48);
-      --i;
-    }
-    ++iter;
-  }
-  return (i > 0 || iter != isbn_end) ? false : check % 11 == 0;
-}
+    const unsigned int real_pos_from_left = EAN13_SIZE - current_value_position - number_of_virtual_value_skipped ;
 
-/** Compute the check digit of the International Standard Book Number (ISBN) of size 10.
- * \tparam In Iterator which represent the bound of a sequence of character.
- * \param [in] isbn_begin Represents the beginning of the ISBN sequence to check.
- * \param [in] isbn_end Represents one off the end of the ISBN sequence to check.
- * \pre isbn_begin and isbn_end are valid initialized iterators. The length of the sequence should be of size 9 and the sequence should contains only digits and dashes.
- * \post isbn_begin and isbn_end are inchanged.
- * \return The check digit of the ISBN of size 9 provided, which can be between '0' and '9' or 'X'. Otherwise -1 is returned if the ISBN of size 9 provided is not correct.
- */
-template <class In>
-inline char isbn10_check_digit(In isbn_begin, In isbn_end)
+    if( real_pos_from_left == 1 && current_valid_value != 9)
+      throw std::invalid_argument("The first digit should be 9.") ;
+    else if( real_pos_from_left == 2 && current_valid_value != 7)
+      throw std::invalid_argument("The second digit should be 7.") ;
+    else if( real_pos_from_left == 3 && current_valid_value != 8 && current_valid_value != 9)
+      throw std::invalid_argument("The third digit should be 8 or 9.") ;
+  } 
+};
+
+typedef boost::checks::isbn13_algorithm<0> isbn13_check_algorithm ;
+typedef boost::checks::isbn13_algorithm<1> isbn13_compute_algorithm ;
+
+template <typename check_range>
+bool check_isbn13 (const check_range& check_seq)
 {
-  if( isbn_begin == isbn_end ) return -1;
-  In iter = isbn_begin;
-  int check = 0, i;
-  for(i=10; i>1 && iter != isbn_end;)
-  {
-    if(isdigit(*iter))
-    {
-      check +=  i * (*iter - 48);
-      --i;
-    }
-    ++iter;
-  }
-  if(i > 1 || iter != isbn_end) return -1;
-  check = 11 - check % 11;
-  return (check == 10) ? 'X' : static_cast<char>(check + 48);
+  return boost::checks::check_sequence<isbn13_check_algorithm, EAN13_SIZE> ( check_seq ) ;
 }
 
-
-/** Check the validity of the International Standard Book Number (ISBN) of size 13. (It is a ISBN encapsulated into a EAN).
-*/
-template <class In>
-inline bool Is_isbn13(In isbn_begin, In isbn_end)
+template <typename check_range>
+typename boost::checks::isbn13_compute_algorithm::checkdigit<check_range>::type compute_isbn13 (const check_range& check_seq)
 {
-  // Call Is_ean13 with limitation on the 3 first number (978 - 979).
+  return boost::checks::compute_checkdigit<isbn13_compute_algorithm, EAN13_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
 }
 
-/** Compute the check digit of the International Standard Book Number (ISBN) of size 13. (It is a ISBN encapulsed into a EAN).
-*/
-template <class In>
-inline char isbn13_check_digit(In isbn_begin, In isbn_end)
+
+// ISBN-10
+
+template <typename check_range>
+bool check_isbn10 (const check_range& check_seq)
 {
-  // Call ean13_check_digit with limitation on the 3 first number (978 - 979).
+  return boost::checks::check_modulus11< ISBN10_SIZE >( check_seq );
 }
 
-} // namespace checks
-} // namespace boost
+template <typename check_range>
+typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_isbn10 (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<ISBN10_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+}
 
-#endif
+
+}}
+#endif // BOOST_CHECKS_ISBN_HPP
