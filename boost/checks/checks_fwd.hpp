@@ -62,6 +62,11 @@ and C++ include files are in folder:
 #include <boost/checks/verhoeff.hpp>
 #include <boost/checks/modulus11.hpp>
 #include <boost/checks/modulus97.hpp>
+#include <boost/checks/ean.hpp>
+#include <boost/checks/upc.hpp>
+#include <boost/checks/amex.hpp>
+#include <boost/checks/visa.hpp>
+#include <boost/checks/mastercard.hpp>
 
 namespace boost{
   namespace checks{
@@ -121,6 +126,54 @@ typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkd
 
 template <typename check_range, typename checkdigits_iter>
 typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
+
+// EAN-13 and EAN-8
+
+template <typename check_range>
+bool check_ean13 (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean13 (const check_range& check_seq) ;
+
+template <typename check_range>
+bool check_ean8 (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean8 (const check_range& check_seq); 
+
+// UPC-A
+
+template <typename check_range>
+bool check_upca (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::upc_compute_algorithm::checkdigit<check_range>::type compute_upca (const check_range& check_seq) ;
+
+
+// American Express
+
+template <typename check_range>
+bool check_amex (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::amex_compute_algorithm::checkdigit<check_range>::type compute_amex (const check_range& check_seq) ;
+
+// VISA
+
+template <typename check_range>
+bool check_visa (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::visa_compute_algorithm::checkdigit<check_range>::type compute_visa (const check_range& check_seq) ;
+
+// Mastercard
+
+template <typename check_range>
+bool check_mastercard (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::mastercard_compute_algorithm::checkdigit<check_range>::type compute_mastercard (const check_range& check_seq) ;
+
 
 }}
 #endif \\ BOOST_CHECK_CHECKS_FWD_HPP
