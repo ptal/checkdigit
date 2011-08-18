@@ -63,7 +63,7 @@ bool check_isbn10 (const check_range& check_seq)
 template <typename check_range>
 typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_isbn10 (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ISBN10_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+  return boost::checks::compute_checkdigit<boost::checks::mod11_compute_algorithm, ISBN10_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
 }
 
 
