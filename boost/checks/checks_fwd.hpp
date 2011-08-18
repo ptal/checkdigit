@@ -63,6 +63,7 @@ and C++ include files are in folder:
 #include <boost/checks/modulus11.hpp>
 #include <boost/checks/modulus97.hpp>
 #include <boost/checks/ean.hpp>
+#include <boost/checks/isbn.hpp>
 #include <boost/checks/upc.hpp>
 #include <boost/checks/amex.hpp>
 #include <boost/checks/visa.hpp>
@@ -140,6 +141,20 @@ bool check_ean8 (const check_range& check_seq) ;
 
 template <typename check_range>
 typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean8 (const check_range& check_seq); 
+
+// IBSN-10 and ISBN-13
+
+template <typename check_range>
+bool check_isbn10 (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type compute_isbn10 (const check_range& check_seq) ;
+
+template <typename check_range>
+bool check_isbn13 (const check_range& check_seq) ;
+
+template <typename check_range>
+typename boost::checks::isbn13_compute_algorithm::checkdigit<check_range>::type compute_isbn13 (const check_range& check_seq) ;
 
 // UPC-A
 
