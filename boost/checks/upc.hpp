@@ -5,58 +5,40 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_UPC_INCLUDED
-#define BOOST_UPC_INCLUDED
+// European Article Numbering 13 and 8.
+
+#ifndef BOOST_CHECKS_UPC_HPP
+#define BOOST_CHECKS_UPC_HPP
+
+#include <boost/checks/weight.hpp>
+#include <boost/checks/iteration_sense.hpp>
+#include <boost/checks/basic_checks.hpp>
+#include <boost/checks/modulus10.hpp>
+
+#define UPCA_SIZE 12
+#define UPCA_SIZE_WITHOUT_CHECKDIGIT 11
 
 namespace boost {
     namespace checks{
 
-/** Check the validity of the Universal Product Code category A (UPC-A) provided.
- * \tparam Iterator which represents the beginning or the ending of a sequence of character
- * \param [in] upc_begin Represents the beginning of the UPC sequence to check.
- * \param [in] upc_end] Represents one off the end of the UPC sequence to check.
- * \pre upc_begin and upc_end are valid initialized iterators. The length of the sequence should be of size 12 and the sequence should contains only digits.
- * \post upc_begin and upc_end are unchanged.
- * \result true if the UPC sequence is valid which it means that the check digit is equals to the last character. Otherwise false.
- */
-template <class In>
-inline bool Is_upca(In upc_begin, In upc_end)
+typedef boost::checks::weight<1,3> upc_weight ;
+typedef boost::checks::rightmost upc_sense ;
+
+typedef boost::checks::modulus10_algorithm< upc_weight, upc_sense, 0> upc_check_algorithm ;
+typedef boost::checks::modulus10_algorithm< upc_weight, upc_sense, 1> upc_compute_algorithm ;
+
+template <typename check_range>
+bool check_upca (const check_range& check_seq)
 {
-  In iter = upc_begin;
-  unsigned short checksum = 0, i;
-  for(i = 11; i>0; ++iter, --i)
-  {
-          if(iter == upc_end  || !isdigit(*iter))     return false;
-    else    checksum += (*iter % 2 == 0) ? *iter * 3 : *iter;
-  }
-  if( i != 0 || iter == upc_end) return false;
-  return (*(++iter) == (10 - checksum % 10) %10) && iter == end;
+  return boost::checks::check_sequence<upc_check_algorithm, UPCA_SIZE> ( check_seq ) ;
 }
 
-/** Compute the check digit of the Universal Product Code category A (UPC-A) provided
- * /tparam Iterator which represents the beginning or the ending of a sequence of character.
- * /param [in] upc_begin Represents the beginning of the UPC sequence to check.
- * /param [in] upc_end Represents one off the end of the UPC sequence to check.
- * /pre upc_begin and upc_end are valid initialized iterators. The length of the sequence should be of size 11 and the sequence should contains only digits.
- * /post upc_begin and upc_end are unchanged.
- * /result 0 if the check digit couldn't be calculated (Exemple : wrong size, ...). Otherwise, the check digit character between '0' and '9'.
- */
-template <class In>
-inline char upca_check_digit(In upc_begin, In upc_end)
+template <typename check_range>
+typename boost::checks::upc_compute_algorithm::checkdigit<check_range>::type compute_upca (const check_range& check_seq)
 {
-  In iter = upc_begin;
-  unsigned short checksum = 0, i;
-  for(i = 11; i>0; ++iter, --i)
-  {
-    if(iter == upc_end  || !isdigit(*iter)) return false;
-    else  checksum += (*iter % 2 == 0) ? *iter * 3 : *iter;
-  }
-  if( i != 0 || iter != upc_end) return false;
-  return (10 - checksum % 10) %10;
+  return boost::checks::compute_checkdigit<upc_compute_algorithm, UPCA_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
 }
 
-} // namespace checks
-} // namespace boost
 
-#endif // #define BOOST_UPC_INCLUDED
-
+}}
+#endif // BOOST_CHECKS_UPCA_HPP
