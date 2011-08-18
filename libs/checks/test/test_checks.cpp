@@ -139,6 +139,42 @@ BOOST_AUTO_TEST_CASE(upc_tests)
   BOOST_CHECK_EQUAL ( boost::checks::compute_upca (upca_valid_without_checkdigit), '2' ) ; 
 }
 
+BOOST_AUTO_TEST_CASE(isbn_tests)
+{
+
+  std::string isbn13_valid = "978-0-13-235088-4" ; // Clean Code: a handbook of agile software craftsmanship, Robert C. Martin.
+  std::string isbn13_not_valid = "979-0-13-235088-4" ; 
+  std::string isbn13_low_size_failure = "978--13-235088-4" ;
+  std::string isbn13_big_size_failure = "978-00-13-235088-4" ;
+  std::string isbn13_ean_id_failure = "977-0-13-235088-4" ;
+  std::string isbn13_ean_id_failure2 = "988-0-13-235088-4" ;
+  std::string isbn13_ean_id_failure3 = "878-0-13-235088-4" ;
+
+  BOOST_CHECK ( boost::checks::check_isbn13 (isbn13_valid) ) ;
+  BOOST_CHECK ( !boost::checks::check_isbn13 (isbn13_not_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_big_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_ean_id_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_ean_id_failure2) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_ean_id_failure3) , std::invalid_argument ) ;
+
+  std::string isbn13_valid_without_checkdigit = "978-0-13-235088-" ;
+  std::string isbn13_not_valid_without_checkdigit = "979-0-13-235088-" ; 
+  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn13 (isbn13_valid_without_checkdigit), '4' ) ; 
+  BOOST_CHECK_NE ( boost::checks::compute_isbn13 (isbn13_not_valid_without_checkdigit), '4' ) ; 
+
+  std::string isbn10_valid = "0-201-70073-5" ; // The C++ Programming Language, Special Edition, Bjarne Stroustrup.
+  std::string isbn10_low_size_failure = "00-201-70073-5" ;
+  std::string isbn10_big_size_failure = "-201-70073-5" ;
+
+  BOOST_CHECK ( boost::checks::check_isbn10 (isbn10_valid) ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn10 (isbn10_low_size_failure) , std::invalid_argument ) ;
+  BOOST_CHECK_THROW ( boost::checks::check_isbn10 (isbn10_big_size_failure) , std::invalid_argument ) ;
+
+  std::string isbn10_valid_without_checkdigit = "0-201-70073-" ;
+  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn10 (isbn10_valid_without_checkdigit), '5' ) ; 
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 
