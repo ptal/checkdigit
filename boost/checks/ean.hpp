@@ -5,42 +5,54 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_EAN_INCLUDED
-#define BOOST_EAN_INCLUDED
+// European Article Numbering 13 and 8.
+
+#ifndef BOOST_CHECKS_EAN_HPP
+#define BOOST_CHECKS_EAN_HPP
+
+#include <boost/checks/weight.hpp>
+#include <boost/checks/iteration_sense.hpp>
+#include <boost/checks/basic_checks.hpp>
+#include <boost/checks/modulus10.hpp>
+
+#define EAN13_SIZE 13
+#define EAN13_SIZE_WITHOUT_CHECKDIGIT 12
+#define EAN8_SIZE 8 
+#define EAN8_SIZE_WITHOUT_CHECKDIGIT 7
 
 namespace boost {
     namespace checks{
 
-/** Check the validity of the European Article Numbering of size 8 (EAN-8) provided.
-*/
-template <class In>
-inline bool Is_ean8(In ean_begin, In ean_end){}
+typedef boost::checks::weight<1,3> ean_weight ;
+typedef boost::checks::rightmost ean_sense ;
 
-/** Compute the check digit of the European Article Numbering of size 8 (EAN-8) provided.
-*/
-template <class In>
-inline char ean8_check_digit(In ean_begin, In ean_end){}
+typedef boost::checks::modulus10_algorithm< ean_weight, ean_sense, 0> ean_check_algorithm ;
+typedef boost::checks::modulus10_algorithm< ean_weight, ean_sense, 1> ean_compute_algorithm ;
 
-/** Check the validity of the European Article Numbering of size 13 (EAN-13) provided.
- * \tparam In Iterator which represents the bound of a sequence of character.
- * \tparam Prefix Iterator which represents the bound of a sequence of EAN prefixes (GS1 country codes).
- * \param [in] ean_begin Represents the beginning of the EAN sequence to check.
- * \param [in] ean_end Represents one off the end of the EAN sequence to check.
- * \param [in] ean_prefix_begin Represents the beginning of the prefixes sequence to allow. Default : null, all the prefixes are allowed.
- * \param [in] ean_prefix_end Represents the ending of the prefixes sequence to allow. Default : null, all the prefixes are allowed.
- * \pre ean_begin and ean_end are valid initialized iterators. If ean_prefix_begin and ean_prefix_end are passed as arguments, they must be valid initialized iterators.
- * \post ean_begin, ean_end, ean_prefix_begin, and ean_prefix_end are unchanged.
- * \return True if the EAN delimited by ean_begin and ean_end is a valid EAN of size 13 with a prefix
- */
-template <class In, class Prefix>
-inline bool Is_ean13(In ean_begin, In ean_end, Prefix ean_prefix_begin = null, Prefix ean_prefix_end = null){}
+template <typename check_range>
+bool check_ean13 (const check_range& check_seq)
+{
+  return boost::checks::check_sequence<ean_check_algorithm, EAN13_SIZE> ( check_seq ) ;
+}
 
-/** Compute the check digit of the European Article Numbering of size 13 (EAN-13) provided.
-*/
-template <class In>
-inline char ean13_check_digit(In ean_begin, In ean_end){}
+template <typename check_range>
+typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean13 (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<ean_compute_algorithm, EAN13_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+}
 
-} // namespace checks
-} // namespace boost
+template <typename check_range>
+bool check_ean8 (const check_range& check_seq)
+{
+  return boost::checks::check_sequence<ean_check_algorithm, EAN8_SIZE> ( check_seq ) ;
+}
 
-#endif
+template <typename check_range>
+typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean8 (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<ean_compute_algorithm, EAN8_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+}
+
+
+}}
+#endif // BOOST_CHECKS_EAN_HPP
