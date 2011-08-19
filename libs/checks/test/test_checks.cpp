@@ -185,6 +185,30 @@ BOOST_AUTO_TEST_CASE(isbn_tests)
   BOOST_CHECK_EQUAL ( boost::checks::compute_isbn10 (isbn10_valid_without_checkdigit), '5' ) ; 
 }
 
+BOOST_AUTO_TEST_CASE(mod97_10_tests)
+{
+  std::string mod97_10_valid = "510007547061111462" ; // From a Belgium IBAN
+  std::string mod97_10_not_valid = "511007547061111462" ; 
+  std::string mod97_10_low_size_failure = "51007547061111462" ;
+  std::string mod97_10_big_size_failure = "5100007547061111462" ;
+
+  BOOST_CHECK ( boost::checks::check_mod97_10 (mod97_10_valid) ) ;
+  BOOST_CHECK ( !boost::checks::check_mod97_10 (mod97_10_not_valid) ) ;
+  BOOST_CHECK ( !boost::checks::check_mod97_10 (mod97_10_low_size_failure)) ;
+  BOOST_CHECK ( !boost::checks::check_mod97_10 (mod97_10_big_size_failure)) ;
+
+  std::string mod97_10_valid_without_checkdigits = "5100075470611114" ;
+  std::string mod97_10_not_valid_without_checkdigits = "5110075470611114" ; 
+  
+  std::string valid_check_digits = "00" ;
+  boost::checks::compute_mod97_10 (mod97_10_valid_without_checkdigits, valid_check_digits.begin() );
+  BOOST_CHECK_EQUAL ( valid_check_digits, "62" ) ; 
+  
+  std::string invalid_check_digits = "00";
+  boost::checks::compute_mod97_10 (mod97_10_not_valid_without_checkdigits, invalid_check_digits.begin() );
+  BOOST_CHECK_NE ( invalid_check_digits, "62" ) ; 
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 
