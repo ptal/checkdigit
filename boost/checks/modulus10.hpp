@@ -9,7 +9,7 @@
 #define BOOST_CHECKS_MOD10_HPP
 
 #include <boost/lexical_cast.hpp>
-#include <boost/checks/traduction_exception.hpp>
+#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/weighted_sum.hpp>
@@ -31,7 +31,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
     try{
       return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10 ) ;
     }catch( boost::bad_lexical_cast ){
-      throw boost::checks::traduction_exception() ;
+      throw boost::checks::translation_exception() ;
     }
   }
 };
