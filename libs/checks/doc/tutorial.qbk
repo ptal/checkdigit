@@ -1,0 +1,85 @@
+[/ 
+Copyright Pierre Talbot 2011.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+[section Tutorial]
+In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
+
+"Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime."
+
+So we'll learn to extend this library and create our own check functions.
+
+[h5 Starting with Checks]
+
+There are two main functions for each checks, the first is to validate a sequence: "check_<number>". The second provides a check digit: "compute_<number>".
+This is the base of this library.
+
+[h4 Credit card numbers check]
+
+We will start with some credit card numbers checking, please first include these headers:
+
+[credit_cards_include_files]
+
+Three credit card checks are implemented: VISA, Mastercard, and American Express. The following examples show us how to compute and check numbers:
+
+[checks_example_1]
+
+This one provides the output:
+
+[checks_output_1]
+
+[h4 Multi check digits]
+
+These are some one digit check samples. But some checks use two check digits, 
+such as the mod97-10 algorithm used to calculate the check digits of the International Bank Account Number (IBAN).
+We add an extra parameter to retrieve the two check digits. The include file is:
+
+[mod97_10_include_file]
+
+and the next example shows us how to use this function:
+
+[checks_example_2]
+
+which provides the output:
+
+[checks_output_2]
+
+[h4 Catching error]
+
+We will now see how the library reacts with simple errors. 
+The first error is a number's size that doesn't fit the requirements. 
+The second error shows that some number must respect pattern, here the three first digit of an ISBN-13 must be "978" or "979".
+An exception is throwed if one of these errors are encountered.
+We will use the EAN and ISBN headers:
+[ean_include_file]
+[isbn_include_file]
+
+The two examples of number error:
+
+[checks_example_3]
+
+The output shows us the detailled message provided to the exception:
+
+[checks_output_3]
+
+[h4 And with integer array]
+
+The old C-array are also supported. In the other examples, we check "number" 
+but with an ASCII code, we can use integer value as well. The following will show 
+us the result of the computation of two same numbers but in different format. 
+We'll use the header:
+
+[isbn_include_file]
+
+And the examples:
+
+[check_example_4]
+
+As you can see in the output, the "X" check digit is represented by its integer value (10)
+with the integer C-array:
+
+[check_output_4]
