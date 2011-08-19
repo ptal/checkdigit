@@ -21,6 +21,16 @@
 
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
 
+#include <boost/checks/luhn.hpp>
+#include <boost/checks/verhoeff.hpp>
+#include <boost/checks/modulus11.hpp>
+#include <boost/checks/modulus97.hpp>
+#include <boost/checks/ean.hpp>
+#include <boost/checks/isbn.hpp>
+#include <boost/checks/upc.hpp>
+#include <boost/checks/amex.hpp>
+#include <boost/checks/visa.hpp>
+#include <boost/checks/mastercard.hpp>
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
 
 #include "alteration_test.hpp"
