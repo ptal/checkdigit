@@ -9,7 +9,7 @@
 #define BOOST_VERHOEFF_INCLUDED
 
 #include <boost/lexical_cast.hpp>
-#include <boost/checks/traduction_exception.hpp>
+#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/basic_checks.hpp>
@@ -70,7 +70,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
     }
     catch( boost::bad_lexical_cast )
     {
-      throw boost::checks::traduction_exception() ;
+      throw boost::checks::translation_exception() ;
     }
   }
 };
