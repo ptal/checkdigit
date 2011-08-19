@@ -9,7 +9,7 @@
 #define BOOST_CHECKS_MOD11_HPP
 
 #include <boost/lexical_cast.hpp>
-#include <boost/checks/traduction_exception.hpp>
+#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/basic_checks.hpp>
@@ -22,7 +22,7 @@ template <typename mod11_weight, typename iteration_sense, unsigned int number_o
 struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight, iteration_sense, number_of_virtual_value_skipped>
 {
   template <typename value>
-  static int traduce_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
+  static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
   {    
     int valid_value = 0;
     try
@@ -34,7 +34,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
       if( current_value == 'x' || current_value == 'X' )
         valid_value = 10 ;
       else
-        throw boost::checks::traduction_exception() ;
+        throw boost::checks::translation_exception() ;
     }
     return valid_value ;
   }
@@ -59,7 +59,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
       }
       catch( boost::bad_lexical_cast )
       {
-        throw boost::checks::traduction_exception() ; 
+        throw boost::checks::translation_exception() ; 
       }
     }
   }
