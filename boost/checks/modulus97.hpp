@@ -10,7 +10,7 @@
 
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/checks/traduction_exception.hpp>
+#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/weighted_sum.hpp>
@@ -27,20 +27,20 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
   }
 
   template <typename checkdigits_iter>
-  static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter mod97_checkdigits )
+  static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
   {
-    unsigned int checkdigits = 98 - (checksum % 97) ;
+    unsigned int mod97_checkdigits = 98 - (checksum % 97) ;
 
     try{
-      *mod97_checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(checkdigits / 10) ; 
-      ++mod97_checkdigits;
-      *mod97_checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(checkdigits % 10) ; 
-      ++mod97_checkdigits;
+      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits / 10) ; 
+      ++checkdigits;
+      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits % 10) ; 
+      ++checkdigits;
     }
     catch( boost::bad_lexical_cast ){
-      throw boost::checks::traduction_exception() ;
+      throw boost::checks::translation_exception() ;
     }
-    return mod97_checkdigits;
+    return checkdigits;
   }
 };
 
