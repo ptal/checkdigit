@@ -12,6 +12,10 @@
 #ifndef BOOST_CHECK_WEIGHT_HPP
 #define BOOST_CHECK_WEIGHT_HPP
 
+#ifdef _MSC_VER
+    #pragma once
+#endif
+
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 

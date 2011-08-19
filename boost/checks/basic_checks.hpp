@@ -5,7 +5,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file basic_check.hpp
+/*! \file basic_checks.hpp
     \brief This file provides a set of basic functions used to compute and validate check digit(s) and checksum.
 */
 
@@ -14,7 +14,7 @@
 
 #ifdef _MSC_VER
     #pragma once
-#endif // _MSC_VER
+#endif
 
 #include <boost/checks/limits.hpp>
 #include <boost/lexical_cast.hpp>
@@ -125,7 +125,7 @@ bool check_sequence (const check_range& check_seq)
 }
 
 /*! 
-    \brief Calculate the checkdigit of a sequence according to algorithm.
+    \brief Calculate the check digit of a sequence according to algorithm.
 
     \pre check_seq is a valid range.
 
@@ -145,7 +145,7 @@ typename algorithm::checkdigit<check_range>::type compute_checkdigit (const chec
 }
 
 /*! 
-    \brief Calculate the checkdigit of a sequence according to algorithm.
+    \brief Calculate the check digit of a sequence according to algorithm.
 
     \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
 

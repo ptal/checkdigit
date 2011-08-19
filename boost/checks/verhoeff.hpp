@@ -5,8 +5,16 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
+/*! \file verhoeff.hpp
+    \brief This file provides tools to compute a Verhoeff checksum.
+*/
+
 #ifndef BOOST_VERHOEFF_INCLUDED
 #define BOOST_VERHOEFF_INCLUDED
+
+#ifdef _MSC_VER
+    #pragma once
+#endif
 
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
@@ -18,11 +26,30 @@
 namespace boost {
     namespace checks{
 
+/*!
+  \brief This is the sense of the Verhoeff sequence iteration.
+*/
 typedef boost::checks::rightmost verhoeff_iteration_sense ;
 
+/*! \class verhoeff_algorithm
+    \brief This class can be used to compute or validate checksum with the Verhoeff algorithm.
+
+    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+*/
 template <unsigned int number_of_virtual_value_skipped = 0>
 struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iteration_sense, number_of_virtual_value_skipped>
-{
+{  
+  /*!
+    \brief Compute the Verhoeff scheme on the checksum with the current valid value.
+    
+    \post checksum is equal to the new computed checksum.
+
+    \param current_valid_value is the current valid value analysed.
+    \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+    \param checksum is the current checksum.
+
+    \remarks This function use the classic table d and p of the Verhoeff algorithm.
+  */
   static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
   {
     static const unsigned int d[10][10] =
@@ -54,11 +81,28 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
     checksum = d[ checksum ][ p[ (valid_value_counter + number_of_virtual_value_skipped) % 8 ][ current_valid_value ] ] ;
   }
 
+  /*!
+    \brief Validate the Verhoeff checksum.
+
+    \param checksum is the checksum to validate.
+
+    \returns true if the checksum is correct, false otherwise.
+  */
   static bool validate_checksum(int checksum)
   {
     return !checksum ;
   }
 
+  /*!
+    \brief Compute the check digit with the Verhoeff inverse table.
+
+    \tparam checkdigit is the type of the check digit desired.
+    \param checksum is the checksum used to extract the check digit.
+
+    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    
+    \returns The Verhoeff check digit of checksum.
+  */
   template <typename checkdigit>
   static typename checkdigit compute_checkdigit( int checksum )
   {
@@ -75,35 +119,91 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
   }
 };
 
-
+/*!
+  \brief This is the type of the Verhoeff algorithm for validating a check digit.
+*/
 typedef verhoeff_algorithm<0> verhoeff_check_algorithm ;
+/*!
+  \brief This is the type of the Verhoeff algorithm for computing a check digit.
+*/
 typedef verhoeff_algorithm<1> verhoeff_compute_algorithm ;
 
+/*! 
+    \brief Validate a sequence according to the verhoeff_check_algorithm type.
+
+    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
+
+    \tparam size_expected is the number of valid value expected in the sequence.
+    \tparam check_range is a valid range type.
+    \param check_seq is the sequence of value to check.
+
+    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
+
+    \returns True if the check digit is correct, false otherwise.
+*/
 template <size_t size_expected, typename check_range>
 bool check_verhoeff (const check_range& check_seq)
 {
   return boost::checks::check_sequence<verhoeff_check_algorithm, size_expected> ( check_seq ) ;
 }
 
+/*! 
+    \brief Validate a sequence according to the verhoeff_check_algorithm type.
+
+    \pre check_seq is a valid range.
+
+    \tparam check_range is a valid range type.
+    \param check_seq is the sequence of value to check.
+
+    \throws std::invalid_argument if check_seq contains no valid value.
+
+    \returns True if the check digit is correct, false otherwise.
+*/
 template <typename check_range>
 bool check_verhoeff (const check_range& check_seq)
 {
   return boost::checks::check_sequence<verhoeff_check_algorithm> ( check_seq ) ;
 }
 
+/*! 
+    \brief Calculate the check digit of a sequence according to the verhoeff_compute_algorithm type.
+
+    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
+    
+    \tparam size_expected is the number of valid value expected in the sequence. (So the check digit is not included.)
+    \tparam check_range is a valid range type.
+    \param check_seq is the sequence of value to check.
+    
+    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
+    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+
+    \returns The check digit. The check digit is in the range [0..9].
+*/
 template <size_t size_expected, typename check_range>
 typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::type compute_verhoeff (const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<verhoeff_compute_algorithm, size_expected> ( check_seq ) ;
 }
 
+/*! 
+    \brief Calculate the check digit of a sequence according to the verhoeff_compute_algorithm type.
+
+    \pre check_seq is a valid range.
+    
+    \tparam check_range is a valid range type.
+    \param check_seq is the sequence of value to check.
+    
+    \throws std::invalid_argument if check_seq contains no valid value.
+    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+
+    \returns The check digit. The check digit is in the range [0..9].
+*/
 template <typename check_range>
 typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::type compute_verhoeff (const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<verhoeff_compute_algorithm> ( check_seq ) ;
 }
 
-} // namespace checks
-} // namespace boost
 
+}}
 #endif

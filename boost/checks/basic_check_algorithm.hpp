@@ -14,6 +14,11 @@
 #ifndef BOOST_CHECKS_BASIC_CHECK_ALGO_HPP
 #define BOOST_CHECKS_BASIC_CHECK_ALGO_HPP
 
+#ifdef _MSC_VER
+    #pragma once
+#endif
+
+
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
 #include <boost/checks/iteration_sense.hpp>
@@ -110,8 +115,7 @@ struct basic_check_algorithm
   }
 
   /*!
-    \brief Compute an operation on the current valid value an the checksum.
-
+    \brief Compute an operation on the checksum with the current valid value
     \post Do nothing. The checksum is inchanged.
 
     \param current_valid_value is the current valid value analysed.

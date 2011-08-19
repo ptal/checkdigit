@@ -12,6 +12,10 @@
 #ifndef BOOST_CHECK_LIMITS_HPP
 #define BOOST_CHECK_LIMITS_HPP
 
+#ifdef _MSC_VER
+    #pragma once
+#endif
+
 #include <boost/static_assert.hpp>
 
 namespace boost{

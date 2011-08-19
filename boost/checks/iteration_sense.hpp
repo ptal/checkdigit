@@ -13,6 +13,10 @@
 #ifndef BOOST_CHECK_ITERATION_SENSE_HPP
 #define BOOST_CHECK_ITERATION_SENSE_HPP
 
+#ifdef _MSC_VER
+    #pragma once
+#endif
+
 #include <boost/range/reverse_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/const_iterator.hpp>
