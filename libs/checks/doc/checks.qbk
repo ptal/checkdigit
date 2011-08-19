@@ -57,6 +57,7 @@ may still be changed without notice.  The current version is available at
 [endsect] [/section:overview Overview]
 
 [include introduction.qbk]
+[include tutorial.qbk]
 [include errors.qbk]
 [include modulus.qbk]
 
