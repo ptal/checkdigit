@@ -33,8 +33,5 @@ project
       <include>$(boost_root)
     ;
 
-run modulus_example.cpp ; # Trivial example of checking modulus and also computing check digit.
-
-#run issn_example.cpp ; # Trivial example of checking ISSN and also computing check digit.
-#  ...
+run checks_example.cpp ; # Example of some function in Boost.Checks.
 
