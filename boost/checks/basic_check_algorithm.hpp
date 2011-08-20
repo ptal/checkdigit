@@ -47,9 +47,9 @@ struct basic_check_algorithm
     \param current_value is the current value analysed in the sequence that must be translated.
     \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
-    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n This will automaticaly throws if the value is not a digit.
+    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n This will automaticaly throws if the value is not a digit (0 <= i < 11).
 
-    \returns the translation of the current value.
+    \returns the translation of the current value in the range [0..9].
 */
   template <typename value>
   static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
@@ -57,6 +57,8 @@ struct basic_check_algorithm
     int valid_value = 0;
     try{
       valid_value = boost::lexical_cast<int>( current_value ) ;
+      if( valid_value > 9)
+        throw boost::checks::translation_exception() ;
     }catch( boost::bad_lexical_cast ){
       throw boost::checks::translation_exception() ;
     }
