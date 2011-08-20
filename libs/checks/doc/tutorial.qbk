@@ -6,8 +6,13 @@ Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt
 or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
-[section:tutorial Tutorial]
+
 [import ..\example\checks_examples.cpp]
+[import ..\example\rtn.hpp]
+[import ..\example\vin.hpp]
+[import ..\example\checks_tutorial.cpp]
+
+[section:tutorial Tutorial]
 In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
 
 ["Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime.]
@@ -101,48 +106,32 @@ read the check digit calculation procedure. So we can notice few points:
 # It's using a modulus 10.
 # The size of the RTN is 9.
 
-We can create the rtn.hpp file. The library support the weighted sum and the modulus 10
-algorithm so the work will be easy. We can run through the number from right to left or 
+We can create the __RTN__FILE__ file. The library support the weighted sum and the modulus 10
+algorithm so the work will be ea)sy. We can run through the number from right to left or 
 left to right depending on the weight sequence. We will begin with the leftmost digit
 because it's more "readable".
 
-``
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/basic_checks.hpp>
-#include <boost/checks/weight.hpp> // For information purpose ! File already included in modulus10.hpp
-#include <boost/checks/iteration_sense.hpp> // For information purpose ! File already included in modulus10.hpp
+[rtn_include_files]
+[rtn_preprocessor_tools]
 
-#define RTN_SIZE 9
-#define RTN_SIZE_WITHOUT_CHECKDIGIT 8
-
-typedef boost::checks::weight<3,7,1> rtn_weight ;
-typedef boost::checks::leftmost rtn_sense ;
-``
-
-We must put it all together into an algorithm type:
-``
-typedef modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_check_algorithm ;
-typedef modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_compute_algorithm ;
-``
+We must put the weights and the sense together into an algorithm type:
+[rtn_preprocessor_algorithm]
 
 The hard part is already done, we can build our check functions now:
-``
-template <typename check_range>
-bool check_rtn (const check_range& check_seq)
-{
-  return boost::checks::check_sequence<rtn_check_algorithm, RTN_SIZE> ( check_seq ) ;
-}
+[rtn_functions]
 
-template <typename check_range>
-typename boost::checks::rtn_compute_algorithm::checkdigit<check_range>::type compute_rtn (const check_range& check_seq)
-{
-  return boost::checks::compute_checkdigit<rtn_compute_algorithm, RTN_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
-}
-``
+And that's all!
 
-And that's all! 
+[note `boost::checks::compute_checkdigit` and `boost::checks::check_sequence` are defined in __BASIC__CHECK__FILE__]
 
-[note `boost::checks::compute_checkdigit` and `boost::checks::check_sequence` are defined in `basic_checks.hpp`]
+
+We can code a RTN sample in the file __TUTO__FILE__:
+
+[rtn_example]
+
+and the output is:
+
+[rtn_example_output]
 
 [h5 Example with the Vehicle Identification Number]
 
@@ -151,23 +140,80 @@ check algorithm. Like for the __RTN, we must read the documentation first, we ca
 few elements:
 
 * The number contains letter that must be translated to compute or check the check digit.
-* The check digit is not at the end of the number.
+* The check digit is not at the end of the number. It's at the 9th position, in the midst of the number.
 * The letters Q, I, or O are not valids.
 * This use a custom modulus 11 algorithm, so the check digit range is [0..9,X].
 
 The library already have support for modulus 11 algorithm in the header:
 ``#include <boost/checks/modulus11.hpp>``
 
-We create the vin.hpp file. Step by step, let's now complete this file.
+We create the __VIN__FILE__ file. Step by step, let's now complete this file.
 
 # The weight sequence is : 2,3,4,5,6,7,8,9,10.
 # We run through the sequence from right to left.
 
 We create the types associated with these two observations:
+[vin_preprocessor_tools]
+
+We will now attack the harder part of the work. We need to build the adapted structure.
+Let's create our own algorithm, first we need to declare the structure with inheritance:
+
+[vin_struct_header]
+
+The classic modulus 11 algorithm doesn't permit the translation of letters (but the 'x' 
+if it's the check digit). But this number use nearly the full latin alphabet (they omitted 
+O, Q, and I to avoid confusion with numerals 1 and 0). We choose to launch the std::invalid_argument
+exception (that have the effect of stopping the algorithm) if one of these letter is encountered.
+The other letter must be transformed following this table:
+
+[table:id Letter to digit VIN conversion table
+    [[Conversion value] [1] [2] [3] [4] [5] [6] [7] [8] [9] ]
+    [[] [A (1)] [B (2)] [C (3)] [D (4)] [E (5)] [F (6)] [G (7)] [H (8)] [ I (N/A) ] ]
+    [[] [J (10)] [K (11)] [L (12)] [M (13)] [N (14)] [O (N/A)] [P (16)] [Q (N/A)] [R (18)] ]
+    [[] [] [S (19)] [T (20)] [U (21)] [V (22)] [W (23)] [X (24)] [Y (25)] [Z (26)] ] 
+]
+
+We need to find an algorithm that convert a letter into its conversion value, the following 
+function do the job:
+[teletype]
 ``
-typedef boost::checks::weight<2,3,4,5,6,7,8,9,10> vin_weight ;
-typedef boost::checks::rightmost vin_sense ;
+X = X % 10 + X/10 + ((X > 18) ? 1 : 0).
 ``
+
+Also the check digit can only be in the range [0..9,X] so we choose to launch the std::invalid_argument
+exception if another letter is read. With the check digit, and following the modulus 11 algorithm, 
+if the check digit is equal to X, the integer value is 10. But this algorithm is different and we must 
+subtract the check digit from 11. Let's see the code now:
+
+[vin_translation_module]
+
+The operation function is partially copied from the function `operate_on_valid_value` in the file __WEIGHTED__SUM__FILE__.
+We need to control the fact that the check digit is in the midst of the number. If there is a check digit
+into the sequence, we mustn't apply a weight and we must avoid shift of the full weight sequence for the future iteration. 
+
+[vin_operation_module]
+
+Finally the calcul of the check digit is different from the classic modulus 11 algorithm, so we need to re-implement it:
+
+[vin_compute_checkdigit]
+
+We can now write the VIN type algorithm:
+
+[vin_preprocessor_algorithm]
+
+And write the functions:
+
+[vin_functions]
+
+[note This algorithm doesn't support full integer array that are not pre-computed ( Ex: (A) 10 -> 1 ; (M) 13 -> 4 ). It can be an excercise for the reader.]
+
+Some basic examples are coded in the file __TUTO__FILE__:
+
+[vin_example]
+
+that provides the following output:
+
+[vin_example_output]
 
 [endsect]
 
