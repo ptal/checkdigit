@@ -10,16 +10,16 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 [import ..\example\checks_examples.cpp]
 In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
 
-"Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime."
+["Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime.]
 
 So we'll learn to extend this library and create our own check functions.
 
-[h5 Starting with Checks]
+[h4 Starting with Checks]
 
-There are two main functions for each checks, the first is to validate a sequence: "check_<number>". The second provides a check digit: "compute_<number>".
+There are two main functions for each checks, the first is to validate a sequence: '''"check_<number>'''". The second provides a check digit: '''"compute_<number>"'''.
 This is the base of this library.
 
-[h4 Credit card numbers check]
+[h5 Credit card numbers check]
 
 We will start with some credit card numbers checking, please first include these headers:
 
@@ -33,7 +33,7 @@ This one provides the output:
 
 [checks_output_1]
 
-[h4 Multi check digits]
+[h5 Multi check digits]
 
 These are some one digit check samples. But some checks use two check digits, 
 such as the mod97-10 algorithm used to calculate the check digits of the International Bank Account Number (IBAN).
@@ -49,7 +49,7 @@ which provides the output:
 
 [checks_output_2]
 
-[h4 Catching error]
+[h5 Catching errors]
 
 We will now see how the library reacts with simple errors. 
 The first error is a number's size that doesn't fit the requirements. 
@@ -67,7 +67,7 @@ The output shows us the detailled message provided to the exception:
 
 [checks_output_3]
 
-[h4 And with integer array]
+[h5 And with integer array]
 
 The old C-array are also supported. In the other examples, we check "number" 
 but with an ASCII code, we can use integer value as well. The following will show 
@@ -78,11 +78,96 @@ We'll use the header:
 
 And the examples:
 
-[check_example_4]
+[checks_example_4]
 
 As you can see in the output, the "X" check digit is represented by its integer value (10)
 with the integer C-array:
 
-[check_output_4]
+[checks_output_4]
+
+[h4 Extending the library]
+
+The re-usability of a library is an important factor, especially with this library.
+In fact, we can't code every existing check functions, this is why we will learn how
+to extend this library and create your own check functions.
+
+[h5 Example with the Routing transit number]
+
+We will show how to extend this library with the __RTN. The first thing to do is to
+read the check digit calculation procedure. So we can notice few points:
+
+# It's a weighted sum and the weight sequence is: 3,7,1.
+# It's using a modulus 10.
+# The size of the RTN is 9.
+
+We can create the rtn.hpp file. The library support the weighted sum and the modulus 10
+algorithm so the work will be easy. We can run through the number from right to left or 
+left to right depending on the weight sequence. We will begin with the leftmost digit
+because it's more "readable".
+
+``
+#include <boost/checks/modulus10.hpp>
+#include <boost/checks/basic_checks.hpp>
+#include <boost/checks/weight.hpp> // For information purpose ! File already included in modulus10.hpp
+#include <boost/checks/iteration_sense.hpp> // For information purpose ! File already included in modulus10.hpp
+
+#define RTN_SIZE 9
+#define RTN_SIZE_WITHOUT_CHECKDIGIT 8
+
+typedef boost::checks::weight<3,7,1> rtn_weight ;
+typedef boost::checks::leftmost rtn_sense ;
+``
+
+We must put it all together into an algorithm type:
+``
+typedef modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_check_algorithm ;
+typedef modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_compute_algorithm ;
+``
+
+The hard part is already done, we can build our check functions now:
+``
+template <typename check_range>
+bool check_rtn (const check_range& check_seq)
+{
+  return boost::checks::check_sequence<rtn_check_algorithm, RTN_SIZE> ( check_seq ) ;
+}
+
+template <typename check_range>
+typename boost::checks::rtn_compute_algorithm::checkdigit<check_range>::type compute_rtn (const check_range& check_seq)
+{
+  return boost::checks::compute_checkdigit<rtn_compute_algorithm, RTN_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+}
+``
+
+And that's all! 
+
+[note `boost::checks::compute_checkdigit` and `boost::checks::check_sequence` are defined in `basic_checks.hpp`]
+
+[h5 Example with the Vehicle Identification Number]
+
+This second example is quite more complete because the __VIN is not a default implemented
+check algorithm. Like for the __RTN, we must read the documentation first, we can extract
+few elements:
+
+* The number contains letter that must be translated to compute or check the check digit.
+* The check digit is not at the end of the number.
+* The letters Q, I, or O are not valids.
+* This use a custom modulus 11 algorithm, so the check digit range is [0..9,X].
+
+The library already have support for modulus 11 algorithm in the header:
+``#include <boost/checks/modulus11.hpp>``
+
+We create the vin.hpp file. Step by step, let's now complete this file.
+
+# The weight sequence is : 2,3,4,5,6,7,8,9,10.
+# We run through the sequence from right to left.
+
+We create the types associated with these two observations:
+``
+typedef boost::checks::weight<2,3,4,5,6,7,8,9,10> vin_weight ;
+typedef boost::checks::rightmost vin_sense ;
+``
+
+
 
 [endsect]
