@@ -53,7 +53,8 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm < luhn_weight, luhn_s
   static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
   {
     int current_weight = luhn_weight::weight_associated_with_pos( valid_value_counter + number_of_virtual_value_skipped ) ;
-    checksum += (current_valid_value << (current_weight - 1)) - 9 * ( current_valid_value << (current_weight - 1) > 9) ;
+    int weighted_value = current_valid_value << (current_weight-1);
+    checksum += weighted_value % 10 + weighted_value / 10 ;
   }
 };
 
