@@ -17,26 +17,53 @@
 [/Note too that it can't be used for images.]
 [def __boostlicense [@http://www.boost.org/LICENSE_1_0.txt Boost License]]
 
+[def __CHECKS_HIERARCHY__ [$images/checks/check_hierarchy.png]]
+[def __EXTENDS_LIBRARY__ [link boost_checks.checks.tutorial.extending_the_library extending the library]]
+
 [def __ISBN [@http://en.wikipedia.org/wiki/Isbn International Standard Book Number (ISBN)]]
 [def __ISSN [@http://en.wikipedia.org/wiki/International_Standard_Serial_Number International Standard Serial Number (ISSN)]]
+[def __VIN [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
+[def __RTN [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
 
 [def __overview [link checks.overview overview]] [/ example of a link to a section.]
 
 [template super[x]'''<superscript>'''[x]'''</superscript>''']
 
-[/include html4_symbols here if you want squiggles, math or greek?]
-
 [def __spaces '''&#x2000;&#x2000;'''] [/ two spaces - useful for an indent.]
 
 [section:checks Boost.Checks]
 
+[section:preface Preface]
+
+The checks are required in a numerous kind of domains such as the distribution chain (bar codes), 
+the cards number (bank, fidelity cards, ...) and many others. These codes and numbers are often 
+copied or scanned by humans or machines, and both make errors. We need a way to control it and this 
+is why the check digit has been designed. A check digit is aimed to control the validity of a number 
+and catch the maximum mismatched input (we'll detail further the different errors).
+
+[endsect][/section:preface Preface]
+
 [section:overview Overview]
 This library provides a collection of functions for validating and creating check digits.
 
-Most are primarily for checking the accuracy of short strings of typed input
-(though it obviously also provides against a mis-scan by a device like a bar code or card reader).
-The well-known ISBN is a typical example.  All single altered digits, most double altered digits,
-and transpositions of two digits are caught, and the input rejected as an invalid ISBN. 
+Scott McMurray has identifed four fairly distinct types of check:
+
+# ISBN/ISSN/UPC/EAN/VISA/etc, for catching human-entry errors.
+# hash functions as in hash tables, which only care about distribution.
+# checksums like CRC32, for catching data transmission errors.
+# and cryptographic hash functions, the only ones useful against malicious adversaries.
+
+These are primarily for the first category : catching human-entry errors (though it obviously also 
+provides against a mis-scan by a device like a bar code or card reader.) 
+Actually, this library supports four families of check : Modulus 10, Modulus 11, Modulus 97-10 
+and Verhoeff. A lot of other checks are inherited from these families, the following diagram 
+shows the hierachy used in Boost.Checks:
+
+__CHECKS_HIERARCHY__
+
+You can find numerous check algorithm, and this is why this library is design to help you to create your own check.
+If you are interested, please consult __EXTENDS_LIBRARY__.
+
 
 [important This is not (yet) an official Boost library. It was a
 [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]
@@ -50,111 +77,17 @@ may still be changed without notice.  The current version is available at
 
 [*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code]
 
-[note Comments and suggestions (even bugs!) to Pierre Talbot pierre.talbot.6114(at) herslibramont (dot).be]
-
+[note Comments and suggestions (even bugs!) to Pierre Talbot pierre.talbot.6114 (at) herslibramont (dot) be]
 [include conventions.qbk]
-
 [endsect] [/section:overview Overview]
 
-[include introduction.qbk]
 [include tutorial.qbk]
 [include errors.qbk]
 [include modulus.qbk]
 
-[section:isbn ISBN checking]
-
-The functions defined at [/ @../../../../boost/checks/isbn.hpp <boost/checks/isbn.hpp>]
-are for validating and computing check digits of
-[/  Use defined __ISBN instead of @http://en.wikipedia.org/wiki/International_Standard_Book_Number ISBN] 
-__ISBN strings.
-
-[h4 Error detecting]
-
-You probably want a section on how good things are at detecting changes in the string.
-This has been well studied for the Verhoeff/Gumm system.
-
-Some of your tests might be devoted to confirming that this is really true?
-
-All alterations of a single digit will be detected.
-
-Most alterations of two digits will be detected. 
-
-All two digit transpositions will be detected.
-
-
-[section:synposis Synopsis]
-  
-[/ Don't need synopsis as have reference section.
-You can reference its 'synopsis' but I can't recall how just now ;-)
-Exercise for the student, or wait till I get back!]
-
-[/funcref fully::qualified::function_name Link text]
-[/funcref boost::checks::is_isbn10 is_isbn10 function]
-
-  // This function checks if an `isbn10` is a valid ISBN. 
-  bool is_isbn10(const std::string& isbn);
-  
-  // This function computes and returns the check digit for a given 9 digit ISBN in `isbn`.
-  char isbn_check_digit(const std::string& isbn); 
-  
-[endsect] [/section:synposis Synopsis]
-
-Both functions assume that `isbn` is a 10-digit ISBN containing only ANSI digits '0' to '9', or ANSI letters 'X',  'Y', 'x',  'y'.
-
-[/ PAB note: What about UTF here? I think they will 'just work' but I'm ignorant :-( ]
-
-[/But I think this is superceeded by the doxygen version.]
-
-[endsect] [/section:isbn ISBN checking]
-
-
-[section:upc Universal Product Code (UPC) checking]
-
-UPC is a sub-set of
-[@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]
-- see [@http://en.wikipedia.org/wiki/Universal_Product_Code Universal Product Code (UPC)].
-
-The original UPC is still in use and has 12 decimal digits, for example, a UPC for a box of tissues)
-
-"03600029145X" where X is the check digit, in this case having a value of 2.
-
-On products, it is usually printed as a barcode, but the decimal digits are visible too.
-
-[@http://en.wikipedia.org/wiki/File:UPC_EANUCC-12_barcode.svg UPC EANUCC 12 barcode]
-
-This is a local copy of the barcode:
-
-[$../images/UPC_EANUCC-12_barcode.png]
-[/$../images/UPC_EANUCC-12_barcode.svg [/width 50mm] [/height 20mm]]
-[/ The size control doesn't seem to be effective for the svg version, so use png.]
-[/ Need to acknowledge this source - see link above.]
-
-[endsect] [/section:upc UPC checking]
-
-[section:ean International Article Number (EAN) checking]
-
-EAN is a super-set of the original US 12-digit Universal Product Code (UPC) UPC13 digit (12 + check digit) barcoding standard.
-
-See ????
-
-[endsect] [/section:ean International Article Number (EAN) checking]
-
-
-[section:tips Hints and Tips]
-
-* This manual is also available as a single PDF file which may be easily emailed and printed.
-
-* This is another tip?
-
-[endsect] [/section:tips Hints and Tips]
-
-
 [section:acks Acknowledgements]
 
 * Thanks to Paul A. Bristow who is the mentor of this project for her infinite patience and his wise advices.
-
-* [@http://en.wikipedia.org/wiki/File:UPC_EANUCC-12_barcode.svg UPC EANUCC 12 barcode]
-is copied from Wikipedia under the Creative Commons license.
 
 [endsect] [/section:acks Acknowledgements]
 
@@ -167,8 +100,8 @@ is copied from Wikipedia under the Creative Commons license.
 
 [section:refs References]
 
-# __ISBN
-# __ISSN 
+# __RTN
+# __VIN 
 
 [endsect] [/section:refs References]
 
@@ -178,11 +111,13 @@ This section records the rationale and compromises for some design decisions.
 
 [h4 Function parameter]
 
-* Functions that take a single `std::string` are convenient for users with simple requirements.
-This may be simplest what a string is typed in.
-* Functions that use std:: iterators `begin` and `end`
-allow efficient use of a decimal digits string within other text, for example when a record
-is retrieve from a database.
+* For more flexibility, this library use the range concept. So you can use old C-array or 
+std::string,...
+* If there is only one check digit in the number, this check digit is returned in the same
+raw type than in the range sequence.
+* If there is more than one check digit, an extra parameter is required. This must be an 
+OutputIterator, the function returns an iterator at one pass the end of the check digit 
+stored into this iterator.
 
 [h4 Scope of the project]
 
@@ -195,10 +130,10 @@ is retrieve from a database.
 This project is directed first at the first class.
 Others might be the subject of future additions or other libraries.
 
-* Performance is not a major objective, as most input is tiny,
-and the number of items often likely to be quite small.
+[h4 Performance]
 
-* Convenience and flexibility for the user is the highest priority.
+* Performance is not a major objective, but all the current algorithms
+are implemented with a O(n) complexity. 
 
 [endsect] [/section:rationale Rationale]
 
@@ -210,36 +145,17 @@ and the number of items often likely to be quite small.
 
 [endsect] [/section:history History]
 
-[section:todo TODO]
-
-This section lists items that are acknowledged as work still TODO.
-
-# Produce 1st version for comment.
-# Produce version for pre-review.
-
-[endsect] [/section:todo TODO]
-
 [section:version_id Version Info]
 
 Last edit to Quickbook file __FILENAME__ was at __TIME__ on __DATE__.
 
-[tip This version information should appear on the pdf version
- (but is redundant on html where the last revised date is on the bottom line of the home page).]
 [warning Home page "Last revised" is GMT, not local time.  Last edit date is local time.]
-[/See also Adobe Reader pdf File Properties for creation date, and PDF producer, version and page count.]
-
-[caution It does not give the last edit date of other included .qbk files, so may mislead!]
-[/See also Adobe Reader pdf File Properties for creation date, and PDF producer, version and page count.]
 
 [endsect] [/section:version_id Version Info]
 
 [endsect] [/section:checks Boost.Checks]
 
 [xinclude autodoc.xml] [/ Using Doxygen reference documentation.]
-[/ The position of this command in the Quickbook determines the location of the Doxygen references section.]
-
-
-[/ PAB Note:doubt if you need all these - just <index/> is probably enough???)]
 
 [/This (if enabled) creates an Index section that include the class, function ... indexes, and also a full index with <index/>]
 [? enable_index
