@@ -46,7 +46,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \param current_value is the current value analysed in the sequence that must be translated.
     \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
-    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n The translation will fail if the current value is not a digit (0 <= i < 11) or the 'x' or 'X' character.
+    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n The translation will fail if the current value is not a digit (0 <= i < 10). If it's the rightmost digit the value 10 or the 'x' or 'X' character is allowed.
 
     \returns the translation of the current value in the range [0..10].
 */
@@ -60,12 +60,12 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     }
     catch( boost::bad_lexical_cast )
     {
-      if( current_value == 'x' || current_value == 'X' )
+      if( (valid_value_counter + number_of_virtual_value_skipped == 1) && (current_value == 'x' || current_value == 'X') )
         valid_value = 10 ;
       else
         throw boost::checks::translation_exception() ;
     }
-    if( valid_value > 10)
+    if( valid_value > 10 || (valid_value == 10 && (valid_value_counter + number_of_virtual_value_skipped == 1) ) )
       throw boost::checks::translation_exception() ;
     return valid_value ;
   }
@@ -95,12 +95,19 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
   template <typename checkdigit>
   static typename checkdigit compute_checkdigit( int checksum )
   {
-   try
-   {
-      return boost::lexical_cast<checkdigit>((11 - checksum % 11) %11) ;
-   }
-   catch( boost::bad_lexical_cast )
-   {
+     return translate_checkdigit((11 - checksum % 11) % 11) ;
+  }
+
+protected:
+  template <typename checkdigit>
+  static typename checkdigit translate_checkdigit( int _checkdigit )
+  {
+    try
+    {
+       return boost::lexical_cast<checkdigit>(_checkdigit) ;
+    }
+    catch( boost::bad_lexical_cast )
+    {
       try
       {
         return boost::lexical_cast<checkdigit>('X') ;
@@ -111,6 +118,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
       }
     }
   }
+
 };
 
 /*!
