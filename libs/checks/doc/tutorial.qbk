@@ -7,6 +7,7 @@ Boost Software License, Version 1.0.
 or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
 [section Tutorial]
+[import ..\example\checks_examples.cpp]
 In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
 
 "Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime."
@@ -83,3 +84,5 @@ As you can see in the output, the "X" check digit is represented by its integer 
 with the integer C-array:
 
 [check_output_4]
+
+[endsect]
