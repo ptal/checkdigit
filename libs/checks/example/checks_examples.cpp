@@ -18,9 +18,6 @@
 #include <iostream>
 #include <string>
 
-#include <sstream>
-#include <fstream> 
-
 #include <iterator>
 
 //[credit_cards_include_files
