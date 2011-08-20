@@ -1,5 +1,5 @@
 //! \file
-//! \brief Examples of the functions provided in the file modulus.hpp
+//! \brief Examples of validating and computing check digit(s) with Boost.Checks
 
 // Copyright Pierre Talbot 2011.
 
@@ -23,52 +23,92 @@
 
 #include <iterator>
 
+//[credit_cards_include_files
+#include <boost/checks/visa.hpp>
+#include <boost/checks/amex.hpp>
+#include <boost/checks/mastercard.hpp>
+//]
+
+//[mod97_10_include_file
+#include <boost/checks/modulus97.hpp>
+//]
+
+//[ean_include_file
+#include <boost/checks/ean.hpp>
+//]
+
+//[isbn_include_file
+#include <boost/checks/isbn.hpp>
+//]
+
 #include <boost/checks/checks_fwd.hpp> // Forward declarations.
-//[modulus_include_file
-#include <boost/checks/basic_checks.hpp>
-//] [/modulus_include_file]
 
 int main()
 {
-  //[checks_modulus_example_1
+  //[checks_example_1
 
-  std::string luhn_number = "123455" ; // Initialisation
-  // Verification
-  if( boost::checks::check_mod10<2,1>( luhn_number) )
-    std::cout << "The number " << luhn_number << " is a valid luhn number." << std::endl;
+  std::string visa_credit_card_number = "4000 0807 0620 0007" ;
+  if( boost::checks::check_visa( visa_credit_card_number ) )
+    std::cout << "The VISA credit card number : " << visa_credit_card_number << " is valid." << std::endl ;
 
-  //] [/checks_modulus_example_1]
+  std::string amex_credit_card_number = "3458 2531 9273 09" ;
+  char amex_checkdigit = boost::checks::compute_amex( amex_credit_card_number ) ;
+  std::cout << "The check digit of the American Express number : " << amex_credit_card_number << " is " << amex_checkdigit << "." << std::endl ;
 
-  //[checks_modulus_example_2
-  /*
-  std::wifstream mod11_ifile("files/checks_file_unicode_input.txt", std::ios::in);
-  std::wofstream mod11_ofile("files/checks_file_unicode_output.txt", std::ios::out | std::ios::trunc );
+  std::string mastercard_credit_card_number = "5320 1274 8562 157" ;
+  mastercard_credit_card_number += boost::checks::compute_mastercard( mastercard_credit_card_number );
+  std::cout << "This is a valid Mastercard number : " << mastercard_credit_card_number << std::endl ;
 
-  std::wstring tmp_mod11_number ;
+  //] [/checks_example_1]
 
-  while( std::getline(mod11_ifile, tmp_mod11_number) )
+  std::cout << std::endl ;
+
+  //[checks_example_2
+
+  std::string mod97_10_number = "1234567890123456789" ;
+  std::string mod97_10_checkdigits = "  " ;
+  boost::checks::compute_mod97_10 ( mod97_10_number , mod97_10_checkdigits.begin() ) ;
+  std::cout << "The number : " << mod97_10_number << " have the check digits : " << mod97_10_checkdigits << "." << std::endl ;
+
+  mod97_10_number = "85212547851652  " ;
+  boost::checks::compute_mod97_10 ( mod97_10_number , mod97_10_number.end() - 2);
+  std::cout << "A complete mod97-10 number : " << mod97_10_number << std::endl ;
+
+  //] [/checks_example_2]
+
+  std::cout << std::endl ;
+
+  //[checks_example_3
+
+  std::string ean13_number = "540011301748" ; // Incorrect size.
+  try{
+    boost::checks::check_ean13 ( ean13_number ) ;
+  }catch ( std::invalid_argument e )
   {
-    wchar_t check_digit = boost::checks::compute_mod11<wchar_t>(tmp_mod11_number.begin(), tmp_mod11_number.end() );
-    mod11_ofile << tmp_mod11_number << " check digit : " << check_digit << std::endl ;
+    std::cout << e.what() << std::endl ;
   }
-  mod11_ofile.close();
-  mod11_ifile.close();*/
 
-  //] [/checks_modulus_example_2]
+  std::string isbn13_number = "977-0321227256" ; // Third digit altered.
+  try{
+    boost::checks::check_isbn13( isbn13_number );
+  }catch ( std::invalid_argument e )
+  {
+    std::cout << e.what() << std::endl ;
+  }
 
-  //[checks_modulus_example_3
+  //] [/checks_example_3]
 
-  // Design the weight pattern for the Routing transit number (RTN)
-  /*oost::array<unsigned int, 3> rtn_weight_pattern = {3,7,1};
+  std::cout << std::endl ;
 
-  std::string rtn_number = "12345678" ;
+  //[checks_example_4
 
-  rtn_number += boost::checks::compute_mod10(rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 8) ;
+  std::string isbn10_number = "020163371" ; // More Effective C++: 35 New Ways to Improve Your Programs and Designs, Scott Meyers.
+  int isbn10_integer_number[] = {0,2,0,1,6,3,3,7,1} ;
 
-  if ( boost::checks::check_mod10( rtn_number.begin(), rtn_number.end(), rtn_weight_pattern, 9) )
-    std::cout << "The routing transit number (RTN) : " << rtn_number << " is valid." << std::endl ;
-    */
-  //] [/checks_modulus_example_3]
+  std::cout << "ISBN10 : " << isbn10_number << ". Check digit : " << boost::checks::compute_isbn10( isbn10_number ) << std::endl ;
+  std::cout << "ISBN10 integer version. Check digit : " << boost::checks::compute_isbn10( isbn10_integer_number ) << std::endl ;
+
+  //] [/checks_example_4]
 
   return 0;
 
@@ -78,37 +118,42 @@ int main()
 
 Example 1
 ---------
-//[checks_modulus_output_1
+//[checks_output_1
 
-The number 123455 is a valid luhn number.
+The VISA credit card number : 4000 0807 0620 0007 is valid.
+The check digit of the American Express number : 3458 2531 9273 09 is 4.
+This is a valid Mastercard number : 5320 1274 8562 1570
 
-//] [/checks_isbn_output_1] 
+//] [/checks_output_1] 
+
+Example 2
+---------
+
+//[checks_output_2
+
+The number : 1234567890123456789 have the check digits : 68.
+A complete mod97-10 number : 8521254785165211
+
+//] [/checks_output_2]
+
 
 Example 3
 ---------
 
-//[checks_modulus_output_3
+//[checks_output_3
 
-The routing transit number (RTN) : 123456780 is valid.
+Too few or too much valid values in the sequence.
+The third digit should be 8 or 9.
 
-//] [/checks_modulus_output_3]
-
+//] [/checks_output_3]
 
 Example 4
 ---------
 
-//[checks_modulus_output_4
+//[checks_output_4
 
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
-The number is valid.
+ISBN10 : 020163371. Check digit : X
+ISBN10 integer version. Check digit : 10
 
-//] [/checks_modulus_output_4]
+//] [/checks_output_4]
 */
