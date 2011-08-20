@@ -6,7 +6,7 @@ Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt
 or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
-[section Tutorial]
+[section:tutorial Tutorial]
 [import ..\example\checks_examples.cpp]
 In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
 
@@ -14,9 +14,9 @@ In this section, we will quickly learn to use this library. But most important i
 
 So we'll learn to extend this library and create our own check functions.
 
-[h4 Starting with Checks]
+[section:start Starting with Checks]
 
-There are two main functions for each checks, the first is to validate a sequence: '''"check_<number>'''". The second provides a check digit: '''"compute_<number>"'''.
+There are two main functions for each checks, the first is to validate a sequence: `check_<number>`. The second provides a check digit: `compute_<number>`.
 This is the base of this library.
 
 [h5 Credit card numbers check]
@@ -85,7 +85,8 @@ with the integer C-array:
 
 [checks_output_4]
 
-[h4 Extending the library]
+[endsect]
+[section:extending_the_library Extending the library]
 
 The re-usability of a library is an important factor, especially with this library.
 In fact, we can't code every existing check functions, this is why we will learn how
@@ -168,6 +169,6 @@ typedef boost::checks::weight<2,3,4,5,6,7,8,9,10> vin_weight ;
 typedef boost::checks::rightmost vin_sense ;
 ``
 
-
+[endsect]
 
 [endsect]
