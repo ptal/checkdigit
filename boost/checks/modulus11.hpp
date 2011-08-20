@@ -46,9 +46,9 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \param current_value is the current value analysed in the sequence that must be translated.
     \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
-    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n The translation will fail if the current value is not a digit or the 'x' or 'X' character.
+    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n The translation will fail if the current value is not a digit (0 <= i < 11) or the 'x' or 'X' character.
 
-    \returns the translation of the current value. 10 is returned if the current value was 'X' or 'x'.
+    \returns the translation of the current value in the range [0..10].
 */
   template <typename value>
   static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
@@ -65,6 +65,8 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
       else
         throw boost::checks::translation_exception() ;
     }
+    if( valid_value > 10)
+      throw boost::checks::translation_exception() ;
     return valid_value ;
   }
 
