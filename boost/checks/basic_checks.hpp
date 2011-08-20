@@ -60,14 +60,13 @@ int compute_checksum(iterator seq_begin, iterator seq_end )
 
 /*! 
     \brief Create iterators according to the algorithm::iterator policy. And call the iterator overload version of compute_checksum.
-
-    \pre seq_begin and seq_end are valid iterators.
+   
+    \pre check_seq is a valid range.
 
     \tparam algorithm is a set of static method use to translate, filter and calculate or verify the checkdigit.
     \tparam size_contract is a contract concerning the size of the sequence.
-    \tparam iterator Must meet the InputIterator requirements.
-    \param seq_begin Beginning of the sequence.
-    \param seq_end Ending of the sequence.
+    \tparam check_range is a valid range type.
+    \param check_seq is the sequence of value to check.
 
     \throws size_contract::exception_size_failure If the terms of the contract are not respected.
 

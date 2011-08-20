@@ -42,7 +42,7 @@ struct amex_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_
     \brief Verify that a number matches the amex pattern.
 
     \param current_valid_value is the current valid value analysed.
-    \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+    \param current_value_position is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
     \throws std::invalid_argument if the first character is not equal to 3 or the second is not equal to 4 or 7. The exception contains a descriptive message of what was expected.
 

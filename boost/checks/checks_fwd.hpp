@@ -58,6 +58,17 @@ and C++ include files are in folder:
     #pragma once
 #endif
 
+#include <boost/checks/luhn.hpp>
+#include <boost/checks/verhoeff.hpp>
+#include <boost/checks/modulus11.hpp>
+#include <boost/checks/modulus97.hpp>
+#include <boost/checks/ean.hpp>
+#include <boost/checks/isbn.hpp>
+#include <boost/checks/upc.hpp>
+#include <boost/checks/amex.hpp>
+#include <boost/checks/visa.hpp>
+#include <boost/checks/mastercard.hpp>
+
 namespace boost{
   namespace checks{
 
