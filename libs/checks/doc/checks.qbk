@@ -139,35 +139,6 @@ See ????
 
 [endsect] [/section:ean International Article Number (EAN) checking]
 
-[section:tutorial Tutorial Examples]
-
-Here some general tutorial stuff.
-
-followed by specific examples??
-
-[section:isbn_example ISBN example]
-
-Here is a really trivial example of making an ISBN check and also computing the check digit.
-
-[/ import ..\example\isbn_example.cpp]
-
-First we need to include the appropriate file including the check and compute functions.
-
-[/ checks_isbn_example_1]
-
-Then assuming that the ISBN is in a `std::string`, we can check a complete ISBN,
-and also compute the check digit from one lacking the check digit.
-
-[/ checks_isbn_example_2]
-
-This provides this output:
-
-[/ checks_isbn_output_1]
-
-[endsect] [/section:isbn_example ISBN example]
-
-[endsect] [/section:tutorial Tutorial Examples]
-
 
 [section:tips Hints and Tips]
 
