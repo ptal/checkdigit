@@ -1,8 +1,14 @@
+[/ 
+Copyright Pierre Talbot 2011.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
 [section:errors Type of errors]
 
-The following sections will describe some of the errors that an user or a device can make. 
-Those are the most frequent and we are not exhaustive, however we will find out how well our algorithms work.
-We will calculate (in a mathematical way) the probability of failures and the factors which affect it.
+This section will describe some common errors that an user or a device can make. 
 
 [section:alteration Alteration]
 
