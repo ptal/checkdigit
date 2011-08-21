@@ -20,15 +20,16 @@
 [def __CHECKS__HIERARCHY__ [$images/checks/check_hierarchy.png]]
 [def __EXTENDS__LIBRARY__ [link boost_checks.checks.tutorial.extending_the_library extending the library]]
 
-[def __BASIC__CHECK__FILE__ [@ ../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
-[def __WEIGHTED__SUM__FILE__ [@ ../../../boost/checks/weighted_sum.hpp weighted_sum.hpp]]
-[def __RTN__FILE__ [@ ../example/rtn.hpp rtn.hpp]]
-[def __VIN__FILE__ [@ ../example/vin.hpp vin.hpp]]
-[def __CHECKS__TUTO__FILE__ [@ ../example/checks_tutorial.cpp checks_tutorial.cpp]]
-[def __CHECKS__EXAMPLE__FILE__ [@ ../example/checks_examples.cpp checks_examples.cpp]]
+[def __BASIC__CHECK__FILE__ [@../../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
+[def __WEIGHTED__SUM__FILE__ [@../../../../boost/checks/weighted_sum.hpp weighted_sum.hpp]]
+[def __RTN__FILE__ [@../../example/rtn.hpp rtn.hpp]]
+[def __VIN__FILE__ [@../../example/vin.hpp vin.hpp]]
+[def __CHECKS__TUTO__FILE__ [@../../example/checks_tutorial.cpp checks_tutorial.cpp]]
+[def __CHECKS__EXAMPLE__FILE__ [@../../example/checks_examples.cpp checks_examples.cpp]]
 
 [def __ISBN [@http://en.wikipedia.org/wiki/Isbn International Standard Book Number (ISBN)]]
 [def __ISSN [@http://en.wikipedia.org/wiki/International_Standard_Serial_Number International Standard Serial Number (ISSN)]]
+[def __IBAN [@http://en.wikipedia.org/wiki/International_Bank_Account_Number International Bank Account Number (IBAN)]]
 [def __VIN [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
 [def __RTN [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
 [def __CODE39 [@http://en.wikipedia.org/wiki/Code_39 Code 39]]
@@ -86,6 +87,7 @@ may still be changed without notice.  The current version is available at
 [endsect] [/section:overview Overview]
 
 [include tutorial.qbk]
+[include algorithm.qbk]
 [include errors.qbk]
 [include modulus.qbk]
 
