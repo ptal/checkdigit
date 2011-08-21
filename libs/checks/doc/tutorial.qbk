@@ -22,7 +22,7 @@ So we'll learn to extend this library and create our own check functions.
 [section:start Starting with Checks]
 
 There are two main functions for each checks, the first is to validate a sequence: `check_<number>`. The second provides a check digit: `compute_<number>`.
-This is the base of this library.
+All the examples of this section are in the file __CHECKS__EXAMPLE__FILE__.
 
 [h5 Credit card numbers check]
 
@@ -40,8 +40,8 @@ This one provides the output:
 
 [h5 Multi check digits]
 
-These are some one digit check samples. But some checks use two check digits, 
-such as the mod97-10 algorithm used to calculate the check digits of the International Bank Account Number (IBAN).
+Some checks use two check digits, such as the mod97-10 algorithm use to calculate 
+the check digits of the International Bank Account Number (IBAN).
 We add an extra parameter to retrieve the two check digits. The include file is:
 
 [mod97_10_include_file]
@@ -68,7 +68,7 @@ The two examples of number error:
 
 [checks_example_3]
 
-The output shows us the detailled message provided to the exception:
+The output shows us the detailled message the exception provided:
 
 [checks_output_3]
 
@@ -125,7 +125,7 @@ And that's all!
 [note `boost::checks::compute_checkdigit` and `boost::checks::check_sequence` are defined in __BASIC__CHECK__FILE__]
 
 
-We can code a RTN sample in the file __TUTO__FILE__:
+We can code a RTN sample in the file __CHECKS__TUTO__FILE__:
 
 [rtn_example]
 
@@ -207,7 +207,7 @@ And write the functions:
 
 [note This algorithm doesn't support full integer array that are not pre-computed ( Ex: (A) 10 -> 1 ; (M) 13 -> 4 ). It can be an excercise for the reader.]
 
-Some basic examples are coded in the file __TUTO__FILE__:
+Some basic examples are coded in the file __CHECKS__TUTO__FILE__:
 
 [vin_example]
 
