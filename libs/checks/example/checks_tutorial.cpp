@@ -35,6 +35,7 @@ int main()
   vin_number = "1M8GDM9AKP042788" ;
   std::cout << "The check digit of " << vin_number << " is " << compute_vin ( vin_number) << std::endl ;
   return 0;
+  //]
 }
 /*
 
@@ -48,4 +49,6 @@ The check digit of the number: 11100002 is 5.
 //[vin_example_output
 The Vehicle Identification Number: 1M8GDM9AXKP042788 is correct.
 The check digit of 1M8GDM9AKP042788 is X
+//]
+
 */
