@@ -95,6 +95,9 @@ struct make_mod97_weight
   static const unsigned int value = weight_value ;
   typedef make_mod97_weight<weight_value * 10 % 97> next ;
 };
+/*! \class make_mod97_weight
+    \brief This class is the terminal specialisation of make_mod97_weight, so the recursion can finish. 
+*/
 template<>
 struct make_mod97_weight<68>
 {
