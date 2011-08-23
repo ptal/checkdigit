@@ -1,5 +1,5 @@
 //! \file
-//! \brief Examples of validating and computing check digit(s) with Boost.Checks
+//! \brief Examples of validating and computing check digit(s) with Boost.Checks.
 
 // Copyright Pierre Talbot 2011.
 
@@ -17,7 +17,7 @@
 
 #include <iostream>
 #include <string>
-
+#include <exception>
 #include <iterator>
 
 //[credit_cards_include_files
@@ -78,17 +78,21 @@ int main()
   //[checks_example_3
 
   std::string ean13_number = "540011301748" ; // Incorrect size.
-  try{
+  try
+  {
     boost::checks::check_ean13 ( ean13_number ) ;
-  }catch ( std::invalid_argument e )
+  }
+  catch ( std::invalid_argument e )
   {
     std::cout << e.what() << std::endl ;
   }
 
   std::string isbn13_number = "977-0321227256" ; // Third digit altered.
-  try{
+  try
+  {
     boost::checks::check_isbn13( isbn13_number );
-  }catch ( std::invalid_argument e )
+  }
+  catch ( std::invalid_argument e )
   {
     std::cout << e.what() << std::endl ;
   }
@@ -121,7 +125,7 @@ The VISA credit card number : 4000 0807 0620 0007 is valid.
 The check digit of the American Express number : 3458 2531 9273 09 is 4.
 This is a valid Mastercard number : 5320 1274 8562 1570
 
-//] [/checks_output_1] 
+//] [/checks_output_1]
 
 Example 2
 ---------

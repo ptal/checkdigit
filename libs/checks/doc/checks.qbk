@@ -1,4 +1,4 @@
-[article Boost.Checks
+[article Boost_Checks
     [quickbook 1.5]
     [copyright 2011 Pierre Talbot]
     [license
@@ -17,6 +17,9 @@
 [/Note too that it can't be used for images.]
 [def __boostlicense [@http://www.boost.org/LICENSE_1_0.txt Boost License]]
 
+[def __GSOC [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]]
+
+
 [def __CHECKS__HIERARCHY__ [$images/checks/check_hierarchy.png]]
 [def __EXTENDS__LIBRARY__ [link boost_checks.checks.tutorial.extending_the_library extending the library]]
 
@@ -27,12 +30,19 @@
 [def __CHECKS__TUTO__FILE__ [@../../example/checks_tutorial.cpp checks_tutorial.cpp]]
 [def __CHECKS__EXAMPLE__FILE__ [@../../example/checks_examples.cpp checks_examples.cpp]]
 
+[def __VISA [@http://en.wikipedia.org/wiki/Visa_credit_card Visa credit card]]
+[def __MASTERCARD [@http://en.wikipedia.org/wiki/Mastercard Mastercard credit card]]
+[def __AMEX [@http://en.wikipedia.org/wiki/American_Express  American Express]]
 [def __ISBN [@http://en.wikipedia.org/wiki/Isbn International Standard Book Number (ISBN)]]
 [def __ISSN [@http://en.wikipedia.org/wiki/International_Standard_Serial_Number International Standard Serial Number (ISSN)]]
 [def __IBAN [@http://en.wikipedia.org/wiki/International_Bank_Account_Number International Bank Account Number (IBAN)]]
 [def __VIN [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
 [def __RTN [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
 [def __CODE39 [@http://en.wikipedia.org/wiki/Code_39 Code 39]]
+[def __EAN [@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]]
+
+[def __types_of_errors [link boost_checks.checks.errors types of error]]
+[def __overview [link boost_checks.checks.overview Overview]]
 
 [def __spaces '''&#x2000;&#x2000;'''] [/ two spaces - useful for an indent.]
 
@@ -40,13 +50,16 @@
 
 [section:preface Preface]
 
-The checks are required in a numerous kind of domains such as the distribution chain (bar codes), 
-the cards number (bank, fidelity cards, ...) and many others. These codes and numbers are often 
-copied or scanned by humans or machines, and both make errors. We need a way to control it and this 
-is why the check digit has been designed. A check digit is aimed to control the validity of a number 
-and catch the maximum mismatched input (we'll detail further the different errors).
+The checks are required in numerous domains such as the distribution chain (bar codes), 
+banking (bank account, credit cards, fidelity cards, ...) and many others.
+These codes and numbers are often copied or scanned by humans or machines;
+and both make errors. We need a way to detect errors and this 
+is why check digits have been designed. A check digit aimes to control the validity of a number 
+and catch the as many changes as possible.
+(__types_of_errors discuss possible alterations and their detection).
 
-[endsect][/section:preface Preface]
+
+[endsect] [/section:preface Preface]
 
 [section:overview Overview]
 This library provides a collection of functions for validating and creating check digits.
@@ -58,32 +71,38 @@ Scott McMurray has identifed four fairly distinct types of check:
 # checksums like CRC32, for catching data transmission errors.
 # and cryptographic hash functions, the only ones useful against malicious adversaries.
 
-These are primarily for the first category : catching human-entry errors (though it obviously also 
-provides against a mis-scan by a device like a bar code or card reader.) 
-Actually, this library supports four families of check : Modulus 10, Modulus 11, Modulus 97-10 
-and Verhoeff. A lot of other checks are inherited from these families, the following diagram 
-shows the hierachy used in Boost.Checks:
+These are primarily for the first category : catching human-entry errors
+(though it obviously also provides against a mis-scan or mis-transmit 
+by a device like a bar code or card reader.) 
+
+This library supports four families of check : Modulus 10, Modulus 11, Modulus 97-10 
+and Verhoeff. A lot of other check systems are inherited from these families.
+
+The following diagram shows the hierachy used in Boost.Checks:
 
 __CHECKS__HIERARCHY__
 
-You can find numerous check algorithm, and this is why this library is design to help you to create your own check.
-If you are interested, please consult __EXTENDS__LIBRARY__.
+Numerous check algorithms are in use worldwide,
+and this is why this library is designed to help you to cater
+for these less common checks, and even to create your own check systems.
+If you are interested, see __EXTENDS__LIBRARY__.
 
-
-[important This is not (yet) an official Boost library. It was a
-[@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]
+[important This is not (yet) an official Boost library. It was a __GSOC
 whose mentor organization was Boost. It remains a library under construction,
 the code is quite functional, but interfaces, library structure, and names
 may still be changed without notice.  The current version is available at
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/pdf/checks.pdf PDF documentation]
+[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/pdf/checks.pdf PDF documentation.]
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html HTML documentation]
+[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html HTML documentation.]
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code]
+[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]
+]
 
 [note Comments and suggestions (even bugs!) to Pierre Talbot pierre.talbot.6114 (at) herslibramont (dot) be]
+
 [include conventions.qbk]
+
 [endsect] [/section:overview Overview]
 
 [include tutorial.qbk]
@@ -93,7 +112,8 @@ may still be changed without notice.  The current version is available at
 
 [section:acks Acknowledgements]
 
-* Thanks to Paul A. Bristow who is the mentor of this project for her infinite patience and his wise advices.
+* Thanks to Paul A. Bristow who is the mentor of this Google Summber of Code project for his infinite patience and his wise advice.
+* Thanks for Google for funding this Google Summber of Code 2011 project.
 
 [endsect] [/section:acks Acknowledgements]
 
@@ -116,18 +136,8 @@ may still be changed without notice.  The current version is available at
 
 This section records the rationale and compromises for some design decisions.
 
-[h4 Function parameter]
-
-* For more flexibility, this library use the range concept. So you can use old C-array or 
-std::string,...
-* If there is only one check digit in the number, this check digit is returned in the same
-raw type than in the range sequence.
-* If there is more than one check digit, an extra parameter is required. This must be an 
-OutputIterator, the function returns an iterator at one pass the end of the check digit 
-stored into this iterator.
 
 [h4 Scope of the project]
-
 *Scott McMurray has identifed four fairly distinct types of check:
   # ISBN/ISSN/UPC/EAN/VISA/etc, for catching human-entry errors.
   # hash functions as in hash tables, which only care about distribution.
@@ -137,10 +147,27 @@ stored into this iterator.
 This project is directed first at the first class.
 Others might be the subject of future additions or other libraries.
 
+[h4 Function parameter]
+
+* For more flexibility, this library uses the range concept. So you can use old C-array or 
+std::string,...
+* If there is only one check digit in the number, this check digit is returned in the same
+raw type than in the range sequence.
+* If there is more than one check digit, an extra parameter is required. This must be an 
+OutputIterator, the function returns an iterator at one pass the end of the check digit 
+stored into this iterator.
+
+[h4 Use of template parameters to pass size and weights]
+* This feature means that much of the commonality between the various check systems
+can be implemented in one place and reused.
+* It also makes it possible to implement other check systems
+(of which there are very many in use worldwide)
+and to devise new ones without writing new code.
+
 [h4 Performance]
 
 * Performance is not a major objective, but all the current algorithms
-are implemented with a O(n) complexity. 
+are implemented with a ['O(n)] complexity, where ['n] is the number of digits or characters. 
 
 [endsect] [/section:rationale Rationale]
 
@@ -148,7 +175,7 @@ are implemented with a O(n) complexity.
 
 # Project started by Pierre Talbot June 2011 as a Google Summer of Code Project.
 
-# First release in Boost Sandbox for public comment ????
+# First release in Boost Sandbox for public comment Aug 2011.
 
 [endsect] [/section:history History]
 

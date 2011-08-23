@@ -1,7 +1,8 @@
 [section:conventions Document Conventions]
 
-* [*Tutorials] are listed in the ['Table of Contents] and include many examples that should help you get started quickly.
-* [*Source code] of the many ['Examples] will often be your quickest start.
+* [*Tutorials] are listed in the ['Table of Contents] and
+include many examples that should help you get started quickly.
+* [*Source code] of the many ['Examples] will often be your quickest starting point.
 * [*Reference section] prepared using Doxygen will provide the function and class signatures,
 but there is also an ['index] of these. 
 * The main ['index] will also help,
@@ -10,11 +11,11 @@ without needing to know the exact name chosen for the function.
 
 This documentation makes use of the following naming and formatting conventions.
 
-* C++ Code is in `fixed width font` and is syntax-highlighted.
+* C++ Code is in `fixed width font` and is syntax-highlighted in color.
 * Other code is in [^teletype fixed-width font].
 * Replaceable text that you will need to supply is in [~italics].
 * If a name refers to a free function, it is specified like this:
-  `free_function()`; that is, it is in code font and its name is followed by `()`
+  `free_function()`; that is, it is in [~code font] and its name is followed by `()`
   to indicate that it is a free function.
 * If a name refers to a class template, it is specified like this:
   `class_template<>`; that is, it is in code font and its name is followed by `<>`

@@ -9,19 +9,20 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 [section:algorithm Common check algorithms]
 
-This section will describe the algorithms used in Boost.Checks.
-A check algorithm is firstly design to:
+This section will discuss the objectives of the algorithms used in Boost.Checks.
+A check algorithm is firstly designed to:
 
-# Catch the most errors as possible that a human can do.
-# Minimize the cost of the check digit - fast computation - and the size of the check digit.
+# Catch the most errors as possible that a human (or machine) can make.
+# Minimize the cost of the check digit for fast computation.
+# Minimize the size (or number) of the check digit(s).
 
 We cannot have our cake and eat it, that's why we often choose
-between the size or the efficiency. Critical numbers (for example 
-the __IBAN) use two check digits.
+between the size or the efficiency.
+Critical numbers, for example, the __IBAN, use two check digits.
 
-The main difference with these algorithm and the other checksum algorithms 
-such as CRC or cryptographic hashes, is that we don't analyse the binary 
-content of the number of the lexical values meaning, so "123" is equal to 123.
+The main difference with these algorithms (and the other checksum algorithms 
+such as CRC or cryptographic hashes) is that we don't analyse the binary 
+content of the number of the lexical values meaning, so "123" is equivalent to [~123].
 
 [table:summary Error catching summary
 [[][1 Alteration] [2 Alterations] [Twin transpositions] ]
@@ -29,4 +30,4 @@ content of the number of the lexical values meaning, so "123" is equal to 123.
 [[Verhoeff] [18/18 (100%)] [] [90/90 (100%)]]
 ]
 
-[endsect]
+[endsect] [/section:algorithm Common check algorithms]

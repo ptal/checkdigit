@@ -1,5 +1,5 @@
 //! \file vin.hpp
-//! \brief Check and compute the Vehicle Identification Number for example purpose.
+//! \brief Check and compute the Vehicle Identification Number.
 
 // Copyright Pierre Talbot 2011.
 
@@ -11,13 +11,13 @@
 #ifndef BOOST_CHECKS_VIN_HPP
 #define BOOST_CHECKS_VIN_HPP
 
-//[vin_preprocessor_tools]
+//[vin_preprocessor_tools
 #include <boost/checks/modulus11.hpp>
 #include <boost/checks/basic_checks.hpp>
 
 #define VIN_SIZE 17
 #define VIN_SIZE_WITHOUT_CHECKDIGIT 16
-#define VIN_CHECKDIGIT_POS 8 
+#define VIN_CHECKDIGIT_POS 8
 
 typedef boost::checks::weight<2,3,4,5,6,7,8,9,10> vin_weight ;
 typedef boost::checks::rightmost vin_sense ;
@@ -31,7 +31,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
   //[vin_translation_module
   template <typename value>
   static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
-  {    
+  {
     int valid_value = 0;
     try
     {
@@ -39,12 +39,12 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
     }
     catch( boost::bad_lexical_cast )
     {
-      // Transform the value to be between 1 and 26
+      // Transform the value to be between 1 and 26.
       if( current_value >= 'a' && current_value <= 'z' )
         valid_value = current_value - 'a' + 1 ;
       else if( current_value >= 'A' && current_value <= 'Z' )
         valid_value = current_value - 'A' + 1 ;
-      else 
+      else
         throw boost::checks::translation_exception() ;
 
       if ( valid_value == 9 || valid_value == 15 || valid_value == 17)
@@ -53,7 +53,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
       if ( valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
       {
         if ( valid_value != 24 )
-          throw std::invalid_argument( "The check digit should be a digit or X or x" );
+          throw std::invalid_argument( "The check digit should be a digit or X or x." );
         else
           valid_value = 10 ;
         valid_value = 11 - valid_value ;
@@ -72,7 +72,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
   static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
   {
     if( number_of_virtual_value_skipped == 0 && valid_value_counter == VIN_CHECKDIGIT_POS )
-      checksum += current_valid_value ; 
+      checksum += current_valid_value ;
     else
     {
       unsigned int weight_position = valid_value_counter - (number_of_virtual_value_skipped == 0 && valid_value_counter > VIN_CHECKDIGIT_POS) ;
@@ -86,7 +86,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
   template <typename checkdigit>
   static typename checkdigit compute_checkdigit( int checksum )
   {
-    typedef typename boost::checks::modulus11_algorithm<vin_weight, vin_sense, number_of_virtual_value_skipped> mod11 ; 
+    typedef typename boost::checks::modulus11_algorithm<vin_weight, vin_sense, number_of_virtual_value_skipped> mod11 ;
     return mod11::translate_checkdigit<checkdigit>(checksum % 11) ;
   }
   //]
