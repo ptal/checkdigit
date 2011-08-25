@@ -1,11 +1,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Boost_Checks</title>
+<title>Checks</title>
 <link rel="stylesheet" href="./boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
-<link rel="home" href="index.html" title="Boost_Checks">
-<link rel="next" href="boost_checks/checks.html" title="Boost.Checks">
+<link rel="home" href="index.html" title="Checks">
+<link rel="next" href="checks/checks.html" title="Checks">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -17,18 +17,18 @@
 <td align="center"><a href="../../../../../../../boost_trunk/more/index.htm">More</a></td>
 </tr></table>
 <hr>
-<div class="spirit-nav"><a accesskey="n" href="boost_checks/checks.html"><img src="images/next.png" alt="Next"></a></div>
+<div class="spirit-nav"><a accesskey="n" href="checks/checks.html"><img src="images/next.png" alt="Next"></a></div>
 <div class="article" lang="en">
 <div class="titlepage">
 <div>
 <div><h2 class="title">
-<a name="boost_checks"></a>Boost_Checks</h2></div>
+<a name="checks"></a>Checks</h2></div>
 <div><div class="authorgroup"><div class="author"><h3 class="author">
 <span class="firstname">Pierre</span> <span class="surname">Talbot</span>
 </h3></div></div></div>
 <div><p class="copyright">Copyright &#169; 2011 Pierre Talbot</p></div>
 <div><div class="legalnotice">
-<a name="id894649"></a><p>
+<a name="id876939"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -39,40 +39,39 @@
 <div class="toc">
 <p><b>Table of Contents</b></p>
 <dl>
-<dt><span class="section"><a href="boost_checks/checks.html">Boost.Checks</a></span></dt>
+<dt><span class="section"><a href="checks/checks.html">Checks</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="boost_checks/checks/preface.html">Preface</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/overview.html">Overview</a></span></dt>
-<dd><dl><dt><span class="section"><a href="boost_checks/checks/overview/conventions.html">Document
-        Conventions</a></span></dt></dl></dd>
-<dt><span class="section"><a href="boost_checks/checks/tutorial.html">Tutorial</a></span></dt>
+<dt><span class="section"><a href="checks/checks/preface.html">Preface</a></span></dt>
+<dt><span class="section"><a href="checks/checks/status.html">Status</a></span></dt>
+<dt><span class="section"><a href="checks/checks/conventions.html">Document Conventions</a></span></dt>
+<dt><span class="section"><a href="checks/checks/tutorial.html">Tutorial</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="boost_checks/checks/tutorial/start.html">Starting with Checks</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/tutorial/extending_the_library.html">Extending
+<dt><span class="section"><a href="checks/checks/tutorial/start.html">Starting with Checks</a></span></dt>
+<dt><span class="section"><a href="checks/checks/tutorial/extending_the_library.html">Extending
         the library</a></span></dt>
 </dl></dd>
-<dt><span class="section"><a href="boost_checks/checks/algorithm.html">Common check algorithms</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/errors.html">Type of errors</a></span></dt>
+<dt><span class="section"><a href="checks/checks/algorithm.html">Common check algorithms</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors.html">Type of errors</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="boost_checks/checks/errors/alteration.html">Alteration</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/errors/transposition.html">Transposition</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/errors/length.html">Length</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/errors/shift.html">Shift</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/errors/phonetic.html">Phonetic</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors/alteration.html">Alteration</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors/transposition.html">Transposition</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors/length.html">Length</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors/shift.html">Shift</a></span></dt>
+<dt><span class="section"><a href="checks/checks/errors/phonetic.html">Phonetic</a></span></dt>
 </dl></dd>
-<dt><span class="section"><a href="boost_checks/checks/modulus.html">Modular sum algorithms</a></span></dt>
+<dt><span class="section"><a href="checks/checks/modulus.html">Modular sum algorithms</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="boost_checks/checks/modulus/luhn.html">Luhn algorithm</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/modulus/mod10.html">Modulus 10 algorithm</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/modulus/mod11.html">Modulus 11 algorithm</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/modulus/summary.html">Summary of Algorithms</a></span></dt>
+<dt><span class="section"><a href="checks/checks/modulus/luhn.html">Luhn algorithm</a></span></dt>
+<dt><span class="section"><a href="checks/checks/modulus/mod10.html">Modulus 10 algorithm</a></span></dt>
+<dt><span class="section"><a href="checks/checks/modulus/mod11.html">Modulus 11 algorithm</a></span></dt>
+<dt><span class="section"><a href="checks/checks/modulus/summary.html">Summary of Algorithms</a></span></dt>
 </dl></dd>
-<dt><span class="section"><a href="boost_checks/checks/acks.html">Acknowledgements</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/faqs.html">FAQs</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/refs.html">References</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/rationale.html">Rationale</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/history.html">History</a></span></dt>
-<dt><span class="section"><a href="boost_checks/checks/version_id.html">Version Info</a></span></dt>
+<dt><span class="section"><a href="checks/checks/acks.html">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="checks/checks/faqs.html">FAQs</a></span></dt>
+<dt><span class="section"><a href="checks/checks/refs.html">References</a></span></dt>
+<dt><span class="section"><a href="checks/checks/rationale.html">Rationale</a></span></dt>
+<dt><span class="section"><a href="checks/checks/history.html">History</a></span></dt>
+<dt><span class="section"><a href="checks/checks/version_id.html">Version Info</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="checks_reference.html">Checks Reference</a></span></dt>
 <dd><dl>
@@ -105,10 +104,10 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: August 23, 2011 at 17:41:23 GMT</small></p></td>
+<td align="left"><p><small>Last revised: August 24, 2011 at 12:10:49 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
-<div class="spirit-nav"><a accesskey="n" href="boost_checks/checks.html"><img src="images/next.png" alt="Next"></a></div>
+<div class="spirit-nav"><a accesskey="n" href="checks/checks.html"><img src="images/next.png" alt="Next"></a></div>
 </body>
 </html>

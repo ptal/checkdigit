@@ -1,4 +1,4 @@
-[article Boost_Checks
+[article Checks
     [quickbook 1.5]
     [copyright 2011 Pierre Talbot]
     [license
@@ -17,11 +17,8 @@
 [/Note too that it can't be used for images.]
 [def __boostlicense [@http://www.boost.org/LICENSE_1_0.txt Boost License]]
 
-[def __GSOC [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]]
-
-
 [def __CHECKS__HIERARCHY__ [$images/checks/check_hierarchy.png]]
-[def __EXTENDS__LIBRARY__ [link boost_checks.checks.tutorial.extending_the_library extending the library]]
+[def __EXTENDS__LIBRARY__ [link checks.checks.tutorial.extending_the_library extending the library]]
 
 [def __BASIC__CHECK__FILE__ [@../../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
 [def __WEIGHTED__SUM__FILE__ [@../../../../boost/checks/weighted_sum.hpp weighted_sum.hpp]]
@@ -30,6 +27,7 @@
 [def __CHECKS__TUTO__FILE__ [@../../example/checks_tutorial.cpp checks_tutorial.cpp]]
 [def __CHECKS__EXAMPLE__FILE__ [@../../example/checks_examples.cpp checks_examples.cpp]]
 
+[def __GSOC [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]]
 [def __VISA [@http://en.wikipedia.org/wiki/Visa_credit_card Visa credit card]]
 [def __MASTERCARD [@http://en.wikipedia.org/wiki/Mastercard Mastercard credit card]]
 [def __AMEX [@http://en.wikipedia.org/wiki/American_Express  American Express]]
@@ -41,27 +39,26 @@
 [def __CODE39 [@http://en.wikipedia.org/wiki/Code_39 Code 39]]
 [def __EAN [@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]]
 
-[def __types_of_errors [link boost_checks.checks.errors types of error]]
-[def __overview [link boost_checks.checks.overview Overview]]
+[def __types_of_errors [link checks.checks.errors types of error]]
+[def __overview [link checks.checks.overview Overview]]
 
 [def __spaces '''&#x2000;&#x2000;'''] [/ two spaces - useful for an indent.]
 
-[section:checks Boost.Checks]
+[section:checks Checks]
 
 [section:preface Preface]
 
-The checks are required in numerous domains such as the distribution chain (bar codes), 
+Checks are required on alphanumeric identifiers in numerous domains
+such as the distribution chain (product bar codes), 
 banking (bank account, credit cards, fidelity cards, ...) and many others.
-These codes and numbers are often copied or scanned by humans or machines;
+These codes and numbers are often typed, copied or scanned by humans or machines;
 and both make errors. We need a way to detect errors and this 
-is why check digits have been designed. A check digit aimes to control the validity of a number 
+is why check digits have been designed.
+
+A check digit aims to control the validity of a alphanumeric string 
 and catch the as many changes as possible.
-(__types_of_errors discuss possible alterations and their detection).
+(__types_of_errors discuss possible alterations and the efficiency of their detection).
 
-
-[endsect] [/section:preface Preface]
-
-[section:overview Overview]
 This library provides a collection of functions for validating and creating check digits.
 
 Scott McMurray has identifed four fairly distinct types of check:
@@ -71,21 +68,26 @@ Scott McMurray has identifed four fairly distinct types of check:
 # checksums like CRC32, for catching data transmission errors.
 # and cryptographic hash functions, the only ones useful against malicious adversaries.
 
-These are primarily for the first category : catching human-entry errors
+The functions in this Boost.Checks library are primarily for the first category :
+catching human-entry errors
 (though it obviously also provides against a mis-scan or mis-transmit 
 by a device like a bar code or card reader.) 
 
 This library supports four families of check : Modulus 10, Modulus 11, Modulus 97-10 
 and Verhoeff. A lot of other check systems are inherited from these families.
 
-The following diagram shows the hierachy used in Boost.Checks:
+The following diagram shows the hierarchy used in Boost.Checks:
 
 __CHECKS__HIERARCHY__
 
 Numerous check algorithms are in use worldwide,
 and this is why this library is designed to help you to cater
-for these less common checks, and even to create your own check systems.
+for less common checks, and even to create your own check systems.
 If you are interested, see __EXTENDS__LIBRARY__.
+
+[endsect] [/section:preface Preface]
+
+[section:status Status]
 
 [important This is not (yet) an official Boost library. It was a __GSOC
 whose mentor organization was Boost. It remains a library under construction,
@@ -97,14 +99,13 @@ may still be changed without notice.  The current version is available at
 [*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html HTML documentation.]
 
 [*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]
-]
+] [/important]
 
 [note Comments and suggestions (even bugs!) to Pierre Talbot pierre.talbot.6114 (at) herslibramont (dot) be]
 
+[endsect] [/section:status Status]
+
 [include conventions.qbk]
-
-[endsect] [/section:overview Overview]
-
 [include tutorial.qbk]
 [include algorithm.qbk]
 [include errors.qbk]

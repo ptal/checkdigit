@@ -16,7 +16,6 @@ project checks ; # Insert your project name here.
 
 using quickbook ;  # Required if you want to use Quickbook.
 using doxygen ;  # Required if you want to use Doxygen.
-#using auto-index ; # Required if you want to use autoindexing.
 
 import modules ;
 import path ;
@@ -41,7 +40,7 @@ ECHO "here = " $(here) ;
 
 path-constant nav_images : html/images/ ; # png and svg images for home, next, note, tip...
 # path-constant images_location : ../doc/html/images ; # location of Checks images referenced by Quickbook.
-#  MIght like some fancy pictures of credit cards etc...
+#path-constant images_location : html/images ; # location of SVG and PNG images referenced by Quickbook.
 path-constant images_location : html/images ; # location of SVG and PNG images referenced by Quickbook.
 
 echo "images_location" $(images_location) ; 
@@ -213,10 +212,10 @@ boostbook standalone
   <xsl:param>boost.root=../../../../../../../boost_trunk # OK but link to I:/boost_trunk/boost.png
 
   # Also control links to admonitions, so need to set separately.
-  #<xsl:param>boost.root=../../../../../../../boost_1_46_0 # OK file:///I:/boost_1_46_0/boost.png
+  #<xsl:param>boost.root=../../../../../../../boost_1_46_0 # OK file:///I:/boost_1_48_0/boost.png
   # Quickbook [@boost:/boost/units/detail/utility.hpp] should make it relative to xsl parameter boost.root.
 
-  # [@boost:boost.png Boost logo]  # xsl parameter boost.root, for example I:/boost_1_45_0/boost.png
+  # [@boost:boost.png Boost logo]  # xsl parameter boost.root, for example I:/boost_1_48_0/boost.png
 
   # Path for libraries index:
   <xsl:param>boost.libraries=../../../../../../../boost_1_46_0/libs/libraries.htm
@@ -253,13 +252,11 @@ boostbook standalone
   <xsl:param>toc.max.depth=4  # Max depth in each TOC.
   <xsl:param>generate.section.toc.level=10  # How far down we go with TOCs.
                            
-  #<format>html:<xsl:param>img.src.path=$(images_location)/ # Path of image (.png) files. (Note trailing /) 
-  # This doesn't work??? 
-  
   #<format>html:<xsl:param>admon.graphics.extension=".png"  # default type for admonitions (important, warning, note ...)
   #<format>html:<xsl:param>admon.graphics.path=$(nav-images)/ # path to admonition (warning, note...) image (.png) files.
   
   # <xsl:param name="draft.watermark.image">http://docbook.sourceforge.net/release/images/draft.png</xsl:param>
+  # but use a local copy of draft.png.
 
   # PDF Options:
   # -----------
@@ -287,20 +284,16 @@ boostbook standalone
   # Yes, we want graphics for admonishments:
   <xsl:param>admon.graphics=1
   # Set these one for PDF generation *only*:
-  #
   # In PDF format, default PNG graphics are awful, so better use SVG images (type .svg) instead.
   <format>pdf:<xsl:param>admon.graphics.extension=".svg"  #
   <format>pdf:<xsl:param>use.role.for.mediaobject=1 # Use print role on next line.
   <format>pdf:<xsl:param>preferred.mediaobject.role=print # pdf role is to be printed.
-  <format>pdf:<xsl:param>img.src.path=$(images_location)/ # Path of image (.svg) files. (Note trailing /) ? //
-  #<format>pdf:<xsl:param>img.src.path=../ # alternative location of images.
+  # <format>pdf:<xsl:param>img.src.path=$(images_location)/ # Path of image (.svg) files. (Note trailing /) ? 
+  <format>pdf:<xsl:param>img.src.path=./images/ # Path of image (.svg) files. (Note trailing /)
   <format>pdf:<xsl:param>admon.graphics.path=$(nav_images)/ # path to admonition (warning, note...) image (.svg) files.
   <format>pdf:<xsl:param>draft.mode="yes" # Yes if draft watermark wanted!
-  #<format>pdf:<xsl:param>draft.watermark.image="draft.png" # Watermark.
+  #<format>pdf:<xsl:param>draft.watermark.image="draft.png" # Watermark (local copy).
   #<format>pdf:<xsl:param>draft.watermark.image=http://docbook.sourceforge.net/release/images/draft.png # Watermark.
-	#<format>pdf:<xsl:param>boost.url.prefix=I:/boost-sandbox/tools/checks/libs/checks/doc/html
-	# is absolute reference!
-	#<format>pdf:<xsl:param>boost.url.prefix=I:/boost-sandbox/tools/checks/libs/checks/doc/html
 	
   <dependency>autodoc # Doxygen  reference section
   # <dependency>pdf-install # final pdf
