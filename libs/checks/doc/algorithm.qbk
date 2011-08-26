@@ -24,6 +24,45 @@ The main difference with these algorithms (and the other checksum algorithms
 such as CRC or cryptographic hashes) is that we don't analyse the binary 
 content of the number of the lexical values meaning, so "123" is equivalent to [~123].
 
+[section:checksum_algorithm Checksum algorithms]
+
+Boost.Checks provides only checksum algorithm excepts for the Verhoeff algorithm.
+
+[h5 Trivial digital sum]
+
+The most basic algorithm we could create is to sum every digit in a sequence.
+For example the digit sum of [~58215478] is:
+``
+5 + 8 + 2 + 1 + 5 + 4 + 7 + 8 = 40
+``
+
+The check digit would be [~40] and the complete sequence [~5821547840]. The size of
+the check digit grown with the sum. 
+
+[h5 Modular sum]
+
+We must restrict the check digit's size so we take the remainder of the sum by a choosen
+number. The modulus will impact the range of the check digit. For example, the supports 
+for 3 types of modulus is implemented in Boost.Checks, the following table points the 
+differents modulus:
+
+[table:modulus_range Modulus impact on check digit range
+[ [Modulus][Check digit range] [Check digit size] ]
+[ [10] [ 0 to 9 ] [1] ]
+[ [11] [ 0 to 10 ] [1] ]
+[ [97] [ 0 to 97 ] [2] ]
+]
+
+The range of the modulus 11 is restrained to an unique check digit where [~10] is replaced 
+by another character (commonly the letter 'X').
+
+[h5 Weighted sum]
+
+The simple sum is a fiasco for detecting transposition errors. The proof is simple: the 
+addition is ['commutative], so the digit order is not important. The solution is to 
+attribute fixed ['weight] to each position.
+
+
 [table:summary Error catching summary
 [[][1 Alteration] [2 Alterations] [Twin transpositions] ]
 [[Luhn] [18/18 (100%)] [] [88/90 (97.78%)]]
