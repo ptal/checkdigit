@@ -95,7 +95,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
   template <typename checkdigit>
   static typename checkdigit compute_checkdigit( int checksum )
   {
-     return translate_checkdigit((11 - checksum % 11) % 11) ;
+     return translate_checkdigit<checkdigit>((11 - checksum % 11) % 11) ;
   }
 
 protected:
