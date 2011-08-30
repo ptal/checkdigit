@@ -113,17 +113,10 @@ may still be changed without notice.  The current version is available at
 
 [section:acks Acknowledgements]
 
-* Thanks to Paul A. Bristow who is the mentor of this Google Summber of Code project for his infinite patience and his wise advice.
-* Thanks for Google for funding this Google Summber of Code 2011 project.
+* Thanks to Paul A. Bristow who is the mentor of this Google Summer of Code project for his infinite patience and his wise advice.
+* Thanks for Google for funding this Google Summer of Code 2011 project.
 
 [endsect] [/section:acks Acknowledgements]
-
-[section:faqs FAQs]
-
-* Why are checks needed?
-* How many alterations to the strings are detected (or undetected)?
-
-[endsect] [/section:faqs FAQs]
 
 [section:refs References]
 
