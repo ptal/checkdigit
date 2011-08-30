@@ -47,7 +47,7 @@ for 3 types of modulus is implemented in Boost.Checks, the following table point
 differents modulus:
 
 [table:modulus_range Modulus impact on check digit range
-[ [Modulus][Check digit range] [Check digit size] ]
+[ [Modulus] [Check digit range] [Check digit size] ]
 [ [10] [ 0 to 9 ] [1] ]
 [ [11] [ 0 to 10 ] [1] ]
 [ [97] [ 0 to 97 ] [2] ]
@@ -62,6 +62,62 @@ The simple sum is a fiasco for detecting transposition errors. The proof is simp
 addition is ['commutative], so the digit order is not important. The solution is to 
 attribute fixed ['weight] to each position.
 
+
+Some simple rules:
+
+# The weights must be less than the modulus.
+# The weights must be coprime to the modulus.
+# [HS] An error in the checksum is detected if | new_checksum - checksum | != modulus.
+# [HS] The assertion: "new_checksum == checksum" doesn't mean that the number is error-free. 
+Digits can be compensated or the check digit altered.
+
+
+The weight pattern is always a limited sequence that can be repetitive. For example: [~137] 
+is not repetitive on a sequence with less than 4 numbers but will on a greater sequence. 
+
+The weight pattern greatly depends on the modulus. The weights should be coprime to the modulus, 
+we will prove it with an example: 
+
+[table:modulus_influence_on_weight Modulus 10 influence on the weight pattern
+[[Position] [1] [2] [3] [4] [5] [6] [7] ]
+[[Weight]   [1] [3] [5] [8] [1] [3] [5] ]
+[[Number]   [9] [5] [2] [5] [4] [5] [6] ]
+]
+
+The weight pattern choose is [~1358] on a seven digits sequence: [~9525456], so the check digit is:
+
+``
+check digit = (1*9 + 3*5 + 5*2 + 8*5 + 1*4 + 3*5 + 5*6) % 10
+check digit = 3
+``
+
+A checksum with weights that are not coprime to 10 could not detect simple alteration. 
+For example, we can prove it with the third digit of the sequence above:
+``
+checksum = 1*9 + 3*5 + 5*X + 8*5 + 1*4 + 3*5 + 5*6
+checksum = 113 + 5X
+
+
+check digit = (113 + 5X) % 10
+If X = {0,2,4,6,8}
+  check digit = 3
+If X = {1,3,5,7,9}
+  check digit = 7
+``
+
+To avoid this disaster, we should respect the following formula:
+``
+modulus € 0+ Strict Positive Integer
+
+weight >= 0 AND weight < modulus
+d1 >= 0 AND d1 < modulus
+d2 >= 0 AND d2 < modulus
+d1 != d2
+
+(Weight * d1) % Modulus != (Weight * d2) % Modulus
+``
+
+# Note 1: All prime number modulus can be use with any weight.
 
 [table:summary Error catching summary
 [[][1 Alteration] [2 Alterations] [Twin transpositions] ]
