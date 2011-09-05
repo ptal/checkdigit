@@ -1,11 +1,11 @@
-//  Boost checks/modulus10.hpp header file  ------------------------------------//
+//  Boost checks/modulus10.hpp header file
 //  (C) Copyright Pierre Talbot 2011
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file modulus10.hpp
+/*! \file
     \brief This file provides tools to compute and validate classic modulus 10 checksum.
 */
 
@@ -40,7 +40,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
 
     \param checksum is the checksum to validate.
 
-    \returns true if the checksum is correct, false otherwise.
+    \returns @c true if the checksum is correct, @c false otherwise.
   */
   static bool validate_checksum(int checksum)
   {
@@ -54,7 +54,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
     \param checksum is the checksum used to extract the check digit.
 
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
-    
+
     \returns The modulus 10 check digit of checksum.
   */
   template <typename checkdigit>
@@ -68,6 +68,6 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
   }
 };
 
-}}
+}}  // namespace boost   namespace checks
 
 #endif //BOOST_CHECKS_MOD10_HPP

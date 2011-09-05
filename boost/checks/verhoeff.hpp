@@ -5,7 +5,7 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file verhoeff.hpp
+/*! \file
     \brief This file provides tools to compute a Verhoeff checksum.
 */
 
@@ -38,10 +38,10 @@ typedef boost::checks::rightmost verhoeff_iteration_sense ;
 */
 template <unsigned int number_of_virtual_value_skipped = 0>
 struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iteration_sense, number_of_virtual_value_skipped>
-{  
+{
   /*!
     \brief Compute the Verhoeff scheme on the checksum with the current valid value.
-    
+
     \post checksum is equal to the new computed checksum.
 
     \param current_valid_value is the current valid value analysed.
@@ -86,7 +86,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
 
     \param checksum is the checksum to validate.
 
-    \returns true if the checksum is correct, false otherwise.
+    \returns @c true if the checksum is correct, @c false otherwise.
   */
   static bool validate_checksum(int checksum)
   {
@@ -100,7 +100,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
     \param checksum is the checksum used to extract the check digit.
 
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
-    
+
     \returns The Verhoeff check digit of checksum.
   */
   template <typename checkdigit>
@@ -128,7 +128,7 @@ typedef verhoeff_algorithm<0> verhoeff_check_algorithm ;
 */
 typedef verhoeff_algorithm<1> verhoeff_compute_algorithm ;
 
-/*! 
+/*!
     \brief Validate a sequence according to the verhoeff_check_algorithm type.
 
     \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
@@ -139,7 +139,7 @@ typedef verhoeff_algorithm<1> verhoeff_compute_algorithm ;
 
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
 
-    \returns True if the check digit is correct, false otherwise.
+    \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <size_t size_expected, typename check_range>
 bool check_verhoeff (const check_range& check_seq)
@@ -147,7 +147,7 @@ bool check_verhoeff (const check_range& check_seq)
   return boost::checks::check_sequence<verhoeff_check_algorithm, size_expected> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Validate a sequence according to the verhoeff_check_algorithm type.
 
     \pre check_seq is a valid range.
@@ -157,7 +157,7 @@ bool check_verhoeff (const check_range& check_seq)
 
     \throws std::invalid_argument if check_seq contains no valid value.
 
-    \returns True if the check digit is correct, false otherwise.
+    \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
 bool check_verhoeff (const check_range& check_seq)
@@ -165,15 +165,15 @@ bool check_verhoeff (const check_range& check_seq)
   return boost::checks::check_sequence<verhoeff_check_algorithm> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digit of a sequence according to the verhoeff_compute_algorithm type.
 
     \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
-    
+
     \tparam size_expected is the number of valid value expected in the sequence. (So the check digit is not included.)
     \tparam check_range is a valid range type.
     \param check_seq is the sequence of value to check.
-    
+
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
@@ -185,14 +185,14 @@ typename boost::checks::verhoeff_compute_algorithm::checkdigit<check_range>::typ
   return boost::checks::compute_checkdigit<verhoeff_compute_algorithm, size_expected> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digit of a sequence according to the verhoeff_compute_algorithm type.
 
     \pre check_seq is a valid range.
-    
+
     \tparam check_range is a valid range type.
     \param check_seq is the sequence of value to check.
-    
+
     \throws std::invalid_argument if check_seq contains no valid value.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 

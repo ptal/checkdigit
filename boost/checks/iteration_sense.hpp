@@ -1,12 +1,12 @@
-//  Boost checks/iteration_sense.hpp header file  ------------------------------------//
+//  Boost checks/iteration_sense.hpp header file
 //  (C) Copyright Pierre Talbot 2011
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file iteration_sense.hpp
-    \brief Provides two sense of iteration to run through the sequence from right to left or left to right.
+/*! \file
+    \brief Provides two sense or direction of iteration to run through the sequence, either from right to left or left to right.
 */
 
 
@@ -50,7 +50,7 @@ struct rightmost
       \brief Get the beginning of the sequence.
 
       \tparam seq_range The type of the sequence to check.
-      \returns A reverse iterator represents the beginning of the sequence.
+      \returns A reverse iterator representing the beginning of the sequence.
   */
   template <typename seq_range>
   static typename iterator<seq_range>::type begin(seq_range &sequence) { return boost::rbegin(sequence) ; }
@@ -59,7 +59,7 @@ struct rightmost
       \brief Get the ending of the sequence.
 
       \tparam seq_range The type of the sequence to check.
-      \returns A reverse iterator represents one pass the end of the sequence.
+      \returns A reverse iterator represents one past the end of the sequence.
   */
   template <typename seq_range>
   static typename iterator<seq_range>::type end(seq_range &sequence)   { return boost::rend(sequence) ; }
@@ -89,12 +89,12 @@ struct leftmost
   */
   template <typename seq_range>
   static typename iterator<seq_range>::type begin(seq_range &sequence) { return boost::begin(sequence) ; }
-  
+
   /*! \fn static typename iterator<seq_range>::type end(seq_range &sequence)
       \brief Get the ending of the sequence.
 
       \tparam seq_range The type of the sequence to check.
-      \returns An iterator represents one pass the end of the sequence.
+      \returns An iterator represents one past the end of the sequence.
   */
   template <typename seq_range>
   static typename iterator<seq_range>::type end(seq_range &sequence)   { return boost::end(sequence) ; }

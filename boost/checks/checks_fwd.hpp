@@ -1,4 +1,4 @@
-//  Boost checks/checks_fwd.hpp header file //
+//  Boost checks/checks_fwd.hpp header file
 
 //  (C) Copyright Pierre Talbot 2011
 
@@ -140,7 +140,7 @@ template <typename check_range>
 bool check_ean8 (const check_range& check_seq) ;
 
 template <typename check_range>
-typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean8 (const check_range& check_seq); 
+typename boost::checks::ean_compute_algorithm::checkdigit<check_range>::type compute_ean8 (const check_range& check_seq);
 
 // IBSN-10 and ISBN-13
 
@@ -190,5 +190,5 @@ template <typename check_range>
 typename boost::checks::mastercard_compute_algorithm::checkdigit<check_range>::type compute_mastercard (const check_range& check_seq) ;
 
 
-}}
+}} // namespace boost   namespace checks
 #endif \\ BOOST_CHECK_CHECKS_FWD_HPP

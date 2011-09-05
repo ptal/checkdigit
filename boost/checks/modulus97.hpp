@@ -1,12 +1,13 @@
-//  Boost checks/modulus97.hpp header file  ------------------------------------//
+//  Boost checks/modulus97.hpp header file
+
 //  (C) Copyright Pierre Talbot 2011
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file modulus97.hpp
-    \brief This file provides tools to compute and validate classic modulus 97 checksum. It provides function for convenience with the mod97-10 algorithm (ISO/IEC 7064:2003).
+/*! \file
+    \brief This file provides tools to compute and validate the classic modulus 97 checksum. It provides functions for convenience with the mod97-10 algorithm (ISO/IEC 7064:2003).
 */
 
 #ifndef BOOST_CHECKS_MOD97_HPP
@@ -27,7 +28,8 @@ namespace boost{
   namespace checks{
 
 /*! \class modulus97_algorithm
-    \brief This class can be used to compute or validate checksum with a basic modulus 97.
+    \brief This class can be used to compute or validate a checksum with a basic modulus 97.
+    \detail  The mod97-10 algorithm (ISO/IEC 7064:2003 Information technology -- Security techniques -- Check character systems) uses two check digits.
 
     \tparam mod97_weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.
@@ -43,7 +45,7 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
 
     \param checksum is the checksum to validate.
 
-    \returns true if the checksum is correct, false otherwise.
+    \returns @c true if the checksum is correct, @c false otherwise.
   */
   static bool validate_checksum(int checksum)
   {
@@ -59,10 +61,10 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
     \tparam checkdigits_iter must meet the OutputIterator requirements.
     \param checksum is the checksum used to extract the check digit.
     \param checkdigits is the output iterator in which the two check digits will be written.
-    
+
     \throws boost::checks::translation_exception if the check digits cannot be translated into the check digits_iter type.
-    
-    \returns An iterator initialized at one pass the end of the two check digits.
+
+    \returns An iterator initialized at one pass to the end of the two check digits.
   */
   template <typename checkdigits_iter>
   static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
@@ -70,9 +72,9 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
     unsigned int mod97_checkdigits = 98 - (checksum % 97) ;
 
     try{
-      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits / 10) ; 
+      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits / 10) ;
       ++checkdigits;
-      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits % 10) ; 
+      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits % 10) ;
       ++checkdigits;
     }
     catch( boost::bad_lexical_cast ){
@@ -83,7 +85,7 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
 };
 
 /*! \class make_mod97_weight
-    \brief This class is used to pre-computed the weight of the mod97-10 algorithm (a = 1; a = a * 10 % 97 ;).
+    \brief This class is used to pre-compute the weight of the mod97-10 algorithm (a = 1; a = a * 10 % 97 ;).
 
     \tparam weight_value is the weight value stored by make_mod97_weight.
 
@@ -96,7 +98,7 @@ struct make_mod97_weight
   typedef make_mod97_weight<weight_value * 10 % 97> next ;
 };
 /*! \class make_mod97_weight
-    \brief This class is the terminal specialisation of make_mod97_weight, so the recursion can finish. 
+    \brief This class is the terminal specialisation of make_mod97_weight, so the recursion can finish.
 */
 template<>
 struct make_mod97_weight<68>
@@ -106,7 +108,7 @@ struct make_mod97_weight<68>
 };
 
 /*!
-  \brief This is the initial weight for the mod97-10 weights serie.
+  \brief This is the initial weight for the mod97-10 weights series.
 */
 typedef make_mod97_weight<1> initial_mod97_weight ;
 
@@ -127,7 +129,7 @@ typedef make_mod97_weight<1> initial_mod97_weight ;
 typedef boost::checks::weight< BOOST_PP_ENUM(96, MOD97_weight_maker, ~) > mod97_10_weight ;
 
 /*!
-  \brief The iteration sense of the sequence. From right to left.
+  \brief The iteration sense or direction of the sequence. From right to left.
 */
 typedef boost::checks::rightmost mod97_10_sense ;
 
@@ -140,7 +142,7 @@ typedef modulus97_algorithm< mod97_10_weight, mod97_10_sense, 0 > mod97_10_check
 */
 typedef modulus97_algorithm< mod97_10_weight, mod97_10_sense, 2 > mod97_10_compute_algorithm ;
 
-/*! 
+/*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
 
     \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
@@ -159,7 +161,7 @@ bool check_mod97_10 (const check_range& check_seq)
   return boost::checks::check_sequence<mod97_10_check_algorithm, size_expected> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
 
     \pre check_seq is a valid range.
@@ -169,7 +171,7 @@ bool check_mod97_10 (const check_range& check_seq)
 
     \throws std::invalid_argument if check_seq contains no valid value.
 
-    \returns True if the two check digits are correct, false otherwise.
+    \returns @c true if the two check digits are correct, @c false otherwise.
 */
 template <typename check_range>
 bool check_mod97_10 (const check_range& check_seq)
@@ -177,17 +179,17 @@ bool check_mod97_10 (const check_range& check_seq)
   return boost::checks::check_sequence<mod97_10_check_algorithm> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digits of a sequence according to the mod97_10_compute_algorithm type.
 
     \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).\n mod97_checkdigits should have enough reserved place to store the two check digits.
-    
+
     \tparam size_expected is the number of valid value expected in the sequence. (So the check digits are not included.)
     \tparam check_range is a valid range type.
     \tparam checkdigits_iter must meet the OutputIterator requirements.
     \param check_seq is the sequence of value to check.
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
-    
+
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
     \throws boost::checks::translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
@@ -199,16 +201,16 @@ typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkd
   return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm, size_expected> ( check_seq, mod97_checkdigits ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digits of a sequence according to the mod97_10_compute_algorithm type.
 
     \pre check_seq is a valid range.\n mod97_checkdigits should have enough reserved place to store the two check digits.
-    
+
     \tparam check_range is a valid range type.
     \tparam checkdigits_iter must meet the OutputIterator requirements.
     \param check_seq is the sequence of value to check.
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
-    
+
     \throws std::invalid_argument if check_seq contains no valid value.
     \throws boost::checks::translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
@@ -221,5 +223,6 @@ typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkd
 }
 
 
-}}
+}} // namespace boost   namespace checks
+
 #endif //BOOST_CHECKS_MOD97_HPP

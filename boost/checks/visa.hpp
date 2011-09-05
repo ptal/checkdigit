@@ -1,11 +1,11 @@
-//  Boost checks/visa.hpp header file  ------------------------------------//
+//  Boost checks/visa.hpp header file
 //  (C) Copyright Pierre Talbot 2011
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file visa.hpp
+/*! \file
     \brief This file provides tools to compute and validate a Visa credit card number.
 */
 
@@ -19,11 +19,11 @@
 #include <boost/checks/luhn.hpp>
 
 /*!
-  \brief This macro defines the size of a Visa number.
+  \brief This macro defines the size of a Visa number (16).
 */
 #define VISA_SIZE 16
 /*!
-  \brief This macro defines the size of a Visa number without its check digit.
+  \brief This macro defines the size of a Visa number without its check digit  (15).
 */
 #define VISA_SIZE_WITHOUT_CHECKDIGIT 15
 
@@ -31,13 +31,13 @@ namespace boost {
     namespace checks{
 
 /*! \class visa_algorithm
-    \brief This class can be used to compute or validate checksum with the Luhn algorithm but filter following the Visa pattern.
+    \brief This class can be used to compute or validate checksum with the Luhn algorithm, but filter following the Visa pattern.
 
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam number_of_virtual_value_skipped Helper functions to provide same behavior on a sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
 template <unsigned int number_of_virtual_value_skipped = 0>
 struct visa_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_skipped >
-{  
+{
   /*!
     \brief Verify that a number matches the Visa pattern.
 
@@ -53,8 +53,8 @@ struct visa_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_
     const unsigned int real_pos_from_left = VISA_SIZE - current_value_position - number_of_virtual_value_skipped ;
 
     if( real_pos_from_left == 1 && current_valid_value != 4)
-      throw std::invalid_argument("The Major Industry Identifier of a VISA credit card should be 4.") ;
-  } 
+      throw std::invalid_argument("The Major Industry Identifier of a VISA credit card should be 4!") ;
+  }
 };
 
 /*!
@@ -66,7 +66,7 @@ typedef visa_algorithm<0> visa_check_algorithm ;
 */
 typedef visa_algorithm<1> visa_compute_algorithm ;
 
-/*! 
+/*!
     \brief Validate a sequence according to the visa_check_algorithm type.
 
     \pre check_seq is a valid range.
@@ -77,7 +77,7 @@ typedef visa_algorithm<1> visa_compute_algorithm ;
     \throws std::invalid_argument if check_seq doesn't contain exactly VISA_SIZE digits.
     \throws std::invalid_argument if the first digit (from the leftmost) doesn't match the Visa pattern.
 
-    \returns True if the check digit is correct, false otherwise.
+    \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
 bool check_visa (const check_range& check_seq)
@@ -85,14 +85,14 @@ bool check_visa (const check_range& check_seq)
   return boost::checks::check_sequence<visa_check_algorithm, VISA_SIZE> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digit of a sequence according to the visa_compute_algorithm type.
 
     \pre check_seq is a valid range.
-    
+
     \tparam check_range is a valid range type.
     \param check_seq is the sequence of value to check.
-    
+
     \throws std::invalid_argument if check_seq doesn't contain exactly VISA_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws std::invalid_argument if the first digit (from the leftmost) doESn't match the Visa pattern.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
@@ -106,5 +106,5 @@ typename boost::checks::visa_compute_algorithm::checkdigit<check_range>::type co
 }
 
 
-}}
+}}  // namespace boost   namespace checks
 #endif // BOOST_CHECKS_VISA_HPP

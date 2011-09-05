@@ -1,12 +1,12 @@
-//  Boost checks/isbn.hpp header file  ------------------------------------//
+//  Boost checks/isbn.hpp header file
 //  (C) Copyright Pierre Talbot 2011
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file isbn.hpp
-    \brief This file provides tools to compute and validate an International Standard Book Number of size 10 or 13.
+/*! \file
+    \brief This file provides tools to compute and validate an International Standard Book Number (ISBN) of size 10 or 13.
 
     \remarks The ISBN-13 is derived from the EAN number, so EAN macro or type are used.
 */
@@ -56,12 +56,12 @@ struct isbn13_algorithm : boost::checks::modulus10_algorithm < boost::checks::ea
     const unsigned int real_pos_from_left = EAN13_SIZE - current_value_position - number_of_virtual_value_skipped ;
 
     if( real_pos_from_left == 1 && current_valid_value != 9)
-      throw std::invalid_argument("The first digit should be 9.") ;
+      throw std::invalid_argument("The first digit should be 9!") ;
     else if( real_pos_from_left == 2 && current_valid_value != 7)
-      throw std::invalid_argument("The second digit should be 7.") ;
+      throw std::invalid_argument("The second digit should be 7!") ;
     else if( real_pos_from_left == 3 && current_valid_value != 8 && current_valid_value != 9)
-      throw std::invalid_argument("The third digit should be 8 or 9.") ;
-  } 
+      throw std::invalid_argument("The third digit should be 8 or 9!") ;
+  }
 };
 
 /*!
@@ -73,7 +73,7 @@ typedef boost::checks::isbn13_algorithm<0> isbn13_check_algorithm ;
 */
 typedef boost::checks::isbn13_algorithm<1> isbn13_compute_algorithm ;
 
-/*! 
+/*!
     \brief Validate a sequence according to the isbn13_check_algorithm type.
 
     \pre check_seq is a valid range.
@@ -83,7 +83,7 @@ typedef boost::checks::isbn13_algorithm<1> isbn13_compute_algorithm ;
 
     \throws std::invalid_argument if check_seq doesn't contain exactly EAN13_SIZE digits.
 
-    \returns True if the check digit is correct, false otherwise.
+    \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
 bool check_isbn13 (const check_range& check_seq)
@@ -91,14 +91,14 @@ bool check_isbn13 (const check_range& check_seq)
   return boost::checks::check_sequence<isbn13_check_algorithm, EAN13_SIZE> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Calculate the check digit of a sequence according to the isbn13_compute_algorithm type.
 
     \pre check_seq is a valid range.
-    
+
     \tparam check_range is a valid range type.
     \param check_seq is the sequence of value to check.
-    
+
     \throws std::invalid_argument if check_seq doesn't contain exactly EAN13_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
@@ -110,7 +110,7 @@ typename boost::checks::isbn13_compute_algorithm::checkdigit<check_range>::type 
   return boost::checks::compute_checkdigit<isbn13_compute_algorithm, EAN13_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
 }
 
-/*! 
+/*!
     \brief Validate a sequence according to the mod11_check_algorithm type.
 
     \pre check_seq is a valid range.
@@ -120,7 +120,7 @@ typename boost::checks::isbn13_compute_algorithm::checkdigit<check_range>::type 
 
     \throws std::invalid_argument if check_seq doesn't contain exactly ISBN10_SIZE digits.
 
-    \returns True if the check digit is correct, false otherwise.
+    \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
 bool check_isbn10 (const check_range& check_seq)
@@ -128,14 +128,14 @@ bool check_isbn10 (const check_range& check_seq)
   return boost::checks::check_modulus11< ISBN10_SIZE >( check_seq );
 }
 
-/*! 
+/*!
     \brief Calculate the check digit of a sequence according to the mod11_compute_algorithm type.
 
     \pre check_seq is a valid range.
-    
+
     \tparam check_range is a valid range type.
     \param check_seq is the sequence of value to check.
-    
+
     \throws std::invalid_argument if check_seq doesn't contain exactly ISBN10_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
@@ -148,5 +148,5 @@ typename boost::checks::mod11_compute_algorithm::checkdigit<check_range>::type c
 }
 
 
-}}
+}} // namespace boost   namespace checks
 #endif // BOOST_CHECKS_ISBN_HPP

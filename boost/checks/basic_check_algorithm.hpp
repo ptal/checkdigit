@@ -5,10 +5,10 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file basic_check_algorithm.hpp
+/*! \file
     \brief This file provides a class that should be used as an "interface" because most of the static functions should be re-implemented using inheritance.
 
-    \remarks The class implements static functions that often common to many algorithms.
+    \remarks The class implements static functions that are common to many algorithms.
 */
 
 #ifndef BOOST_CHECKS_BASIC_CHECK_ALGO_HPP
@@ -27,16 +27,16 @@ namespace boost{
   namespace checks{
 
 /*! \class basic_check_algorithm
-    \brief The main check algorithm class that provides every static functions that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.
+    \brief The main check algorithm class that provides every static function that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.
 
     \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
+    \tparam number_of_virtual_value_skipped Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
 template <typename iteration_sense, unsigned int number_of_virtual_value_skipped = 0>
 struct basic_check_algorithm
 {
   /*!
-    \brief This is the sense of the iteration (begins with the right or the leftmost value).
+    \brief This is the sense or direction of the iteration (begins with the right or the leftmost value).
   */
   typedef iteration_sense iteration_sense ;
 
@@ -45,14 +45,14 @@ struct basic_check_algorithm
 
     \tparam value is the type of a value in the sequence.
     \param current_value is the current value analysed in the sequence that must be translated.
-    \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+    \param valid_value_counter is the number of valid value(s) already counted (the current value is not included).\n This is also the position (beyond the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
-    \throws boost::checks::translation_exception is throwed if the translation of current_value failed.\n This will automaticaly throws if the value is not a digit (0 <= i < 11).
+    \throws boost::checks::translation_exception is thrown if the translation of current_value failed.\n This will automatically throw if the value is not a digit (0 <= i < 11).
 
     \returns the translation of the current value in the range [0..9].
 */
   template <typename value>
-  static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter )
+  static int translate_to_valid_value(const value &current_value, const unsigned int /* valid_value_counter */ )
   {
     int valid_value = 0;
     try{
@@ -70,9 +70,9 @@ struct basic_check_algorithm
 
     \param checksum is the checksum to validate.
 
-    \returns true.
+    \returns @c true always (unless overloaded to check a sequence).
 
-    \remarks This function should be overload if you want to check a sequence.
+    \remarks This function should be overloaded if you want to check a sequence.
   */
   static bool validate_checksum(int checksum)
   {
@@ -89,13 +89,13 @@ struct basic_check_algorithm
 
     \returns default initialized value of checkdigit.
 
-    \remarks This function should be overload if you want to compute the check digit of a sequence.
+    \remarks This function should be overloaded if you want to compute the check digit of a sequence.
   */
   template <typename checkdigit>
   static typename checkdigit compute_checkdigit( int checksum )
   {
     return checkdigit() ;
-  }  
+  }
 
   /*!
     \brief Compute the check digit(s) of a sequence.
@@ -104,11 +104,11 @@ struct basic_check_algorithm
 
     \tparam checkdigits_iter must meet the OutputIterator requirements.
     \param checksum is the checksum used to extract the check digit(s).
-    \param checkdigits is the iterator in which the check digit(s) will be written.
+    \param checkdigits is the iterator with which the check digit(s) will be written.
 
     \returns checkdigits.
 
-    \remarks This function should be overload if you want your algorithm compute more than one check digit (through it works for one check digit too).
+    \remarks This function should be overloaded if you want your algorithm to compute more than one check digit (through it works for just one check digit too).
   */
   template <typename checkdigits_iter>
   static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
@@ -117,16 +117,16 @@ struct basic_check_algorithm
   }
 
   /*!
-    \brief Compute an operation on the checksum with the current valid value
-    \post Do nothing. The checksum is inchanged.
+    \brief Compute an operation on the checksum with the current valid value.
+    \post Do nothing. The checksum is unchanged.
 
     \param current_valid_value is the current valid value analysed.
-    \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+    \param valid_value_counter is the number of valid value(s) already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
     \param checksum is the current checksum.
 
-    \remarks This function should be overload if you want to calculate the checksum of a sequence.
+    \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
+  static void operate_on_valid_value( const int /* current_valid_value */, const unsigned int /* valid_value_counter */, int &checksum )
   {
   }
 
@@ -138,9 +138,9 @@ struct basic_check_algorithm
     \param current_valid_value is the current valid value analysed.
     \param current_value_position is the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
-    \remarks This function should be overload if you want to filter the values with their positions.
+    \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position )
+  static void filter_valid_value_with_pos(const unsigned int /* current_valid_value */, const unsigned int /* current_value_position */ )
   {
   }
 
@@ -149,7 +149,7 @@ struct basic_check_algorithm
 
       \tparam check_range The type of the sequence to check.
 
-      \remarks This function should be overload if you want to change the type of the check digit.
+      \remarks This function should be overloaded if you want to change the type of the check digit.
   */
   template <typename check_range>
   struct checkdigit
@@ -159,5 +159,6 @@ struct basic_check_algorithm
 };
 
 
-}}
+}} // namespace boost  namespace checks
+
 #endif //BOOST_CHECKS_BASIC_CHECK_ALGO_HPP
