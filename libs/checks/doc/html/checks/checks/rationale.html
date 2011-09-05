@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Rationale</title>
+<link rel="stylesheet" href="../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../index.html" title="Checks">
+<link rel="up" href="../checks.html" title="Checks">
+<link rel="prev" href="refs.html" title="References">
+<link rel="next" href="history.html" title="History">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="refs.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="history.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="checks.checks.rationale"></a><a class="link" href="rationale.html" title="Rationale">Rationale</a>
+</h3></div></div></div>
+<p>
+        This section records the rationale and compromises for some design decisions.
+      </p>
+<a name="checks.checks.rationale.scope_of_the_project"></a><h5>
+<a name="checks.checks.rationale.scope_of_the_project-heading"></a>
+        <a class="link" href="rationale.html#checks.checks.rationale.scope_of_the_project">Scope of the
+        project</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+            Scott McMurray has identifed four fairly distinct types of check:
+            <div class="orderedlist"><ol type="1">
+<li>
+                  ISBN/ISSN/UPC/EAN/VISA/etc, for catching human-entry errors.
+                </li>
+<li>
+                  hash functions as in hash tables, which only care about distribution.
+                </li>
+<li>
+                  checksums like CRC32, for catching data transmission errors.
+                </li>
+<li>
+                  and cryptographic hash functions, the only ones useful against
+                  malicious adversaries.
+                </li>
+</ol></div>
+          </li></ul></div>
+<p>
+        This project is directed first at the first class. Others might be the subject
+        of future additions or other libraries.
+      </p>
+<a name="checks.checks.rationale.function_parameter"></a><h5>
+<a name="checks.checks.rationale.function_parameter-heading"></a>
+        <a class="link" href="rationale.html#checks.checks.rationale.function_parameter">Function parameter</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+            For more flexibility, this library uses the range concept. So you can
+            use old C-array or std::string,...
+          </li>
+<li>
+            If there is only one check digit in the number, this check digit is returned
+            in the same raw type than in the range sequence.
+          </li>
+<li>
+            If there is more than one check digit, an extra parameter is required.
+            This must be an OutputIterator, the function returns an iterator at one
+            pass the end of the check digit stored into this iterator.
+          </li>
+</ul></div>
+<a name="checks.checks.rationale.use_of_template_parameters_to_pass_size_and_weights"></a><h5>
+<a name="checks.checks.rationale.use_of_template_parameters_to_pass_size_and_weights-heading"></a>
+        <a class="link" href="rationale.html#checks.checks.rationale.use_of_template_parameters_to_pass_size_and_weights">Use
+        of template parameters to pass size and weights</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+            This feature means that much of the commonality between the various check
+            systems can be implemented in one place and reused.
+          </li>
+<li>
+            It also makes it possible to implement other check systems (of which
+            there are very many in use worldwide) and to devise new ones without
+            writing new code.
+          </li>
+</ul></div>
+<a name="checks.checks.rationale.performance"></a><h5>
+<a name="checks.checks.rationale.performance-heading"></a>
+        <a class="link" href="rationale.html#checks.checks.rationale.performance">Performance</a>
+      </h5>
+<div class="itemizedlist"><ul type="disc"><li>
+            Performance is not a major objective, but all the current algorithms
+            are implemented with a <span class="emphasis"><em>O(n)</em></span> complexity, where <span class="emphasis"><em>n</em></span>
+            is the number of digits or characters.
+          </li></ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="refs.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="history.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

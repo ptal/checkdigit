@@ -1,0 +1,88 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Luhn algorithm</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Checks">
+<link rel="up" href="../modulus.html" title="Modular sum algorithms">
+<link rel="prev" href="../modulus.html" title="Modular sum algorithms">
+<link rel="next" href="mod10.html" title="Modulus 10 algorithm">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../modulus.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../modulus.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="mod10.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="checks.checks.modulus.luhn"></a><a class="link" href="luhn.html" title="Luhn algorithm">Luhn algorithm</a>
+</h4></div></div></div>
+<a name="checks.checks.modulus.luhn.description"></a><h6>
+<a name="checks.checks.modulus.luhn.description-heading"></a>
+          <a class="link" href="luhn.html#checks.checks.modulus.luhn.description">Description</a>
+        </h6>
+<p>
+          The Luhn algorithm is used with a lot of codes and numbers: the most well-known
+          usage is the verification of the <span class="emphasis"><em>credit card numbers</em></span>
+          It produces a check digit from a sequence with an unlimited length. The
+          weight pattern used is from the rightmost digit (the check digit) doubling
+          the value of every second digit. It applies a modulus 10 on the sum, so
+          the range of the check digit is from 0 to 9.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            When a digit is doubled, we subtract 9 from the result if it exceeds
+            9
+          </p></td></tr>
+</table></div>
+<a name="checks.checks.modulus.luhn.errors"></a><h6>
+<a name="checks.checks.modulus.luhn.errors-heading"></a>
+          <a class="link" href="luhn.html#checks.checks.modulus.luhn.errors">Errors</a>
+        </h6>
+<p>
+          <span class="bold"><strong>Alterations</strong></span> of any one digit are all caught.
+          The alterations of more than one digit are not all caught. All <span class="bold"><strong>transpositions</strong></span> on digits with different weight are
+          caught, but the sequence "90" or "09" is not because:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting">9*2 = 18 and 18-9 = 9 
+9 * 2 = 9 * 1
+0 * 2 = 0 * 1
+</pre>
+<p>
+        </p>
+<p>
+          The two digits have the same value if they are doubled or not. Because
+          Luhn alternates a weight of 1 and 2, any transpositions of digits with
+          the same weight are not caught.
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../modulus.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../modulus.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="mod10.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

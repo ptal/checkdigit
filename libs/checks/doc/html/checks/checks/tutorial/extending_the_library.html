@@ -1,0 +1,634 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Extending the library</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Checks">
+<link rel="up" href="../tutorial.html" title="Tutorial">
+<link rel="prev" href="start.html" title="Starting with Checks">
+<link rel="next" href="../algorithm.html" title="Common check algorithms">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="start.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../algorithm.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="checks.checks.tutorial.extending_the_library"></a><a class="link" href="extending_the_library.html" title="Extending the library">Extending
+        the library</a>
+</h4></div></div></div>
+<p>
+          The re-usability of this library is an important feature. In fact, we can't
+          code every existing check systems, this is why we will learn how to extend
+          this library to cater for existing check systems not yet provided, and
+          even to create your own check system.
+        </p>
+<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number"></a><h6>
+<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number-heading"></a>
+          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number">Example
+          with the Routing transit number</a>
+        </h6>
+<p>
+          We will show how to extend this library with the <a href="http://en.wikipedia.org/wiki/Routing_transit_number" target="_top">Routing
+          transit number (RTN)</a>. The first thing to do is to read the check
+          digit calculation procedure. So we can notice few points:
+        </p>
+<div class="orderedlist"><ol type="1">
+<li>
+              It is a weighted sum and the weight sequence is: 3,7,1.
+            </li>
+<li>
+              It is using a modulus 10.
+            </li>
+<li>
+              The size of the RTN is 9.
+            </li>
+</ol></div>
+<p>
+          We can create the <a href="../../../../../example/rtn.hpp" target="_top">rtn.hpp</a> file.
+        </p>
+<p>
+          The library supports the weighted sum and the modulus 10 algorithm, so
+          the work will be easy. We can run through the number from right to left
+          or left to right (sense) depending on the weight sequence. We will begin
+          with the leftmost digit because it is more "readable" (at least
+          for Latin language uers).
+        </p>
+<p>
+          We need these include files.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus10</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">basic_checks</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">RTN_SIZE</span> <span class="number">9</span>
+<span class="preprocessor">#define</span> <span class="identifier">RTN_SIZE_WITHOUT_CHECKDIGIT</span> <span class="number">8</span>
+
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">weight</span><span class="special">&lt;</span><span class="number">3</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">1</span><span class="special">&gt;</span> <span class="identifier">rtn_weight</span> <span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">leftmost</span> <span class="identifier">rtn_sense</span> <span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          We must put the weights and the sense together into an algorithm type:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus10_algorithm</span> <span class="special">&lt;</span> <span class="identifier">rtn_weight</span><span class="special">,</span> <span class="identifier">rtn_sense</span><span class="special">,</span> <span class="number">0</span><span class="special">&gt;</span> <span class="identifier">rtn_check_algorithm</span> <span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus10_algorithm</span> <span class="special">&lt;</span> <span class="identifier">rtn_weight</span><span class="special">,</span> <span class="identifier">rtn_sense</span><span class="special">,</span> <span class="number">0</span><span class="special">&gt;</span> <span class="identifier">rtn_compute_algorithm</span> <span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          As the hard part is already done, we can build our check functions now:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">check_rtn</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_sequence</span><span class="special">&lt;</span><span class="identifier">rtn_check_algorithm</span><span class="special">,</span> <span class="identifier">RTN_SIZE</span><span class="special">&gt;</span> <span class="special">(</span> <span class="identifier">check_seq</span> <span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">rtn_compute_algorithm</span><span class="special">::</span><span class="identifier">checkdigit</span><span class="special">&lt;</span><span class="identifier">check_range</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">compute_rtn</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_checkdigit</span><span class="special">&lt;</span><span class="identifier">rtn_compute_algorithm</span><span class="special">,</span> <span class="identifier">RTN_SIZE_WITHOUT_CHECKDIGIT</span><span class="special">&gt;</span> <span class="special">(</span> <span class="identifier">check_seq</span> <span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          And that's all!
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_checkdigit</span></code> and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_sequence</span></code> are both defined in
+            <a href="../../../../../../../boost/checks/basic_checks.hpp" target="_top">basic_checks.hpp</a>
+          </p></td></tr>
+</table></div>
+<p>
+          We can code a RTN sample in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">rtn_number</span> <span class="special">=</span>  <span class="string">"111000025"</span> <span class="special">;</span>
+<span class="keyword">if</span> <span class="special">(</span> <span class="identifier">check_rtn</span> <span class="special">(</span> <span class="identifier">rtn_number</span> <span class="special">)</span> <span class="special">)</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The Routing Transit Number: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">rtn_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is valid."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+<span class="identifier">rtn_number</span> <span class="special">=</span> <span class="string">"11100002"</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The check digit of the number: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">rtn_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is "</span> <span class="special">&lt;&lt;</span> <span class="identifier">compute_rtn</span> <span class="special">(</span><span class="identifier">rtn_number</span> <span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          and the output is:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">Routing</span> <span class="identifier">Transit</span> <span class="identifier">Number</span><span class="special">:</span> <span class="number">111000025</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">number</span><span class="special">:</span> <span class="number">11100002</span> <span class="identifier">is</span> <span class="number">5.</span>
+
+</pre>
+<p>
+        </p>
+<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_"></a><h6>
+<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_-heading"></a>
+          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_">Example
+          with the Vehicle Identification Number (VIN)</a>
+        </h6>
+<p>
+          This second example is quite more complex because the <a href="http://en.wikipedia.org/wiki/Vehicle_identification_number" target="_top">Vehicle
+          Identification Number (VIN)</a> is not a default implemented check
+          algorithm. Like for the <a href="http://en.wikipedia.org/wiki/Routing_transit_number" target="_top">Routing
+          transit number (RTN)</a>, we must read the documentation first, and
+          then we can extract a few elements:
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              The number contains letters that must be translated to compute or check
+              the check digit.
+            </li>
+<li>
+              The check digit is not at the end of the number. It's at the 9th position,
+              in the midst of the number.
+            </li>
+<li>
+              The letters Q, I, or O are not valid (presumably to avoid confusion
+              with digits 0 and 1).
+            </li>
+<li>
+              This uses a custom modulus 11 algorithm, so the check digit range is
+              [0..9, X]
+            </li>
+</ul></div>
+<p>
+          The library already has support for modulus 11 algorithm in the header:
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></pre>
+<p>
+        </p>
+<p>
+          We create the <a href="../../../../../example/vin.hpp" target="_top">vin.hpp</a> file.
+          Step by step, let's now complete this file.
+        </p>
+<div class="orderedlist"><ol type="1">
+<li>
+              The weight sequence is : 2,3,4,5,6,7,8,9,10.
+            </li>
+<li>
+              We run through the sequence from right to left.
+            </li>
+</ol></div>
+<p>
+          We create the types associated with these two observations:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">basic_checks</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#define</span> <span class="identifier">VIN_SIZE</span> <span class="number">17</span>
+<span class="preprocessor">#define</span> <span class="identifier">VIN_SIZE_WITHOUT_CHECKDIGIT</span> <span class="number">16</span>
+<span class="preprocessor">#define</span> <span class="identifier">VIN_CHECKDIGIT_POS</span> <span class="number">8</span>
+
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">weight</span><span class="special">&lt;</span><span class="number">2</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">4</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">8</span><span class="special">,</span><span class="number">9</span><span class="special">,</span><span class="number">10</span><span class="special">&gt;</span> <span class="identifier">vin_weight</span> <span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">rightmost</span> <span class="identifier">vin_sense</span> <span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          We will now attack the harder part of the work: we need to build the adapted
+          structure. To create our own algorithm, first we need to declare the structure
+          with inheritance:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">number_of_virtual_value_skipped</span> <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">vin_algorithm</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus11_algorithm</span><span class="special">&lt;</span><span class="identifier">vin_weight</span><span class="special">,</span> <span class="identifier">vin_sense</span><span class="special">,</span> <span class="identifier">number_of_virtual_value_skipped</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          The classic modulus 11 algorithm doesn't permit the translation of letters
+          (only the 'x' if it's the check digit). But the VIN number uses nearly
+          the full latin alphabet (they omitted O, Q, and I to avoid confusion with
+          numerals 1 and 0). We choose to launch the std::invalid_argument exception
+          (that has the effect of stopping the algorithm) if one of these letter
+          is encountered. The other letters must be transformed using this table:
+        </p>
+<div class="table">
+<a name="checks.checks.tutorial.extending_the_library.id"></a><p class="title"><b>Table&#160;1.&#160;Letter to digit VIN conversion table</b></p>
+<div class="table-contents"><table class="table" summary="Letter to digit VIN conversion table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Conversion value
+                  </p>
+                </th>
+<th>
+                  <p>
+                    1
+                  </p>
+                </th>
+<th>
+                  <p>
+                    2
+                  </p>
+                </th>
+<th>
+                  <p>
+                    3
+                  </p>
+                </th>
+<th>
+                  <p>
+                    4
+                  </p>
+                </th>
+<th>
+                  <p>
+                    5
+                  </p>
+                </th>
+<th>
+                  <p>
+                    6
+                  </p>
+                </th>
+<th>
+                  <p>
+                    7
+                  </p>
+                </th>
+<th>
+                  <p>
+                    8
+                  </p>
+                </th>
+<th>
+                  <p>
+                    9
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                </td>
+<td>
+                  <p>
+                    A (1)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    B (2)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    C (3)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    D (4)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    E (5)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    F (6)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    G (7)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    H (8)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    I (N/A)
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                </td>
+<td>
+                  <p>
+                    J (10)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    K (11)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    L (12)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    M (13)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    N (14)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    O (N/A)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    P (16)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Q (N/A)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    R (18)
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    S (19)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    T (20)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    U (21)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    V (22)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    W (23)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    X (24)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Y (25)
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Z (26)
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+          We need to find an algorithm that converts a letter into its conversion
+          value, the following function does the job:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">X</span> <span class="special">=</span> <span class="identifier">X</span> <span class="special">%</span> <span class="number">10</span> <span class="special">+</span> <span class="identifier">X</span><span class="special">/</span><span class="number">10</span> <span class="special">+</span> <span class="special">((</span><span class="identifier">X</span> <span class="special">&gt;</span> <span class="number">18</span><span class="special">)</span> <span class="special">?</span> <span class="number">1</span> <span class="special">:</span> <span class="number">0</span><span class="special">).</span>
+</pre>
+<p>
+        </p>
+<p>
+          Also the check digit can only be in the range [0..9,X], so we choose to
+          launch the std::invalid_argument exception if another letter is read. With
+          the check digit, and following the modulus 11 algorithm, if the check digit
+          is equal to X, the integer value is 10. But this algorithm is different
+          and we must subtract the check digit from 11.
+        </p>
+<p>
+          Let's see the code now:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">value</span><span class="special">&gt;</span>
+<span class="keyword">static</span> <span class="keyword">int</span> <span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="identifier">current_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">valid_value_counter</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">int</span> <span class="identifier">valid_value</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+  <span class="keyword">try</span>
+  <span class="special">{</span>
+    <span class="identifier">valid_value</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span> <span class="identifier">current_value</span> <span class="special">)</span> <span class="special">;</span>
+  <span class="special">}</span>
+  <span class="keyword">catch</span><span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">bad_lexical_cast</span> <span class="special">)</span>
+  <span class="special">{</span>
+    <span class="comment">// Transform the value to be between 1 and 26.</span>
+    <span class="keyword">if</span><span class="special">(</span> <span class="identifier">current_value</span> <span class="special">&gt;=</span> <span class="char">'a'</span> <span class="special">&amp;&amp;</span> <span class="identifier">current_value</span> <span class="special">&lt;=</span> <span class="char">'z'</span> <span class="special">)</span>
+      <span class="identifier">valid_value</span> <span class="special">=</span> <span class="identifier">current_value</span> <span class="special">-</span> <span class="char">'a'</span> <span class="special">+</span> <span class="number">1</span> <span class="special">;</span>
+    <span class="keyword">else</span> <span class="keyword">if</span><span class="special">(</span> <span class="identifier">current_value</span> <span class="special">&gt;=</span> <span class="char">'A'</span> <span class="special">&amp;&amp;</span> <span class="identifier">current_value</span> <span class="special">&lt;=</span> <span class="char">'Z'</span> <span class="special">)</span>
+      <span class="identifier">valid_value</span> <span class="special">=</span> <span class="identifier">current_value</span> <span class="special">-</span> <span class="char">'A'</span> <span class="special">+</span> <span class="number">1</span> <span class="special">;</span>
+    <span class="keyword">else</span>
+      <span class="keyword">throw</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">translation_exception</span><span class="special">()</span> <span class="special">;</span>
+
+    <span class="keyword">if</span> <span class="special">(</span> <span class="identifier">valid_value</span> <span class="special">==</span> <span class="number">9</span> <span class="special">||</span> <span class="identifier">valid_value</span> <span class="special">==</span> <span class="number">15</span> <span class="special">||</span> <span class="identifier">valid_value</span> <span class="special">==</span> <span class="number">17</span><span class="special">)</span>
+      <span class="keyword">throw</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span><span class="special">(</span> <span class="string">"The letter I, O and Q are not allowed."</span> <span class="special">);</span>
+
+    <span class="keyword">if</span> <span class="special">(</span> <span class="identifier">valid_value_counter</span> <span class="special">==</span> <span class="identifier">VIN_CHECKDIGIT_POS</span> <span class="special">&amp;&amp;</span> <span class="identifier">number_of_virtual_value_skipped</span> <span class="special">==</span> <span class="number">0</span><span class="special">)</span>
+    <span class="special">{</span>
+      <span class="keyword">if</span> <span class="special">(</span> <span class="identifier">valid_value</span> <span class="special">!=</span> <span class="number">24</span> <span class="special">)</span>
+        <span class="keyword">throw</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span><span class="special">(</span> <span class="string">"The check digit should be a digit or X or x."</span> <span class="special">);</span>
+      <span class="keyword">else</span>
+        <span class="identifier">valid_value</span> <span class="special">=</span> <span class="number">10</span> <span class="special">;</span>
+      <span class="identifier">valid_value</span> <span class="special">=</span> <span class="number">11</span> <span class="special">-</span> <span class="identifier">valid_value</span> <span class="special">;</span>
+    <span class="special">}</span>
+    <span class="keyword">else</span>
+      <span class="identifier">valid_value</span> <span class="special">=</span> <span class="identifier">valid_value</span> <span class="special">%</span> <span class="number">10</span> <span class="special">+</span> <span class="identifier">valid_value</span> <span class="special">/</span> <span class="number">10</span> <span class="special">+</span> <span class="special">(</span><span class="identifier">valid_value</span> <span class="special">&gt;</span> <span class="number">18</span><span class="special">)</span> <span class="special">;</span>
+  <span class="special">}</span>
+  <span class="keyword">if</span><span class="special">(</span> <span class="identifier">valid_value</span> <span class="special">&gt;</span> <span class="number">10</span><span class="special">)</span>
+    <span class="keyword">throw</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">translation_exception</span><span class="special">()</span> <span class="special">;</span>
+
+  <span class="keyword">return</span> <span class="identifier">valid_value</span> <span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          The operation function is partially copied from the function <code class="computeroutput"><span class="identifier">operate_on_valid_value</span></code> in the file <a href="../../../../../../../boost/checks/weighted_sum.hpp" target="_top">weighted_sum.hpp</a>.
+          We need to control the fact that the check digit is in the midst of the
+          number. If there is a check digit into the sequence, we mustn't apply a
+          weight, and we must avoid shift of the full weight sequence for the future
+          iteration.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">operate_on_valid_value</span><span class="special">(</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">current_valid_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">valid_value_counter</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="identifier">checksum</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">if</span><span class="special">(</span> <span class="identifier">number_of_virtual_value_skipped</span> <span class="special">==</span> <span class="number">0</span> <span class="special">&amp;&amp;</span> <span class="identifier">valid_value_counter</span> <span class="special">==</span> <span class="identifier">VIN_CHECKDIGIT_POS</span> <span class="special">)</span>
+    <span class="identifier">checksum</span> <span class="special">+=</span> <span class="identifier">current_valid_value</span> <span class="special">;</span>
+  <span class="keyword">else</span>
+  <span class="special">{</span>
+    <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">weight_position</span> <span class="special">=</span> <span class="identifier">valid_value_counter</span> <span class="special">-</span> <span class="special">(</span><span class="identifier">number_of_virtual_value_skipped</span> <span class="special">==</span> <span class="number">0</span> <span class="special">&amp;&amp;</span> <span class="identifier">valid_value_counter</span> <span class="special">&gt;</span> <span class="identifier">VIN_CHECKDIGIT_POS</span><span class="special">)</span> <span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">current_weight</span> <span class="special">=</span> <span class="identifier">vin_weight</span><span class="special">::</span><span class="identifier">weight_associated_with_pos</span><span class="special">(</span> <span class="identifier">weight_position</span> <span class="special">)</span> <span class="special">;</span>
+    <span class="identifier">checksum</span> <span class="special">+=</span> <span class="identifier">current_valid_value</span> <span class="special">*</span> <span class="identifier">current_weight</span> <span class="special">;</span>
+  <span class="special">}</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          Finally the calculation of the check digit is different from the classic
+          modulus 11 algorithm, so we need to re-implement it:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">checkdigit</span><span class="special">&gt;</span>
+<span class="keyword">static</span> <span class="keyword">typename</span> <span class="identifier">checkdigit</span> <span class="identifier">compute_checkdigit</span><span class="special">(</span> <span class="keyword">int</span> <span class="identifier">checksum</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus11_algorithm</span><span class="special">&lt;</span><span class="identifier">vin_weight</span><span class="special">,</span> <span class="identifier">vin_sense</span><span class="special">,</span> <span class="identifier">number_of_virtual_value_skipped</span><span class="special">&gt;</span> <span class="identifier">mod11</span> <span class="special">;</span>
+  <span class="keyword">return</span> <span class="identifier">mod11</span><span class="special">::</span><span class="identifier">translate_checkdigit</span><span class="special">&lt;</span><span class="identifier">checkdigit</span><span class="special">&gt;(</span><span class="identifier">checksum</span> <span class="special">%</span> <span class="number">11</span><span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<p>
+          We can now write the VIN type algorithm:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">vin_algorithm</span> <span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;</span> <span class="identifier">vin_check_algorithm</span> <span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">vin_algorithm</span> <span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;</span> <span class="identifier">vin_compute_algorithm</span> <span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          And write the functions:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">check_vin</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_sequence</span><span class="special">&lt;</span><span class="identifier">vin_check_algorithm</span><span class="special">,</span> <span class="identifier">VIN_SIZE</span><span class="special">&gt;</span> <span class="special">(</span> <span class="identifier">check_seq</span> <span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">vin_compute_algorithm</span><span class="special">::</span><span class="identifier">checkdigit</span><span class="special">&lt;</span><span class="identifier">check_range</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">compute_vin</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_checkdigit</span><span class="special">&lt;</span><span class="identifier">vin_compute_algorithm</span><span class="special">,</span> <span class="identifier">VIN_SIZE_WITHOUT_CHECKDIGIT</span><span class="special">&gt;</span> <span class="special">(</span> <span class="identifier">check_seq</span> <span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            This algorithm doesn't support full integer array that are not pre-computed
+            (Example: (A) 10 -&gt; 1 ; (M) 13 -&gt; 4). It can be an exercise for
+            the reader.
+          </p></td></tr>
+</table></div>
+<p>
+          Some basic examples are coded in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>:
+        </p>
+<p>
+          [vin_example]
+        </p>
+<p>
+          that provides the following output:
+        </p>
+<p>
+          [vin_example_output]
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="start.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../algorithm.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Alteration</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Checks">
+<link rel="up" href="../errors.html" title="Type of errors">
+<link rel="prev" href="../errors.html" title="Type of errors">
+<link rel="next" href="transposition.html" title="Transposition">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../errors.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../errors.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="transposition.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="checks.checks.errors.alteration"></a><a class="link" href="alteration.html" title="Alteration">Alteration</a>
+</h4></div></div></div>
+<a name="checks.checks.errors.alteration.single_error"></a><h6>
+<a name="checks.checks.errors.alteration.single_error-heading"></a>
+          <a class="link" href="alteration.html#checks.checks.errors.alteration.single_error">Single error</a>
+        </h6>
+<p>
+          If the digits are added, an alteration of one digit will always render
+          a different sum and therefore the check digit.
+        </p>
+<a name="checks.checks.errors.alteration.multiple_error"></a><h6>
+<a name="checks.checks.errors.alteration.multiple_error-heading"></a>
+          <a class="link" href="alteration.html#checks.checks.errors.alteration.multiple_error">Multiple
+          error</a>
+        </h6>
+<p>
+          If more than one digit is altered, a simple sum can't ensure that the check
+          digit will be different. In fact it depends on the compensation of the
+          altered digits. For example : 1 + 2 + 3 = 6. If we alter 2 digits, the
+          sum could become : 2 + 2 + 2 = 6. The result is equal because 1 + 3 = 2
+          + 2, the digits altered are compensated.
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../errors.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../errors.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="transposition.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
