@@ -39,9 +39,7 @@ path-constant here : . ; # Convenient to refer to files in the same directory as
 ECHO "here = " $(here) ; 
 
 path-constant nav_images : html/images/ ; # png and svg images for home, next, note, tip...
-# path-constant images_location : ../doc/html/images ; # location of Checks images referenced by Quickbook.
-#path-constant images_location : html/images ; # location of SVG and PNG images referenced by Quickbook.
-path-constant images_location : html/images ; # location of SVG and PNG images referenced by Quickbook.
+path-constant images_location : html ; # location of SVG and PNG images referenced by Quickbook.
 
 echo "images_location" $(images_location) ; 
 echo "nav_images" $(nav_images) ;
@@ -212,13 +210,13 @@ boostbook standalone
   <xsl:param>boost.root=../../../../../../../boost_trunk # OK but link to I:/boost_trunk/boost.png
 
   # Also control links to admonitions, so need to set separately.
-  #<xsl:param>boost.root=../../../../../../../boost_1_46_0 # OK file:///I:/boost_1_48_0/boost.png
+  #<xsl:param>boost.root=../../../../../../../boost_1_47_0 # OK file:///I:/boost_1_48_0/boost.png
   # Quickbook [@boost:/boost/units/detail/utility.hpp] should make it relative to xsl parameter boost.root.
 
   # [@boost:boost.png Boost logo]  # xsl parameter boost.root, for example I:/boost_1_48_0/boost.png
 
   # Path for libraries index:
-  <xsl:param>boost.libraries=../../../../../../../boost_1_46_0/libs/libraries.htm
+  <xsl:param>boost.libraries=../../../../../../../boost_1_47_0/libs/libraries.htm
   # Use the main Boost stylesheet:
   #<xsl:param>html.stylesheet=$(local-boost-root)/doc/html/boostbook.css #?  better
   <xsl:param>html.stylesheet=./boostbook.css # in /doc folder.
@@ -288,8 +286,7 @@ boostbook standalone
   <format>pdf:<xsl:param>admon.graphics.extension=".svg"  #
   <format>pdf:<xsl:param>use.role.for.mediaobject=1 # Use print role on next line.
   <format>pdf:<xsl:param>preferred.mediaobject.role=print # pdf role is to be printed.
-  # <format>pdf:<xsl:param>img.src.path=$(images_location)/ # Path of image (.svg) files. (Note trailing /) ? 
-  <format>pdf:<xsl:param>img.src.path=./images/ # Path of image (.svg) files. (Note trailing /)
+  <format>pdf:<xsl:param>img.src.path=$(images_location)/ # Path of image (.svg) files. (Note trailing /) ? 
   <format>pdf:<xsl:param>admon.graphics.path=$(nav_images)/ # path to admonition (warning, note...) image (.svg) files.
   <format>pdf:<xsl:param>draft.mode="yes" # Yes if draft watermark wanted!
   #<format>pdf:<xsl:param>draft.watermark.image="draft.png" # Watermark (local copy).
