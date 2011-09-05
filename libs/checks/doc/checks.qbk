@@ -17,7 +17,7 @@
 [/Note too that it can't be used for images.]
 [def __boostlicense [@http://www.boost.org/LICENSE_1_0.txt Boost License]]
 
-[def __CHECKS__HIERARCHY__ [$images/checks/check_hierarchy.png]]
+[def __CHECKS__HIERARCHY__ [$./images/checks/check_hierarchy.png]]
 [def __EXTENDS__LIBRARY__ [link checks.checks.tutorial.extending_the_library extending the library]]
 
 [def __BASIC__CHECK__FILE__ [@../../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
