@@ -9,7 +9,7 @@
 
 // Boost test of tools used by the Boost::checks library.
 
-// See http://www.boost.org/doc/libs/1_46_1/libs/test/doc/html/utf/testing-tools/reference.html
+// See http://www.boost.org/doc/libs/1_47_1/libs/test/doc/html/utf/testing-tools/reference.html
 
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_MODULE "Check Tools Test Suite"
@@ -19,7 +19,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
+#include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink.
 
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
@@ -83,5 +83,5 @@ BOOST_AUTO_TEST_CASE(limits_test)
   }
   BOOST_CHECK ( size_expected::reach_one_past_the_end(6) );
   BOOST_CHECK ( !no_size_expected::reach_one_past_the_end(6) );
-  
+
 }

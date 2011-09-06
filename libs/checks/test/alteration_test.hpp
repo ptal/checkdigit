@@ -1,4 +1,5 @@
-//! \file alteration_test.hpp
+//! \file
+// alteration_test.hpp
 
 // Copyright Pierre Talbot 2011.
 
@@ -7,6 +8,7 @@
 // (See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+//! \brief To test the efficiency of check algorithms in detecting alterations.
 
 #ifndef BOOST_CHECK_TEST_ALTERATION_HPP
 #define BOOST_CHECK_TEST_ALTERATION_HPP
@@ -21,7 +23,7 @@ unsigned int alteration( const functor &compute_checkdigit , int number_of_posit
   for(int i=0; i < number_of_position_to_test; ++i)
     sequence[i] = '1' ;
 
-  std::string alterate_seq = std::string(); 
+  std::string alterate_seq = std::string();
   alterate_seq.resize(number_of_position_to_test) ;
 
   char checkdigit = compute_checkdigit( sequence );

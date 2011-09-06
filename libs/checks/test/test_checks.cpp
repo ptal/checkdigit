@@ -50,8 +50,8 @@ BOOST_AUTO_TEST_SUITE( use_cases_tests )
 BOOST_AUTO_TEST_CASE(visa_tests)
 {
   std::string visa_valid = "4417 1234 5678 9113" ;
-  std::string visa_low_size_failure = "417 1234 5678 9113" ;
-  std::string visa_big_size_failure = "44417 1234 5678 9113" ;
+  std::string visa_low_size_failure = "417 1234 5678 9113" ; // A missing digit '4'.
+  std::string visa_big_size_failure = "44417 1234 5678 9113" ; // An extra '4' digit.
   std::string visa_mii_failure = "3417 1234 5678 9113" ;
 
   BOOST_CHECK ( boost::checks::check_visa (visa_valid) ) ;
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(ean_tests)
   BOOST_CHECK_THROW ( boost::checks::check_ean13 (ean13_big_size_failure) , std::invalid_argument ) ;
 
   std::string ean13_valid_without_checkdigit = "5 412983 13002" ;
-  BOOST_CHECK_EQUAL ( boost::checks::compute_ean13 (ean13_valid_without_checkdigit), '8' ) ; 
+  BOOST_CHECK_EQUAL ( boost::checks::compute_ean13 (ean13_valid_without_checkdigit), '8' ) ;
 
   std::string ean8_valid = "5449 1472" ; // Bottle of Coke.
   std::string ean8_low_size_failure = "5449 472" ;
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE(ean_tests)
   BOOST_CHECK_THROW ( boost::checks::check_ean8 (ean8_big_size_failure) , std::invalid_argument ) ;
 
   std::string ean8_valid_without_checkdigit = "5449 147" ;
-  BOOST_CHECK_EQUAL ( boost::checks::compute_ean8 (ean8_valid_without_checkdigit), '2' ) ; 
+  BOOST_CHECK_EQUAL ( boost::checks::compute_ean8 (ean8_valid_without_checkdigit), '2' ) ;
 }
 
 BOOST_AUTO_TEST_CASE(upc_tests)
@@ -146,14 +146,14 @@ BOOST_AUTO_TEST_CASE(upc_tests)
   BOOST_CHECK_THROW ( boost::checks::check_upca (upca_big_size_failure) , std::invalid_argument ) ;
 
   std::string upca_valid_without_checkdigit = "03600029145" ;
-  BOOST_CHECK_EQUAL ( boost::checks::compute_upca (upca_valid_without_checkdigit), '2' ) ; 
+  BOOST_CHECK_EQUAL ( boost::checks::compute_upca (upca_valid_without_checkdigit), '2' ) ;
 }
 
 BOOST_AUTO_TEST_CASE(isbn_tests)
 {
 
   std::string isbn13_valid = "978-0-13-235088-4" ; // Clean Code: a handbook of agile software craftsmanship, Robert C. Martin.
-  std::string isbn13_not_valid = "979-0-13-235088-4" ; 
+  std::string isbn13_not_valid = "979-0-13-235088-4" ;
   std::string isbn13_low_size_failure = "978--13-235088-4" ;
   std::string isbn13_big_size_failure = "978-00-13-235088-4" ;
   std::string isbn13_ean_id_failure = "977-0-13-235088-4" ;
@@ -169,9 +169,9 @@ BOOST_AUTO_TEST_CASE(isbn_tests)
   BOOST_CHECK_THROW ( boost::checks::check_isbn13 (isbn13_ean_id_failure3) , std::invalid_argument ) ;
 
   std::string isbn13_valid_without_checkdigit = "978-0-13-235088-" ;
-  std::string isbn13_not_valid_without_checkdigit = "979-0-13-235088-" ; 
-  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn13 (isbn13_valid_without_checkdigit), '4' ) ; 
-  BOOST_CHECK_NE ( boost::checks::compute_isbn13 (isbn13_not_valid_without_checkdigit), '4' ) ; 
+  std::string isbn13_not_valid_without_checkdigit = "979-0-13-235088-" ;
+  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn13 (isbn13_valid_without_checkdigit), '4' ) ;
+  BOOST_CHECK_NE ( boost::checks::compute_isbn13 (isbn13_not_valid_without_checkdigit), '4' ) ;
 
   std::string isbn10_valid = "0-201-70073-5" ; // The C++ Programming Language, Special Edition, Bjarne Stroustrup.
   std::string isbn10_low_size_failure = "00-201-70073-5" ;
@@ -182,13 +182,13 @@ BOOST_AUTO_TEST_CASE(isbn_tests)
   BOOST_CHECK_THROW ( boost::checks::check_isbn10 (isbn10_big_size_failure) , std::invalid_argument ) ;
 
   std::string isbn10_valid_without_checkdigit = "0-201-70073-" ;
-  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn10 (isbn10_valid_without_checkdigit), '5' ) ; 
+  BOOST_CHECK_EQUAL ( boost::checks::compute_isbn10 (isbn10_valid_without_checkdigit), '5' ) ;
 }
 
 BOOST_AUTO_TEST_CASE(mod97_10_tests)
 {
   std::string mod97_10_valid = "510007547061111462" ; // From a Belgium IBAN
-  std::string mod97_10_not_valid = "511007547061111462" ; 
+  std::string mod97_10_not_valid = "511007547061111462" ;
   std::string mod97_10_low_size_failure = "51007547061111462" ;
   std::string mod97_10_big_size_failure = "5100007547061111462" ;
 
@@ -198,15 +198,15 @@ BOOST_AUTO_TEST_CASE(mod97_10_tests)
   BOOST_CHECK ( !boost::checks::check_mod97_10 (mod97_10_big_size_failure)) ;
 
   std::string mod97_10_valid_without_checkdigits = "5100075470611114" ;
-  std::string mod97_10_not_valid_without_checkdigits = "5110075470611114" ; 
-  
+  std::string mod97_10_not_valid_without_checkdigits = "5110075470611114" ;
+
   std::string valid_check_digits = "00" ;
   boost::checks::compute_mod97_10 (mod97_10_valid_without_checkdigits, valid_check_digits.begin() );
-  BOOST_CHECK_EQUAL ( valid_check_digits, "62" ) ; 
-  
+  BOOST_CHECK_EQUAL ( valid_check_digits, "62" ) ;
+
   std::string invalid_check_digits = "00";
   boost::checks::compute_mod97_10 (mod97_10_not_valid_without_checkdigits, invalid_check_digits.begin() );
-  BOOST_CHECK_NE ( invalid_check_digits, "62" ) ; 
+  BOOST_CHECK_NE ( invalid_check_digits, "62" ) ;
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -246,28 +246,28 @@ struct modulus11_functor
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition( luhn_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << (90-transpositions_failures) << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << (90-transpositions_failures) << " caught on 90.") ;
 
   unsigned int alterations_failures = alteration( luhn_functor() , 2) ;
-  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (18-alterations_failures) << " catched on 18.") ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (18-alterations_failures) << " caught on 18.") ;
 }
 
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition( verhoeff_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " caught on 90.") ;
 
   unsigned int alterations_failures = alteration( verhoeff_functor() , 20) ;
-  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (180-alterations_failures) << " catched on 180.") ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (180-alterations_failures) << " caught on 180.") ;
 }
 
 BOOST_AUTO_TEST_CASE(modulus11_test)
 {
   unsigned int transpositions_failures = transposition( modulus11_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << (90-transpositions_failures) << " caught on 90.") ;
 
   unsigned int alterations_failures = alteration( modulus11_functor() , 10) ;
-  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (90-alterations_failures) << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( alterations_failures == 0, "" << (90-alterations_failures) << " caught on 90.") ;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

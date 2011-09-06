@@ -27,8 +27,8 @@ unsigned int transposition( const functor &compute_checkdigit )
     {
       if(i != j)
       {
-        sequence[0] = i | '0' ;
-        sequence[1] = j | '0' ;
+        sequence[0] = static_cast<char>(i | '0') ;
+        sequence[1] = static_cast<char>(j | '0') ;
 
         transpose_seq[0] = sequence[1] ;
         transpose_seq[1] = sequence[0] ;

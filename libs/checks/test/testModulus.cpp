@@ -1,4 +1,5 @@
-//! \file testModulus.cpp
+//! \file
+// testModulus.cpp
 
 // Copyright Pierre Talbot 2011.
 
@@ -7,7 +8,8 @@
 // (See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-// Boost test of various check 'digit' systems.
+//! \brief Boost.Test of various check 'digit' systems.
+//! \detail Tests check algorithms for alterations and transpositions.
 
 // See http://www.boost.org/doc/libs/1_46_1/libs/test/doc/html/utf/testing-tools/reference.html
 
@@ -20,7 +22,7 @@
 #include <iomanip>
 #include <list>
 
-#include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
+#include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink.
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/modulus10.hpp>
@@ -53,11 +55,11 @@ struct verhoeff_functor
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition( luhn_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << transpositions_failures << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << transpositions_failures << " caught on 90.") ;
 }
 
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition( verhoeff_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " catched on 90.") ;
+  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " caught on 90.") ;
 }
