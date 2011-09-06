@@ -7,6 +7,7 @@
 
 /*! \file
     \brief This file provides tools to compute a Verhoeff checksum.
+    \details See http://en.wikipedia.org/wiki/Verhoeff_algorithm
 */
 
 #ifndef BOOST_VERHOEFF_INCLUDED

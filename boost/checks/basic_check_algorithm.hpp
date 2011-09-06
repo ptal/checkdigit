@@ -52,7 +52,7 @@ struct basic_check_algorithm
     \returns the translation of the current value in the range [0..9].
 */
   template <typename value>
-  static int translate_to_valid_value(const value &current_value, const unsigned int /* valid_value_counter */ )
+  static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter)
   {
     int valid_value = 0;
     try{
@@ -126,7 +126,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static void operate_on_valid_value( const int /* current_valid_value */, const unsigned int /* valid_value_counter */, int &checksum )
+  static void operate_on_valid_value( const int current_valid_value , const unsigned int valid_value_counter, int &checksum )
   {
   }
 
@@ -140,11 +140,13 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(const unsigned int /* current_valid_value */, const unsigned int /* current_value_position */ )
+  static void filter_valid_value_with_pos(const unsigned int current_valid_value , const unsigned int current_value_position )
   {
   }
 
-  /*! \class checkdigit
+  /*!
+      \class checkdigit
+
       \brief Template rebinding class used to define the type of the check digit(s) of check_range.
 
       \tparam check_range The type of the sequence to check.

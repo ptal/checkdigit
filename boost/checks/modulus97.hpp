@@ -29,7 +29,8 @@ namespace boost{
 
 /*! \class modulus97_algorithm
     \brief This class can be used to compute or validate a checksum with a basic modulus 97.
-    \detail  The mod97-10 algorithm (ISO/IEC 7064:2003 Information technology -- Security techniques -- Check character systems) uses two check digits.
+
+    \details  The mod97-10 algorithm (ISO/IEC 7064:2003 Information technology -- Security techniques -- Check character systems) uses two check digits.
 
     \tparam mod97_weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.

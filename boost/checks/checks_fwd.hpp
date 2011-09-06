@@ -35,11 +35,11 @@ and the input rejected as an invalid ISBN.
 
 See Boost.Checks HTML Manual at
 
-  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/doc/html/index.html
+  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html
 
 and/or equivalent PDF Manual at:
 
-  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/doc/checks.pdf
+  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/checks.pdf
 
 Examples are in folder:
 
