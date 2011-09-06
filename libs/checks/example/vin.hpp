@@ -1,5 +1,7 @@
-//! \file vin.hpp
+// vin.hpp
+//! \file
 //! \brief Check and compute the Vehicle Identification Number.
+//! This is an example of extending the library for a new checksum type.
 
 // Copyright Pierre Talbot 2011.
 

@@ -1,5 +1,7 @@
-//! \file rtn.hpp
-//! \brief Check and compute the Routing Transit Number (RTN) for example purpose.
+// rtn.hpp
+//! \file
+//! \brief Check and compute the Routing Transit Number (RTN)
+//! as an example of implementing a new checksum type.
 
 // Copyright Pierre Talbot 2011.
 
