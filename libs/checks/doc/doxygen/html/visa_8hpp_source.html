@@ -15,7 +15,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 
   <!-- Add your title here ! -->
-  <title>Boost.Checks Tue Aug 23 2011 09:36:53 Boost.Checks </title>
+  <title>Boost.Checks Tue Sep 6 2011 17:26:18 Boost.Checks </title>
 
   <!-- Add your custom stylesheet here ! -->
   <link href="../checks_doxygen.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 <table cellpadding="5" width="100%">
   <tbody>
     <tr>
-      <td valign="top"><img alt="Proposed for Boost." src="../../images/proposed_for_boost.png" height="80" width="250"/></td>
+      <td valign="top"><img alt="Proposed for Boost." src="../proposed_for_boost.png" height="80" width="250"/></td>
     </tr>
   </tbody>
 </table>
@@ -65,7 +65,7 @@
 <div class="title">I:/boost-sandbox/SOC/2011/checks/boost/checks/visa.hpp</div>  </div>
 </div>
 <div class="contents">
-<a href="visa_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//  Boost checks/visa.hpp header file  ------------------------------------//</span>
+<a href="visa_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//  Boost checks/visa.hpp header file</span>
 <a name="l00002"></a>00002 <span class="comment">//  (C) Copyright Pierre Talbot 2011</span>
 <a name="l00003"></a>00003 <span class="comment">//  Distributed under the Boost Software License, Version 1.0. (See</span>
 <a name="l00004"></a>00004 <span class="comment">//  accompanying file LICENSE_1_0.txt or copy at</span>
@@ -89,19 +89,19 @@
 <a name="l00031"></a>00031     <span class="keyword">namespace </span>checks{
 <a name="l00032"></a>00032 
 <a name="l00038"></a>00038 <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> number_of_virtual_value_skipped = 0&gt;
-<a name="l00039"></a><a class="code" href="structboost_1_1checks_1_1visa__algorithm.html">00039</a> <span class="keyword">struct </span><a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">visa_algorithm</a> : boost::checks::<a class="code" href="structboost_1_1checks_1_1luhn__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm.">luhn_algorithm</a> &lt; number_of_virtual_value_skipped &gt;
-<a name="l00040"></a>00040 {  
+<a name="l00039"></a><a class="code" href="structboost_1_1checks_1_1visa__algorithm.html">00039</a> <span class="keyword">struct </span><a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">visa_algorithm</a> : boost::checks::<a class="code" href="structboost_1_1checks_1_1luhn__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm.">luhn_algorithm</a> &lt; number_of_virtual_value_skipped &gt;
+<a name="l00040"></a>00040 {
 <a name="l00051"></a><a class="code" href="structboost_1_1checks_1_1visa__algorithm.html#a57ad01ee6a0ebfc8e57573a633daac7f">00051</a>   <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structboost_1_1checks_1_1visa__algorithm.html#a57ad01ee6a0ebfc8e57573a633daac7f" title="Verify that a number matches the Visa pattern.">filter_valid_value_with_pos</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current_valid_value, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current_value_position )
 <a name="l00052"></a>00052   {
-<a name="l00053"></a>00053     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> real_pos_from_left = <a class="code" href="visa_8hpp.html#a913937f24479e4dad67ed0b6bfda60f8" title="This macro defines the size of a Visa number.">VISA_SIZE</a> - current_value_position - number_of_virtual_value_skipped ;
+<a name="l00053"></a>00053     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> real_pos_from_left = <a class="code" href="visa_8hpp.html#a913937f24479e4dad67ed0b6bfda60f8" title="This macro defines the size of a Visa number (16).">VISA_SIZE</a> - current_value_position - number_of_virtual_value_skipped ;
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055     <span class="keywordflow">if</span>( real_pos_from_left == 1 &amp;&amp; current_valid_value != 4)
-<a name="l00056"></a>00056       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Major Industry Identifier of a VISA credit card should be 4.&quot;</span>) ;
-<a name="l00057"></a>00057   } 
+<a name="l00056"></a>00056       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Major Industry Identifier of a VISA credit card should be 4!&quot;</span>) ;
+<a name="l00057"></a>00057   }
 <a name="l00058"></a>00058 };
 <a name="l00059"></a>00059 
-<a name="l00063"></a><a class="code" href="namespaceboost_1_1checks.html#a6d5c430a2bceeedf1002d92a98aa4c43">00063</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">visa_algorithm&lt;0&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a6d5c430a2bceeedf1002d92a98aa4c43" title="This is the type of the Visa algorithm for validating a check digit.">visa_check_algorithm</a> ;
-<a name="l00067"></a><a class="code" href="namespaceboost_1_1checks.html#a323a27cc40681492362fb3c0893979cb">00067</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">visa_algorithm&lt;1&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a323a27cc40681492362fb3c0893979cb" title="This is the type of the Visa algorithm for computing a check digit.">visa_compute_algorithm</a> ;
+<a name="l00063"></a><a class="code" href="namespaceboost_1_1checks.html#a6d5c430a2bceeedf1002d92a98aa4c43">00063</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">visa_algorithm&lt;0&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a6d5c430a2bceeedf1002d92a98aa4c43" title="This is the type of the Visa algorithm for validating a check digit.">visa_check_algorithm</a> ;
+<a name="l00067"></a><a class="code" href="namespaceboost_1_1checks.html#a323a27cc40681492362fb3c0893979cb">00067</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1visa__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">visa_algorithm&lt;1&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a323a27cc40681492362fb3c0893979cb" title="This is the type of the Visa algorithm for computing a check digit.">visa_compute_algorithm</a> ;
 <a name="l00068"></a>00068 
 <a name="l00082"></a>00082 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> check_range&gt;
 <a name="l00083"></a><a class="code" href="namespaceboost_1_1checks.html#ab59d983a0e6f7df034570cdf7e14bdcb">00083</a> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#ab59d983a0e6f7df034570cdf7e14bdcb" title="Validate a sequence according to the visa_check_algorithm type.">check_visa</a> (<span class="keyword">const</span> check_range&amp; check_seq)
@@ -116,7 +116,7 @@
 <a name="l00106"></a>00106 }
 <a name="l00107"></a>00107 
 <a name="l00108"></a>00108 
-<a name="l00109"></a>00109 }}
+<a name="l00109"></a>00109 }}  <span class="comment">// namespace boost   namespace checks</span>
 <a name="l00110"></a>00110 <span class="preprocessor">#endif // BOOST_CHECKS_VISA_HPP</span>
 </pre></div></div>
 </div>
@@ -138,7 +138,7 @@
       <!-- Change copyright to YOUR name (and affiliation, if any) below:  -->
      <p>Copyright © 2011 Pierre Talbot</p>
       <!-- 2011 becomes the current year, for example 2010, so claims copyright for a range of years, 2009 - 2010. -->
-     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.5.1</a>, Revised at Tue Aug 23 2011 09:36:53</p>
+     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.5.1</a>, Revised at Tue Sep 6 2011 17:26:18</p>
   </address>
   </tr>
 </tbody>

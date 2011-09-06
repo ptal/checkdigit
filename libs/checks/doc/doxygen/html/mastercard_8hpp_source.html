@@ -15,7 +15,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 
   <!-- Add your title here ! -->
-  <title>Boost.Checks Tue Aug 23 2011 09:36:53 Boost.Checks </title>
+  <title>Boost.Checks Tue Sep 6 2011 17:26:18 Boost.Checks </title>
 
   <!-- Add your custom stylesheet here ! -->
   <link href="../checks_doxygen.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +37,7 @@
 <table cellpadding="5" width="100%">
   <tbody>
     <tr>
-      <td valign="top"><img alt="Proposed for Boost." src="../../images/proposed_for_boost.png" height="80" width="250"/></td>
+      <td valign="top"><img alt="Proposed for Boost." src="../proposed_for_boost.png" height="80" width="250"/></td>
     </tr>
   </tbody>
 </table>
@@ -65,7 +65,7 @@
 <div class="title">I:/boost-sandbox/SOC/2011/checks/boost/checks/mastercard.hpp</div>  </div>
 </div>
 <div class="contents">
-<a href="mastercard_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//  Boost checks/mastercard.hpp header file  ------------------------------------//</span>
+<a href="mastercard_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">//  Boost checks/mastercard.hpp header file</span>
 <a name="l00002"></a>00002 <span class="comment">//  (C) Copyright Pierre Talbot 2011</span>
 <a name="l00003"></a>00003 <span class="comment">//  Distributed under the Boost Software License, Version 1.0. (See</span>
 <a name="l00004"></a>00004 <span class="comment">//  accompanying file LICENSE_1_0.txt or copy at</span>
@@ -89,21 +89,21 @@
 <a name="l00031"></a>00031     <span class="keyword">namespace </span>checks{
 <a name="l00032"></a>00032 
 <a name="l00038"></a>00038 <span class="keyword">template</span> &lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> number_of_virtual_value_skipped = 0&gt;
-<a name="l00039"></a><a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html">00039</a> <span class="keyword">struct </span><a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">mastercard_algorithm</a> : boost::checks::<a class="code" href="structboost_1_1checks_1_1luhn__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm.">luhn_algorithm</a> &lt; number_of_virtual_value_skipped &gt;
-<a name="l00040"></a>00040 {  
+<a name="l00039"></a><a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html">00039</a> <span class="keyword">struct </span><a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">mastercard_algorithm</a> : boost::checks::<a class="code" href="structboost_1_1checks_1_1luhn__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm.">luhn_algorithm</a> &lt; number_of_virtual_value_skipped &gt;
+<a name="l00040"></a>00040 {
 <a name="l00051"></a><a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html#a5b66ffb180129ad064e538671adab514">00051</a>   <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html#a5b66ffb180129ad064e538671adab514" title="Verify that a number matches the Mastercard pattern.">filter_valid_value_with_pos</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current_valid_value, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> current_value_position )
 <a name="l00052"></a>00052   {
 <a name="l00053"></a>00053     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> real_pos_from_left = <a class="code" href="mastercard_8hpp.html#a9c3148a8387bb2d79225356d4505e50e" title="This macro defines the size of a Mastercard number.">MASTERCARD_SIZE</a> - current_value_position - number_of_virtual_value_skipped ;
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055     <span class="keywordflow">if</span>( real_pos_from_left == 1 &amp;&amp; current_valid_value != 5)
-<a name="l00056"></a>00056       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Major Industry Identifier of a Mastercard should be 5.&quot;</span>) ;
-<a name="l00057"></a>00057     <span class="keywordflow">else</span> <span class="keywordflow">if</span>( real_pos_from_left == 2 &amp;&amp; (current_valid_value == 0 || current_valid_value &gt; 5) ) 
-<a name="l00058"></a>00058       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Issuer Identification Number of an Mastercard should be between 51 and 55.&quot;</span> ) ;
+<a name="l00056"></a>00056       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Major Industry Identifier of a Mastercard should be 5!&quot;</span>) ;
+<a name="l00057"></a>00057     <span class="keywordflow">else</span> <span class="keywordflow">if</span>( real_pos_from_left == 2 &amp;&amp; (current_valid_value == 0 || current_valid_value &gt; 5) )
+<a name="l00058"></a>00058       <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;The Issuer Identification Number of an Mastercard should be between 51 and 55!&quot;</span> ) ;
 <a name="l00059"></a>00059   }
 <a name="l00060"></a>00060 };
 <a name="l00061"></a>00061 
-<a name="l00065"></a><a class="code" href="namespaceboost_1_1checks.html#a216597b28715b6f774d51ba2ffa9e38d">00065</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">mastercard_algorithm&lt;0&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a216597b28715b6f774d51ba2ffa9e38d" title="This is the type of the Mastercard algorithm for validating a check digit.">mastercard_check_algorithm</a> ;
-<a name="l00069"></a><a class="code" href="namespaceboost_1_1checks.html#a8da35e1a8a76d25048b5258df10ecff5">00069</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm but filter following t...">mastercard_algorithm&lt;1&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a8da35e1a8a76d25048b5258df10ecff5" title="This is the type of the Mastercard algorithm for computing a check digit.">mastercard_compute_algorithm</a> ;
+<a name="l00065"></a><a class="code" href="namespaceboost_1_1checks.html#a216597b28715b6f774d51ba2ffa9e38d">00065</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">mastercard_algorithm&lt;0&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a216597b28715b6f774d51ba2ffa9e38d" title="This is the type of the Mastercard algorithm for validating a check digit.">mastercard_check_algorithm</a> ;
+<a name="l00069"></a><a class="code" href="namespaceboost_1_1checks.html#a8da35e1a8a76d25048b5258df10ecff5">00069</a> <span class="keyword">typedef</span> <a class="code" href="structboost_1_1checks_1_1mastercard__algorithm.html" title="This class can be used to compute or validate checksum with the Luhn algorithm, but filter following ...">mastercard_algorithm&lt;1&gt;</a> <a class="code" href="namespaceboost_1_1checks.html#a8da35e1a8a76d25048b5258df10ecff5" title="This is the type of the Mastercard algorithm for computing a check digit.">mastercard_compute_algorithm</a> ;
 <a name="l00070"></a>00070 
 <a name="l00084"></a>00084 <span class="keyword">template</span> &lt;<span class="keyword">typename</span> check_range&gt;
 <a name="l00085"></a><a class="code" href="namespaceboost_1_1checks.html#ae9e7b0798732cefb3c6d51a4cc68d09c">00085</a> <span class="keywordtype">bool</span> <a class="code" href="namespaceboost_1_1checks.html#ae9e7b0798732cefb3c6d51a4cc68d09c" title="Validate a sequence according to the mastercard_check_algorithm type.">check_mastercard</a> (<span class="keyword">const</span> check_range&amp; check_seq)
@@ -118,7 +118,7 @@
 <a name="l00108"></a>00108 }
 <a name="l00109"></a>00109 
 <a name="l00110"></a>00110 
-<a name="l00111"></a>00111 }}
+<a name="l00111"></a>00111 }} <span class="comment">// namespace boost   namespace checks</span>
 <a name="l00112"></a>00112 <span class="preprocessor">#endif // BOOST_CHECKS_MASTERCARD_HPP</span>
 <a name="l00113"></a>00113 <span class="preprocessor"></span>
 </pre></div></div>
@@ -141,7 +141,7 @@
       <!-- Change copyright to YOUR name (and affiliation, if any) below:  -->
      <p>Copyright © 2011 Pierre Talbot</p>
       <!-- 2011 becomes the current year, for example 2010, so claims copyright for a range of years, 2009 - 2010. -->
-     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.5.1</a>, Revised at Tue Aug 23 2011 09:36:53</p>
+     <p>Doxygen Documentation generated by&nbsp;<a href="http://www.doxygen.org/index.html"> <img src="doxygen.png" alt="doxygen logo" align="middle" border="0"/> 1.7.5.1</a>, Revised at Tue Sep 6 2011 17:26:18</p>
   </address>
   </tr>
 </tbody>
