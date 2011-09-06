@@ -2,6 +2,9 @@
 //! \file
 //! \brief Check and compute the Vehicle Identification Number.
 //! This is an example of extending the library for a new checksum type.
+/*! \detail  Vehicle Identification Number
+      http://en.wikipedia.org/wiki/Vehicle_Identification_Number
+*/
 
 // Copyright Pierre Talbot 2011.
 

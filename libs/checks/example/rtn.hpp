@@ -2,6 +2,9 @@
 //! \file
 //! \brief Check and compute the Routing Transit Number (RTN)
 //! as an example of implementing a new checksum type.
+/*! \detail Routing Transit Number
+      http://en.wikipedia.org/wiki/Routing_transit_number
+*/
 
 // Copyright Pierre Talbot 2011.
 
