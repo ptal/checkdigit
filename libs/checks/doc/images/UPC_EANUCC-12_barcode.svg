@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   width="600"
+   height="431"
+   id="svg2">
+  <defs
+     id="defs5" />
+  <rect
+     width="600"
+     height="430"
+     x="0"
+     y="0.9999876"
+     id="rect3461"
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  <g
+     id="g2501">
+    <text
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
+       xml:space="preserve"
+       id="text2384"
+       y="118.68248"
+       x="17.244526">4</text>
+    <text
+       x="114.82664"
+       y="118.55748"
+       id="text2492"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">1011100</text>
+    <path
+       id="text2494"
+       d="M 59.133713,120.0981 L 59.133713,81.816856 L 97.292894,100.95748 L 59.133713,120.0981"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Nimbus Sans L" />
+    <use
+       height="431"
+       width="600"
+       transform="translate(264.55293,4.1601586e-8)"
+       id="use2497"
+       xlink:href="#text2494"
+       y="0"
+       x="0" />
+  </g>
+  <g
+     id="g3206">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text2388"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">0</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text2412"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3186"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3188"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3190"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3192"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3194"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3196"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3198"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(0,8.0291748e-2)"
+     id="g3395">
+    <rect
+       width="6"
+       height="162"
+       x="15"
+       y="218.91971"
+       id="rect3200"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="21"
+       y="218.91971"
+       id="rect3202"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="27"
+       y="218.91971"
+       id="rect3204"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(42,0)"
+     id="g3219">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3221"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">3</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3225"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3229"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3231"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3233"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3235"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3237"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3239"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3241"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(84,0)"
+     id="g3243">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3245"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">6</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3249"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3253"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3255"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3257"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3259"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3261"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3263"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3265"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(282,0)"
+     id="g3267">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3269"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">2</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3273"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3277"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3279"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3281"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3283"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3285"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3287"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3289"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(324,0)"
+     id="g3291">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3293"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">9</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3297"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3301"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3303"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3305"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3307"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3309"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3311"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3313"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(366,0)"
+     id="g3315">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3317"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">1</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3321"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3325"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3327"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3329"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3331"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3333"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3335"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3337"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(408,0)"
+     id="g3339">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3341"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">4</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3345"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3349"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3351"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3353"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3355"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3357"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3359"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3361"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     transform="translate(450,0)"
+     id="g3363">
+    <text
+       x="40.425003"
+       y="409.54999"
+       id="text3365"
+       xml:space="preserve"
+       style="font-size:50px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L">5</text>
+    <text
+       x="-422.37732"
+       y="58.981125"
+       transform="matrix(0,-0.88122,1.1347905,0,0,0)"
+       id="text3369"
+       xml:space="preserve"
+       style="font-size:38.19552612px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans">{</text>
+    <rect
+       width="6"
+       height="134"
+       x="33"
+       y="219"
+       id="rect3373"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="39"
+       y="219"
+       id="rect3375"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="45"
+       y="219"
+       id="rect3377"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="51"
+       y="219"
+       id="rect3379"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="57"
+       y="219"
+       id="rect3381"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="63"
+       y="219"
+       id="rect3383"
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="134"
+       x="69"
+       y="219"
+       id="rect3385"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <use
+     transform="translate(126,0)"
+     id="use3387"
+     x="0"
+     y="0"
+     width="600"
+     height="431"
+     xlink:href="#g3206" />
+  <use
+     transform="translate(168,0)"
+     id="use3389"
+     x="0"
+     y="0"
+     width="600"
+     height="431"
+     xlink:href="#g3206" />
+  <use
+     transform="translate(210,0)"
+     id="use3391"
+     x="0"
+     y="0"
+     width="600"
+     height="431"
+     xlink:href="#g3206" />
+  <use
+     transform="translate(210,0)"
+     id="use3393"
+     x="0"
+     y="0"
+     width="600"
+     height="431"
+     xlink:href="#g3267" />
+  <use
+     transform="translate(552,0)"
+     id="use3400"
+     x="0"
+     y="0"
+     width="600"
+     height="431"
+     xlink:href="#g3395" />
+  <g
+     transform="translate(0,8.0291748e-2)"
+     id="g3417">
+    <rect
+       width="6"
+       height="162"
+       x="291"
+       y="218.91971"
+       id="rect3404"
+       style="fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="297"
+       y="218.91971"
+       id="rect3406"
+       style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="303"
+       y="218.91971"
+       id="rect3408"
+       style="fill:#000000;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="309"
+       y="218.91971"
+       id="rect3413"
+       style="fill:#ffffff;fill-opacity:1;stroke:none" />
+    <rect
+       width="6"
+       height="162"
+       x="285"
+       y="218.91971"
+       id="rect3415"
+       style="fill:#ffffff;fill-opacity:1;stroke:none" />
+  </g>
+  <rect
+     width="19"
+     height="163"
+     x="14.5"
+     y="218.5"
+     id="rect3426"
+     style="opacity:1;fill:#00ff00;fill-opacity:0.5;stroke:none" />
+  <rect
+     width="19"
+     height="163"
+     x="566.5"
+     y="218.5"
+     id="rect3432"
+     style="opacity:1;fill:#00ff00;fill-opacity:0.5;stroke:none" />
+  <rect
+     width="31"
+     height="163"
+     x="284.5"
+     y="218.5"
+     id="rect3434"
+     style="opacity:1;fill:#00ff00;fill-opacity:0.5;stroke:none" />
+  <rect
+     width="43"
+     height="135"
+     x="440.5"
+     y="218.5"
+     id="rect3436"
+     style="opacity:1;fill:#00ffff;fill-opacity:0.5;stroke:none" />
+  <path
+     d="M 248.5191,-392.18486 L 248.5191,-389.49924 L 247.36279,-389.49924 C 244.26685,-389.49925 242.19047,-389.95928 241.13364,-390.87935 C 240.08922,-391.79943 239.56702,-393.63336 239.56703,-396.38115 L 239.56703,-400.83854 C 239.56702,-402.71598 239.23131,-404.01527 238.55992,-404.73642 C 237.8885,-405.45755 236.67003,-405.81812 234.90449,-405.81813 L 207.41003,-405.81813 L 207.41003,-408.4851 L 234.90449,-408.4851 C 236.68246,-408.48509 237.90094,-408.83944 238.55992,-409.54816 C 239.23131,-410.26929 239.56702,-411.55615 239.56703,-413.40874 L 239.56703,-417.88478 C 239.56702,-420.63255 240.08922,-422.46026 241.13364,-423.36793 C 242.19047,-424.28798 244.26685,-424.74801 247.36279,-424.74804 L 248.5191,-424.74804 L 248.5191,-422.08107 L 247.25089,-422.08107 C 245.49776,-422.08104 244.35388,-421.80751 243.81926,-421.26046 C 243.28461,-420.71337 243.01729,-419.56327 243.01731,-417.81018 L 243.01731,-413.18494 C 243.01729,-411.23288 242.73132,-409.81547 242.1594,-408.93271 C 241.59988,-408.04992 240.63629,-407.45312 239.26862,-407.14229 C 240.64872,-406.80658 241.61853,-406.19734 242.17805,-405.31458 C 242.73754,-404.43179 243.01729,-403.0206 243.01731,-401.08099 L 243.01731,-396.45575 C 243.01729,-394.70264 243.28461,-393.55254 243.81926,-393.00547 C 244.35388,-392.4584 245.49776,-392.18487 247.25089,-392.18486 L 248.5191,-392.18486"
+     transform="matrix(0,0.88122,-1.1347905,0,0,0)"
+     id="text3438"
+     style="font-size:15.27821445px;font-style:normal;font-weight:bold;line-height:125%;writing-mode:lr-tb;fill:#0000ff;fill-opacity:1;stroke:none" />
+  <rect
+     width="169.97685"
+     height="147.97685"
+     x="374.01157"
+     y="34.011574"
+     id="rect3443"
+     style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:#0000ff;stroke-width:4.02315044;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+  <rect
+     width="22"
+     height="144"
+     x="376"
+     y="36"
+     id="rect3445"
+     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="400"
+     y="36"
+     id="rect3449"
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="424"
+     y="36"
+     id="rect3451"
+     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="448"
+     y="36"
+     id="rect3453"
+     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="472"
+     y="36"
+     id="rect3455"
+     style="opacity:1;fill:#000000;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="496"
+     y="36"
+     id="rect3457"
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+  <rect
+     width="22"
+     height="144"
+     x="520"
+     y="36"
+     id="rect3459"
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none" />
+</svg>
