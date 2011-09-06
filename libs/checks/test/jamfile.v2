@@ -51,7 +51,7 @@ project checks
       #<toolset>msvc:<cxxflags>/wd4224 # nonstandard extension used : formal parameter 'arg' was previously defined as a type.
       #<toolset>msvc:<cxxflags>/wd4127 # expression is constant.
       #<toolset>msvc:<cxxflags>/wd4701 # needed for lexical cast - temporary.
-      #<toolset>msvc:<cxxflags>/wd4100 # unreferenced formal parameter.
+      <toolset>msvc:<cxxflags>/wd4100 # unreferenced formal parameter.
 
       <toolset>msvc:<iterator_debugging>off
       <toolset>intel-win:<iterator_debugging>off
