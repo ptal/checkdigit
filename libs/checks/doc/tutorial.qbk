@@ -8,12 +8,12 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
 
 [import ../example/checks_examples.cpp]
+[import ../example/checks_tutorial.cpp]
 [import ../example/rtn.hpp]
 [import ../example/vin.hpp]
-[import ../example/checks_tutorial.cpp]
 
 [section:tutorial Tutorial]
-In this section, we will quickly learn to use this library. But most important is the following quote of Lao Tseu :
+In this section, we will quickly learn to use this library. But most important is this quote of Lao Tseu :
 
 ["Give a Man a Fish, Feed Him For a Day. Teach a Man to Fish, Feed Him For a Lifetime.]
 

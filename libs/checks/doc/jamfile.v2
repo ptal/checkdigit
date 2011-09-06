@@ -225,8 +225,8 @@ boostbook standalone
   # defining creates a runtime error: Global parameter nav.layout already defined
   <xsl:param>nav.layout=horizontal # to get a horizontal navigation bar (you probably DO want this).
 
-  <xsl:param>boost.image=Boost # options are: none (no logo), Boost (for boost.png), or your own logo like inspired_by_boost.png
-  <xsl:param>boost.image.src=./images/proposed_for_boost.png #
+  <xsl:param>boost.image=Boost # options are: none (no logo), Boost (for boost.png), or your own logo like proposed_for_boost.png
+  <xsl:param>boost.image.src=images/proposed_for_boost.png #
   <xsl:param>boost.image.w=180 # Width of logo in pixels.
   <xsl:param>boost.image.h=90 # Height of logo in pixels.
   # https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/images/proposed_for_boost.png

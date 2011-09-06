@@ -609,13 +609,27 @@
           Some basic examples are coded in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>:
         </p>
 <p>
-          [vin_example]
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">vin_number</span> <span class="special">=</span> <span class="string">"1M8GDM9AXKP042788"</span><span class="special">;</span>
+<span class="keyword">if</span> <span class="special">(</span> <span class="identifier">check_vin</span> <span class="special">(</span> <span class="identifier">vin_number</span> <span class="special">)</span> <span class="special">)</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The Vehicle Identification Number: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">vin_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is correct."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+<span class="identifier">vin_number</span> <span class="special">=</span> <span class="string">"1M8GDM9AKP042788"</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The check digit of "</span> <span class="special">&lt;&lt;</span> <span class="identifier">vin_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is "</span> <span class="special">&lt;&lt;</span> <span class="identifier">compute_vin</span> <span class="special">(</span> <span class="identifier">vin_number</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+</pre>
+<p>
         </p>
 <p>
           that provides the following output:
         </p>
 <p>
-          [vin_example_output]
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">Vehicle</span> <span class="identifier">Identification</span> <span class="identifier">Number</span><span class="special">:</span> <span class="number">1</span><span class="identifier">M8GDM9AXKP042788</span> <span class="identifier">is</span> <span class="identifier">correct</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="number">1</span><span class="identifier">M8GDM9AKP042788</span> <span class="identifier">is</span> <span class="identifier">X</span>
+</pre>
+<p>
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
