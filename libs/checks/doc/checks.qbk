@@ -7,7 +7,6 @@
         [@http://www.boost.org/LICENSE_1_0.txt])
     ]
     [authors [Talbot, Pierre]]
-    [/last-revision $Date: 2011-02-08 12:58:15 +0000 (Tue, 02 Feb 2011) $]
 ]
 
 [/ Some links to external sources.]
@@ -94,14 +93,14 @@ whose mentor organization was Boost. It remains a library under construction,
 the code is quite functional, but interfaces, library structure, and names
 may still be changed without notice.  The current version is available at
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/pdf/checks.pdf PDF documentation.]
+[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/checks.pdf PDF documentation.]
 
 [*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html HTML documentation.]
 
 [*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]
 ] [/important]
 
-[note Comments and suggestions (even bugs!) to Pierre Talbot pierre.talbot.6114 (at) herslibramont (dot) be]
+[note Comments and suggestions (even bugs!) to Pierre Talbot. ]
 
 [endsect] [/section:status Status]
 
@@ -113,8 +112,11 @@ may still be changed without notice.  The current version is available at
 
 [section:acks Acknowledgements]
 
-* Thanks to Paul A. Bristow who is the mentor of this Google Summer of Code project for his infinite patience and his wise advice.
-* Thanks for Google for funding this Google Summer of Code 2011 project.
+The author thanks
+
+* Paul A. Bristow who was the mentor of this Google Summer of Code project for his infinite patience and his wise advice.
+* Google for funding this Google Summer of Code 2011 project.
+* Joseph A Gallian for his assistance with tables of values for the Verhoeff algorithm.
 
 [endsect] [/section:acks Acknowledgements]
 
@@ -124,12 +126,26 @@ may still be changed without notice.  The current version is available at
 # __VIN 
 # __CODE39
 
+# Verhoeff, J, Error Detecting Codes, Mathmatical Centre Tract 29, The Mathematical Centre, Amsterdam 1969.
+# [@http://en.wikipedia.org/wiki/Verhoeff_algorithm Verhoeff_algorithm]
+# H. Peter Gumm, New class of check-digit methods for arbitrary number systems,
+IEEE Trans. on Information Theory, 31(1985) 102-105.
+# Paul Putter, & Neal R Wagner, Communication of ther ACM, Jan 1989, Vol 32, pages 106 - 110.
+Jonathan Mohr  [@http://www.augustana.ab.ca/~mohrj/]
+# Numerical Recipes in C++, p 904 - 905W H Press, S A Teukolsky, W T Vettering, B P Flannery, ISBN 0 521 75033 4.
+# SNOMED Clinical Terms (First Release Technical Reference Manual)
+# First Release (January 2002), Annex B. Check-digit computation, p 30 to 34
+# [@http://www.snomed.org/Spanish%20Documents/SNOMEDCT_Core_Technical%20Reference%20Manual_US.pdf]
+uses Jonathan Mohr Javascript checkdigit.htm (copy in checkdigit.txt)
+based on code at [@http://www.augustana.ab.ca/~mohrj/algorithms/checkdigit.html ]
+#J A Gallian, Table 3 p 514, Error detection methods, ACM Surveys, 28(3) 504-517  ISSN 0360-0300 (1996)
+#J A Gallian & S Winters, American Math Monthly, 95, (1988) Modular Arithmetic in the Marketplace, p 548 - 551.
+
 [endsect] [/section:refs References]
 
 [section:rationale Rationale]
 
 This section records the rationale and compromises for some design decisions.
-
 
 [h4 Scope of the project]
 *Scott McMurray has identifed four fairly distinct types of check:
@@ -169,7 +185,7 @@ are implemented with a ['O(n)] complexity, where ['n] is the number of digits or
 
 # Project started by Pierre Talbot June 2011 as a Google Summer of Code Project.
 
-# First release in Boost Sandbox for public comment Aug 2011.
+# First Boost Sandbox release for public comment Sep 2011.
 
 [endsect] [/section:history History]
 

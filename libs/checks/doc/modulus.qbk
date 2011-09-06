@@ -65,6 +65,13 @@ The weight decreases by one for the second position, one again for the third, et
 
 [endsect] [/section:mod11 Modulus 11 algorithm]
 
+[section:verhoeff Verhoeff Algorithm]
+
+Verhoeff's check equation catches all single errors, all adjacent transpositions,
+over 95% of twin errors, over 94% of jump transpositions and jump twin errors,
+and most phonetic errors.
+
+[endsect] [/section:verhoeff Verhoeff Algorithm]
 
 [section:summary Summary of Algorithms]
 

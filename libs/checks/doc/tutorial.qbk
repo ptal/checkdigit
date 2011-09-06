@@ -106,8 +106,9 @@ with the integer C-array:
 [section:extending_the_library Extending the library]
 
 The re-usability of this library is an important feature.
-In fact, we can't code every existing check systems, this is why we will learn how
-to extend this library to cater for existing check systems not yet provided, 
+In fact, we can't code every existing check systems - there are dozens of checksums in use worldwide.
+This section gives examples of how to extend this library
+to cater for existing check systems not yet provided, 
 and even to create your own check system.
 
 [h5 Example with the Routing transit number]
@@ -232,7 +233,7 @@ And write the functions:
 [note This algorithm doesn't support full integer array that are not pre-computed (Example: (A) 10 -> 1 ; (M) 13 -> 4).
 It can be an exercise for the reader.]
 
-Some basic examples are coded in the file __CHECKS__TUTO__FILE__:
+Some basic examples are coded in the file __CHECKS__TUTO__FILE__ .
 
 [vin_example]
 
