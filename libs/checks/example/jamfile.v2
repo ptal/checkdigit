@@ -1,6 +1,6 @@
 # I:\boost-sandbox\SOC\2011\checks\libs\checks\example\Jamfile.v2
 
-# Runs checks examples
+# Runs checks examples and tutorial.
 
 # Copyright 2011 Paul A. Bristow.
 
@@ -21,16 +21,11 @@ project
       <toolset>msvc:<cxxflags>/wd4800 # forcing value to bool 'true' or 'false'
       <toolset>msvc:<cxxflags>/wd4996 # Deprecated.
       <toolset>msvc:<cxxflags>/wd4512 # assignment operator could not be generated.
-      <toolset>msvc:<cxxflags>/wd4610
-      <toolset>msvc:<cxxflags>/wd4510
-      <toolset>msvc:<cxxflags>/wd4127
-      <toolset>msvc:<cxxflags>/wd4701
       <toolset>msvc:<cxxflags>/wd4127 # expression is constant.
-      <toolset>msvc:<cxxflags>/wd4305
       <toolset>msvc:<cxxflags>/wd4503 # decorated name length exceeded, name was truncated.
       <toolset>msvc:<cxxflags>/wd4180 # qualifier applied to function type has no meaning; ignored.
-      <include>../../..
-      <include>$(boost_root)
+      <include>../../.. # checks
+      <include>$(BOOST_ROOT)
     ;
 
 run checks_examples.cpp ; # Example of some function in Boost.Checks.
