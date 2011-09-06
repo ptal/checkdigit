@@ -4,16 +4,16 @@
 <title>Extending the library</title>
 <link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
-<link rel="home" href="../../../index.html" title="Checks">
+<link rel="home" href="../../../index.html" title="Boost_Checks">
 <link rel="up" href="../tutorial.html" title="Tutorial">
 <link rel="prev" href="start.html" title="Starting with Checks">
 <link rel="next" href="../algorithm.html" title="Common check algorithms">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
-<td valign="top"><img alt="" width="180" height="90" src="../../../images/proposed_for_boost.png"></td>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
 <td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
-<td align="center"><a href="../../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
 <td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
 <td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
 <td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
@@ -24,19 +24,18 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="checks.checks.tutorial.extending_the_library"></a><a class="link" href="extending_the_library.html" title="Extending the library">Extending
+<a name="boost_checks.checks.tutorial.extending_the_library"></a><a class="link" href="extending_the_library.html" title="Extending the library">Extending
         the library</a>
 </h4></div></div></div>
 <p>
           The re-usability of this library is an important feature. In fact, we can't
-          code every existing check systems - there are dozens of checksums in use
-          worldwide. This section gives examples of how to extend this library to
-          cater for existing check systems not yet provided, and even to create your
-          own check system.
+          code every existing check systems, this is why we will learn how to extend
+          this library to cater for existing check systems not yet provided, and
+          even to create your own check system.
         </p>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number"></a><h6>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number-heading"></a>
-          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number">Example
+<a name="boost_checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number"></a><h6>
+<a name="boost_checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number-heading"></a>
+          <a class="link" href="extending_the_library.html#boost_checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number">Example
           with the Routing transit number</a>
         </h6>
 <p>
@@ -157,9 +156,9 @@
 </pre>
 <p>
         </p>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_"></a><h6>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_-heading"></a>
-          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_">Example
+<a name="boost_checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_"></a><h6>
+<a name="boost_checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_-heading"></a>
+          <a class="link" href="extending_the_library.html#boost_checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_">Example
           with the Vehicle Identification Number (VIN)</a>
         </h6>
 <p>
@@ -246,7 +245,7 @@
           is encountered. The other letters must be transformed using this table:
         </p>
 <div class="table">
-<a name="checks.checks.tutorial.extending_the_library.id"></a><p class="title"><b>Table&#160;1.&#160;Letter to digit VIN conversion table</b></p>
+<a name="boost_checks.checks.tutorial.extending_the_library.id"></a><p class="title"><b>Table&#160;1.&#160;Letter to digit VIN conversion table</b></p>
 <div class="table-contents"><table class="table" summary="Letter to digit VIN conversion table">
 <colgroup>
 <col>
@@ -607,31 +606,16 @@
           </p></td></tr>
 </table></div>
 <p>
-          Some basic examples are coded in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>
-          .
+          Some basic examples are coded in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>:
         </p>
 <p>
-          
-</p>
-<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">vin_number</span> <span class="special">=</span> <span class="string">"1M8GDM9AXKP042788"</span><span class="special">;</span>
-<span class="keyword">if</span> <span class="special">(</span> <span class="identifier">check_vin</span> <span class="special">(</span> <span class="identifier">vin_number</span> <span class="special">)</span> <span class="special">)</span>
-  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The Vehicle Identification Number: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">vin_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is correct."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
-
-<span class="identifier">vin_number</span> <span class="special">=</span> <span class="string">"1M8GDM9AKP042788"</span> <span class="special">;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The check digit of "</span> <span class="special">&lt;&lt;</span> <span class="identifier">vin_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is "</span> <span class="special">&lt;&lt;</span> <span class="identifier">compute_vin</span> <span class="special">(</span> <span class="identifier">vin_number</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
-</pre>
-<p>
+          [vin_example]
         </p>
 <p>
           that provides the following output:
         </p>
 <p>
-          
-</p>
-<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">Vehicle</span> <span class="identifier">Identification</span> <span class="identifier">Number</span><span class="special">:</span> <span class="number">1</span><span class="identifier">M8GDM9AXKP042788</span> <span class="identifier">is</span> <span class="identifier">correct</span><span class="special">.</span>
-<span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="number">1</span><span class="identifier">M8GDM9AKP042788</span> <span class="identifier">is</span> <span class="identifier">X</span>
-</pre>
-<p>
+          [vin_example_output]
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

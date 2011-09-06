@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Rationale</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Boost.Checks">
+<link rel="up" href="../acks.html" title="Acknowledgements">
+<link rel="prev" href="refs.html" title="References">
+<link rel="next" href="history.html" title="History">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="refs.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../acks.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="history.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_checks.checks.acks.rationale"></a><a class="link" href="rationale.html" title="Rationale">Rationale</a>
+</h4></div></div></div>
+<p>
+          This section records the rationale and compromises for some design decisions.
+        </p>
+<a name="boost_checks.checks.acks.rationale.function_parameter"></a><h5>
+<a name="id894950"></a>
+          <a class="link" href="rationale.html#boost_checks.checks.acks.rationale.function_parameter">Function
+          parameter</a>
+        </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              Functions that take a single <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+              are convenient for users with simple requirements. This may be simplest
+              what a string is typed in.
+            </li>
+<li>
+              Functions that use std:: iterators <code class="computeroutput"><span class="identifier">begin</span></code>
+              and <code class="computeroutput"><span class="identifier">end</span></code> allow efficient
+              use of a decimal digits string within other text, for example when
+              a record is retrieve from a database.
+            </li>
+</ul></div>
+<a name="boost_checks.checks.acks.rationale.scope_of_the_project"></a><h5>
+<a name="id895010"></a>
+          <a class="link" href="rationale.html#boost_checks.checks.acks.rationale.scope_of_the_project">Scope
+          of the project</a>
+        </h5>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              Scott McMurray has identifed four fairly distinct types of check:
+            </li>
+<li>
+              ISBN/ISSN/UPC/EAN/VISA/etc, for catching human-entry errors.
+            </li>
+<li>
+              hash functions as in hash tables, which only care about distribution.
+            </li>
+<li>
+              checksums like CRC32, for catching data transmission errors.
+            </li>
+<li>
+              and cryptographic hash functions, the only ones useful against malicious
+              adversaries.
+            </li>
+</ul></div>
+<p>
+          This project is directed first at the first class. Others might be the
+          subject of future libraries.
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              Performance is not a major objective, as most input is tiny, and the
+              number of items often likely to be quite small.
+            </li>
+<li>
+              Convenience and flexibility for the user is the highest priority.
+            </li>
+</ul></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="refs.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../acks.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="history.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

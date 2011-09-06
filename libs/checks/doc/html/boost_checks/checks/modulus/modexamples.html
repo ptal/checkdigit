@@ -1,0 +1,271 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Examples</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Boost.Checks">
+<link rel="up" href="../modulus.html" title="Modular sum algorithms">
+<link rel="prev" href="mod11.html" title="Modulus 11 algorithm">
+<link rel="next" href="summary.html" title="Summary">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="mod11.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../modulus.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="summary.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_checks.checks.modulus.modexamples"></a><a class="link" href="modexamples.html" title="Examples">Examples</a>
+</h4></div></div></div>
+<p>
+          In this part, we'll see some basic examples which show how to check or
+          compute a number with an algorithm. After this, we'll discuss about a few
+          specific cases.
+        </p>
+<p>
+          Firstly, we need to include the file including the check and compute functions.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.modulus.modexamples.check_a_number"></a><h6>
+<a name="id863497"></a>
+          <a class="link" href="modexamples.html#boost_checks.checks.modulus.modexamples.check_a_number">Check
+          a number</a>
+        </h6>
+<p>
+          We can check a number which is delimitated by two iterators. The most simple
+          is using std::string.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">luhn_number</span> <span class="special">=</span> <span class="string">"123455"</span> <span class="special">;</span> <span class="comment">// Initialisation
+</span><span class="comment">// Verification
+</span><span class="keyword">if</span><span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_luhn</span><span class="special">(</span> <span class="identifier">luhn_number</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">luhn_number</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="number">6</span><span class="special">)</span> <span class="special">)</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The number "</span> <span class="special">&lt;&lt;</span> <span class="identifier">luhn_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is a valid luhn number."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          This provides this output:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">number</span> <span class="number">123455</span> <span class="identifier">is</span> <span class="identifier">a</span> <span class="identifier">valid</span> <span class="identifier">luhn</span> <span class="identifier">number</span><span class="special">.</span>
+
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.modulus.modexamples.compute_a_check_digit"></a><h6>
+<a name="id863751"></a>
+          <a class="link" href="modexamples.html#boost_checks.checks.modulus.modexamples.compute_a_check_digit">Compute
+          a check digit</a>
+        </h6>
+<p>
+          We can compute a check digit which is in the range [0..9] ( + 'X' for the
+          modulus 11 algorithm). The check digit can be of the type "char"
+          or a custom type such as <span class="emphasis"><em>wchar_t</em></span>.
+        </p>
+<p>
+          This example will show how to compute a serie of check digit retrieved
+          from a UTF-8 file and put the result into another UTF-8 file.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wifstream</span> <span class="identifier">mod11_ifile</span><span class="special">(</span><span class="string">"files/checks_file_unicode_input.txt"</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ios</span><span class="special">::</span><span class="identifier">in</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">wofstream</span> <span class="identifier">mod11_ofile</span><span class="special">(</span><span class="string">"files/checks_file_unicode_output.txt"</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ios</span><span class="special">::</span><span class="identifier">out</span> <span class="special">|</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ios</span><span class="special">::</span><span class="identifier">trunc</span> <span class="special">);</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">wstring</span> <span class="identifier">tmp_mod11_number</span> <span class="special">;</span>
+
+<span class="keyword">while</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">getline</span><span class="special">(</span><span class="identifier">mod11_ifile</span><span class="special">,</span> <span class="identifier">tmp_mod11_number</span><span class="special">)</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">wchar_t</span> <span class="identifier">check_digit</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_mod11</span><span class="special">&lt;</span><span class="keyword">wchar_t</span><span class="special">&gt;(</span><span class="identifier">tmp_mod11_number</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">tmp_mod11_number</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">);</span>
+  <span class="identifier">mod11_ofile</span> <span class="special">&lt;&lt;</span> <span class="identifier">tmp_mod11_number</span> <span class="special">&lt;&lt;</span> <span class="string">" check digit : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">check_digit</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">mod11_ofile</span><span class="special">.</span><span class="identifier">close</span><span class="special">();</span>
+<span class="identifier">mod11_ifile</span><span class="special">.</span><span class="identifier">close</span><span class="special">();</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          The contents of the input and output files are showed on the following
+          table. We tested the program with 3 differents numbers, the digits of this
+          number are separated with the unicode character '&#8224;'.
+        </p>
+<div class="table">
+<a name="boost_checks.checks.modulus.modexamples.id"></a><p class="title"><b>Table&#160;1.&#160;Contents of the input and output files</b></p>
+<div class="table-contents"><table class="table" summary="Contents of the input and output files">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Input file
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Output file
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    1&#8224;2&#8224;3&#8224;4&#8224;5&#8224;1
+                  </p>
+                </td>
+<td>
+                  <p>
+                    1&#8224;2&#8224;3&#8224;4&#8224;5&#8224;1 check digit :
+                    X
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    2&#8224;3&#8224;4&#8224;5&#8224;6&#8224;7
+                  </p>
+                </td>
+<td>
+                  <p>
+                    2&#8224;3&#8224;4&#8224;5&#8224;6&#8224;7 check digit :
+                    6
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    3&#8224;4&#8224;5&#8224;6&#8224;7&#8224;8
+                  </p>
+                </td>
+<td>
+                  <p>
+                    3&#8224;4&#8224;5&#8224;6&#8224;7&#8224;8 check digit :
+                    1
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><a name="boost_checks.checks.modulus.modexamples.use_the_weight_pattern"></a><h6>
+<a name="id868154"></a>
+          <a class="link" href="modexamples.html#boost_checks.checks.modulus.modexamples.use_the_weight_pattern">Use
+          the weight pattern</a>
+        </h6>
+<p>
+          We can use a custom weight pattern with the modulus 10 algorithm. In the
+          following example, we'll see how to compute and check a Routing transit
+          number (RTN).
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="comment">// Design the weight pattern for the Routing transit number (RTN)
+</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">rtn_weight_pattern</span> <span class="special">=</span> <span class="special">{</span><span class="number">3</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">1</span><span class="special">};</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">rtn_number</span> <span class="special">=</span> <span class="string">"12345678"</span> <span class="special">;</span>
+
+<span class="identifier">rtn_number</span> <span class="special">+=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_mod10</span><span class="special">(</span><span class="identifier">rtn_number</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">rtn_number</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">rtn_weight_pattern</span><span class="special">,</span> <span class="number">8</span><span class="special">)</span> <span class="special">;</span>
+
+<span class="keyword">if</span> <span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_mod10</span><span class="special">(</span> <span class="identifier">rtn_number</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">rtn_number</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">rtn_weight_pattern</span><span class="special">,</span> <span class="number">9</span><span class="special">)</span> <span class="special">)</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The routing transit number (RTN) : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">rtn_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is valid."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.modulus.modexamples.special_cases"></a><h6>
+<a name="id868519"></a>
+          <a class="link" href="modexamples.html#boost_checks.checks.modulus.modexamples.special_cases">Special
+          cases</a>
+        </h6>
+<div class="orderedlist"><ol type="1"><li>
+              <span class="underline">Numbers one beside the others</span>
+            </li></ol></div>
+<p>
+          The first special case is to test a collection of number which are in the
+          same container without special separation.
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="comment">// Create a string with numbers
+</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">luhn_numbers</span> <span class="special">=</span> <span class="string">""</span><span class="special">;</span>
+<span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">9</span><span class="special">;</span> <span class="identifier">i</span> <span class="special">&gt;=</span> <span class="number">0</span><span class="special">;</span> <span class="special">--</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">ostringstream</span> <span class="identifier">num_gen</span><span class="special">;</span>
+<span class="identifier">num_gen</span> <span class="special">&lt;&lt;</span> <span class="number">1023456</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">num</span> <span class="special">=</span> <span class="identifier">num_gen</span><span class="special">.</span><span class="identifier">str</span><span class="special">();</span>
+<span class="keyword">char</span> <span class="identifier">checkdigit</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_luhn</span><span class="special">(</span><span class="identifier">num</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">num</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">num</span><span class="special">.</span><span class="identifier">size</span><span class="special">());</span>
+<span class="identifier">luhn_numbers</span> <span class="special">=</span> <span class="identifier">luhn_numbers</span> <span class="special">+</span> <span class="identifier">num</span> <span class="special">+</span> <span class="identifier">checkdigit</span> <span class="special">;</span>
+<span class="special">}</span>
+
+<span class="comment">// Check all the numbers from this string
+</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">luhn_iter</span> <span class="special">=</span> <span class="identifier">luhn_numbers</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+<span class="keyword">while</span><span class="special">(</span><span class="identifier">luhn_iter</span> <span class="special">!=</span> <span class="identifier">luhn_numbers</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+  <span class="keyword">if</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_luhn</span><span class="special">(</span><span class="identifier">luhn_iter</span><span class="special">,</span> <span class="identifier">luhn_numbers</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="number">9</span><span class="special">))</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The number is valid."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+  <span class="keyword">else</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The number is invalid."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
+</pre>
+<p>
+        </p>
+<p>
+          This provides this output:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">number</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+
+</pre>
+<p>
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="mod11.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../modulus.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="summary.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

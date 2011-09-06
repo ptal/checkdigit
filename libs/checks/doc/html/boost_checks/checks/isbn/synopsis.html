@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Synopsis</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Boost.Checks">
+<link rel="up" href="../isbn.html" title="ISBN checking">
+<link rel="prev" href="../isbn.html" title="ISBN checking">
+<link rel="next" href="../upc.html" title="Universal Product Code (UPC) checking">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../isbn.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../isbn.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../upc.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_checks.checks.isbn.synopsis"></a><a class="link" href="synopsis.html" title="Synopsis">Synopsis</a>
+</h4></div></div></div>
+<p>
+          <code class="computeroutput">is_isbn function</code>
+        </p>
+<p>
+          <span class="emphasis"><em>** * This function checks if a `isbn' is a valid ISBN. *</em></span>
+          bool is_isbn(const std::string&amp; isbn);
+        </p>
+<pre class="programlisting"><span class="comment">/**
+ * This function computes and returns the check digit for a given 9 digit ISBN in `isbn'.
+ */</span>
+<span class="keyword">char</span> <span class="identifier">isbn_check_digit</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">isbn</span><span class="special">);</span> 
+</pre>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../isbn.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../isbn.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="../upc.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

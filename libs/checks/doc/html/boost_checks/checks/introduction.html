@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Introduction</title>
+<link rel="stylesheet" href="../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../index.html" title="Boost.Checks">
+<link rel="up" href="../checks.html" title="Boost.Checks">
+<link rel="prev" href="overview/conventions.html" title="Document Conventions">
+<link rel="next" href="errors.html" title="Type of errors">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="overview/conventions.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="errors.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_checks.checks.introduction"></a><a class="link" href="introduction.html" title="Introduction">Introduction</a>
+</h3></div></div></div>
+<p>
+        The checks are required in a numerous kind of domains such as the distribution
+        chain (bar codes), the cards number (bank, fidelity cards, ...) and many
+        others. These codes and numbers are often copied or scanned by humans or
+        machines, and both make errors. We need a way to control it and this is why
+        some people created a check digit. A check digit is aimed to control the
+        validity of a number and catch mismatched input (we'll detail further the
+        different errors). Another functionnality of this library is to calculate
+        the check digit of a number. There are other functionnalities more specific
+        to a number, for example, we can <span class="emphasis"><em>transform</em></span> an ISBN-10
+        to an ISBN-13.
+      </p>
+<p>
+        There are a lot of codes and numbers that use a check digit, for instance
+        : the ISBN for the books or the IBAN for the internationnal account numbers.
+        But many of those are specialisation of well-known algorithms such as Luhn
+        or modulus 11 algorithm. For example : ISBN-13 is a specialisation of the
+        EAN-13 which is a specialisation of the modulus 10 algorithm.
+      </p>
+<p>
+        This library is divided into two parts : a low level part (Luhn, modulus
+        11, modulus 10, ...) and a higher level library (ISBN-10, EAN-13, IBAN, VISA
+        number, ...). The higher level library will use the low level with filter
+        on the length, first X characters, ... Theorically, the user should only
+        use the high level library which is more specific. In some cases, the user
+        would like to use the lower level library because some kind of exotic numbers
+        (social number of india,...) are not provided by the library.
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="overview/conventions.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="errors.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

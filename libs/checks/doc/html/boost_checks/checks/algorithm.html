@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Common check algorithms</title>
+<link rel="stylesheet" href="../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../index.html" title="Boost_Checks">
+<link rel="up" href="../checks.html" title="Boost.Checks">
+<link rel="prev" href="tutorial/extending_the_library.html" title="Extending the library">
+<link rel="next" href="errors.html" title="Type of errors">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="tutorial/extending_the_library.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="errors.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_checks.checks.algorithm"></a><a class="link" href="algorithm.html" title="Common check algorithms">Common check algorithms</a>
+</h3></div></div></div>
+<p>
+        This section will discuss the objectives of the algorithms used in Boost.Checks.
+        A check algorithm is firstly designed to:
+      </p>
+<div class="orderedlist"><ol type="1">
+<li>
+            Catch the most errors as possible that a human (or machine) can make.
+          </li>
+<li>
+            Minimize the cost of the check digit for fast computation.
+          </li>
+<li>
+            Minimize the size (or number) of the check digit(s).
+          </li>
+</ol></div>
+<p>
+        We cannot have our cake and eat it, that's why we often choose between the
+        size or the efficiency. Critical numbers, for example, the <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number" target="_top">International
+        Bank Account Number (IBAN)</a>, use two check digits.
+      </p>
+<p>
+        The main difference with these algorithms (and the other checksum algorithms
+        such as CRC or cryptographic hashes) is that we don't analyse the binary
+        content of the number of the lexical values meaning, so "123" is
+        equivalent to <em class="replaceable"><code>123</code></em>.
+      </p>
+<div class="table">
+<a name="boost_checks.checks.algorithm.summary"></a><p class="title"><b>Table&#160;2.&#160;Error catching summary</b></p>
+<div class="table-contents"><table class="table" summary="Error catching summary">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              </th>
+<th>
+                <p>
+                  1 Alteration
+                </p>
+              </th>
+<th>
+                <p>
+                  2 Alterations
+                </p>
+              </th>
+<th>
+                <p>
+                  Twin transpositions
+                </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                <p>
+                  Luhn
+                </p>
+              </td>
+<td>
+                <p>
+                  18/18 (100%)
+                </p>
+              </td>
+<td>
+              </td>
+<td>
+                <p>
+                  88/90 (97.78%)
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  Verhoeff
+                </p>
+              </td>
+<td>
+                <p>
+                  18/18 (100%)
+                </p>
+              </td>
+<td>
+              </td>
+<td>
+                <p>
+                  90/90 (100%)
+                </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="tutorial/extending_the_library.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../checks.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="errors.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

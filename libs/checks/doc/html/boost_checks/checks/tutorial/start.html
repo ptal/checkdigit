@@ -1,0 +1,281 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Starting with Checks</title>
+<link rel="stylesheet" href="../../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../../index.html" title="Boost_Checks">
+<link rel="up" href="../tutorial.html" title="Tutorial">
+<link rel="prev" href="../tutorial.html" title="Tutorial">
+<link rel="next" href="extending_the_library.html" title="Extending the library">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../.././images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_1_46_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../tutorial.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="extending_the_library.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost_checks.checks.tutorial.start"></a><a class="link" href="start.html" title="Starting with Checks">Starting with Checks</a>
+</h4></div></div></div>
+<p>
+          There are two main functions for each check system.
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              to validate a sequence: <code class="computeroutput"><span class="identifier">check_</span><span class="special">&lt;</span><span class="identifier">number</span><span class="special">&gt;</span></code>.
+            </li>
+<li>
+              to provides a check digit for a sequence: <code class="computeroutput"><span class="identifier">compute_</span><span class="special">&lt;</span><span class="identifier">number</span><span class="special">&gt;</span></code>.
+            </li>
+</ul></div>
+<p>
+          All the examples of this section are in the file <a href="../../../../../example/checks_examples.cpp" target="_top">checks_examples.cpp</a>.
+        </p>
+<a name="boost_checks.checks.tutorial.start.credit_card_numbers_check"></a><h6>
+<a name="boost_checks.checks.tutorial.start.credit_card_numbers_check-heading"></a>
+          <a class="link" href="start.html#boost_checks.checks.tutorial.start.credit_card_numbers_check">Credit
+          card numbers check</a>
+        </h6>
+<p>
+          We will start with some credit card numbers checking.
+        </p>
+<p>
+          Please first include these headers:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">visa</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">amex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">mastercard</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          Three credit card checks are implemented: <a href="http://en.wikipedia.org/wiki/Visa_credit_card" target="_top">Visa
+          credit card</a>, <a href="http://en.wikipedia.org/wiki/Mastercard" target="_top">Mastercard
+          credit card</a>, and American Express. The following examples show
+          us how to compute and check numbers:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">visa_credit_card_number</span> <span class="special">=</span> <span class="string">"4000 0807 0620 0007"</span> <span class="special">;</span>
+<span class="keyword">if</span><span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_visa</span><span class="special">(</span> <span class="identifier">visa_credit_card_number</span> <span class="special">)</span> <span class="special">)</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The VISA credit card number : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">visa_credit_card_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is valid."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">amex_credit_card_number</span> <span class="special">=</span> <span class="string">"3458 2531 9273 09"</span> <span class="special">;</span>
+<span class="keyword">char</span> <span class="identifier">amex_checkdigit</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_amex</span><span class="special">(</span> <span class="identifier">amex_credit_card_number</span> <span class="special">)</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The check digit of the American Express number : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">amex_credit_card_number</span> <span class="special">&lt;&lt;</span> <span class="string">" is "</span> <span class="special">&lt;&lt;</span> <span class="identifier">amex_checkdigit</span> <span class="special">&lt;&lt;</span> <span class="string">"."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">mastercard_credit_card_number</span> <span class="special">=</span> <span class="string">"5320 1274 8562 157"</span> <span class="special">;</span>
+<span class="identifier">mastercard_credit_card_number</span> <span class="special">+=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_mastercard</span><span class="special">(</span> <span class="identifier">mastercard_credit_card_number</span> <span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"This is a valid Mastercard number : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">mastercard_credit_card_number</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          This provides the output:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">VISA</span> <span class="identifier">credit</span> <span class="identifier">card</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">4000</span> <span class="number">0807</span> <span class="number">0620</span> <span class="number">0007</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">American</span> <span class="identifier">Express</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">3458</span> <span class="number">2531</span> <span class="number">9273</span> <span class="number">09</span> <span class="identifier">is</span> <span class="number">4.</span>
+<span class="identifier">This</span> <span class="identifier">is</span> <span class="identifier">a</span> <span class="identifier">valid</span> <span class="identifier">Mastercard</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">5320</span> <span class="number">1274</span> <span class="number">8562</span> <span class="number">1570</span>
+
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.tutorial.start.multi_check_digits"></a><h6>
+<a name="boost_checks.checks.tutorial.start.multi_check_digits-heading"></a>
+          <a class="link" href="start.html#boost_checks.checks.tutorial.start.multi_check_digits">Multi
+          check digits</a>
+        </h6>
+<p>
+          Some checks use two check digits, for example, the mod97-10 algorithm used
+          to calculate the check digits of the <a href="http://en.wikipedia.org/wiki/International_Bank_Account_Number" target="_top">International
+          Bank Account Number (IBAN)</a>.
+        </p>
+<p>
+          We add an extra parameter to retrieve the two check digits. The include
+          file is:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus97</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          and the next example shows us how to use this function:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">mod97_10_number</span> <span class="special">=</span> <span class="string">"1234567890123456789"</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">mod97_10_checkdigits</span> <span class="special">=</span> <span class="string">"  "</span> <span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_mod97_10</span> <span class="special">(</span> <span class="identifier">mod97_10_number</span> <span class="special">,</span> <span class="identifier">mod97_10_checkdigits</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">)</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"The number : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">mod97_10_number</span> <span class="special">&lt;&lt;</span> <span class="string">" have the check digits : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">mod97_10_checkdigits</span> <span class="special">&lt;&lt;</span> <span class="string">"."</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+<span class="identifier">mod97_10_number</span> <span class="special">=</span> <span class="string">"85212547851652  "</span> <span class="special">;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_mod97_10</span> <span class="special">(</span> <span class="identifier">mod97_10_number</span> <span class="special">,</span> <span class="identifier">mod97_10_number</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">-</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"A complete mod97-10 number : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">mod97_10_number</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          which provides the output:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">The</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">1234567890123456789</span> <span class="identifier">have</span> <span class="identifier">the</span> <span class="identifier">check</span> <span class="identifier">digits</span> <span class="special">:</span> <span class="number">68.</span>
+<span class="identifier">A</span> <span class="identifier">complete</span> <span class="identifier">mod97</span><span class="special">-</span><span class="number">10</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">8521254785165211</span>
+
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.tutorial.start.catching_errors"></a><h6>
+<a name="boost_checks.checks.tutorial.start.catching_errors-heading"></a>
+          <a class="link" href="start.html#boost_checks.checks.tutorial.start.catching_errors">Catching
+          errors</a>
+        </h6>
+<p>
+          We will now see how the library reacts with simple errors. The first error
+          is that the number of characters (size of sequence) doesn't fit the requirements.
+          The second error shows that some number must respect pattern, here the
+          three first digit of an ISBN-13 must be "978" or "979".
+          An exception is throwed if any one of these errors are encountered. We
+          will use the <a href="http://en.wikipedia.org/wiki/European_Article_Number" target="_top">International
+          Article Number (EAN)</a> and <a href="http://en.wikipedia.org/wiki/Isbn" target="_top">International
+          Standard Book Number (ISBN)</a> headers:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">ean</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">isbn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          Two examples of number error:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">ean13_number</span> <span class="special">=</span> <span class="string">"540011301748"</span> <span class="special">;</span> <span class="comment">// Incorrect size.</span>
+<span class="keyword">try</span>
+<span class="special">{</span>
+  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_ean13</span> <span class="special">(</span> <span class="identifier">ean13_number</span> <span class="special">)</span> <span class="special">;</span>
+<span class="special">}</span>
+<span class="keyword">catch</span> <span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span> <span class="identifier">e</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">e</span><span class="special">.</span><span class="identifier">what</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+<span class="special">}</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">isbn13_number</span> <span class="special">=</span> <span class="string">"977-0321227256"</span> <span class="special">;</span> <span class="comment">// Third digit altered.</span>
+<span class="keyword">try</span>
+<span class="special">{</span>
+  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_isbn13</span><span class="special">(</span> <span class="identifier">isbn13_number</span> <span class="special">);</span>
+<span class="special">}</span>
+<span class="keyword">catch</span> <span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span> <span class="identifier">e</span> <span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">e</span><span class="special">.</span><span class="identifier">what</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+<span class="special">}</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          The output shows us the detailed message the exception provides:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">Too</span> <span class="identifier">few</span> <span class="keyword">or</span> <span class="identifier">too</span> <span class="identifier">much</span> <span class="identifier">valid</span> <span class="identifier">values</span> <span class="identifier">in</span> <span class="identifier">the</span> <span class="identifier">sequence</span><span class="special">.</span>
+<span class="identifier">The</span> <span class="identifier">third</span> <span class="identifier">digit</span> <span class="identifier">should</span> <span class="identifier">be</span> <span class="number">8</span> <span class="keyword">or</span> <span class="number">9.</span>
+
+</pre>
+<p>
+        </p>
+<a name="boost_checks.checks.tutorial.start.and_with_integer_array"></a><h6>
+<a name="boost_checks.checks.tutorial.start.and_with_integer_array-heading"></a>
+          <a class="link" href="start.html#boost_checks.checks.tutorial.start.and_with_integer_array">And
+          with integer array</a>
+        </h6>
+<p>
+          The C-arrays of integers are also supported. In the other examples, we
+          check "number" but with an ASCII code, we can use integer value
+          as well. The following will show us the result of the computation of two
+          same numbers but in different format. We'll use the header:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">isbn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        </p>
+<p>
+          And the examples:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">isbn10_number</span> <span class="special">=</span> <span class="string">"020163371"</span> <span class="special">;</span> <span class="comment">// More Effective C++: 35 New Ways to Improve Your Programs and Designs, Scott Meyers.</span>
+<span class="keyword">int</span> <span class="identifier">isbn10_integer_number</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">0</span><span class="special">,</span><span class="number">1</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">1</span><span class="special">}</span> <span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ISBN10 : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">isbn10_number</span> <span class="special">&lt;&lt;</span> <span class="string">". Check digit : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_isbn10</span><span class="special">(</span> <span class="identifier">isbn10_number</span> <span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ISBN10 integer version. Check digit : "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">compute_isbn10</span><span class="special">(</span> <span class="identifier">isbn10_integer_number</span> <span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span> <span class="special">;</span>
+
+</pre>
+<p>
+        </p>
+<p>
+          As you can see in the output, the "X" check digit is represented
+          by its integer value (10) with the integer C-array:
+        </p>
+<p>
+          
+</p>
+<pre class="programlisting"><span class="identifier">ISBN10</span> <span class="special">:</span> <span class="number">020163371</span><span class="special">.</span> <span class="identifier">Check</span> <span class="identifier">digit</span> <span class="special">:</span> <span class="identifier">X</span>
+<span class="identifier">ISBN10</span> <span class="identifier">integer</span> <span class="identifier">version</span><span class="special">.</span> <span class="identifier">Check</span> <span class="identifier">digit</span> <span class="special">:</span> <span class="number">10</span>
+
+</pre>
+<p>
+        </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../tutorial.html"><img src="../../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../tutorial.html"><img src="../../../images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../images/home.png" alt="Home"></a><a accesskey="n" href="extending_the_library.html"><img src="../../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
