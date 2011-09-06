@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function template compute_checksum</title>
+<link rel="stylesheet" href="../.././boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="../../index.html" title="Checks">
+<link rel="up" href="../../header/boost/checks/basic_checks_hpp.html" title="Header &lt;boost/checks/basic_checks.hpp&gt;">
+<link rel="prev" href="compute_checksum_id310000.html" title="Function template compute_checksum">
+<link rel="next" href="compute_multicheckdigit_id310124.html" title="Function template compute_multicheckdigit">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="" width="180" height="90" src="../../images/proposed_for_boost.png"></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/index.html">Home</a></td>
+<td align="center"><a href="../../../../../../../../../boost_1_47_0/libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../../../../boost_trunk/more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="compute_checksum_id310000.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/checks/basic_checks_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="compute_multicheckdigit_id310124.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.checks.compute_checksum_id310066"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template compute_checksum</span></h2>
+<p>boost::checks::compute_checksum &#8212; Create iterators according to the algorithm::iterator policy. And call the iterator overload version of compute_checksum. </p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/basic_checks_hpp.html" title="Header &lt;boost/checks/basic_checks.hpp&gt;">boost/checks/basic_checks.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> algorithm<span class="special">,</span> <span class="keyword">typename</span> size_contract<span class="special">,</span> <span class="keyword">typename</span> check_range<span class="special">&gt;</span> 
+  <span class="keyword">int</span> <span class="identifier">compute_checksum</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span> <span class="special">&amp;</span> check_seq<span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1" lang="en">
+<a name="id878636"></a><h2>Description</h2>
+<p>
+
+
+
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">check_seq</code></span></p></td>
+<td><p>is the sequence of value to check.</p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
+<td><p><span class="term">Requires:</span></p></td>
+<td><p>check_seq is a valid range.</p></td>
+</tr>
+<tr>
+<td><p><span class="term">Returns:</span></p></td>
+<td><p>The checksum of the sequence calculated with algorithm. </p></td>
+</tr>
+<tr>
+<td><p><span class="term">Throws:</span></p></td>
+<td>size_contract::exception_size_failure If the terms of the contract are not respected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Pierre Talbot<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="compute_checksum_id310000.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/checks/basic_checks_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="compute_multicheckdigit_id310124.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
