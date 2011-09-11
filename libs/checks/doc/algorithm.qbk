@@ -22,7 +22,8 @@ Critical numbers, for example, the __IBAN, use two check digits.
 
 The main difference with these algorithms (and the other checksum algorithms 
 such as CRC or cryptographic hashes) is that we don't analyse the binary 
-content of the number of the lexical values meaning, so "123" is equivalent to [~123].
+content of the sequence but the lexical values meaning, so "123" is equivalent to [~123]. 
+It also means we could skip the undesirable values.
 
 [section:checksum_algorithm Checksum algorithms]
 
@@ -36,13 +37,13 @@ For example the digit sum of [~58215478] is:
 5 + 8 + 2 + 1 + 5 + 4 + 7 + 8 = 40
 ``
 
-The check digit would be [~40] and the complete sequence [~5821547840]. The size of
+The check digit would be [~40] so the complete sequence [~5821547840]. The size of
 the check digit grown with the sum. 
 
 [h5 Modular sum]
 
 We must restrict the check digit's size so we take the remainder of the sum by a choosen
-number. The modulus will impact the range of the check digit. For example, the supports 
+modulus. This will impact the range of the check digit. For example, the supports 
 for 3 types of modulus is implemented in Boost.Checks, the following table points the 
 differents modulus:
 
@@ -50,7 +51,7 @@ differents modulus:
 [ [Modulus] [Check digit range] [Check digit size] ]
 [ [10] [ 0 to 9 ] [1] ]
 [ [11] [ 0 to 10 ] [1] ]
-[ [97] [ 0 to 97 ] [2] ]
+[ [97] [ 0 to 96 ] [2] ]
 ]
 
 The range of the modulus 11 is restrained to an unique check digit where [~10] is replaced 
@@ -62,15 +63,29 @@ The simple sum is a fiasco for detecting transposition errors. The proof is simp
 addition is ['commutative], so the digit order is not important. The solution is to 
 attribute fixed ['weight] to each position.
 
+The choice of the weight pattern should respect the following statments:
 
-Some simple rules:
+# The weights must be less than the modulus. The explanation is:
 
-# The weights must be less than the modulus.
-# The weights must be coprime to the modulus.
+``
+If weight = modulus, than weight = 0.
+And if weight = modulus + 1, than weight = 1.
+Finally if weight = modulus + n, than weight = n % modulus.
+``
+
+# The weights must be coprime to the modulus. It means the greatest common divisor between 
+the weight and the modulus is 1. If a and b are not coprime to the modulus, than 
+it exists a number n that verify the following equation:
+
+``
+a * n % modulus = b * n % modulus
+``
+
+And this number is a common divisor between a,b and the modulus.
+
 # [HS] An error in the checksum is detected if | new_checksum - checksum | != modulus.
 # [HS] The assertion: "new_checksum == checksum" doesn't mean that the number is error-free. 
 Digits can be compensated or the check digit altered.
-
 
 The weight pattern is always a limited sequence that can be repetitive. For example: [~137] 
 is not repetitive on a sequence with less than 4 numbers but will on a greater sequence. 
