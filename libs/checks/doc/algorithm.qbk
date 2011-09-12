@@ -63,17 +63,18 @@ The simple sum is a fiasco for detecting transposition errors. The proof is simp
 addition is ['commutative], so the digit order is not important. The solution is to 
 attribute fixed ['weight] to each position.
 
-The choice of the weight pattern should respect the following statments:
+The choice of the weight pattern should respect the following statements:
 
 # The weights must be less than the modulus. The explanation is:
 
 ``
-If weight = modulus, than weight = 0.
-And if weight = modulus + 1, than weight = 1.
-Finally if weight = modulus + n, than weight = n % modulus.
+If weight = modulus, than weight = 0 because weight * C % modulus = modulus % modulus = 0
+So if weight = modulus + n, than weight = n % modulus because weight * C % modulus = (modulus + n) % modulus = n % modulus.
 ``
 
-# The weights must be coprime to the modulus. It means the greatest common divisor between 
+It proves that a weight has the same impact on the checksum as the same weight plus the modulus.
+
+# A weight must be coprime to the modulus. It means the greatest common divisor between 
 the weight and the modulus is 1. If a and b are not coprime to the modulus, than 
 it exists a number n that verify the following equation:
 
@@ -83,61 +84,27 @@ a * n % modulus = b * n % modulus
 
 And this number is a common divisor between a,b and the modulus.
 
-# [HS] An error in the checksum is detected if | new_checksum - checksum | != modulus.
-# [HS] The assertion: "new_checksum == checksum" doesn't mean that the number is error-free. 
-Digits can be compensated or the check digit altered.
+[note By consequence, all prime modulus can use any weights because they are all coprime.]
 
-The weight pattern is always a limited sequence that can be repetitive. For example: [~137] 
-is not repetitive on a sequence with less than 4 numbers but will on a greater sequence. 
+[h5 Luhn algorithm]
 
-The weight pattern greatly depends on the modulus. The weights should be coprime to the modulus, 
-we will prove it with an example: 
+It's a weighted sum with a modulus 10 and a weight pattern of '12'. The sum is computed from 
+right to left. The peculiarity of this algorithm is the treatment on the digits weighted. For 
+example, when the weight multiply by the digit exceeds 9, we substract 9 from it. This scheme 
+catches every transposition but 9 and 0. It's because 9*2 = 18 and 18-9 = 9. So 9 multiply by 
+the weight '1' give the same result than multiply it by the weight '2'.
 
-[table:modulus_influence_on_weight Modulus 10 influence on the weight pattern
-[[Position] [1] [2] [3] [4] [5] [6] [7] ]
-[[Weight]   [1] [3] [5] [8] [1] [3] [5] ]
-[[Number]   [9] [5] [2] [5] [4] [5] [6] ]
-]
+[endsect] [/section:checksum_algorithm Checksum algorithms]
 
-The weight pattern choose is [~1358] on a seven digits sequence: [~9525456], so the check digit is:
+[section:verhoeff_algorithm Verhoeff algorithm]
 
-``
-check digit = (1*9 + 3*5 + 5*2 + 8*5 + 1*4 + 3*5 + 5*6) % 10
-check digit = 3
-``
+The Verhoeff algorithm has been designed to catch all transpositions of two adjacent digits and 
+all alterations. It produces a single check digit. Badly, this check can't easily be performed by 
+hand from memory.
 
-A checksum with weights that are not coprime to 10 could not detect simple alteration. 
-For example, we can prove it with the third digit of the sequence above:
-``
-checksum = 1*9 + 3*5 + 5*X + 8*5 + 1*4 + 3*5 + 5*6
-checksum = 113 + 5X
+It uses the properties of the dihedral group D5, the elements in this group are not commutative. 
+Whatever the manner we can compute these elements, we use three precomputed tables: d, p and inv. 
 
-
-check digit = (113 + 5X) % 10
-If X = {0,2,4,6,8}
-  check digit = 3
-If X = {1,3,5,7,9}
-  check digit = 7
-``
-
-To avoid this disaster, we should respect the following formula:
-``
-modulus € 0+ Strict Positive Integer
-
-weight >= 0 AND weight < modulus
-d1 >= 0 AND d1 < modulus
-d2 >= 0 AND d2 < modulus
-d1 != d2
-
-(Weight * d1) % Modulus != (Weight * d2) % Modulus
-``
-
-# Note 1: All prime number modulus can be use with any weight.
-
-[table:summary Error catching summary
-[[][1 Alteration] [2 Alterations] [Twin transpositions] ]
-[[Luhn] [18/18 (100%)] [] [88/90 (97.78%)]]
-[[Verhoeff] [18/18 (100%)] [] [90/90 (100%)]]
-]
+[endsect] 
 
 [endsect] [/section:algorithm Common check algorithms]
