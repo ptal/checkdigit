@@ -20,9 +20,9 @@ We cannot have our cake and eat it, that's why we often choose
 between the size or the efficiency.
 Critical numbers, for example, the __IBAN, use two check digits.
 
-The main difference with these algorithms (and the other checksum algorithms 
-such as CRC or cryptographic hashes) is that we don't analyse the binary 
-content of the sequence but the lexical values meaning, so "123" is equivalent to [~123]. 
+The main difference between these algorithms and the other checksum algorithms 
+such as CRC or cryptographic hashes is we don't analyse the binary content of the 
+sequence but the lexical values meaning, so "123" is equivalent to [~123]. 
 It also means we could skip the undesirable values.
 
 [section:checksum_algorithm Checksum algorithms]

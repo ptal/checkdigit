@@ -10,7 +10,16 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 [section:errors Type of errors]
 
 This section will describe some common errors that an user or a device can make. 
-It will also discuss the efficiency of the algorithms studied.
+It will also discuss the factors that affect the testability of these errors. 
+We will focus on the weighted sum algorithms.
+
+A good test algorithm will satisfied these measurements :
+
+# Test each digit which influence the final result differently. This often include 
+a specific test for the check digit or the different weights.
+# Test these with all combinations the algorithm supports (it often the digit from 
+0 to 9 and sometimes letters from A to Z).
+
 
 [section:alteration Alteration]
 
@@ -18,15 +27,14 @@ It will also discuss the efficiency of the algorithms studied.
 
 The single error is always detected if the modulus is equal or greater than the 
 range of the value in the number. For example, if an algorithm accept the values 
-0 to 9 and A to Z (whether 36 different values), the modulus should be greater 
+from 0 to 9 and A to Z (whether 36 different values), the modulus should be greater 
 or equal than 36. If it's respected, the single error will be detected.
 
-The Verhoeff algorithm detects all single error.
 
 [h5 Multiple error]
 
 If more than one digit is altered, a simple sum can't ensure that the check digit will be different.
-In fact it depends on the compensation of the altered digits. For example : 1 + 2 + 3 = 6. 
+In fact, it depends on the compensation of the altered digits. For example : 1 + 2 + 3 = 6. 
 If we alter 2 digits, the sum could become : 2 + 2 + 2 = 6. The result is equal because 1 + 3 = 2 + 2, 
 the digits altered are compensated. 
 
@@ -45,23 +53,22 @@ is not detected.
 [section:length Length]
 
 The length is not often a problem because many codes and numbers have a fixed length. 
-But if the user do not specify the size, an error could be uncaught if the check digit of
-the new sequence of digit is equal to the last digit of this sequence.
+But if the user doesn't specify the size, an error could be uncaught if the check digit of
+the new sequence is equal to the last digit of the old sequence.
 
 [endsect] [/section:length Length] 
 
 [section: Observations and summary]
 
 # An error in the checksum is detected if | new_checksum - checksum | != modulus.
-# The assertion: "new_checksum == checksum" doesn't mean that the number is error-free. 
-Digits can be compensated or the check digit altered.
-
-
+# The assertion: "check digit = check digit expected" doesn't mean that the number 
+is error-free. Digits can be compensated or the check digit altered.
 
 [table:summary Error catching summary
 [[][1 Alteration] [2 Alterations] [Twin transpositions] ]
 [[Luhn] [18/18 (100%)] [] [88/90 (97.78%)]]
 [[Verhoeff] [18/18 (100%)] [] [90/90 (100%)]]
+[ Other tests coming soon ! ]
 ]
 
 [endsect] [/section:errors Type of errors]
