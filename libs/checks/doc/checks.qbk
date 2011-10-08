@@ -108,7 +108,6 @@ may still be changed without notice.  The current version is available at
 [include tutorial.qbk]
 [include algorithm.qbk]
 [include errors.qbk]
-[include modulus.qbk]
 
 [section:acks Acknowledgements]
 

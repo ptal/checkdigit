@@ -68,7 +68,9 @@ is error-free. Digits can be compensated or the check digit altered.
 [[][1 Alteration] [2 Alterations] [Twin transpositions] ]
 [[Luhn] [18/18 (100%)] [] [88/90 (97.78%)]]
 [[Verhoeff] [18/18 (100%)] [] [90/90 (100%)]]
-[ Other tests coming soon ! ]
+[ [Other tests coming soon !] ]
 ]
+
+[endsect] [/section: Observations and summary]
 
 [endsect] [/section:errors Type of errors]
