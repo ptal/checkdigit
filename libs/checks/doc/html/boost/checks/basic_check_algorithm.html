@@ -32,18 +32,8 @@
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/basic_check_algorithm_hpp.html" title="Header &lt;boost/checks/basic_check_algorithm.hpp&gt;">boost/checks/basic_check_algorithm.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> iteration_sense<span class="special">,</span> <span class="comment">  // must meet the iteration_sense concept
-                                     // requirements.</span>
-         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="comment">  // Helper functions
-                                                           // to provide the
-                                                           // same behavior on
-                                                           // sequence with
-                                                           // and without
-                                                           // checkdigits. No
-                                                           // "real" value in
-                                                           // the sequence
-                                                           // will be skipped.</span>
-         <span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> iteration_sense<span class="special">,</span> 
+         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="basic_check_algorithm.html" title="Class template basic_check_algorithm">basic_check_algorithm</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// types</span>
@@ -53,36 +43,49 @@
 
   <span class="comment">// Template rebinding class used to define the type of the check digit(s) of
   // check_range.</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> check_range<span class="comment">  // The type of the sequence to check.</span>
-           <span class="special">&gt;</span> 
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> check_range<span class="special">&gt;</span> 
   <span class="keyword">class</span> <a class="link" href="basic_check_algorithm/checkdigit.html" title="Class template checkdigit">checkdigit</a> <span class="special">{</span>
   <span class="keyword">public</span><span class="special">:</span>
     <span class="comment">// types</span>
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span><span class="special">&lt;</span> <span class="identifier">check_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="basic_check_algorithm/checkdigit.html#boost.checks.basic_check_algorithm.checkdigit.type"><span class="identifier">type</span></a><span class="special">;</span>
   <span class="special">}</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="basic_check_algorithm.html#id307528-bb">public static functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <a class="link" href="basic_check_algorithm/checkdigit.html" title="Class template checkdigit">checkdigit</a> <a class="link" href="basic_check_algorithm.html#id307531-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="basic_check_algorithm.html#id312187-bb">public static functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <a class="link" href="basic_check_algorithm/checkdigit.html" title="Class template checkdigit">checkdigit</a> <a class="link" href="basic_check_algorithm.html#id312190-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigits_iter<span class="special">&gt;</span> 
-    <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="basic_check_algorithm.html#id307574-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="basic_check_algorithm.html#id307624-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
+    <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="basic_check_algorithm.html#id312233-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="basic_check_algorithm.html#id312283-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
                                           <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="basic_check_algorithm.html#id307660-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="basic_check_algorithm.html#id312319-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> value<span class="special">&gt;</span> 
-    <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="basic_check_algorithm.html#id307707-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="basic_check_algorithm.html#id307762-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="basic_check_algorithm.html#id312366-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="basic_check_algorithm.html#id312421-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id892659"></a><h2>Description</h2>
+<a name="id923618"></a><h2>Description</h2>
 <p>
 </p>
+<dt><span class="term">Template Parameters:</span></dt>
+<dd><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><code class="computeroutput">iteration_sense</code></span></p></td>
+<td><p>must meet the iteration_sense concept requirements. </p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="computeroutput">number_of_virtual_value_skipped</code></span></p></td>
+<td><p>Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped. </p></td>
+</tr>
+</tbody>
+</table></div></dd>
 <div class="refsect2" lang="en">
-<a name="id892665"></a><h3>
-<a name="id307528-bb"></a><code class="computeroutput">basic_check_algorithm</code> public static functions</h3>
+<a name="id923652"></a><h3>
+<a name="id312187-bb"></a><code class="computeroutput">basic_check_algorithm</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <a class="link" href="basic_check_algorithm/checkdigit.html" title="Class template checkdigit">checkdigit</a> <a name="id307531-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit of a sequence. <p>
+  <span class="keyword">static</span> <a class="link" href="basic_check_algorithm/checkdigit.html" title="Class template checkdigit">checkdigit</a> <a name="id312190-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit of a sequence. <p>
 
 
 
@@ -104,6 +107,16 @@
 </table></div></td>
 </tr>
 <tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">checkdigit</code></span></p></td>
+<td><p>is the type of the check digit desired. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Requires:</span></p></td>
 <td><p>The type checkdigit must provides the default initialisation feature.</p></td>
 </tr>
@@ -117,7 +130,7 @@
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigits_iter<span class="special">&gt;</span> 
   <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> 
-  <a name="id307574-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
+  <a name="id312233-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
 
 
 
@@ -145,6 +158,16 @@
 </table></div></td>
 </tr>
 <tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">checkdigits_iter</code></span></p></td>
+<td><p>must meet the OutputIterator requirements. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Requires:</span></p></td>
 <td><p>checkdigits must be a valid initialized iterator.</p></td>
 </tr>
@@ -156,7 +179,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id307624-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id312283-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                         <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_value_position<span class="special">)</span><span class="special">;</span></pre>Filtering of a valid value according to its position. <p>
 
 </p>
@@ -190,7 +213,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id307660-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id312319-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">,</span> 
                                    <span class="keyword">int</span> <span class="special">&amp;</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute an operation on the checksum with the current valid value. <p>
 
@@ -231,7 +254,7 @@
 </li>
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> value<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <span class="keyword">int</span> <a name="id307707-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
+  <span class="keyword">static</span> <span class="keyword">int</span> <a name="id312366-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
                                       <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>translate a value of the sequence into an integer valid value. <p>
 
 
@@ -258,6 +281,16 @@
 </table></div></td>
 </tr>
 <tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">value</code></span></p></td>
+<td><p>is the type of a value in the sequence. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>the translation of the current value in the range [0..9]. </p></td>
 </tr>
@@ -271,7 +304,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id307762-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the checksum. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id312421-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the checksum. <p>
 
 </p>
 <p>This function should be overloaded if you want to check a sequence. </p>

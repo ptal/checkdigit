@@ -31,44 +31,50 @@
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/modulus10_hpp.html" title="Header &lt;boost/checks/modulus10.hpp&gt;">boost/checks/modulus10.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> mod10_weight<span class="special">,</span> <span class="comment">  // must meet the weight concept
-                                  // requirements.</span>
-         <span class="keyword">typename</span> iteration_sense<span class="special">,</span> <span class="comment">  // must meet the iteration_sense concept
-                                     // requirements.</span>
-         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="comment">  // Help functions
-                                                           // to provide same
-                                                           // behavior on
-                                                           // sequence with
-                                                           // and without
-                                                           // check digits. No
-                                                           // "real" value in
-                                                           // the sequence
-                                                           // will be skipped.</span>
-         <span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> mod10_weight<span class="special">,</span> <span class="keyword">typename</span> iteration_sense<span class="special">,</span> 
+         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="modulus10_algorithm.html" title="Class template modulus10_algorithm">modulus10_algorithm</a> <span class="special">:</span> <span class="keyword">public</span> boost::checks::weighted_sum_algorithm&lt; mod10_weight, iteration_sense, number_of_virtual_value_skipped &gt;
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
-  <span class="comment">// <a class="link" href="modulus10_algorithm.html#id312659-bb">public static functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="modulus10_algorithm.html#id312662-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="modulus10_algorithm.html#id312701-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="modulus10_algorithm.html#id312742-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
+  <span class="comment">// <a class="link" href="modulus10_algorithm.html#id315884-bb">public static functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="modulus10_algorithm.html#id315886-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="modulus10_algorithm.html#id315926-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="modulus10_algorithm.html#id315966-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
                                           <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="modulus10_algorithm.html#id312778-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="modulus10_algorithm.html#id312821-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="modulus10_algorithm.html#id312867-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="modulus10_algorithm.html#id316002-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="modulus10_algorithm.html#id316046-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="modulus10_algorithm.html#id316091-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id918200"></a><h2>Description</h2>
+<a name="id948273"></a><h2>Description</h2>
 <p>
 </p>
+<dt><span class="term">Template Parameters:</span></dt>
+<dd><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><code class="computeroutput">iteration_sense</code></span></p></td>
+<td><p>must meet the iteration_sense concept requirements. </p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="computeroutput">mod10_weight</code></span></p></td>
+<td><p>must meet the weight concept requirements. </p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="computeroutput">number_of_virtual_value_skipped</code></span></p></td>
+<td><p>Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped. </p></td>
+</tr>
+</tbody>
+</table></div></dd>
 <div class="refsect2" lang="en">
-<a name="id918206"></a><h3>
-<a name="id312659-bb"></a><code class="computeroutput">modulus10_algorithm</code> public static functions</h3>
+<a name="id948317"></a><h3>
+<a name="id315884-bb"></a><code class="computeroutput">modulus10_algorithm</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id312662-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit with a simple modulus 10. <p>
+  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id315886-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit with a simple modulus 10. <p>
 
 
 
@@ -87,6 +93,16 @@
 </table></div></td>
 </tr>
 <tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">checkdigit</code></span></p></td>
+<td><p>is the type of the check digit desired. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>The modulus 10 check digit of checksum. </p></td>
 </tr>
@@ -100,7 +116,7 @@
 </li>
 <li>
 <pre class="literallayout"><span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> 
-<a name="id312701-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
+<a name="id315926-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
 
 
 
@@ -139,7 +155,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id312742-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id315966-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                         <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_value_position<span class="special">)</span><span class="special">;</span></pre>Filtering of a valid value according to its position. <p>
 
 </p>
@@ -173,7 +189,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id312778-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id316002-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">,</span> 
                                    <span class="keyword">int</span> <span class="special">&amp;</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute an operation on the checksum with the current valid value. <p>
 
@@ -210,7 +226,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id312821-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id316046-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
                                     <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>translate a value of the sequence into an integer valid value. <p>
 
 
@@ -250,7 +266,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id312867-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate a checksum with a simple modulus 10. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id316091-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate a checksum with a simple modulus 10. <p>
 
 </p>
 <div class="variablelist"><table border="0">

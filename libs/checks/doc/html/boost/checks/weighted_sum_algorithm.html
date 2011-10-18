@@ -31,43 +31,50 @@
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/weighted_sum_hpp.html" title="Header &lt;boost/checks/weighted_sum.hpp&gt;">boost/checks/weighted_sum.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> weight<span class="special">,</span> <span class="comment">  // must meet the weight concept requirements.</span>
-         <span class="keyword">typename</span> iteration_sense<span class="special">,</span> <span class="comment">  // must meet the iteration_sense concept
-                                     // requirements.</span>
-         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="comment">  // Helper function
-                                                           // to provide same
-                                                           // behavior on
-                                                           // sequence with
-                                                           // and without
-                                                           // checkdigits. No
-                                                           // "real" value in
-                                                           // the sequence
-                                                           // will be skipped.</span>
-         <span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> weight<span class="special">,</span> <span class="keyword">typename</span> iteration_sense<span class="special">,</span> 
+         <span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="weighted_sum_algorithm.html" title="Class template weighted_sum_algorithm">weighted_sum_algorithm</a> <span class="special">:</span>
   <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">basic_check_algorithm</span><span class="special">&lt;</span> <span class="identifier">iteration_sense</span> <span class="special">&gt;</span>
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
-  <span class="comment">// <a class="link" href="weighted_sum_algorithm.html#id314899-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="weighted_sum_algorithm.html#id314902-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="weighted_sum_algorithm.html#id314933-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="weighted_sum_algorithm.html#id314974-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
+  <span class="comment">// <a class="link" href="weighted_sum_algorithm.html#id318192-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="weighted_sum_algorithm.html#id318195-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="weighted_sum_algorithm.html#id318226-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="weighted_sum_algorithm.html#id318267-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
                                           <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="weighted_sum_algorithm.html#id315010-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="weighted_sum_algorithm.html#id315053-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="weighted_sum_algorithm.html#id315099-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="weighted_sum_algorithm.html#id318303-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="weighted_sum_algorithm.html#id318346-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="weighted_sum_algorithm.html#id318391-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id928347"></a><h2>Description</h2>
+<a name="id960227"></a><h2>Description</h2>
 <p>
 </p>
+<dt><span class="term">Template Parameters:</span></dt>
+<dd><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><code class="computeroutput">iteration_sense</code></span></p></td>
+<td><p>must meet the iteration_sense concept requirements. </p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="computeroutput">number_of_virtual_value_skipped</code></span></p></td>
+<td><p>Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped. </p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="computeroutput">weight</code></span></p></td>
+<td><p>must meet the weight concept requirements. </p></td>
+</tr>
+</tbody>
+</table></div></dd>
 <div class="refsect2" lang="en">
-<a name="id928353"></a><h3>
-<a name="id314899-bb"></a><code class="computeroutput">weighted_sum_algorithm</code> public static functions</h3>
+<a name="id960270"></a><h3>
+<a name="id318192-bb"></a><code class="computeroutput">weighted_sum_algorithm</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id314902-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit of a sequence. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id318195-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit of a sequence. <p>
 
 
 
@@ -101,7 +108,7 @@
 </li>
 <li>
 <pre class="literallayout"><span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> 
-<a name="id314933-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
+<a name="id318226-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
 
 
 
@@ -140,7 +147,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id314974-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id318267-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                         <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_value_position<span class="special">)</span><span class="special">;</span></pre>Filtering of a valid value according to its position. <p>
 
 </p>
@@ -174,7 +181,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id315010-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id318303-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">,</span> 
                                    <span class="keyword">int</span> <span class="special">&amp;</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute an operation on the checksum with the current valid value. <p>
 
@@ -211,7 +218,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id315053-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id318346-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
                                     <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>translate a value of the sequence into an integer valid value. <p>
 
 
@@ -251,7 +258,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id315099-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the checksum. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id318391-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the checksum. <p>
 
 </p>
 <p>This function should be overloaded if you want to check a sequence. </p>

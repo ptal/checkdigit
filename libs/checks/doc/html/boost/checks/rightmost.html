@@ -38,50 +38,73 @@
 
   <span class="comment">// Template rebinding class used to define the type of a const reverse
   // iterator for seq_range.</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="comment">  // The type of the sequence to check.</span>
-           <span class="special">&gt;</span> 
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="special">&gt;</span> 
   <span class="keyword">class</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a> <span class="special">{</span>
   <span class="keyword">public</span><span class="special">:</span>
     <span class="comment">// types</span>
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="rightmost/iterator.html#boost.checks.rightmost.iterator.type"><span class="identifier">type</span></a><span class="special">;</span>
   <span class="special">}</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="rightmost.html#id311766-bb">public static functions</a></span>
+  <span class="comment">// <a class="link" href="rightmost.html#id314991-bb">public static functions</a></span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="special">&gt;</span> 
-    <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="rightmost.html#id311769-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="rightmost.html#id314993-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="special">&gt;</span> 
-    <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="rightmost.html#id311804-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="rightmost.html#id315028-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id911804"></a><h2>Description</h2>
+<a name="id942738"></a><h2>Description</h2>
 <div class="refsect2" lang="en">
-<a name="id911808"></a><h3>
-<a name="id311766-bb"></a><code class="computeroutput">rightmost</code> public static functions</h3>
+<a name="id942741"></a><h3>
+<a name="id314991-bb"></a><code class="computeroutput">rightmost</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="id311769-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span> sequence<span class="special">)</span><span class="special">;</span></pre>Get the beginning of the sequence. <p>
+  <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="id314993-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span> sequence<span class="special">)</span><span class="special">;</span></pre>Get the beginning of the sequence. <p>
 
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody><tr>
+<td><p><span class="term"><code class="computeroutput">seq_range</code></span></p></td>
+<td><p>The type of the sequence to check. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>A reverse iterator representing the beginning of the sequence. </p></td>
-</tr></tbody>
+</tr>
+</tbody>
 </table></div>
 </li>
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> seq_range<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="id311804-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span> sequence<span class="special">)</span><span class="special">;</span></pre>Get the ending of the sequence. <p>
+  <span class="keyword">static</span> <a class="link" href="rightmost/iterator.html" title="Class template iterator">iterator</a><span class="special">&lt;</span> <span class="identifier">seq_range</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="id315028-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="identifier">seq_range</span> <span class="special">&amp;</span> sequence<span class="special">)</span><span class="special">;</span></pre>Get the ending of the sequence. <p>
 
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody><tr>
+<td><p><span class="term"><code class="computeroutput">seq_range</code></span></p></td>
+<td><p>The type of the sequence to check. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>A reverse iterator represents one past the end of the sequence. </p></td>
-</tr></tbody>
+</tr>
+</tbody>
 </table></div>
 </li>
 </ol></div>

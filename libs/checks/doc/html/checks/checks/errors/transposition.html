@@ -27,21 +27,11 @@
 <a name="checks.checks.errors.transposition"></a><a class="link" href="transposition.html" title="Transposition">Transposition</a>
 </h4></div></div></div>
 <p>
-          A transposition on a simple sum is impossible to detect because the addition
-          is commutative, the order is not important. A solution is to associate
-          the position of a digit with a weight.
+          A transposition error is caught if the two digits transposed have a different
+          weight and if their values with their weight or the weight of the other
+          digit are not the same. For example, 3*2 = 2*3 so a transposition of 2
+          and 3 with those weights is not detected.
         </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-            A transposition error is only caught if the two digits transposed have
-            a different weight and if their values with their weight or the weight
-            of the other digit are not the same.
-          </p></td></tr>
-</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

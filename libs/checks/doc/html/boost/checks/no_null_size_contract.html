@@ -31,39 +31,32 @@
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/limits_hpp.html" title="Header &lt;boost/checks/limits.hpp&gt;">boost/checks/limits.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> exception_size_failure <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span><span class="comment">  // If the
-                                                                  // size is
-                                                                  // null, a
-                                                                  // exception
-                                                                  // _size_fai
-                                                                  // lure
-                                                                  // exception
-                                                                  // will be
-                                                                  // thrown.
-                                                                  // Default
-                                                                  // exception
-                                                                  // class is
-                                                                  // std::inva
-                                                                  // lid_argum
-                                                                  // ent.</span>
-         <span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> exception_size_failure <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">invalid_argument</span><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="no_null_size_contract.html" title="Class template no_null_size_contract">no_null_size_contract</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
-  <span class="comment">// <a class="link" href="no_null_size_contract.html#id311867-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="no_null_size_contract.html#id311870-bb"><span class="identifier">reach_one_past_the_end</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="no_null_size_contract.html#id311891-bb"><span class="identifier">respect_size_contract</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="no_null_size_contract.html#id315092-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="no_null_size_contract.html#id315094-bb"><span class="identifier">reach_one_past_the_end</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="no_null_size_contract.html#id315116-bb"><span class="identifier">respect_size_contract</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id912480"></a><h2>Description</h2>
+<a name="id944550"></a><h2>Description</h2>
 <p>
 </p>
+<dt><span class="term">Template Parameters:</span></dt>
+<dd><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">exception_size_failure</code></span></p></td>
+<td><p>If the size is null, a exception_size_failure exception will be thrown. Default exception class is std::invalid_argument. </p></td>
+</tr></tbody>
+</table></div></dd>
 <div class="refsect2" lang="en">
-<a name="id912486"></a><h3>
-<a name="id311867-bb"></a><code class="computeroutput">no_null_size_contract</code> public static functions</h3>
+<a name="id944574"></a><h3>
+<a name="id315092-bb"></a><code class="computeroutput">no_null_size_contract</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id311870-bb"></a><span class="identifier">reach_one_past_the_end</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span></pre>Warns if the expected interval of value [0..n) is exceeded. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id315094-bb"></a><span class="identifier">reach_one_past_the_end</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span><span class="special">)</span><span class="special">;</span></pre>Warns if the expected interval of value [0..n) is exceeded. <p>
 
 </p>
 <div class="variablelist"><table border="0">
@@ -75,7 +68,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id311891-bb"></a><span class="identifier">respect_size_contract</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>Enforce the size contract. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id315116-bb"></a><span class="identifier">respect_size_contract</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">size_t</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>Enforce the size contract. <p>
 
 </p>
 <div class="variablelist"><table border="0">

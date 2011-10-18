@@ -34,9 +34,9 @@
           cater for existing check systems not yet provided, and even to create your
           own check system.
         </p>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number"></a><h6>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number-heading"></a>
-          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number">Example
+<h6>
+<a name="checks.checks.tutorial.extending_the_library.h0"></a>
+          <span><a name="checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number"></a></span><a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_routing_transit_number">Example
           with the Routing transit number</a>
         </h6>
 <p>
@@ -69,7 +69,6 @@
           We need these include files.
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus10</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">basic_checks</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -77,7 +76,6 @@
 <p>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">RTN_SIZE</span> <span class="number">9</span>
 <span class="preprocessor">#define</span> <span class="identifier">RTN_SIZE_WITHOUT_CHECKDIGIT</span> <span class="number">8</span>
@@ -91,7 +89,6 @@
           We must put the weights and the sense together into an algorithm type:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus10_algorithm</span> <span class="special">&lt;</span> <span class="identifier">rtn_weight</span><span class="special">,</span> <span class="identifier">rtn_sense</span><span class="special">,</span> <span class="number">0</span><span class="special">&gt;</span> <span class="identifier">rtn_check_algorithm</span> <span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus10_algorithm</span> <span class="special">&lt;</span> <span class="identifier">rtn_weight</span><span class="special">,</span> <span class="identifier">rtn_sense</span><span class="special">,</span> <span class="number">0</span><span class="special">&gt;</span> <span class="identifier">rtn_compute_algorithm</span> <span class="special">;</span>
@@ -102,7 +99,6 @@
           As the hard part is already done, we can build our check functions now:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
 <span class="keyword">bool</span> <span class="identifier">check_rtn</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
@@ -135,7 +131,6 @@
           We can code a RTN sample in the file <a href="../../../../../example/checks_tutorial.cpp" target="_top">checks_tutorial.cpp</a>:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">rtn_number</span> <span class="special">=</span>  <span class="string">"111000025"</span> <span class="special">;</span>
 <span class="keyword">if</span> <span class="special">(</span> <span class="identifier">check_rtn</span> <span class="special">(</span> <span class="identifier">rtn_number</span> <span class="special">)</span> <span class="special">)</span>
@@ -149,7 +144,6 @@
           and the output is:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">The</span> <span class="identifier">Routing</span> <span class="identifier">Transit</span> <span class="identifier">Number</span><span class="special">:</span> <span class="number">111000025</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
 <span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">number</span><span class="special">:</span> <span class="number">11100002</span> <span class="identifier">is</span> <span class="number">5.</span>
@@ -157,9 +151,9 @@
 </pre>
 <p>
         </p>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_"></a><h6>
-<a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_-heading"></a>
-          <a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_">Example
+<h6>
+<a name="checks.checks.tutorial.extending_the_library.h1"></a>
+          <span><a name="checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_"></a></span><a class="link" href="extending_the_library.html#checks.checks.tutorial.extending_the_library.example_with_the_vehicle_identification_number__vin_">Example
           with the Vehicle Identification Number (VIN)</a>
         </h6>
 <p>
@@ -189,7 +183,6 @@
 </ul></div>
 <p>
           The library already has support for modulus 11 algorithm in the header:
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></pre>
 <p>
@@ -210,7 +203,6 @@
           We create the types associated with these two observations:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus11</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">basic_checks</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -230,7 +222,6 @@
           with inheritance:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">number_of_virtual_value_skipped</span> <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">vin_algorithm</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">modulus11_algorithm</span><span class="special">&lt;</span><span class="identifier">vin_weight</span><span class="special">,</span> <span class="identifier">vin_sense</span><span class="special">,</span> <span class="identifier">number_of_virtual_value_skipped</span><span class="special">&gt;</span>
@@ -465,7 +456,6 @@
           value, the following function does the job:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">X</span> <span class="special">=</span> <span class="identifier">X</span> <span class="special">%</span> <span class="number">10</span> <span class="special">+</span> <span class="identifier">X</span><span class="special">/</span><span class="number">10</span> <span class="special">+</span> <span class="special">((</span><span class="identifier">X</span> <span class="special">&gt;</span> <span class="number">18</span><span class="special">)</span> <span class="special">?</span> <span class="number">1</span> <span class="special">:</span> <span class="number">0</span><span class="special">).</span>
 </pre>
@@ -482,7 +472,6 @@
           Let's see the code now:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">value</span><span class="special">&gt;</span>
 <span class="keyword">static</span> <span class="keyword">int</span> <span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="identifier">current_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">valid_value_counter</span> <span class="special">)</span>
@@ -532,7 +521,6 @@
           iteration.
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">static</span> <span class="keyword">void</span> <span class="identifier">operate_on_valid_value</span><span class="special">(</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">current_valid_value</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">valid_value_counter</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="identifier">checksum</span> <span class="special">)</span>
 <span class="special">{</span>
@@ -553,7 +541,6 @@
           modulus 11 algorithm, so we need to re-implement it:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">checkdigit</span><span class="special">&gt;</span>
 <span class="keyword">static</span> <span class="keyword">typename</span> <span class="identifier">checkdigit</span> <span class="identifier">compute_checkdigit</span><span class="special">(</span> <span class="keyword">int</span> <span class="identifier">checksum</span> <span class="special">)</span>
@@ -568,7 +555,6 @@
           We can now write the VIN type algorithm:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">vin_algorithm</span> <span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;</span> <span class="identifier">vin_check_algorithm</span> <span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">vin_algorithm</span> <span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;</span> <span class="identifier">vin_compute_algorithm</span> <span class="special">;</span>
@@ -579,7 +565,6 @@
           And write the functions:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">check_range</span><span class="special">&gt;</span>
 <span class="keyword">bool</span> <span class="identifier">check_vin</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">check_range</span><span class="special">&amp;</span> <span class="identifier">check_seq</span><span class="special">)</span>
@@ -611,7 +596,6 @@
           .
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">vin_number</span> <span class="special">=</span> <span class="string">"1M8GDM9AXKP042788"</span><span class="special">;</span>
 <span class="keyword">if</span> <span class="special">(</span> <span class="identifier">check_vin</span> <span class="special">(</span> <span class="identifier">vin_number</span> <span class="special">)</span> <span class="special">)</span>
@@ -626,7 +610,6 @@
           that provides the following output:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">The</span> <span class="identifier">Vehicle</span> <span class="identifier">Identification</span> <span class="identifier">Number</span><span class="special">:</span> <span class="number">1</span><span class="identifier">M8GDM9AXKP042788</span> <span class="identifier">is</span> <span class="identifier">correct</span><span class="special">.</span>
 <span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="number">1</span><span class="identifier">M8GDM9AKP042788</span> <span class="identifier">is</span> <span class="identifier">X</span>

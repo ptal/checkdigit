@@ -40,9 +40,9 @@
 <p>
           All the examples of this section are in the file <a href="../../../../../example/checks_examples.cpp" target="_top">checks_examples.cpp</a>.
         </p>
-<a name="checks.checks.tutorial.start.credit_card_numbers_check"></a><h6>
-<a name="checks.checks.tutorial.start.credit_card_numbers_check-heading"></a>
-          <a class="link" href="start.html#checks.checks.tutorial.start.credit_card_numbers_check">Credit
+<h6>
+<a name="checks.checks.tutorial.start.h0"></a>
+          <span><a name="checks.checks.tutorial.start.credit_card_numbers_check"></a></span><a class="link" href="start.html#checks.checks.tutorial.start.credit_card_numbers_check">Credit
           card numbers check</a>
         </h6>
 <p>
@@ -52,7 +52,6 @@
           Please first include these headers:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">visa</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">amex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -67,7 +66,6 @@
           us how to compute and check numbers:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">visa_credit_card_number</span> <span class="special">=</span> <span class="string">"4000 0807 0620 0007"</span> <span class="special">;</span>
 <span class="keyword">if</span><span class="special">(</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">checks</span><span class="special">::</span><span class="identifier">check_visa</span><span class="special">(</span> <span class="identifier">visa_credit_card_number</span> <span class="special">)</span> <span class="special">)</span>
@@ -88,7 +86,6 @@
           This provides the output:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">The</span> <span class="identifier">VISA</span> <span class="identifier">credit</span> <span class="identifier">card</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">4000</span> <span class="number">0807</span> <span class="number">0620</span> <span class="number">0007</span> <span class="identifier">is</span> <span class="identifier">valid</span><span class="special">.</span>
 <span class="identifier">The</span> <span class="identifier">check</span> <span class="identifier">digit</span> <span class="identifier">of</span> <span class="identifier">the</span> <span class="identifier">American</span> <span class="identifier">Express</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">3458</span> <span class="number">2531</span> <span class="number">9273</span> <span class="number">09</span> <span class="identifier">is</span> <span class="number">4.</span>
@@ -97,10 +94,10 @@
 </pre>
 <p>
         </p>
-<a name="checks.checks.tutorial.start.multi_check_digits"></a><h6>
-<a name="checks.checks.tutorial.start.multi_check_digits-heading"></a>
-          <a class="link" href="start.html#checks.checks.tutorial.start.multi_check_digits">Multi check
-          digits</a>
+<h6>
+<a name="checks.checks.tutorial.start.h1"></a>
+          <span><a name="checks.checks.tutorial.start.multi_check_digits"></a></span><a class="link" href="start.html#checks.checks.tutorial.start.multi_check_digits">Multi
+          check digits</a>
         </h6>
 <p>
           Some checks use two check digits, for example, the mod97-10 algorithm used
@@ -112,7 +109,6 @@
           file is:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">modulus97</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
@@ -122,7 +118,6 @@
           and the next example shows us how to use this function:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">mod97_10_number</span> <span class="special">=</span> <span class="string">"1234567890123456789"</span> <span class="special">;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">mod97_10_checkdigits</span> <span class="special">=</span> <span class="string">"  "</span> <span class="special">;</span>
@@ -140,7 +135,6 @@
           which provides the output:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">The</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">1234567890123456789</span> <span class="identifier">have</span> <span class="identifier">the</span> <span class="identifier">check</span> <span class="identifier">digits</span> <span class="special">:</span> <span class="number">68.</span>
 <span class="identifier">A</span> <span class="identifier">complete</span> <span class="identifier">mod97</span><span class="special">-</span><span class="number">10</span> <span class="identifier">number</span> <span class="special">:</span> <span class="number">8521254785165211</span>
@@ -148,9 +142,10 @@
 </pre>
 <p>
         </p>
-<a name="checks.checks.tutorial.start.catching_errors"></a><h6>
-<a name="checks.checks.tutorial.start.catching_errors-heading"></a>
-          <a class="link" href="start.html#checks.checks.tutorial.start.catching_errors">Catching errors</a>
+<h6>
+<a name="checks.checks.tutorial.start.h2"></a>
+          <span><a name="checks.checks.tutorial.start.catching_errors"></a></span><a class="link" href="start.html#checks.checks.tutorial.start.catching_errors">Catching
+          errors</a>
         </h6>
 <p>
           We will now see how the library reacts with simple errors. The first error
@@ -163,14 +158,12 @@
           Standard Book Number (ISBN)</a> headers:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">ean</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">isbn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
@@ -180,7 +173,6 @@
           Two examples of number error:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">ean13_number</span> <span class="special">=</span> <span class="string">"540011301748"</span> <span class="special">;</span> <span class="comment">// Incorrect size.</span>
 <span class="keyword">try</span>
@@ -209,7 +201,6 @@
           The output shows us the detailed message the exception provides:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">Too</span> <span class="identifier">few</span> <span class="keyword">or</span> <span class="identifier">too</span> <span class="identifier">much</span> <span class="identifier">valid</span> <span class="identifier">values</span> <span class="identifier">in</span> <span class="identifier">the</span> <span class="identifier">sequence</span><span class="special">.</span>
 <span class="identifier">The</span> <span class="identifier">third</span> <span class="identifier">digit</span> <span class="identifier">should</span> <span class="identifier">be</span> <span class="number">8</span> <span class="keyword">or</span> <span class="number">9.</span>
@@ -217,10 +208,10 @@
 </pre>
 <p>
         </p>
-<a name="checks.checks.tutorial.start.and_with_integer_array"></a><h6>
-<a name="checks.checks.tutorial.start.and_with_integer_array-heading"></a>
-          <a class="link" href="start.html#checks.checks.tutorial.start.and_with_integer_array">And
-          with integer array</a>
+<h6>
+<a name="checks.checks.tutorial.start.h3"></a>
+          <span><a name="checks.checks.tutorial.start.and_with_integer_array"></a></span><a class="link" href="start.html#checks.checks.tutorial.start.and_with_integer_array">And with
+          integer array</a>
         </h6>
 <p>
           The C-arrays of integers are also supported. In the other examples, we
@@ -229,7 +220,6 @@
           same numbers but in different format. We'll use the header:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checks</span><span class="special">/</span><span class="identifier">isbn</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
@@ -239,7 +229,6 @@
           And the examples:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">isbn10_number</span> <span class="special">=</span> <span class="string">"020163371"</span> <span class="special">;</span> <span class="comment">// More Effective C++: 35 New Ways to Improve Your Programs and Designs, Scott Meyers.</span>
 <span class="keyword">int</span> <span class="identifier">isbn10_integer_number</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span><span class="number">0</span><span class="special">,</span><span class="number">2</span><span class="special">,</span><span class="number">0</span><span class="special">,</span><span class="number">1</span><span class="special">,</span><span class="number">6</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">1</span><span class="special">}</span> <span class="special">;</span>
@@ -255,7 +244,6 @@
           by its integer value (10) with the integer C-array:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">ISBN10</span> <span class="special">:</span> <span class="number">020163371</span><span class="special">.</span> <span class="identifier">Check</span> <span class="identifier">digit</span> <span class="special">:</span> <span class="identifier">X</span>
 <span class="identifier">ISBN10</span> <span class="identifier">integer</span> <span class="identifier">version</span><span class="special">.</span> <span class="identifier">Check</span> <span class="identifier">digit</span> <span class="special">:</span> <span class="number">10</span>

@@ -31,40 +31,39 @@
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/checks/verhoeff_hpp.html" title="Header &lt;boost/checks/verhoeff.hpp&gt;">boost/checks/verhoeff.hpp</a>&gt;
 
-</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="comment">  // Help functions
-                                                           // to provide same
-                                                           // behavior on
-                                                           // sequence with
-                                                           // and without
-                                                           // check digits. No
-                                                           // "real" value in
-                                                           // the sequence
-                                                           // will be skipped.</span>
-         <span class="special">&gt;</span> 
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span> number_of_virtual_value_skipped <span class="special">=</span> <span class="number">0</span><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="verhoeff_algorithm.html" title="Class template verhoeff_algorithm">verhoeff_algorithm</a> <span class="special">:</span> <span class="keyword">public</span> boost::checks::basic_check_algorithm&lt; verhoeff_iteration_sense, number_of_virtual_value_skipped &gt;
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
-  <span class="comment">// <a class="link" href="verhoeff_algorithm.html#id314199-bb">public static functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="verhoeff_algorithm.html#id314201-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="verhoeff_algorithm.html#id314242-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="verhoeff_algorithm.html#id314283-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
+  <span class="comment">// <a class="link" href="verhoeff_algorithm.html#id317491-bb">public static functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a class="link" href="verhoeff_algorithm.html#id317494-bb"><span class="identifier">compute_checkdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> <a class="link" href="verhoeff_algorithm.html#id317535-bb"><span class="identifier">compute_multicheckdigit</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">checkdigits_iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="verhoeff_algorithm.html#id317575-bb"><span class="identifier">filter_valid_value_with_pos</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> 
                                           <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="verhoeff_algorithm.html#id314319-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="verhoeff_algorithm.html#id314365-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="verhoeff_algorithm.html#id314411-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="verhoeff_algorithm.html#id317611-bb"><span class="identifier">operate_on_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">int</span> <a class="link" href="verhoeff_algorithm.html#id317658-bb"><span class="identifier">translate_to_valid_value</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="verhoeff_algorithm.html#id317704-bb"><span class="identifier">validate_checksum</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1" lang="en">
-<a name="id925217"></a><h2>Description</h2>
+<a name="id956080"></a><h2>Description</h2>
 <p>
 </p>
+<dt><span class="term">Template Parameters:</span></dt>
+<dd><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">number_of_virtual_value_skipped</code></span></p></td>
+<td><p>Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped. </p></td>
+</tr></tbody>
+</table></div></dd>
 <div class="refsect2" lang="en">
-<a name="id925223"></a><h3>
-<a name="id314199-bb"></a><code class="computeroutput">verhoeff_algorithm</code> public static functions</h3>
+<a name="id956104"></a><h3>
+<a name="id317491-bb"></a><code class="computeroutput">verhoeff_algorithm</code> public static functions</h3>
 <div class="orderedlist"><ol type="1">
 <li>
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> checkdigit<span class="special">&gt;</span> 
-  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id314201-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit with the Verhoeff inverse table. <p>
+  <span class="keyword">static</span> <span class="identifier">checkdigit</span> <a name="id317494-bb"></a><span class="identifier">compute_checkdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the check digit with the Verhoeff inverse table. <p>
 
 
 
@@ -83,6 +82,16 @@
 </table></div></td>
 </tr>
 <tr>
+<td><p><span class="term">Template Parameters:</span></p></td>
+<td><div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><code class="computeroutput">checkdigit</code></span></p></td>
+<td><p>is the type of the check digit desired. </p></td>
+</tr></tbody>
+</table></div></td>
+</tr>
+<tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>The Verhoeff check digit of checksum. </p></td>
 </tr>
@@ -96,7 +105,7 @@
 </li>
 <li>
 <pre class="literallayout"><span class="keyword">static</span> <span class="identifier">checkdigits_iter</span> 
-<a name="id314242-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
+<a name="id317535-bb"></a><span class="identifier">compute_multicheckdigit</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">,</span> <span class="identifier">checkdigits_iter</span> checkdigits<span class="special">)</span><span class="special">;</span></pre>Compute the check digit(s) of a sequence. <p>
 
 
 
@@ -135,7 +144,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id314283-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id317575-bb"></a><span class="identifier">filter_valid_value_with_pos</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                         <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> current_value_position<span class="special">)</span><span class="special">;</span></pre>Filtering of a valid value according to its position. <p>
 
 </p>
@@ -169,7 +178,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id314319-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id317611-bb"></a><span class="identifier">operate_on_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">int</span> current_valid_value<span class="special">,</span> 
                                    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">,</span> 
                                    <span class="keyword">int</span> <span class="special">&amp;</span> checksum<span class="special">)</span><span class="special">;</span></pre>Compute the Verhoeff scheme on the checksum with the current valid value. <p>
 
@@ -209,7 +218,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id314365-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">int</span> <a name="id317658-bb"></a><span class="identifier">translate_to_valid_value</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value</span> <span class="special">&amp;</span> current_value<span class="special">,</span> 
                                     <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> valid_value_counter<span class="special">)</span><span class="special">;</span></pre>translate a value of the sequence into an integer valid value. <p>
 
 
@@ -249,7 +258,7 @@
 </table></div>
 </li>
 <li>
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id314411-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the Verhoeff checksum. <p>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id317704-bb"></a><span class="identifier">validate_checksum</span><span class="special">(</span><span class="keyword">int</span> checksum<span class="special">)</span><span class="special">;</span></pre>Validate the Verhoeff checksum. <p>
 
 </p>
 <div class="variablelist"><table border="0">
