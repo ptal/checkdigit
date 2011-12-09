@@ -23,7 +23,7 @@
 namespace boost{
   namespace checks{
 
-/*! \class weighted_sum_algorithm
+/*!
     \brief This class permits to add to the current checksum the weight multiplied by the current value.
 
     \tparam weight must meet the weight concept requirements.
