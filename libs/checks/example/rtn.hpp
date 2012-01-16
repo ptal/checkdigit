@@ -26,12 +26,12 @@
 #define RTN_SIZE_WITHOUT_CHECKDIGIT 8
 
 typedef boost::checks::weight<3,7,1> rtn_weight ;
-typedef boost::checks::leftmost rtn_sense ;
+typedef boost::checks::leftmost rtn_direction ;
 //]
 
 //[rtn_preprocessor_algorithm
-typedef boost::checks::modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_check_algorithm ;
-typedef boost::checks::modulus10_algorithm < rtn_weight, rtn_sense, 0> rtn_compute_algorithm ;
+typedef boost::checks::modulus10_algorithm < rtn_weight, rtn_direction, 0> rtn_check_algorithm ;
+typedef boost::checks::modulus10_algorithm < rtn_weight, rtn_direction, 0> rtn_compute_algorithm ;
 //]
 
 //[rtn_functions
