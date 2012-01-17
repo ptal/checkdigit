@@ -6,7 +6,7 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 /*! \file
-    \brief Provides two sense or direction of iteration to run through the sequence, either from right to left or left to right.
+    \brief Provides two direction of iteration to run through the sequence, either from right to left or left to right.
 */
 
 

@@ -13,7 +13,7 @@
 #define BOOST_CHECKS_LUHN_INCLUDED
 
 #ifdef _MSC_VER
-    #pragma once
+  #pragma once
 #endif
 
 #include <boost/checks/modulus10.hpp>
@@ -24,12 +24,12 @@ namespace boost {
 /*!
   \brief This is the weight used by the Luhn algorithm.
 */
-typedef boost::checks::weight<1,2> luhn_weight ;
+typedef boost::checks::weight<1,2> luhn_weight;
 
 /*!
   \brief This is the running sense to check an Luhn number.
 */
-typedef boost::checks::rightmost luhn_sense ;
+typedef boost::checks::rightmost luhn_sense;
 
 /*! \class luhn_algorithm
     \brief This class can be used to compute or validate checksum with the Luhn algorithm.
@@ -83,7 +83,7 @@ typedef luhn_algorithm<1> luhn_compute_algorithm ;
 template <size_t size_expected, typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_check_algorithm, size_expected> ( check_seq ) ;
+  return boost::checks::check_sequence<luhn_check_algorithm, size_expected>(check_seq);
 }
 
 /*!
@@ -101,7 +101,7 @@ bool check_luhn (const check_range& check_seq)
 template <typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_check_algorithm> ( check_seq ) ;
+  return boost::checks::check_sequence<luhn_check_algorithm> (check_seq);
 }
 
 /*!

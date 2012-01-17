@@ -29,16 +29,17 @@ namespace boost{
 /*! \class basic_check_algorithm
     \brief The main check algorithm class that provides every static function that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.
 
-    \tparam iteration_sense must meet the iteration_sense concept requirements.
+    \tparam traversal_direction must meet the iterator_direction concept requirements.
     \tparam number_of_virtual_value_skipped Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <typename iteration_sense, unsigned int number_of_virtual_value_skipped = 0>
+template <typename traversal_direction, unsigned int number_of_virtual_value_skipped = 0>
 struct basic_check_algorithm
 {
   /*!
     \brief This is the sense or direction of the iteration (begins with the right or the leftmost value).
   */
-  typedef iteration_sense iteration_sense ;
+  typedef traversal_direction iterator_direction;
+  typedef iterator_direction iteration_sense; // Need to be deleted, just for compatibility...
 
   /*!
     \brief translate a value of the sequence into an integer valid value.
@@ -92,9 +93,9 @@ struct basic_check_algorithm
     \remarks This function should be overloaded if you want to compute the check digit of a sequence.
   */
   template <typename checkdigit>
-  static typename checkdigit compute_checkdigit( int checksum )
+  static checkdigit compute_checkdigit(int checksum)
   {
-    return checkdigit() ;
+    return checkdigit();
   }
 
   /*!
@@ -111,9 +112,9 @@ struct basic_check_algorithm
     \remarks This function should be overloaded if you want your algorithm to compute more than one check digit (through it works for just one check digit too).
   */
   template <typename checkdigits_iter>
-  static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
+  static checkdigits_iter compute_multicheckdigit(int checksum, checkdigits_iter checkdigits)
   {
-    return checkdigits ;
+    return checkdigits;
   }
 
   /*!
@@ -126,7 +127,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static void operate_on_valid_value( const int current_valid_value , const unsigned int valid_value_counter, int &checksum )
+  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
   {
   }
 
@@ -140,7 +141,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value , const unsigned int current_value_position )
+  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
   {
   }
 

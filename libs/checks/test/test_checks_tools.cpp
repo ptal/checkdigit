@@ -9,12 +9,9 @@
 
 // Boost test of tools used by the Boost::checks library.
 
-// See http://www.boost.org/doc/libs/1_47_1/libs/test/doc/html/utf/testing-tools/reference.html
-
 #define BOOST_TEST_MAIN
 #define BOOST_TEST_MODULE "Check Tools Test Suite"
 #define BOOST_LIB_DIAGNOSTIC "on"// Show library file details.
-// Linking to lib file: libboost_unit_test_framework-vc100-mt-gd-1_47.lib  (trunk at 12 Jun 11)
 
 #include <iostream>
 #include <iomanip>

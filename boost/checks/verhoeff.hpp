@@ -105,7 +105,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<verhoeff_iterat
     \returns The Verhoeff check digit of checksum.
   */
   template <typename checkdigit>
-  static typename checkdigit compute_checkdigit( int checksum )
+  static checkdigit compute_checkdigit( int checksum )
   {
     static const unsigned int inv[] = { 0, 4, 3, 2, 1, 5, 6, 7, 8, 9 } ;
 

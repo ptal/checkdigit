@@ -18,8 +18,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
-#include <boost/checks/weight.hpp>
-#include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
 namespace boost{
@@ -44,7 +42,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
   */
   static bool validate_checksum(int checksum)
   {
-    return !(checksum % 10) ;
+    return !(checksum % 10);
   }
 
   /*!
@@ -58,12 +56,12 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
     \returns The modulus 10 check digit of checksum.
   */
   template <typename checkdigit>
-  static typename checkdigit compute_checkdigit( int checksum )
+  static checkdigit compute_checkdigit(int checksum)
   {
     try{
-      return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10 ) ;
-    }catch( boost::bad_lexical_cast ){
-      throw boost::checks::translation_exception() ;
+      return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10); 
+    }catch(boost::bad_lexical_cast){
+      throw boost::checks::translation_exception();
     }
   }
 };

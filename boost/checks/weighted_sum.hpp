@@ -18,6 +18,7 @@
 
 #include <boost/checks/weight.hpp>
 #include <boost/checks/iteration_sense.hpp>
+#include <boost/checks/basic_checks.hpp>
 #include <boost/checks/basic_check_algorithm.hpp>
 
 namespace boost{
@@ -31,7 +32,7 @@ namespace boost{
     \tparam number_of_virtual_value_skipped Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
 template <typename weight, typename iteration_sense, unsigned int number_of_virtual_value_skipped = 0>
-struct weighted_sum_algorithm : boost::checks::basic_check_algorithm< iteration_sense >
+struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<iteration_sense>
 {
   /*!
     \brief Compute an operation on the checksum with the current valid value.

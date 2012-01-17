@@ -36,7 +36,7 @@ namespace boost {
     \tparam number_of_virtual_value_skipped Helper functions to provide same behavior on a sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
 template <unsigned int number_of_virtual_value_skipped = 0>
-struct visa_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_skipped >
+struct visa_algorithm : boost::checks::luhn_algorithm <number_of_virtual_value_skipped>
 {
   /*!
     \brief Verify that a number matches the Visa pattern.
@@ -82,7 +82,7 @@ typedef visa_algorithm<1> visa_compute_algorithm ;
 template <typename check_range>
 bool check_visa (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<visa_check_algorithm, VISA_SIZE> ( check_seq ) ;
+  return boost::checks::check_sequence<visa_check_algorithm, VISA_SIZE>(check_seq);
 }
 
 /*!
@@ -102,7 +102,7 @@ bool check_visa (const check_range& check_seq)
 template <typename check_range>
 typename boost::checks::visa_compute_algorithm::checkdigit<check_range>::type compute_visa (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<visa_compute_algorithm, VISA_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+  return boost::checks::compute_checkdigit<visa_compute_algorithm, VISA_SIZE_WITHOUT_CHECKDIGIT>(check_seq);
 }
 
 

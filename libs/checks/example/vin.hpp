@@ -45,43 +45,43 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, vin_sense,
     catch( boost::bad_lexical_cast )
     {
       // Transform the value to be between 1 and 26.
-      if( current_value >= 'a' && current_value <= 'z' )
-        valid_value = current_value - 'a' + 1 ;
-      else if( current_value >= 'A' && current_value <= 'Z' )
-        valid_value = current_value - 'A' + 1 ;
+      if(current_value >= 'a' && current_value <= 'z')
+        valid_value = current_value - 'a' + 1;
+      else if(current_value >= 'A' && current_value <= 'Z')
+        valid_value = current_value - 'A' + 1;
       else
-        throw boost::checks::translation_exception() ;
+        throw boost::checks::translation_exception();
 
-      if ( valid_value == 9 || valid_value == 15 || valid_value == 17)
+      if (valid_value == 9 || valid_value == 15 || valid_value == 17)
         throw std::invalid_argument( "The letter I, O and Q are not allowed." );
 
-      if ( valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
+      if (valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
       {
-        if ( valid_value != 24 )
-          throw std::invalid_argument( "The check digit should be a digit or X or x." );
+        if (valid_value != 24)
+          throw std::invalid_argument("The check digit should be a digit or X or x.");
         else
           valid_value = 10 ;
-        valid_value = 11 - valid_value ;
+        valid_value = 11 - valid_value;
       }
       else
         valid_value = valid_value % 10 + valid_value / 10 + (valid_value > 18) ;
     }
-    if( valid_value > 10)
-      throw boost::checks::translation_exception() ;
+    if(valid_value > 10)
+      throw boost::checks::translation_exception();
 
-    return valid_value ;
+    return valid_value;
   }
   //]
 
   //[vin_operation_module
-  static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
+  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
   {
     if( number_of_virtual_value_skipped == 0 && valid_value_counter == VIN_CHECKDIGIT_POS )
       checksum += current_valid_value ;
     else
     {
       unsigned int weight_position = valid_value_counter - (number_of_virtual_value_skipped == 0 && valid_value_counter > VIN_CHECKDIGIT_POS) ;
-      int current_weight = vin_weight::weight_associated_with_pos( weight_position ) ;
+      int current_weight = vin_weight::weight_associated_with_pos(weight_position) ;
       checksum += current_valid_value * current_weight ;
     }
   }

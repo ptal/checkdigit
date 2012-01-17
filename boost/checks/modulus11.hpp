@@ -93,14 +93,14 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \returns The modulus 11 check digit of checksum. 'X' is returned if the check digit value is equal to 10.
   */
   template <typename checkdigit>
-  static typename checkdigit compute_checkdigit( int checksum )
+  static checkdigit compute_checkdigit( int checksum )
   {
      return translate_checkdigit<checkdigit>((11 - checksum % 11) % 11) ;
   }
 
 protected:
   template <typename checkdigit>
-  static typename checkdigit translate_checkdigit( int _checkdigit )
+  static checkdigit translate_checkdigit( int _checkdigit )
   {
     try
     {

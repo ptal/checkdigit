@@ -123,10 +123,10 @@ template <typename check_range>
 bool check_mod97_10 (const check_range& check_seq) ;
 
 template <size_t size_expected, typename check_range, typename checkdigits_iter>
-typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
+checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
 
 template <typename check_range, typename checkdigits_iter>
-typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
+checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits) ;
 
 // EAN-13 and EAN-8
 
@@ -191,4 +191,4 @@ typename boost::checks::mastercard_compute_algorithm::checkdigit<check_range>::t
 
 
 }} // namespace boost   namespace checks
-#endif \\ BOOST_CHECK_CHECKS_FWD_HPP
+#endif // BOOST_CHECK_CHECKS_FWD_HPP

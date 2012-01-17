@@ -68,14 +68,14 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
     \returns An iterator initialized at one pass to the end of the two check digits.
   */
   template <typename checkdigits_iter>
-  static typename checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
+  static checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
   {
     unsigned int mod97_checkdigits = 98 - (checksum % 97) ;
 
     try{
-      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits / 10) ;
+      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits / 10) ;
       ++checkdigits;
-      *checkdigits = boost::lexical_cast<checkdigits_iter::value_type>(mod97_checkdigits % 10) ;
+      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits % 10) ;
       ++checkdigits;
     }
     catch( boost::bad_lexical_cast ){
@@ -197,7 +197,7 @@ bool check_mod97_10 (const check_range& check_seq)
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <size_t size_expected, typename check_range, typename checkdigits_iter>
-typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
   return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm, size_expected> ( check_seq, mod97_checkdigits ) ;
 }
@@ -218,7 +218,7 @@ typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkd
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <typename check_range, typename checkdigits_iter>
-typename checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
   return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm> ( check_seq, mod97_checkdigits ) ;
 }
