@@ -17,9 +17,11 @@
 #endif
 
 #include <boost/checks/weight.hpp>
-#include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/modulus10.hpp>
+
+#include <boost/range/rbegin.hpp>
+#include <boost/range/rend.hpp>
 
 /*!
   \brief This macro defines the size of an UPC-A.
@@ -37,19 +39,15 @@ namespace boost {
   \brief This is the weight used by UPC system.
 */
 typedef boost::checks::weight<1,3> upc_weight ;
-/*!
-  \brief This is the running sense or direction to check an UPC.
-*/
-typedef boost::checks::rightmost upc_sense ;
 
 /*!
   \brief This is the type of the UPC algorithm for validating a check digit.
 */
-typedef boost::checks::modulus10_algorithm< upc_weight, upc_sense, 0> upc_check_algorithm ;
+typedef boost::checks::modulus10_algorithm<upc_weight, 0> upc_check_algorithm ;
 /*!
   \brief This is the type of the UPC algorithm for computing a check digit.
 */
-typedef boost::checks::modulus10_algorithm< upc_weight, upc_sense, 1> upc_compute_algorithm ;
+typedef boost::checks::modulus10_algorithm< upc_weight, 1> upc_compute_algorithm ;
 
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.
@@ -66,7 +64,7 @@ typedef boost::checks::modulus10_algorithm< upc_weight, upc_sense, 1> upc_comput
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<upc_check_algorithm, UPCA_SIZE> ( check_seq ) ;
+  return boost::checks::check_sequence<upc_check_algorithm, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -83,9 +81,9 @@ bool check_upca (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::checks::upc_compute_algorithm::checkdigit<check_range>::type compute_upca (const check_range& check_seq)
+typename boost::range_value<check_range>::type compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_compute_algorithm, UPCA_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+  return boost::checks::compute_checkdigit<upc_compute_algorithm, UPCA_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost   namespace checks

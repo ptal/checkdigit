@@ -17,7 +17,6 @@
 #endif
 
 #include <boost/checks/weight.hpp>
-#include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/basic_check_algorithm.hpp>
 
@@ -31,8 +30,8 @@ namespace boost{
     \tparam iteration_sense must meet the iteration_sense concept requirements.
     \tparam number_of_virtual_value_skipped Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <typename weight, typename iteration_sense, unsigned int number_of_virtual_value_skipped = 0>
-struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<iteration_sense>
+template <typename weight, unsigned int number_of_virtual_value_skipped = 0>
+struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<number_of_virtual_value_skipped>
 {
   /*!
     \brief Compute an operation on the checksum with the current valid value.
@@ -43,10 +42,10 @@ struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<iteration_s
     \param valid_value_counter is the number of valid values already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
     \param checksum is the current checksum.
   */
-  static void operate_on_valid_value( const int current_valid_value, const unsigned int valid_value_counter, int &checksum )
+  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
   {
-    int current_weight = weight::weight_associated_with_pos( valid_value_counter + number_of_virtual_value_skipped ) ;
-    checksum += current_valid_value * current_weight ;
+    int current_weight = weight::weight_associated_with_pos(valid_value_counter + number_of_virtual_value_skipped);
+    checksum += current_valid_value * current_weight;
   }
 };
 

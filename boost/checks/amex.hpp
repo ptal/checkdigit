@@ -18,6 +18,9 @@
 
 #include <boost/checks/luhn.hpp>
 
+#include <boost/range/rbegin.hpp>
+#include <boost/range/rend.hpp>
+
 /*!
   \brief This macro defines the size of a American Express card number (15).
 */
@@ -36,7 +39,7 @@ namespace boost {
     \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
 template <unsigned int number_of_virtual_value_skipped = 0>
-struct amex_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_skipped >
+struct amex_algorithm : boost::checks::luhn_algorithm <number_of_virtual_value_skipped>
 {
   /*!
     \brief Verify that a number matches the Amex pattern.
@@ -48,25 +51,25 @@ struct amex_algorithm : boost::checks::luhn_algorithm < number_of_virtual_value_
 
     \remarks This function use the macro AMEX_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position )
+  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
   {
-    const unsigned int real_pos_from_left = AMEX_SIZE - current_value_position - number_of_virtual_value_skipped ;
+    const unsigned int real_pos_from_left = AMEX_SIZE - current_value_position - number_of_virtual_value_skipped;
 
-    if( real_pos_from_left == 1 && current_valid_value != 3)
-      throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!") ;
-    else if( real_pos_from_left == 2 && current_valid_value != 4 && current_valid_value != 7 )
-      throw std::invalid_argument("The Issuer Identification Number of an American Express should be 34 or 37!" ) ;
+    if(real_pos_from_left == 1 && current_valid_value != 3)
+      throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!");
+    else if(real_pos_from_left == 2 && current_valid_value != 4 && current_valid_value != 7)
+      throw std::invalid_argument("The Issuer Identification Number of an American Express should be 34 or 37!");
   }
 };
 
 /*!
   \brief This is the type of the Amex algorithm for validating a check digit.
 */
-typedef amex_algorithm<0> amex_check_algorithm ;
+typedef amex_algorithm<0> amex_check_algorithm; 
 /*!
   \brief This is the type of the Amex algorithm for computing a check digit.
 */
-typedef amex_algorithm<1> amex_compute_algorithm ;
+typedef amex_algorithm<1> amex_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the amex_check_algorithm type.
@@ -84,7 +87,7 @@ typedef amex_algorithm<1> amex_compute_algorithm ;
 template <typename check_range>
 bool check_amex (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<amex_check_algorithm, AMEX_SIZE> ( check_seq ) ;
+  return boost::checks::check_sequence<amex_check_algorithm, AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -102,9 +105,9 @@ bool check_amex (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::checks::amex_compute_algorithm::checkdigit<check_range>::type compute_amex (const check_range& check_seq)
+typename boost::range_value<check_range>::type compute_amex(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<amex_compute_algorithm, AMEX_SIZE_WITHOUT_CHECKDIGIT> ( check_seq ) ;
+  return boost::checks::compute_checkdigit<amex_compute_algorithm, AMEX_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

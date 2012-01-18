@@ -36,7 +36,7 @@ struct strict_size_contract
     \param valid_value_counter Number of valid values in the sequence.
     \throws exception_size_failure If the terms of the contract are not respected. (valid_value_counter != expected_size).
   */
-  static void respect_size_contract(const size_t valid_value_counter)
+  static void respect_size_contract(size_t valid_value_counter)
   {
     BOOST_STATIC_ASSERT_MSG( expected_size > 0 , "The expected size must be greater than 0!" );
     if( valid_value_counter != expected_size )
@@ -49,7 +49,7 @@ struct strict_size_contract
     \param valid_value_counter Number of valid values in the sequence already counted.
     \returns true if valid_value_counter is one past the end of the expected size, else false.
   */
-  static bool reach_one_past_the_end(const size_t valid_value_counter)
+  static bool reach_one_past_the_end(size_t valid_value_counter)
   {
     BOOST_STATIC_ASSERT_MSG( expected_size > 0 , "The expected size must be greater than 0!" );
     return valid_value_counter > expected_size ;
@@ -70,7 +70,7 @@ struct no_null_size_contract
     \param valid_value_counter Number of valid values in the sequence.
     \throws exception_size_failure if the terms of the contract are not respected. (valid_value_counter == 0).
   */
-  static void respect_size_contract(const size_t valid_value_counter)
+  static void respect_size_contract(size_t valid_value_counter)
   {
     if( valid_value_counter == 0 )
       throw exception_size_failure("No valid value in this sequence!") ;
@@ -82,9 +82,9 @@ struct no_null_size_contract
     \param valid_value_counter Number of valid values in the sequence already counted.
     \returns false.
   */
-  static bool reach_one_past_the_end(const size_t /* valid_value_counter */)
+  static bool reach_one_past_the_end(size_t /* valid_value_counter */)
   {
-    return false ;
+    return false;
   }
 };
 

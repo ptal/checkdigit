@@ -16,9 +16,8 @@
     #pragma once
 #endif
 
-#include <boost/checks/limits.hpp>
 #include <boost/lexical_cast.hpp>
-
+#include <boost/checks/limits.hpp>
 
 namespace boost {
   namespace checks{
@@ -38,8 +37,8 @@ namespace boost {
 
     \returns The checksum of the sequence calculated with algorithm.
   */
-template <typename algorithm, typename size_contract, typename iterator>
-int compute_checksum(iterator seq_begin, iterator seq_end)
+template <typename algorithm, typename size_contract, typename seq_iterator>
+int compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
 {
   unsigned int valid_value_counter = 0;
   int checksum = 0;
@@ -59,31 +58,6 @@ int compute_checksum(iterator seq_begin, iterator seq_end)
 }
 
 /*!
-    \brief Create iterators according to the algorithm::iterator policy. And call the iterator overload version of compute_checksum.
-
-    \pre check_seq is a valid range.
-
-    \tparam algorithm is a set of static methods used to translate, filter and calculate or verify the checkdigit.
-    \tparam size_contract is a contract concerning the size of the sequence.
-    \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
-
-    \throws size_contract::exception_size_failure If the terms of the contract are not respected.
-
-    \returns The checksum of the sequence calculated with algorithm.
-*/
-
-template <typename algorithm, typename size_contract, typename check_range>
-int compute_checksum(const check_range &check_seq)
-{
-  typedef typename algorithm::iteration_sense::template iterator<check_range>::type iterator;
-  iterator begin = algorithm::iteration_sense::begin(check_seq);
-  iterator end = algorithm::iteration_sense::end(check_seq);
-
-  return compute_checksum<algorithm, size_contract>(begin, end);
-}
-
-/*!
     \brief Validate a sequence according to algorithm.
 
     \pre check_seq is a valid range.
@@ -96,10 +70,10 @@ int compute_checksum(const check_range &check_seq)
 
     \returns @c true if the checkdigit is correct, @c false otherwise.
 */
-template <typename algorithm, typename check_range>
-bool check_sequence(const check_range& check_seq)
+template <typename algorithm, typename seq_iterator>
+bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(check_seq);
+  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end);
   return algorithm::validate_checksum(checksum);
 }
 
@@ -117,10 +91,10 @@ bool check_sequence(const check_range& check_seq)
 
     \returns @c true if the checkdigit is correct, @c false otherwise.
 */
-template <typename algorithm, size_t size_expected, typename check_range>
-bool check_sequence(const check_range& check_seq)
+template <typename algorithm, size_t size_expected, typename seq_iterator>
+bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(check_seq); 
+  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end); 
   return algorithm::validate_checksum(checksum);
 }
 
@@ -137,12 +111,11 @@ bool check_sequence(const check_range& check_seq)
 
     \returns The check digit of the type of a value in check_seq.
 */
-template <typename algorithm, typename check_range>
-typename algorithm::template checkdigit<check_range>::type compute_checkdigit(const check_range& check_seq)
+template <typename algorithm, typename seq_iterator>
+typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  typedef typename algorithm::template checkdigit<check_range>::type checkdigit_type;
-  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(check_seq);
-  return algorithm::template compute_checkdigit<checkdigit_type>(checksum);
+  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end);
+  return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
 }
 
 /*!
@@ -159,12 +132,11 @@ typename algorithm::template checkdigit<check_range>::type compute_checkdigit(co
 
     \returns The check digit of the type of a value in check_seq.
 */
-template <typename algorithm, size_t size_expected, typename check_range>
-typename algorithm::template checkdigit<check_range>::type compute_checkdigit (const check_range& check_seq)
+template <typename algorithm, size_t size_expected, typename seq_iterator>
+typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  typedef typename algorithm::template checkdigit<check_range>::type checkdigit_type;
-  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(check_seq);
-  return algorithm::template compute_checkdigit<checkdigit_type>(checksum);
+  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end);
+  return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
 }
 
 /*!
@@ -183,10 +155,10 @@ typename algorithm::template checkdigit<check_range>::type compute_checkdigit (c
 
     \returns An iterator initialized at one pass the end of checkdigits.
 */
-template <typename algorithm, typename check_range,  typename checkdigit_iterator>
-checkdigit_iterator compute_multicheckdigit (const check_range& check_seq, checkdigit_iterator checkdigits)
+template <typename algorithm, typename seq_iterator, typename checkdigit_iterator>
+checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
 {
-  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(check_seq);
+  int checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end);
   return algorithm::compute_multicheckdigit(checksum, checkdigits);
 }
 
@@ -206,10 +178,10 @@ checkdigit_iterator compute_multicheckdigit (const check_range& check_seq, check
 
     \returns An iterator initialized at one pass the end of checkdigits.
 */
-template <typename algorithm, size_t size_expected, typename check_range, typename checkdigit_iterator>
-checkdigit_iterator compute_multicheckdigit (const check_range& check_seq,  checkdigit_iterator checkdigits)
+template <typename algorithm, size_t size_expected, typename seq_iterator, typename checkdigit_iterator>
+checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
 {
-  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(check_seq) ;
+  int checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end);
   return algorithm::compute_multicheckdigit(checksum, checkdigits);
 }
 

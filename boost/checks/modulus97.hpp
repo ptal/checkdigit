@@ -21,7 +21,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
-#include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
 namespace boost{
@@ -38,8 +37,8 @@ namespace boost{
 
     \remarks This algorithm use two check digits.
 */
-template <typename mod97_weight, typename iteration_sense, unsigned int number_of_virtual_value_skipped = 0>
-struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight, iteration_sense, number_of_virtual_value_skipped>
+template <typename mod97_weight, unsigned int number_of_virtual_value_skipped = 0>
+struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight, number_of_virtual_value_skipped>
 {
   /*!
     \brief Validate a checksum with a simple modulus 97.
@@ -50,7 +49,7 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
   */
   static bool validate_checksum(int checksum)
   {
-    return checksum % 97 == 1 ;
+    return checksum % 97 == 1;
   }
 
   /*!
@@ -68,18 +67,19 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
     \returns An iterator initialized at one pass to the end of the two check digits.
   */
   template <typename checkdigits_iter>
-  static checkdigits_iter compute_multicheckdigit( int checksum, checkdigits_iter checkdigits )
+  static checkdigits_iter compute_multicheckdigit(int checksum, checkdigits_iter checkdigits)
   {
-    unsigned int mod97_checkdigits = 98 - (checksum % 97) ;
+    unsigned int mod97_checkdigits = 98 - (checksum % 97);
 
-    try{
-      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits / 10) ;
+    try
+    {
+      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits / 10);
       ++checkdigits;
-      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits % 10) ;
+      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits % 10);
       ++checkdigits;
     }
     catch( boost::bad_lexical_cast ){
-      throw boost::checks::translation_exception() ;
+      throw boost::checks::translation_exception();
     }
     return checkdigits;
   }
@@ -95,8 +95,8 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
 template <unsigned int weight_value>
 struct make_mod97_weight
 {
-  static const unsigned int value = weight_value ;
-  typedef make_mod97_weight<weight_value * 10 % 97> next ;
+  static const unsigned int value = weight_value;
+  typedef make_mod97_weight<weight_value * 10 % 97> next;
 };
 /*! \class make_mod97_weight
     \brief This class is the terminal specialisation of make_mod97_weight, so the recursion can finish.
@@ -104,15 +104,14 @@ struct make_mod97_weight
 template<>
 struct make_mod97_weight<68>
 {
-  static const unsigned int value = 68 ;
-  typedef make_mod97_weight type ;
+  static const unsigned int value = 68;
+  typedef make_mod97_weight type;
 };
 
 /*!
   \brief This is the initial weight for the mod97-10 weights series.
 */
-typedef make_mod97_weight<1> initial_mod97_weight ;
-
+typedef make_mod97_weight<1> initial_mod97_weight;
 
 /*!
   \brief This macro is used to access the next type.
@@ -127,21 +126,16 @@ typedef make_mod97_weight<1> initial_mod97_weight ;
 /*!
   \brief This is weight of the mod97-10 algorithm.
 */
-typedef boost::checks::weight< BOOST_PP_ENUM(96, MOD97_weight_maker, ~) > mod97_10_weight ;
-
-/*!
-  \brief The iteration sense or direction of the sequence. From right to left.
-*/
-typedef boost::checks::rightmost mod97_10_sense ;
+typedef boost::checks::weight<BOOST_PP_ENUM(96, MOD97_weight_maker, ~)> mod97_10_weight;
 
 /*!
   \brief This is the type of the modulus 97-10 algorithm for validating a check digit.
 */
-typedef modulus97_algorithm< mod97_10_weight, mod97_10_sense, 0 > mod97_10_check_algorithm ;
+typedef modulus97_algorithm<mod97_10_weight, 0> mod97_10_check_algorithm;
 /*!
   \brief This is the type of the modulus 97-10 algorithm for computing a check digit.
 */
-typedef modulus97_algorithm< mod97_10_weight, mod97_10_sense, 2 > mod97_10_compute_algorithm ;
+typedef modulus97_algorithm<mod97_10_weight, 2> mod97_10_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
@@ -159,7 +153,7 @@ typedef modulus97_algorithm< mod97_10_weight, mod97_10_sense, 2 > mod97_10_compu
 template <size_t size_expected, typename check_range>
 bool check_mod97_10 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_check_algorithm, size_expected> ( check_seq ) ;
+  return boost::checks::check_sequence<mod97_10_check_algorithm, size_expected> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -175,9 +169,9 @@ bool check_mod97_10 (const check_range& check_seq)
     \returns @c true if the two check digits are correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_mod97_10 (const check_range& check_seq)
+bool check_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_check_algorithm> ( check_seq ) ;
+  return boost::checks::check_sequence<mod97_10_check_algorithm>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -197,9 +191,9 @@ bool check_mod97_10 (const check_range& check_seq)
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <size_t size_expected, typename check_range, typename checkdigits_iter>
-checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm, size_expected> ( check_seq, mod97_checkdigits ) ;
+  return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits);
 }
 
 /*!
@@ -218,9 +212,9 @@ checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_ite
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <typename check_range, typename checkdigits_iter>
-checkdigits_iter compute_mod97_10 (const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm> ( check_seq, mod97_checkdigits ) ;
+  return boost::checks::compute_multicheckdigit<mod97_10_compute_algorithm>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits); 
 }
 
 

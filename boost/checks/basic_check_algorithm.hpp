@@ -32,15 +32,9 @@ namespace boost{
     \tparam traversal_direction must meet the iterator_direction concept requirements.
     \tparam number_of_virtual_value_skipped Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <typename traversal_direction, unsigned int number_of_virtual_value_skipped = 0>
+template <unsigned int number_of_virtual_value_skipped = 0>
 struct basic_check_algorithm
 {
-  /*!
-    \brief This is the sense or direction of the iteration (begins with the right or the leftmost value).
-  */
-  typedef traversal_direction iterator_direction;
-  typedef iterator_direction iteration_sense; // Need to be deleted, just for compatibility...
-
   /*!
     \brief translate a value of the sequence into an integer valid value.
 
@@ -144,21 +138,6 @@ struct basic_check_algorithm
   static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
   {
   }
-
-  /*!
-      \class checkdigit
-
-      \brief Template rebinding class used to define the type of the check digit(s) of check_range.
-
-      \tparam check_range The type of the sequence to check.
-
-      \remarks This function should be overloaded if you want to change the type of the check digit.
-  */
-  template <typename check_range>
-  struct checkdigit
-  {
-    typedef typename boost::range_value<check_range>::type type;
-  };
 };
 
 
