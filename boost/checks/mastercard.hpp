@@ -16,10 +16,11 @@
     #pragma once
 #endif
 
-#include <boost/checks/luhn.hpp>
-
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
+#include <boost/range/iterator_range.hpp>
+
+#include <boost/checks/luhn.hpp>
 
 /*!
   \brief This macro defines the size of a Mastercard number.

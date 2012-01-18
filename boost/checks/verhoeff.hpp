@@ -17,14 +17,14 @@
     #pragma once
 #endif
 
-#include <boost/lexical_cast.hpp>
+#include <boost/range/rbegin.hpp>
+#include <boost/range/rend.hpp>
+#include <boost/range/iterator_range.hpp>
+
 #include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/basic_check_algorithm.hpp>
-
-#include <boost/range/rbegin.hpp>
-#include <boost/range/rend.hpp>
 
 namespace boost {
     namespace checks{

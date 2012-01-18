@@ -16,12 +16,13 @@
     #pragma once
 #endif
 
+#include <boost/range/rbegin.hpp>
+#include <boost/range/rend.hpp>
+#include <boost/range/iterator_range.hpp>
+
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/modulus10.hpp>
-
-#include <boost/range/rbegin.hpp>
-#include <boost/range/rend.hpp>
 
 /*!
   \brief This macro defines the size of an UPC-A.

@@ -16,15 +16,14 @@
     #pragma once
 #endif
 
+#include <boost/range/rbegin.hpp>
+#include <boost/range/rend.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/weighted_sum.hpp>
-
-#include <boost/range/rbegin.hpp>
-#include <boost/range/rend.hpp>
-
 
 namespace boost{
   namespace checks{
@@ -54,7 +53,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \returns the translation of the current value in the range [0..10].
 */
   template <typename value>
-  static int translate_to_valid_value(const value &current_value, unsigned int valid_value_counter)
+  static int translate_to_valid_value(const value &current_value)
   {
     int valid_value = 0;
     try
@@ -63,14 +62,19 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     }
     catch(boost::bad_lexical_cast)
     {
-      if((valid_value_counter + number_of_virtual_value_skipped == 1)&&(current_value == 'x' || current_value == 'X'))
+      if(current_value == 'x' || current_value == 'X')
         valid_value = 10;
       else
         throw boost::checks::translation_exception();
     }
-    if(valid_value > 10 ||(valid_value == 10 &&(valid_value_counter + number_of_virtual_value_skipped == 1)))
-      throw boost::checks::translation_exception();
     return valid_value;
+  }
+/* pre: value must be valid */
+  static void filter_valid_value_with_pos(unsigned int value, unsigned int value_position)
+  {
+    // Must be the last digit if the value == 10. (reverse traversal).
+    if(value > 10 || (value == 10 && (value_position + number_of_virtual_value_skipped > 0)))
+      throw std::invalid_argument("The character X must be the last");
   }
 
   /*!

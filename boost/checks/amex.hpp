@@ -20,6 +20,7 @@
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
+#include <boost/range/iterator_range.hpp>
 
 /*!
   \brief This macro defines the size of a American Express card number (15).

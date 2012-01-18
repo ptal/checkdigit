@@ -44,11 +44,12 @@ int compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
   int checksum = 0;
   for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(valid_value_counter); ++seq_begin)
   {
-    try{
-      int current_valid_value = algorithm::translate_to_valid_value(*seq_begin, valid_value_counter);
+    try
+    {
+      int current_valid_value = algorithm::translate_to_valid_value(*seq_begin);
       algorithm::filter_valid_value_with_pos(current_valid_value, valid_value_counter);
       algorithm::operate_on_valid_value(current_valid_value, valid_value_counter, checksum);
-      ++valid_value_counter ;
+      ++valid_value_counter;
     }
     catch(boost::checks::translation_exception){
     }

@@ -21,7 +21,6 @@
 
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
-#include <boost/checks/iteration_sense.hpp>
 
 namespace boost{
   namespace checks{
@@ -47,17 +46,17 @@ struct basic_check_algorithm
     \returns the translation of the current value in the range [0..9].
 */
   template <typename value>
-  static int translate_to_valid_value(const value &current_value, const unsigned int valid_value_counter)
+  static int translate_to_valid_value(const value &current_value)
   {
     int valid_value = 0;
     try{
-      valid_value = boost::lexical_cast<int>( current_value ) ;
-      if( valid_value > 9)
-        throw boost::checks::translation_exception() ;
-    }catch( boost::bad_lexical_cast ){
-      throw boost::checks::translation_exception() ;
+      valid_value = boost::lexical_cast<int>(current_value);
+      if(valid_value > 9)
+        throw boost::checks::translation_exception();
+    }catch(boost::bad_lexical_cast){
+      throw boost::checks::translation_exception();
     }
-    return valid_value ;
+    return valid_value;
   }
 
   /*!
