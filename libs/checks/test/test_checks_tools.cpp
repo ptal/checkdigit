@@ -19,7 +19,6 @@
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink.
 
 #include <boost/checks/weight.hpp>
-#include <boost/checks/iteration_sense.hpp>
 #include <boost/checks/limits.hpp>
 
 
@@ -36,26 +35,6 @@ BOOST_AUTO_TEST_CASE(weight_test)
   typedef boost::checks::weight<> no_weight_specify ;
   for(int i=0 ; i < 100; ++i)
     BOOST_CHECK ( 0 == no_weight_specify::weight_associated_with_pos( i ) ) ;
-}
-
-BOOST_AUTO_TEST_CASE(iteration_sense_test)
-{
-  typedef boost::checks::leftmost leftmost ;
-  typedef boost::checks::rightmost rightmost ;
-
-  std::string sequence = "123456789" ;
-  leftmost::iterator<std::string>::type leftmost_begin = leftmost::begin( sequence );
-  leftmost::iterator<std::string>::type leftmost_end = leftmost::end( sequence );
-
-  BOOST_CHECK ( '1' == *leftmost_begin ) ;
-
-  rightmost::iterator<std::string>::type rightmost_begin = rightmost::begin( sequence );
-  rightmost::iterator<std::string>::type rightmost_end = rightmost::end( sequence );
-
-  BOOST_CHECK ( '9' == *rightmost_begin ) ;
-
-  BOOST_CHECK (*rightmost_begin == *(--leftmost_end) );
-  BOOST_CHECK (*leftmost_begin == *(--rightmost_end) );
 }
 
 BOOST_AUTO_TEST_CASE(limits_test)
@@ -80,5 +59,4 @@ BOOST_AUTO_TEST_CASE(limits_test)
   }
   BOOST_CHECK ( size_expected::reach_one_past_the_end(6) );
   BOOST_CHECK ( !no_size_expected::reach_one_past_the_end(6) );
-
 }
