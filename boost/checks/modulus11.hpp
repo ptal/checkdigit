@@ -33,12 +33,12 @@ namespace boost{
 
     \tparam mod11_weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 
     \remarks The range of the check digit is [0..10], the tenth element is translated as the letter 'X'.
 */
-template <typename mod11_weight, unsigned int number_of_virtual_value_skipped = 0>
-struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight, number_of_virtual_value_skipped>
+template <typename mod11_weight, std::size_t checkdigit_size = 0>
+struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight, checkdigit_size>
 {
 
   /*!
@@ -52,29 +52,29 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
 
     \returns the translation of the current value in the range [0..10].
 */
-  template <typename value>
-  static int translate_to_valid_value(const value &current_value)
+  template <typename value_type>
+  static int translate_to_valid_value(const value_type &value)
   {
-    int valid_value = 0;
-    try
-    {
-      valid_value = boost::lexical_cast<int>(current_value);
-    }
-    catch(boost::bad_lexical_cast)
-    {
-      if(current_value == 'x' || current_value == 'X')
-        valid_value = 10;
-      else
-        throw boost::checks::translation_exception();
-    }
+    int valid_value = value;
+    if(value == 'x' || value == 'X')
+      valid_value = 10;
+    else if(value > 9)
+      throw boost::checks::translation_exception();
     return valid_value;
   }
+
 /* pre: value must be valid */
   static void filter_valid_value_with_pos(unsigned int value, unsigned int value_position)
   {
-    // Must be the last digit if the value == 10. (reverse traversal).
-    if(value > 10 || (value == 10 && (value_position + number_of_virtual_value_skipped > 0)))
+    // Must be the first digit if the value == 'X'. (reverse traversal).
+    if(value == 'X' || value == 'x')
+    {
+      if(value_position + checkdigit_size > 0)
+        throw std::invalid_argument("The character X must be the last");
+    }
+    else if(value > 10)
       throw std::invalid_argument("The character X must be the last");
+      
   }
 
   /*!
@@ -109,21 +109,9 @@ protected:
   template <typename checkdigit>
   static checkdigit translate_checkdigit(int _checkdigit)
   {
-    try
-    {
-       return boost::lexical_cast<checkdigit>(_checkdigit);
-    }
-    catch(boost::bad_lexical_cast)
-    {
-      try
-      {
-        return boost::lexical_cast<checkdigit>('X');
-      }
-      catch(boost::bad_lexical_cast)
-      {
-        throw boost::checks::translation_exception();
-      }
-    }
+    if(_checkdigit == 10)
+      return static_cast<checkdigit>('X');
+    return boost::lexical_cast<checkdigit>(_checkdigit);
   }
 
 };

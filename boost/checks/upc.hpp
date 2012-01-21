@@ -39,16 +39,16 @@ namespace boost {
 /*!
   \brief This is the weight used by UPC system.
 */
-typedef boost::checks::weight<1,3> upc_weight ;
+typedef boost::checks::weight<1,3> upc_weight;
 
 /*!
   \brief This is the type of the UPC algorithm for validating a check digit.
 */
-typedef boost::checks::modulus10_algorithm<upc_weight, 0> upc_check_algorithm ;
+typedef boost::checks::modulus10_algorithm<upc_weight, 0> upc_check_algorithm;
 /*!
   \brief This is the type of the UPC algorithm for computing a check digit.
 */
-typedef boost::checks::modulus10_algorithm< upc_weight, 1> upc_compute_algorithm ;
+typedef boost::checks::modulus10_algorithm< upc_weight, 1> upc_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.

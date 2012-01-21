@@ -16,11 +16,28 @@
     #pragma once
 #endif
 
+#include <boost/checks/translation_exception.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/limits.hpp>
 
 namespace boost {
   namespace checks{
+
+
+namespace detail
+{
+  template <typename value_type>
+  int lexical_cast(value_type x)
+  {
+    // If it's a character, transform digit to int (for example: '1' to 1).
+    try
+    {
+      return boost::lexical_cast<int>(x);
+    }
+    catch(boost::bad_lexical_cast){}
+    return static_cast<int>(x);
+  }
+}
 
 /*!
     \brief Run through a sequence and calculate the checksum with the algorithm policy class.
@@ -40,21 +57,22 @@ namespace boost {
 template <typename algorithm, typename size_contract, typename seq_iterator>
 int compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  unsigned int valid_value_counter = 0;
+  unsigned int value_counter = 0;
   int checksum = 0;
-  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(valid_value_counter); ++seq_begin)
+  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(value_counter); ++seq_begin)
   {
     try
     {
-      int current_valid_value = algorithm::translate_to_valid_value(*seq_begin);
-      algorithm::filter_valid_value_with_pos(current_valid_value, valid_value_counter);
-      algorithm::operate_on_valid_value(current_valid_value, valid_value_counter, checksum);
-      ++valid_value_counter;
+      int value = boost::checks::detail::lexical_cast(*seq_begin);
+      value = algorithm::translate_to_valid_value(value);
+      algorithm::filter_valid_value_with_pos(value, value_counter);
+      algorithm::operate_on_valid_value(value, value_counter, checksum);
+      ++value_counter;
     }
     catch(boost::checks::translation_exception){
     }
   }
-  size_contract::respect_size_contract(valid_value_counter);
+  size_contract::respect_size_contract(value_counter);
   return checksum;
 }
 

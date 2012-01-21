@@ -17,7 +17,6 @@
 #endif
 
 #include <boost/lexical_cast.hpp>
-#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
 namespace boost{
@@ -28,10 +27,10 @@ namespace boost{
 
     \tparam mod10_weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <typename mod10_weight, unsigned int number_of_virtual_value_skipped = 0>
-struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight, number_of_virtual_value_skipped>
+template <typename mod10_weight, std::size_t checkdigit_size = 0>
+struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight, checkdigit_size>
 {
   /*!
     \brief Validate a checksum with a simple modulus 10.
@@ -58,11 +57,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
   template <typename checkdigit>
   static checkdigit compute_checkdigit(int checksum)
   {
-    try{
-      return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10); 
-    }catch(boost::bad_lexical_cast){
-      throw boost::checks::translation_exception();
-    }
+    return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10); 
   }
 };
 

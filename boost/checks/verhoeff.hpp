@@ -32,10 +32,10 @@ namespace boost {
 /*! \class verhoeff_algorithm
     \brief This class can be used to compute or validate checksum with the Verhoeff algorithm.
 
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct verhoeff_algorithm : boost::checks::basic_check_algorithm<number_of_virtual_value_skipped>
+template <std::size_t checkdigit_size = 0>
+struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size>
 {
   /*!
     \brief Compute the Verhoeff scheme on the checksum with the current valid value.
@@ -76,7 +76,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<number_of_virtu
       { 7, 0, 4, 6, 9, 1, 3, 2, 5, 8 }
     };
 
-    checksum = d[checksum][p[(valid_value_counter + number_of_virtual_value_skipped)% 8][current_valid_value]];
+    checksum = d[checksum][p[(valid_value_counter + checkdigit_size)% 8][current_valid_value]];
   }
 
   /*!

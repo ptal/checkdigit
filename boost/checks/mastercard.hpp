@@ -37,10 +37,10 @@ namespace boost {
 /*! \class mastercard_algorithm
     \brief This class can be used to compute or validate checksum with the Luhn algorithm, but filter following the Mastercard pattern.
 
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct mastercard_algorithm : boost::checks::luhn_algorithm <number_of_virtual_value_skipped>
+template <std::size_t checkdigit_size = 0>
+struct mastercard_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 {
   /*!
     \brief Verify that a number matches the Mastercard pattern.
@@ -54,11 +54,11 @@ struct mastercard_algorithm : boost::checks::luhn_algorithm <number_of_virtual_v
   */
   static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
   {
-    const unsigned int real_pos_from_left = MASTERCARD_SIZE - current_value_position - number_of_virtual_value_skipped;
+    const unsigned int real_pos_from_left = MASTERCARD_SIZE - current_value_position - checkdigit_size;
 
     if(real_pos_from_left == 1 && current_valid_value != 5)
       throw std::invalid_argument("The Major Industry Identifier of a Mastercard should be 5!");
-    else if(real_pos_from_left == 2 &&(current_valid_value == 0 || current_valid_value > 5))
+    else if(real_pos_from_left == 2 && (current_valid_value == 0 || current_valid_value > 5))
       throw std::invalid_argument("The Issuer Identification Number of an Mastercard should be between 51 and 55!");
   }
 };

@@ -33,10 +33,10 @@ typedef boost::checks::weight<1,2> luhn_weight;
 /*! \class luhn_algorithm
     \brief This class can be used to compute or validate checksum with the Luhn algorithm.
 
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, number_of_virtual_value_skipped>
+template <std::size_t checkdigit_size = 0>
+struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdigit_size>
 {
   /*!
     \brief Compute the Luhn algorithm operation on the checksum.
@@ -51,7 +51,7 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, number_
   */
   static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
   {
-    int current_weight = luhn_weight::weight_associated_with_pos(valid_value_counter + number_of_virtual_value_skipped);
+    int current_weight = luhn_weight::weight_associated_with_pos(valid_value_counter + checkdigit_size);
     int weighted_value = current_valid_value << (current_weight-1);
     checksum += weighted_value % 10 + weighted_value / 10;
   }

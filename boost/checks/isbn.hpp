@@ -40,30 +40,30 @@ namespace boost {
 /*! \class isbn13_algorithm
     \brief This class can be used to compute or validate checksum with a basic modulus 10 but using a custom filter for the ISBN-13 prefix.
 
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight, number_of_virtual_value_skipped>
+template <std::size_t checkdigit_size = 0>
+struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight, checkdigit_size>
 {
   /*!
     \brief Verify that a number matches the ISBN-13 pattern.
 
-    \param current_valid_value is the current valid value analysed.
-    \param current_value_position is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+    \param value is the current valid value analysed.
+    \param value_position is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
 
     \throws std::invalid_argument if the three first character are not equal to 978 or 979. The exception contains a descriptive message of what was expected.
 
     \remarks This function use the macro EAN13_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position )
+  static void filter_valid_value_with_pos(unsigned int value, unsigned int value_position)
   {
-    const unsigned int real_pos_from_left = EAN13_SIZE - current_value_position - number_of_virtual_value_skipped;
+    unsigned int real_pos_from_left = EAN13_SIZE - value_position - checkdigit_size;
 
-    if( real_pos_from_left == 1 && current_valid_value != 9)
+    if(real_pos_from_left == 1 && value != 9)
       throw std::invalid_argument("The first digit should be 9!");
-    else if( real_pos_from_left == 2 && current_valid_value != 7)
+    else if(real_pos_from_left == 2 && value != 7)
       throw std::invalid_argument("The second digit should be 7!");
-    else if( real_pos_from_left == 3 && current_valid_value != 8 && current_valid_value != 9)
+    else if(real_pos_from_left == 3 && value != 8 && value != 9)
       throw std::invalid_argument("The third digit should be 8 or 9!");
   }
 };

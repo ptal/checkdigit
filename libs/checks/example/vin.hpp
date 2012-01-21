@@ -36,7 +36,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, number_of_
 {
   //[vin_translation_module
   template <typename value>
-  static int translate_to_valid_value(const value &current_value, unsigned int valid_value_counter)
+  static int translate_to_valid_value(const value &current_value)
   {
     int valid_value = 0;
     try
@@ -54,7 +54,7 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, number_of_
         throw boost::checks::translation_exception();
 
       if(valid_value == 9 || valid_value == 15 || valid_value == 17)
-        throw std::invalid_argument("The letter I, O and Q are not allowed.");
+        throw std::invalid_argument("The letters I, O and Q are not allowed.");
 
       if(valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
       {
@@ -65,12 +65,21 @@ struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, number_of_
         valid_value = 11 - valid_value;
       }
       else
-        valid_value = valid_value % 10 + valid_value / 10 +(valid_value > 18);
+        valid_value = valid_value % 10 + valid_value / 10 + (valid_value > 18);
     }
     if(valid_value > 10)
       throw boost::checks::translation_exception();
 
     return valid_value;
+  }
+
+  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
+  {
+    if(valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
+    {
+      if(valid_value != 24)
+        throw std::invalid_argument("The check digit should be a digit or X or x.");  
+    } 
   }
   //]
 

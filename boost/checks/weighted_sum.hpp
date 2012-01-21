@@ -28,10 +28,10 @@ namespace boost{
 
     \tparam weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam number_of_virtual_value_skipped Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <typename weight, unsigned int number_of_virtual_value_skipped = 0>
-struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<number_of_virtual_value_skipped>
+template <typename weight, std::size_t checkdigit_size = 0>
+struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<checkdigit_size>
 {
   /*!
     \brief Compute an operation on the checksum with the current valid value.
@@ -44,7 +44,7 @@ struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<number_of_v
   */
   static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
   {
-    int current_weight = weight::weight_associated_with_pos(valid_value_counter + number_of_virtual_value_skipped);
+    int current_weight = weight::weight_associated_with_pos(valid_value_counter + checkdigit_size);
     checksum += current_valid_value * current_weight;
   }
 };

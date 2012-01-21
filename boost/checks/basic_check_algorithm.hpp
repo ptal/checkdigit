@@ -18,7 +18,7 @@
     #pragma once
 #endif
 
-
+#include <cstddef> // std::size_t
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/translation_exception.hpp>
 
@@ -29,9 +29,9 @@ namespace boost{
     \brief The main check algorithm class that provides every static function that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.
 
     \tparam traversal_direction must meet the iterator_direction concept requirements.
-    \tparam number_of_virtual_value_skipped Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
+template <std::size_t checkdigit_size = 0>
 struct basic_check_algorithm
 {
   /*!
@@ -45,18 +45,12 @@ struct basic_check_algorithm
 
     \returns the translation of the current value in the range [0..9].
 */
-  template <typename value>
-  static int translate_to_valid_value(const value &current_value)
+  template <typename value_type>
+  static int translate_to_valid_value(const value_type &value)
   {
-    int valid_value = 0;
-    try{
-      valid_value = boost::lexical_cast<int>(current_value);
-      if(valid_value > 9)
-        throw boost::checks::translation_exception();
-    }catch(boost::bad_lexical_cast){
+    if(value > 9)
       throw boost::checks::translation_exception();
-    }
-    return valid_value;
+    return value;
   }
 
   /*!
@@ -120,7 +114,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
+  static void operate_on_valid_value(int current_valid_value, unsigned int valid_value_counter, int &checksum)
   {
   }
 
@@ -134,7 +128,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
+  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
   {
   }
 };

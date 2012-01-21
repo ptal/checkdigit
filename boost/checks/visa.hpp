@@ -37,10 +37,10 @@ namespace boost {
 /*! \class visa_algorithm
     \brief This class can be used to compute or validate checksum with the Luhn algorithm, but filter following the Visa pattern.
 
-    \tparam number_of_virtual_value_skipped Helper functions to provide same behavior on a sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Helper functions to provide same behavior on a sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct visa_algorithm : boost::checks::luhn_algorithm <number_of_virtual_value_skipped>
+template <std::size_t checkdigit_size = 0>
+struct visa_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 {
   /*!
     \brief Verify that a number matches the Visa pattern.
@@ -52,9 +52,9 @@ struct visa_algorithm : boost::checks::luhn_algorithm <number_of_virtual_value_s
 
     \remarks This function use the macro VISA_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(const unsigned int current_valid_value, const unsigned int current_value_position)
+  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
   {
-    const unsigned int real_pos_from_left = VISA_SIZE - current_value_position - number_of_virtual_value_skipped;
+    const unsigned int real_pos_from_left = VISA_SIZE - current_value_position - checkdigit_size;
 
     if(real_pos_from_left == 1 && current_valid_value != 4)
       throw std::invalid_argument("The Major Industry Identifier of a VISA credit card should be 4!");

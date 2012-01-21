@@ -52,11 +52,11 @@ typedef boost::checks::weight<1,3> ean_weight ;
 /*!
   \brief This is the type of the EAN algorithm for validating a check digit.
 */
-typedef boost::checks::modulus10_algorithm<ean_weight, 0>ean_check_algorithm;
+typedef boost::checks::modulus10_algorithm<ean_weight, 0> ean_check_algorithm;
 /*!
   \brief This is the type of the EAN algorithm for computing a check digit.
 */
-typedef boost::checks::modulus10_algorithm<ean_weight, 1>ean_compute_algorithm;
+typedef boost::checks::modulus10_algorithm<ean_weight, 1> ean_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the ean_check_algorithm type.
@@ -73,7 +73,7 @@ typedef boost::checks::modulus10_algorithm<ean_weight, 1>ean_compute_algorithm;
 template <typename check_range>
 bool check_ean13(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_check_algorithm, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<ean_check_algorithm, EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!

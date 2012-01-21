@@ -33,12 +33,12 @@ namespace boost{
 
     \tparam mod97_weight must meet the weight concept requirements.
     \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam number_of_virtual_value_skipped Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
+    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 
     \remarks This algorithm use two check digits.
 */
-template <typename mod97_weight, unsigned int number_of_virtual_value_skipped = 0>
-struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight, number_of_virtual_value_skipped>
+template <typename mod97_weight, std::size_t checkdigit_size = 0>
+struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight, checkdigit_size>
 {
   /*!
     \brief Validate a checksum with a simple modulus 97.
