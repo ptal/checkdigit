@@ -68,7 +68,7 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
       std::size_t value = boost::checks::detail::lexical_cast(*seq_begin);
       value = algorithm::translate_to_valid_value(value);
       algorithm::filter_valid_value_with_pos(value, value_counter);
-      algorithm::operate_on_valid_value(value, value_counter, checksum);
+      checksum = algorithm::process(checksum, value, value_counter);
       ++value_counter;
     }
     catch(boost::checks::translation_exception){

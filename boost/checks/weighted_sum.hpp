@@ -42,10 +42,9 @@ struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<checkdigit_
     \param valid_value_counter is the number of valid values already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
     \param checksum is the current checksum.
   */
-  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
+  static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
   {
-    int current_weight = weight::at(valid_value_counter + checkdigit_size);
-    checksum += current_valid_value * current_weight;
+    return checksum + value * weight::at(value_pos + checkdigit_size);
   }
 };
 

@@ -49,11 +49,11 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdi
 
     \remarks This function become obsolete if you don't use luhn_weight. It is using operator "<<" to make internal multiplication.
   */
-  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
+  static std::size_t process(std::size_t checksum, std::size_t current_valid_value, std::size_t valid_value_counter)
   {
     std::size_t current_weight = luhn_weight::at(valid_value_counter + checkdigit_size);
     std::size_t weighted_value = current_valid_value << (current_weight-1);
-    checksum += weighted_value % 10 + weighted_value / 10;
+    return checksum + weighted_value % 10 + weighted_value / 10;
   }
 };
 

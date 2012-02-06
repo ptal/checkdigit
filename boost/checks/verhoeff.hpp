@@ -50,7 +50,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
 
     \remarks This function use the classic table d and p of the Verhoeff algorithm.
   */
-  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
+  static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
   {
     static const unsigned char d[10][10] =
     {
@@ -78,7 +78,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
       { 7, 0, 4, 6, 9, 1, 3, 2, 5, 8 }
     };
 
-    checksum = d[checksum][p[(valid_value_counter + checkdigit_size)% 8][current_valid_value]];
+    return d[checksum][p[(value_pos + checkdigit_size)% 8][value]];
   }
 
   /*!
