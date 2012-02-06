@@ -23,37 +23,6 @@
 namespace boost {
   namespace checks{
 
-template <typename binary_function, typename counter_type>
-struct counter_increaser
-{
-  binary_function &f;
-  counter_type &c;
-
-  counter_increaser(binary_function &f, counter_type &c) : f(f), c(c) {}
-
-  std::size_t operator()(std::size_t value, std::size_t checksum)
-  {
-    checksum = f(value, checksum);
-    ++c;
-    return checksum;
-  }
-};
-
-template <typename binary_function,
-          typename seq_iterator>
-std::size_t checksum(seq_iterator begin, seq_iterator end, binary_function &checksum_operation)
-{
-  return std::accumulate(seq_begin, seq_end, std::size_t(), checksum_operation);
-}
-
-template <typename binary_function,
-          typename counter_type,
-          typename seq_iterator>
-std::size_t checksum(seq_iterator begin, seq_iterator end, binary_function &checksum_operation, counter_type &counter)
-{
-
-}
-
 
 namespace detail
 {

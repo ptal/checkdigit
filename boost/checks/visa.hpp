@@ -101,7 +101,7 @@ bool check_visa(const check_range& check_seq)
     \throws std::invalid_argument if the first digit(from the leftmost)doESn't match the Visa pattern.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
-    \returns The check digit. The check digit its in the range [0..9].
+    \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_visa(const check_range& check_seq)
