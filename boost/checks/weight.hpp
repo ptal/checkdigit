@@ -52,10 +52,10 @@ struct weight
   template<BOOST_PP_ENUM_PARAMS(weight_size , int weight_value)> \
   struct weight<BOOST_PP_ENUM_PARAMS(weight_size, weight_value)> \
   { \
-    static int weight_associated_with_pos(const unsigned int value_pos) \
+    static int at(const unsigned int value_pos) \
     { \
-      static const int weights[weight_size] = { BOOST_PP_ENUM_PARAMS(weight_size, weight_value) } ; \
-      return weights[value_pos % weight_size] ; \
+      static const int weights[weight_size] = { BOOST_PP_ENUM_PARAMS(weight_size, weight_value) }; \
+      return weights[value_pos % weight_size]; \
     } \
   } ;
 

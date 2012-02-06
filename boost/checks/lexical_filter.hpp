@@ -6,7 +6,8 @@
 //  See http://www.boost.org for updates, documentation, and revision history.
 
 /*! \file
-    \brief Provides type encapsulated cctype functions and more for checking sequence.
+    \brief Provides functions specific for checking sequences.
+std::ptr_fun to use all the cctype header functions.
 */
 
 #ifndef BOOST_CHECKS_LEXICAL_FILTER_HPP
@@ -21,54 +22,16 @@
 
 namespace boost{
   namespace checks{
-    
-/* Check if character is alphanumeric.
-*/
-template <typename value_type>
-struct isalnum : public std::unary_function<value_type, bool>
-{
-  bool operator()(const value_type &x)
-  {
-    return std::isalnum(x);
-  }
-};
+
 
 /* Check if character is decimal digit plus the special character 'X' (often occurs 
 as check digit instead of 10).
 */
 template <typename value_type>
-struct isdigitx : public std::unary_function<value_type, bool>
+bool isdigitx(const value_type &x)
 {
-  bool operator()(const value_type &x)
-  {
-    return isdigit(x) || x == 'x' || x == 'X';
-  }
-};
-
-/*
-Check if character is alphabetic.
-*/
-template <typename value_type>
-struct isalpha : public std::unary_function<value_type, bool>
-{  
-  bool operator()(const value_type &x)
-  {
-    return isalpha(x);
-  }
-};
-
-/*
-Check if character is decimal digit.
-*/
-template <typename value_type>
-struct isdigit : public std::unary_function<value_type, bool>
-{
-  bool operator()(const value_type &x)
-  {
-    return isdigit(x);
-  }
-};
-
+  return isdigit(x) || x == 'x' || x == 'X';
+}
 
   
 }} // namespace boost  namespace checks

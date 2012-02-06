@@ -1,5 +1,5 @@
 //  Boost checks/amex.hpp header file
-//  (C) Copyright Pierre Talbot 2011
+//  (C) Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -59,6 +59,25 @@ struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
     if(real_pos_from_left == 1 && current_valid_value != 3)
       throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!");
     else if(real_pos_from_left == 2 && current_valid_value != 4 && current_valid_value != 7)
+      throw std::invalid_argument("The Issuer Identification Number of an American Express should be 34 or 37!");
+  }
+};
+
+template <std::size_t checkdigit_size>
+struct amex_filter
+{
+  std::size_t value_pos;
+
+  amex_filter() : value_pos(0){}
+
+  template <typename value_type>
+  bool operator()(const value_type &x)
+  {
+    const unsigned int real_pos_from_left = AMEX_SIZE - value_pos - checkdigit_size;
+
+    if(real_pos_from_left == 1 && x != 3)
+      throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!");
+    else if(real_pos_from_left == 2 && x != 4 && x != 7)
       throw std::invalid_argument("The Issuer Identification Number of an American Express should be 34 or 37!");
   }
 };
