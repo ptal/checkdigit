@@ -41,6 +41,12 @@ template <typename mod11_weight, std::size_t checkdigit_size>
 struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight, checkdigit_size>
 {
 
+  template <typename value_type>
+  static bool skip(const value_type &value)
+  {
+    return !isdigit(value) && value != 'x' && value != 'X';
+  }
+
   /*!
     \brief translate the current value into an integer valid value.
 
