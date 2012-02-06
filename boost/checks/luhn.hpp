@@ -35,7 +35,7 @@ typedef boost::checks::weight<1,2> luhn_weight;
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size = 0>
+template <std::size_t checkdigit_size>
 struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdigit_size>
 {
   /*!
@@ -49,10 +49,10 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdi
 
     \remarks This function become obsolete if you don't use luhn_weight. It is using operator "<<" to make internal multiplication.
   */
-  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
+  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
   {
-    int current_weight = luhn_weight::weight_associated_with_pos(valid_value_counter + checkdigit_size);
-    int weighted_value = current_valid_value << (current_weight-1);
+    std::size_t current_weight = luhn_weight::at(valid_value_counter + checkdigit_size);
+    std::size_t weighted_value = current_valid_value << (current_weight-1);
     checksum += weighted_value % 10 + weighted_value / 10;
   }
 };

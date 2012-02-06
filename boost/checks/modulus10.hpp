@@ -16,6 +16,7 @@
     #pragma once
 #endif
 
+#include <cstddef>
 #include <boost/lexical_cast.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
@@ -29,7 +30,7 @@ namespace boost{
     \tparam iteration_sense must meet the iteration_sense concept requirements.
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <typename mod10_weight, std::size_t checkdigit_size = 0>
+template <typename mod10_weight, std::size_t checkdigit_size>
 struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight, checkdigit_size>
 {
   /*!
@@ -39,7 +40,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
 
     \returns @c true if the checksum is correct, @c false otherwise.
   */
-  static bool validate_checksum(int checksum)
+  static bool validate_checksum(std::size_t checksum)
   {
     return !(checksum % 10);
   }
@@ -55,7 +56,7 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight,
     \returns The modulus 10 check digit of checksum.
   */
   template <typename checkdigit>
-  static checkdigit compute_checkdigit(int checksum)
+  static checkdigit compute_checkdigit(std::size_t checksum)
   {
     return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10); 
   }

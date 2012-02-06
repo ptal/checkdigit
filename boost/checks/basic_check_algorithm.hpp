@@ -31,7 +31,7 @@ namespace boost{
     \tparam traversal_direction must meet the iterator_direction concept requirements.
     \tparam checkdigit_size Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size = 0>
+template <std::size_t checkdigit_size>
 struct basic_check_algorithm
 {
   /*!
@@ -46,7 +46,7 @@ struct basic_check_algorithm
     \returns the translation of the current value in the range [0..9].
 */
   template <typename value_type>
-  static int translate_to_valid_value(const value_type &value)
+  static std::size_t translate_to_valid_value(const value_type &value)
   {
     if(value > 9)
       throw boost::checks::translation_exception();
@@ -62,7 +62,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to check a sequence.
   */
-  static bool validate_checksum(int checksum)
+  static bool validate_checksum(std::size_t checksum)
   {
     return true;
   }
@@ -80,7 +80,7 @@ struct basic_check_algorithm
     \remarks This function should be overloaded if you want to compute the check digit of a sequence.
   */
   template <typename checkdigit>
-  static checkdigit compute_checkdigit(int checksum)
+  static checkdigit compute_checkdigit(std::size_t checksum)
   {
     return checkdigit();
   }
@@ -99,7 +99,7 @@ struct basic_check_algorithm
     \remarks This function should be overloaded if you want your algorithm to compute more than one check digit (through it works for just one check digit too).
   */
   template <typename checkdigits_iter>
-  static checkdigits_iter compute_multicheckdigit(int checksum, checkdigits_iter checkdigits)
+  static checkdigits_iter compute_multicheckdigit(std::size_t checksum, checkdigits_iter checkdigits)
   {
     return checkdigits;
   }
@@ -114,7 +114,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static void operate_on_valid_value(int current_valid_value, unsigned int valid_value_counter, int &checksum)
+  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
   {
   }
 
@@ -128,7 +128,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
+  static void filter_valid_value_with_pos(std::size_t current_valid_value, std::size_t current_value_position)
   {
   }
 };

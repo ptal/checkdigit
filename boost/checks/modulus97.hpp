@@ -37,7 +37,7 @@ namespace boost{
 
     \remarks This algorithm use two check digits.
 */
-template <typename mod97_weight, std::size_t checkdigit_size = 0>
+template <typename mod97_weight, std::size_t checkdigit_size>
 struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight, checkdigit_size>
 {
   /*!
@@ -47,7 +47,7 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
 
     \returns @c true if the checksum is correct, @c false otherwise.
   */
-  static bool validate_checksum(int checksum)
+  static bool validate_checksum(std::size_t checksum)
   {
     return checksum % 97 == 1;
   }
@@ -67,9 +67,9 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
     \returns An iterator initialized at one pass to the end of the two check digits.
   */
   template <typename checkdigits_iter>
-  static checkdigits_iter compute_multicheckdigit(int checksum, checkdigits_iter checkdigits)
+  static checkdigits_iter compute_multicheckdigit(std::size_t checksum, checkdigits_iter checkdigits)
   {
-    unsigned int mod97_checkdigits = 98 - (checksum % 97);
+    std::size_t mod97_checkdigits = 98 - (checksum % 97);
 
     try
     {
@@ -92,10 +92,10 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight,
 
     \remarks The last value is 68, so we specialize make_mod97_weight to terminate the template recursion.
 */
-template <unsigned int weight_value>
+template <std::size_t weight_value>
 struct make_mod97_weight
 {
-  static const unsigned int value = weight_value;
+  static const std::size_t value = weight_value;
   typedef make_mod97_weight<weight_value * 10 % 97> next;
 };
 /*! \class make_mod97_weight

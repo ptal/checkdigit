@@ -16,6 +16,8 @@
     #pragma once
 #endif
 
+#include <cstddef> // std::size_t
+
 #include <boost/checks/luhn.hpp>
 
 #include <boost/range/rbegin.hpp>
@@ -39,7 +41,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size = 0>
+template <std::size_t checkdigit_size>
 struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 {
   /*!
@@ -52,9 +54,9 @@ struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 
     \remarks This function use the macro AMEX_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
+  static void filter_valid_value_with_pos(std::size_t current_valid_value, std::size_t current_value_position)
   {
-    const unsigned int real_pos_from_left = AMEX_SIZE - current_value_position - checkdigit_size;
+    std::size_t real_pos_from_left = AMEX_SIZE - current_value_position - checkdigit_size;
 
     if(real_pos_from_left == 1 && current_valid_value != 3)
       throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!");

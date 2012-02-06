@@ -26,15 +26,15 @@ BOOST_AUTO_TEST_CASE(weight_test)
 {
   typedef boost::checks::weight<0,1,2,3,4,5,6,7,8,9> number_suite ;
   for(int i=0 ; i < 100 ; ++i)
-    BOOST_CHECK ( i%10 == number_suite::weight_associated_with_pos( i ) ) ;
+    BOOST_CHECK ( i%10 == number_suite::at( i ) ) ;
 
   typedef boost::checks::weight<1,1,1,1,1,1> suite_of_1 ;
   for(int i=0 ; i < 100; ++i)
-    BOOST_CHECK ( 1 == suite_of_1::weight_associated_with_pos( i ) ) ;
+    BOOST_CHECK ( 1 == suite_of_1::at( i ) ) ;
 
   typedef boost::checks::weight<> no_weight_specify ;
   for(int i=0 ; i < 100; ++i)
-    BOOST_CHECK ( 0 == no_weight_specify::weight_associated_with_pos( i ) ) ;
+    BOOST_CHECK ( 0 == no_weight_specify::at( i ) ) ;
 }
 
 BOOST_AUTO_TEST_CASE(limits_test)

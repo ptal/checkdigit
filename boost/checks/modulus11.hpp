@@ -37,7 +37,7 @@ namespace boost{
 
     \remarks The range of the check digit is [0..10], the tenth element is translated as the letter 'X'.
 */
-template <typename mod11_weight, std::size_t checkdigit_size = 0>
+template <typename mod11_weight, std::size_t checkdigit_size>
 struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight, checkdigit_size>
 {
 
@@ -53,7 +53,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \returns the translation of the current value in the range [0..10].
 */
   template <typename value_type>
-  static int translate_to_valid_value(const value_type &value)
+  static std::size_t translate_to_valid_value(const value_type &value)
   {
     int valid_value = value;
     if(value == 'x' || value == 'X')
@@ -64,7 +64,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
   }
 
 /* pre: value must be valid */
-  static void filter_valid_value_with_pos(unsigned int value, unsigned int value_position)
+  static void filter_valid_value_with_pos(std::size_t value, std::size_t value_position)
   {
     // Must be the first digit if the value == 'X'. (reverse traversal).
     if(value == 'X' || value == 'x')
@@ -84,7 +84,7 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
 
     \returns true if the checksum is correct, false otherwise.
   */
-  static bool validate_checksum(int checksum)
+  static bool validate_checksum(std::size_t checksum)
   {
     return !(checksum % 11);
   }
@@ -100,14 +100,14 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \returns The modulus 11 check digit of checksum. 'X' is returned if the check digit value is equal to 10.
   */
   template <typename checkdigit>
-  static checkdigit compute_checkdigit(int checksum)
+  static checkdigit compute_checkdigit(std::size_t checksum)
   {
      return translate_checkdigit<checkdigit>((11 - checksum % 11)% 11);
   }
 
 protected:
   template <typename checkdigit>
-  static checkdigit translate_checkdigit(int _checkdigit)
+  static checkdigit translate_checkdigit(std::size_t _checkdigit)
   {
     if(_checkdigit == 10)
       return static_cast<checkdigit>('X');

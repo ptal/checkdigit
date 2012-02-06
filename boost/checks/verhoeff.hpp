@@ -17,6 +17,8 @@
     #pragma once
 #endif
 
+#include <cstddef>
+
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -34,7 +36,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size = 0>
+template <std::size_t checkdigit_size>
 struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size>
 {
   /*!
@@ -48,9 +50,9 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
 
     \remarks This function use the classic table d and p of the Verhoeff algorithm.
   */
-  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
+  static void operate_on_valid_value(std::size_t current_valid_value, std::size_t valid_value_counter, std::size_t &checksum)
   {
-    static const unsigned int d[10][10] =
+    static const unsigned char d[10][10] =
     {
       { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
       { 1, 2, 3, 4, 0, 6, 7, 8, 9, 5 },
@@ -64,7 +66,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
       { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
     };
 
-    static const unsigned int p[8][10] =
+    static const unsigned char p[8][10] =
     {
       { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
       { 1, 5, 7, 6, 2, 8, 3, 0, 9, 4 },
@@ -86,7 +88,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
 
     \returns @c true if the checksum is correct, @c false otherwise.
   */
-  static bool validate_checksum(int checksum)
+  static bool validate_checksum(std::size_t checksum)
   {
     return !checksum;
   }
@@ -102,9 +104,9 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm<checkdigit_size
     \returns The Verhoeff check digit of checksum.
   */
   template <typename checkdigit>
-  static checkdigit compute_checkdigit(int checksum)
+  static checkdigit compute_checkdigit(std::size_t checksum)
   {
-    static const unsigned int inv[] = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
+    static const unsigned char inv[] = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
 
     try
     {

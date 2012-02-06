@@ -42,7 +42,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size = 0>
+template <std::size_t checkdigit_size>
 struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight, checkdigit_size>
 {
   /*!
@@ -55,9 +55,9 @@ struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_
 
     \remarks This function use the macro EAN13_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(unsigned int value, unsigned int value_position)
+  static void filter_valid_value_with_pos(std::size_t value, std::size_t value_position)
   {
-    unsigned int real_pos_from_left = EAN13_SIZE - value_position - checkdigit_size;
+    std::size_t real_pos_from_left = EAN13_SIZE - value_position - checkdigit_size;
 
     if(real_pos_from_left == 1 && value != 9)
       throw std::invalid_argument("The first digit should be 9!");

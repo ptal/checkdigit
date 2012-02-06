@@ -16,6 +16,7 @@
     #pragma once
 #endif
 
+#include <cstddef> 
 #include <boost/static_assert.hpp>
 
 namespace boost{
@@ -27,32 +28,32 @@ namespace boost{
     \tparam expected_size The expected size of the sequence. (Expected_size > 0, enforced with static assert).
     \tparam exception_size_failure If the size is not respected an exception_size_failure exception will be thrown. Default exception class is std::invalid_argument.
 */
-template <size_t expected_size, class exception_size_failure = std::invalid_argument>
+template <std::size_t expected_size, class exception_size_failure = std::invalid_argument>
 struct strict_size_contract
 {
-  /*! \fn static void respect_size_contract(const size_t valid_value_counter)
+  /*! \fn static void respect_size_contract(const std::size_t valid_value_counter)
     \brief Enforce the size contract.
 
     \param valid_value_counter Number of valid values in the sequence.
     \throws exception_size_failure If the terms of the contract are not respected. (valid_value_counter != expected_size).
   */
-  static void respect_size_contract(size_t valid_value_counter)
+  static void respect_size_contract(std::size_t valid_value_counter)
   {
     BOOST_STATIC_ASSERT_MSG( expected_size > 0 , "The expected size must be greater than 0!" );
     if( valid_value_counter != expected_size )
       throw exception_size_failure("Too few or too many valid values in the sequence!") ;
   }
 
-  /*! \fn static bool reach_one_past_the_end(const size_t valid_value_counter)
+  /*! \fn static bool reach_one_past_the_end(const std::size_t valid_value_counter)
     \brief Tells if the expected interval of value [0..n) is outstripped.
 
     \param valid_value_counter Number of valid values in the sequence already counted.
     \returns true if valid_value_counter is one past the end of the expected size, else false.
   */
-  static bool reach_one_past_the_end(size_t valid_value_counter)
+  static bool reach_one_past_the_end(std::size_t valid_value_counter)
   {
     BOOST_STATIC_ASSERT_MSG( expected_size > 0 , "The expected size must be greater than 0!" );
-    return valid_value_counter > expected_size ;
+    return valid_value_counter > expected_size;
   }
 };
 
@@ -64,25 +65,25 @@ struct strict_size_contract
 template <class exception_size_failure = std::invalid_argument>
 struct no_null_size_contract
 {
-/*! \fn static void respect_size_contract(const size_t valid_value_counter)
+/*! \fn static void respect_size_contract(const std::size_t valid_value_counter)
     \brief Enforce the size contract.
 
     \param valid_value_counter Number of valid values in the sequence.
     \throws exception_size_failure if the terms of the contract are not respected. (valid_value_counter == 0).
   */
-  static void respect_size_contract(size_t valid_value_counter)
+  static void respect_size_contract(std::size_t valid_value_counter)
   {
     if( valid_value_counter == 0 )
       throw exception_size_failure("No valid value in this sequence!") ;
   }
 
-/*! \fn static bool reach_one_past_the_end(const size_t valid_value_counter)
+/*! \fn static bool reach_one_past_the_end(const std::size_t valid_value_counter)
     \brief Warns if the expected interval of value [0..n) is exceeded.
 
     \param valid_value_counter Number of valid values in the sequence already counted.
     \returns false.
   */
-  static bool reach_one_past_the_end(size_t /* valid_value_counter */)
+  static bool reach_one_past_the_end(std::size_t /* valid_value_counter */)
   {
     return false;
   }
