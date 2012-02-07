@@ -26,21 +26,6 @@ namespace boost {
   namespace checks{
 
 
-namespace detail
-{
-  template <typename value_type>
-  std::size_t lexical_cast(value_type x)
-  {
-    // If it's a character, transform digit to int (for example: '1' to 1).
-    try
-    {
-      return boost::lexical_cast<std::size_t>(x);
-    }
-    catch(boost::bad_lexical_cast){}
-    return static_cast<std::size_t>(x);
-  }
-}
-
 /*!
     \brief Run through a sequence and calculate the checksum with the algorithm policy class.
 
@@ -72,8 +57,7 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
           error = true;
         else
         {
-          std::size_t value = boost::checks::detail::lexical_cast(*seq_begin);
-          value = algorithm::translate_to_valid_value(value);
+          std::size_t value = algorithm::convert(*seq_begin);
           checksum = algorithm::process(checksum, value, value_counter);
           ++value_counter;
         }

@@ -59,14 +59,11 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
     \returns the translation of the current value in the range [0..10].
 */
   template <typename value_type>
-  static std::size_t translate_to_valid_value(const value_type &value)
+  static std::size_t convert(const value_type &value)
   {
-    int valid_value = value;
     if(value == 'x' || value == 'X')
-      valid_value = 10;
-    else if(value > 9)
-      throw boost::checks::translation_exception();
-    return valid_value;
+      return 10;
+    return value - '0';
   }
 
 /* pre: value must be valid */
