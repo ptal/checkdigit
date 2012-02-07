@@ -70,17 +70,10 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight,
   }
 
 /* pre: value must be valid */
-  static void filter_valid_value_with_pos(std::size_t value, std::size_t value_position)
+  template <typename value_type>
+  static bool require(const value_type &value, std::size_t value_pos)
   {
-    // Must be the first digit if the value == 'X'. (reverse traversal).
-    if(value == 'X' || value == 'x')
-    {
-      if(value_position + checkdigit_size > 0)
-        throw std::invalid_argument("The character X must be the last");
-    }
-    else if(value > 10)
-      throw std::invalid_argument("The character X must be the last");
-      
+    return value_pos == 0 || (value != 'X' && value != 'x');
   }
 
   /*!

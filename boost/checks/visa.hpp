@@ -52,12 +52,12 @@ struct visa_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 
     \remarks This function use the macro VISA_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(std::size_t current_valid_value, std::size_t current_value_position)
+  template <typename value_type>
+  static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = VISA_SIZE - current_value_position - checkdigit_size;
+    std::size_t real_pos_from_left = VISA_SIZE - value_pos - checkdigit_size;
 
-    if(real_pos_from_left == 1 && current_valid_value != 4)
-      throw std::invalid_argument("The Major Industry Identifier of a VISA credit card should be 4!");
+    return real_pos_from_left != 1 || value == '4';
   }
 };
 

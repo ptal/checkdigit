@@ -52,14 +52,12 @@ struct mastercard_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 
     \remarks This function use the macro MASTERCARD_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(std::size_t current_valid_value, std::size_t current_value_position)
+  template <typename value_type>
+  static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = MASTERCARD_SIZE - current_value_position - checkdigit_size;
+    std::size_t real_pos_from_left = MASTERCARD_SIZE - value_pos - checkdigit_size;
 
-    if(real_pos_from_left == 1 && current_valid_value != 5)
-      throw std::invalid_argument("The Major Industry Identifier of a Mastercard should be 5!");
-    else if(real_pos_from_left == 2 && (current_valid_value == 0 || current_valid_value > 5))
-      throw std::invalid_argument("The Issuer Identification Number of an Mastercard should be between 51 and 55!");
+    return (real_pos_from_left != 1 || value == '5') && (real_pos_from_left != 2 || (value >= '1' && value <= '5'));
   }
 };
 

@@ -54,14 +54,12 @@ struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
 
     \remarks This function use the macro AMEX_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(std::size_t current_valid_value, std::size_t current_value_position)
+  template <typename value_type>
+  static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = AMEX_SIZE - current_value_position - checkdigit_size;
+    std::size_t real_pos_from_left = AMEX_SIZE - value_pos - checkdigit_size;
 
-    if(real_pos_from_left == 1 && current_valid_value != 3)
-      throw std::invalid_argument("The Major Industry Identifier of an American Express should be 3!");
-    else if(real_pos_from_left == 2 && current_valid_value != 4 && current_valid_value != 7)
-      throw std::invalid_argument("The Issuer Identification Number of an American Express should be 34 or 37!");
+    return (real_pos_from_left != 1 || value == '3') && (real_pos_from_left != 2 || value == '4' || value == '7');
   }
 };
 

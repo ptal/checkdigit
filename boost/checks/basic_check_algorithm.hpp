@@ -120,7 +120,7 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static std::size_t operate_on_valid_value(std::size_t, std::size_t, std::size_t)
+  static std::size_t process(std::size_t, std::size_t, std::size_t)
   {
     return std::size_t();
   }
@@ -135,8 +135,10 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to filter the values with their positions.
   */
-  static void filter_valid_value_with_pos(std::size_t, std::size_t)
+  template <typename value_type>
+  static bool require(const value_type&, std::size_t)
   {
+    return true;
   }
 };
 

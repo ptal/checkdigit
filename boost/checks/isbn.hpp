@@ -55,16 +55,14 @@ struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_
 
     \remarks This function use the macro EAN13_SIZE to find the real position from left to right.
   */
-  static void filter_valid_value_with_pos(std::size_t value, std::size_t value_position)
+  template <typename value_type>
+  static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = EAN13_SIZE - value_position - checkdigit_size;
+    std::size_t real_pos_from_left = EAN13_SIZE - value_pos - checkdigit_size;
 
-    if(real_pos_from_left == 1 && value != 9)
-      throw std::invalid_argument("The first digit should be 9!");
-    else if(real_pos_from_left == 2 && value != 7)
-      throw std::invalid_argument("The second digit should be 7!");
-    else if(real_pos_from_left == 3 && value != 8 && value != 9)
-      throw std::invalid_argument("The third digit should be 8 or 9!");
+    return  (real_pos_from_left != 1 || value == '9') &&
+            (real_pos_from_left != 2 || value == '7') &&
+            (real_pos_from_left != 3 || value == '8' || value == '9');
   }
 };
 

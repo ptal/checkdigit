@@ -61,22 +61,29 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end)
 {
   std::size_t value_counter = 0;
   std::size_t checksum = 0;
-  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(value_counter); ++seq_begin)
+  bool error = false;
+  for(; seq_begin != seq_end && !error && !size_contract::reach_one_past_the_end(value_counter); ++seq_begin)
   {
     try
     {
       if(!algorithm::skip(*seq_begin))
       {
-        std::size_t value = boost::checks::detail::lexical_cast(*seq_begin);
-        value = algorithm::translate_to_valid_value(value);
-        algorithm::filter_valid_value_with_pos(value, value_counter);
-        checksum = algorithm::process(checksum, value, value_counter);
-        ++value_counter;
-      }
+        if(!algorithm::require(*seq_begin, value_counter))
+          error = true;
+        else
+        {
+          std::size_t value = boost::checks::detail::lexical_cast(*seq_begin);
+          value = algorithm::translate_to_valid_value(value);
+          checksum = algorithm::process(checksum, value, value_counter);
+          ++value_counter;
+        }
+       }
     }
     catch(boost::checks::translation_exception){
     }
   }
+  if(error)
+    throw std::invalid_argument("");
   size_contract::respect_size_contract(value_counter);
   return checksum;
 }
