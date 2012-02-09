@@ -29,17 +29,9 @@
 */
 #define EAN13_SIZE 13
 /*!
-  \brief This macro defines the size of an EAN-13 without its check digit (12).
-*/
-#define EAN13_SIZE_WITHOUT_CHECKDIGIT 12
-/*!
   \brief This macro defines the size of an EAN-8 (8).
 */
 #define EAN8_SIZE 8
-/*!
-  \brief This macro defines the size of a EAN-8 without its check digit (7).
-*/
-#define EAN8_SIZE_WITHOUT_CHECKDIGIT 7
 
 namespace boost {
     namespace checks{
@@ -48,15 +40,10 @@ namespace boost {
   \brief This is the weight used by EAN system.
 */
 typedef boost::checks::weight<1,3> ean_weight ;
-
 /*!
-  \brief This is the type of the EAN algorithm for validating a check digit.
+  \brief This is the type of the EAN algorithm.
 */
-typedef boost::checks::modulus10_algorithm<ean_weight, 0> ean_check_algorithm;
-/*!
-  \brief This is the type of the EAN algorithm for computing a check digit.
-*/
-typedef boost::checks::modulus10_algorithm<ean_weight, 1> ean_compute_algorithm;
+typedef boost::checks::modulus10_algorithm<ean_weight> ean_algorithm;
 
 /*!
     \brief Validate a sequence according to the ean_check_algorithm type.
@@ -73,7 +60,7 @@ typedef boost::checks::modulus10_algorithm<ean_weight, 1> ean_compute_algorithm;
 template <typename check_range>
 bool check_ean13(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_check_algorithm, EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<ean_algorithm, EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -92,7 +79,7 @@ bool check_ean13(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_ean13(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_compute_algorithm, EAN13_SIZE_WITHOUT_CHECKDIGIT> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<ean_algorithm, EAN13_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -110,7 +97,7 @@ typename boost::range_value<check_range>::type compute_ean13(const check_range& 
 template <typename check_range>
 bool check_ean8 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_check_algorithm, EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<ean_algorithm, EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -129,7 +116,7 @@ bool check_ean8 (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_ean8(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_compute_algorithm, EAN8_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<ean_algorithm, EAN8_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

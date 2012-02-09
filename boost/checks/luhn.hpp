@@ -35,8 +35,7 @@ typedef boost::checks::weight<1,2> luhn_weight;
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
-struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdigit_size>
+struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight>
 {
   /*!
     \brief Compute the Luhn algorithm operation on the checksum.
@@ -49,22 +48,12 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight, checkdi
 
     \remarks This function become obsolete if you don't use luhn_weight. It is using operator "<<" to make internal multiplication.
   */
-  static std::size_t process(std::size_t checksum, std::size_t current_valid_value, std::size_t valid_value_counter)
+  static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
   {
-    std::size_t current_weight = luhn_weight::at(valid_value_counter + checkdigit_size);
-    std::size_t weighted_value = current_valid_value << (current_weight-1);
+    std::size_t weighted_value = value << (luhn_weight::at(value_pos) -1);
     return checksum + weighted_value % 10 + weighted_value / 10;
   }
 };
-
-/*!
-  \brief This is the type of the Luhn algorithm for validating a check digit.
-*/
-typedef luhn_algorithm<0> luhn_check_algorithm;
-/*!
-  \brief This is the type of the Luhn algorithm for computing a check digit.
-*/
-typedef luhn_algorithm<1> luhn_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the luhn_check_algorithm type.
@@ -82,7 +71,7 @@ typedef luhn_algorithm<1> luhn_compute_algorithm;
 template <size_t size_expected, typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_check_algorithm, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_algorithm, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -100,7 +89,7 @@ bool check_luhn (const check_range& check_seq)
 template <typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_check_algorithm> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_algorithm> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -120,7 +109,7 @@ bool check_luhn (const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 typename boost::range_value<check_range>::type compute_luhn(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_compute_algorithm, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, size_expected, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -139,7 +128,7 @@ typename boost::range_value<check_range>::type compute_luhn(const check_range& c
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_luhn (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_compute_algorithm>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

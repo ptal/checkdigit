@@ -28,10 +28,6 @@
   \brief This macro defines the size of an UPC-A.
 */
 #define UPCA_SIZE 12
-/*!
-  \brief This macro defines the size of an UPC-A without its check digit.
-*/
-#define UPCA_SIZE_WITHOUT_CHECKDIGIT 11
 
 namespace boost {
     namespace checks{
@@ -42,13 +38,9 @@ namespace boost {
 typedef boost::checks::weight<1,3> upc_weight;
 
 /*!
-  \brief This is the type of the UPC algorithm for validating a check digit.
+  \brief This is the type of the UPC algorithm.
 */
-typedef boost::checks::modulus10_algorithm<upc_weight, 0> upc_check_algorithm;
-/*!
-  \brief This is the type of the UPC algorithm for computing a check digit.
-*/
-typedef boost::checks::modulus10_algorithm< upc_weight, 1> upc_compute_algorithm;
+typedef boost::checks::modulus10_algorithm<upc_weight> upc_algorithm;
 
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.
@@ -65,7 +57,7 @@ typedef boost::checks::modulus10_algorithm< upc_weight, 1> upc_compute_algorithm
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<upc_check_algorithm, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<upc_algorithm, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -84,7 +76,7 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_compute_algorithm, UPCA_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<upc_algorithm, UPCA_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost   namespace checks

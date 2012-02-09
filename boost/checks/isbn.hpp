@@ -29,10 +29,6 @@
   \brief This macro defines the size of an ISBN-10.
 */
 #define ISBN10_SIZE 10
-/*!
-  \brief This macro defines the size of an ISBN-10 without its check digit.
-*/
-#define ISBN10_SIZE_WITHOUT_CHECKDIGIT 9
 
 namespace boost {
     namespace checks{
@@ -42,8 +38,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
-struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight, checkdigit_size>
+struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight>
 {
   /*!
     \brief Verify that a number matches the ISBN-13 pattern.
@@ -58,22 +53,11 @@ struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_
   template <typename value_type>
   static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = EAN13_SIZE - value_pos - checkdigit_size;
-
-    return  (real_pos_from_left != 1 || value == '9') &&
-            (real_pos_from_left != 2 || value == '7') &&
-            (real_pos_from_left != 3 || value == '8' || value == '9');
+    return  (EAN13_SIZE - value_pos != 1 || value == '9') &&
+            (EAN13_SIZE - value_pos != 2 || value == '7') &&
+            (EAN13_SIZE - value_pos != 3 || value == '8' || value == '9');
   }
 };
-
-/*!
-  \brief This is the type of the ISBN-13 algorithm for validating a check digit.
-*/
-typedef boost::checks::isbn13_algorithm<0> isbn13_check_algorithm;
-/*!
-  \brief This is the type of the ISBN-13 algorithm for computing a check digit.
-*/
-typedef boost::checks::isbn13_algorithm<1> isbn13_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the isbn13_check_algorithm type.
@@ -90,7 +74,7 @@ typedef boost::checks::isbn13_algorithm<1> isbn13_compute_algorithm;
 template <typename check_range>
 bool check_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<isbn13_check_algorithm, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<isbn13_algorithm, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -109,7 +93,7 @@ bool check_isbn13 (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<isbn13_compute_algorithm, EAN13_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<isbn13_algorithm, EAN13_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -146,7 +130,7 @@ bool check_isbn10(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_isbn10(const check_range& check_seq)
 {
-  return boost::checks::compute_modulus11<ISBN10_SIZE_WITHOUT_CHECKDIGIT>(check_seq);
+  return boost::checks::compute_modulus11<ISBN10_SIZE>(check_seq);
 }
 
 

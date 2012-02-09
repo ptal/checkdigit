@@ -26,10 +26,6 @@
   \brief This macro defines the size of a Mastercard number.
 */
 #define MASTERCARD_SIZE 16
-/*!
-  \brief This macro defines the size of a Mastercard number without its check digit.
-*/
-#define MASTERCARD_SIZE_WITHOUT_CHECKDIGIT 15
 
 namespace boost {
     namespace checks{
@@ -39,8 +35,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
-struct mastercard_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
+struct mastercard_algorithm : boost::checks::luhn_algorithm 
 {
   /*!
     \brief Verify that a number matches the Mastercard pattern.
@@ -55,20 +50,9 @@ struct mastercard_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
   template <typename value_type>
   static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = MASTERCARD_SIZE - value_pos - checkdigit_size;
-
-    return (real_pos_from_left != 1 || value == '5') && (real_pos_from_left != 2 || (value >= '1' && value <= '5'));
+    return (MASTERCARD_SIZE - value_pos != 1 || value == '5') && (MASTERCARD_SIZE - value_pos != 2 || (value >= '1' && value <= '5'));
   }
 };
-
-/*!
-  \brief This is the type of the Mastercard algorithm for validating a check digit.
-*/
-typedef mastercard_algorithm<0> mastercard_check_algorithm;
-/*!
-  \brief This is the type of the Mastercard algorithm for computing a check digit.
-*/
-typedef mastercard_algorithm<1> mastercard_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the mastercard_check_algorithm type.
@@ -86,7 +70,7 @@ typedef mastercard_algorithm<1> mastercard_compute_algorithm;
 template <typename check_range>
 bool check_mastercard(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mastercard_check_algorithm, MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mastercard_algorithm, MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -106,7 +90,7 @@ bool check_mastercard(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_mastercard(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mastercard_compute_algorithm, MASTERCARD_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mastercard_algorithm, MASTERCARD_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

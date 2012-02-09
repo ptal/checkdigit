@@ -30,8 +30,8 @@ namespace boost{
     \tparam iteration_sense must meet the iteration_sense concept requirements.
     \tparam checkdigit_size Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <typename weight, std::size_t checkdigit_size>
-struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<checkdigit_size>
+template <typename weight>
+struct weighted_sum_algorithm : boost::checks::basic_check_algorithm
 {
   /*!
     \brief Compute an operation on the checksum with the current valid value.
@@ -44,7 +44,7 @@ struct weighted_sum_algorithm : boost::checks::basic_check_algorithm<checkdigit_
   */
   static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
   {
-    return checksum + value * weight::at(value_pos + checkdigit_size);
+    return checksum + value * weight::at(value_pos);
   }
 };
 

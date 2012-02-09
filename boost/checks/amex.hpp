@@ -28,10 +28,6 @@
   \brief This macro defines the size of a American Express card number (15).
 */
 #define AMEX_SIZE 15
-/*!
-  \brief This macro defines the size of a American Express card number without its check digit (14).
-*/
-#define AMEX_SIZE_WITHOUT_CHECKDIGIT 14
 
 namespace boost {
     namespace checks{
@@ -41,8 +37,8 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
-struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
+
+struct amex_algorithm : boost::checks::luhn_algorithm
 {
   /*!
     \brief Verify that a number matches the Amex pattern.
@@ -57,20 +53,9 @@ struct amex_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
   template <typename value_type>
   static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = AMEX_SIZE - value_pos - checkdigit_size;
-
-    return (real_pos_from_left != 1 || value == '3') && (real_pos_from_left != 2 || value == '4' || value == '7');
+    return (AMEX_SIZE - value_pos != 1 || value == '3') && (AMEX_SIZE - value_pos != 2 || value == '4' || value == '7');
   }
 };
-
-/*!
-  \brief This is the type of the Amex algorithm for validating a check digit.
-*/
-typedef amex_algorithm<0> amex_check_algorithm; 
-/*!
-  \brief This is the type of the Amex algorithm for computing a check digit.
-*/
-typedef amex_algorithm<1> amex_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the amex_check_algorithm type.
@@ -88,7 +73,7 @@ typedef amex_algorithm<1> amex_compute_algorithm;
 template <typename check_range>
 bool check_amex (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<amex_check_algorithm, AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<amex_algorithm, AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -108,7 +93,7 @@ bool check_amex (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_amex(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<amex_compute_algorithm, AMEX_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<amex_algorithm, AMEX_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

@@ -31,7 +31,6 @@ namespace boost{
     \tparam traversal_direction must meet the iterator_direction concept requirements.
     \tparam checkdigit_size Helper functions to provide the same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
 struct basic_check_algorithm
 {
   template <typename value_type>

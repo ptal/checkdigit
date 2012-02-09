@@ -26,10 +26,6 @@
   \brief This macro defines the size of a Visa number.
 */
 #define VISA_SIZE 16
-/*!
-  \brief This macro defines the size of a Visa number without its check digit.
-*/
-#define VISA_SIZE_WITHOUT_CHECKDIGIT 15
 
 namespace boost {
     namespace checks{
@@ -39,8 +35,7 @@ namespace boost {
 
     \tparam checkdigit_size Helper functions to provide same behavior on a sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <std::size_t checkdigit_size>
-struct visa_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
+struct visa_algorithm : boost::checks::luhn_algorithm 
 {
   /*!
     \brief Verify that a number matches the Visa pattern.
@@ -55,20 +50,9 @@ struct visa_algorithm : boost::checks::luhn_algorithm <checkdigit_size>
   template <typename value_type>
   static bool require(const value_type &value, std::size_t value_pos)
   {
-    std::size_t real_pos_from_left = VISA_SIZE - value_pos - checkdigit_size;
-
-    return real_pos_from_left != 1 || value == '4';
+    return VISA_SIZE - value_pos != 1 || value == '4';
   }
 };
-
-/*!
-  \brief This is the type of the Visa algorithm for validating a check digit.
-*/
-typedef visa_algorithm<0> visa_check_algorithm;
-/*!
-  \brief This is the type of the Visa algorithm for computing a check digit.
-*/
-typedef visa_algorithm<1> visa_compute_algorithm;
 
 /*!
     \brief Validate a sequence according to the visa_check_algorithm type.
@@ -86,7 +70,7 @@ typedef visa_algorithm<1> visa_compute_algorithm;
 template <typename check_range>
 bool check_visa(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<visa_check_algorithm, VISA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<visa_algorithm, VISA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -106,7 +90,7 @@ bool check_visa(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_visa(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<visa_compute_algorithm, VISA_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<visa_algorithm, VISA_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 
