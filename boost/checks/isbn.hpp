@@ -38,26 +38,7 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-struct isbn13_algorithm : boost::checks::modulus10_algorithm<boost::checks::ean_weight>
-{
-  /*!
-    \brief Verify that a number matches the ISBN-13 pattern.
-
-    \param value is the current valid value analysed.
-    \param value_position is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
-
-    \throws std::invalid_argument if the three first character are not equal to 978 or 979. The exception contains a descriptive message of what was expected.
-
-    \remarks This function use the macro EAN13_SIZE to find the real position from left to right.
-  */
-  template <typename value_type>
-  static bool require(const value_type &value, std::size_t value_pos)
-  {
-    return  (EAN13_SIZE - value_pos != 1 || value == '9') &&
-            (EAN13_SIZE - value_pos != 2 || value == '7') &&
-            (EAN13_SIZE - value_pos != 3 || value == '8' || value == '9');
-  }
-};
+typedef boost::checks::modulus10_algorithm<boost::checks::ean_weight> isbn13_algorithm;
 
 /*!
     \brief Validate a sequence according to the isbn13_check_algorithm type.

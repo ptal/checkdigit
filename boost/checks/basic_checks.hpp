@@ -50,28 +50,15 @@ template <typename algorithm,
 std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_type &counter)
 {
   std::size_t checksum = 0;
-  bool error = false;
-  for(; seq_begin != seq_end && !error && !size_contract::reach_one_past_the_end(*counter); ++seq_begin)
+  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(*counter); ++seq_begin)
   {
-    try
+    if(!algorithm::skip(*seq_begin))
     {
-      if(!algorithm::skip(*seq_begin))
-      {
-        if(!algorithm::require(*seq_begin, *counter))
-          error = true;
-        else
-        {
-          std::size_t value = algorithm::convert(*seq_begin);
-          checksum = algorithm::process(checksum, value, *counter);
-          ++counter;
-        }
-       }
-    }
-    catch(boost::checks::translation_exception){
+      std::size_t value = algorithm::convert(*seq_begin);
+      checksum = algorithm::process(checksum, value, *counter);
+      ++counter;
     }
   }
-  if(error)
-    throw std::invalid_argument("");
   size_contract::respect_size_contract(*counter);
   return checksum;
 }

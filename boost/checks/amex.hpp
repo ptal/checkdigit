@@ -32,30 +32,6 @@
 namespace boost {
     namespace checks{
 
-/*! \class amex_algorithm
-    \brief This class can be used to compute or validate checksum with the Luhn algorithm, but filter following the Amex pattern.
-
-    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
-*/
-
-struct amex_algorithm : boost::checks::luhn_algorithm
-{
-  /*!
-    \brief Verify that a number matches the Amex pattern.
-
-    \param current_valid_value is the current valid value analysed.
-    \param current_value_position is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
-
-    \throws std::invalid_argument if the first character is not equal to 3 or the second is not equal to 4 or 7. The exception contains a descriptive message of what was expected.
-
-    \remarks This function use the macro AMEX_SIZE to find the real position from left to right.
-  */
-  template <typename value_type>
-  static bool require(const value_type &value, std::size_t value_pos)
-  {
-    return (AMEX_SIZE - value_pos != 1 || value == '3') && (AMEX_SIZE - value_pos != 2 || value == '4' || value == '7');
-  }
-};
 
 /*!
     \brief Validate a sequence according to the amex_check_algorithm type.
@@ -73,7 +49,7 @@ struct amex_algorithm : boost::checks::luhn_algorithm
 template <typename check_range>
 bool check_amex (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<amex_algorithm, AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_algorithm, AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -93,7 +69,7 @@ bool check_amex (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_amex(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<amex_algorithm, AMEX_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, AMEX_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

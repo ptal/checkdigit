@@ -40,7 +40,7 @@ struct strict_size_contract
   static void respect_size_contract(std::size_t valid_value_counter)
   {
     BOOST_STATIC_ASSERT_MSG( expected_size > 0 , "The expected size must be greater than 0!" );
-    if( valid_value_counter != expected_size )
+    if(valid_value_counter != expected_size)
       throw exception_size_failure("Too few or too many valid values in the sequence!") ;
   }
 

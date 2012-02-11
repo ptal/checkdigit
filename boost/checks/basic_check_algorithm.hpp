@@ -122,21 +122,6 @@ struct basic_check_algorithm
     return std::size_t();
   }
 
-  /*!
-    \brief Filtering of a valid value according to its position.
-
-    \post Do nothing.
-
-    \param current_valid_value is the current valid value analysed.
-    \param current_value_position is the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
-
-    \remarks This function should be overloaded if you want to filter the values with their positions.
-  */
-  template <typename value_type>
-  static bool require(const value_type&, std::size_t)
-  {
-    return true;
-  }
 };
 
 

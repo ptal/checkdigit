@@ -52,18 +52,14 @@ BOOST_AUTO_TEST_CASE(visa_tests)
   std::string visa_valid = "4417 1234 5678 9113";
   std::string visa_low_size_failure = "417 1234 5678 9113"; // A missing digit '4'.
   std::string visa_big_size_failure = "44417 1234 5678 9113"; // An extra '4' digit.
-  std::string visa_mii_failure = "3417 1234 5678 9113";
 
   BOOST_CHECK(boost::checks::check_visa(visa_valid));
   BOOST_CHECK_THROW(boost::checks::check_visa(visa_low_size_failure), std::invalid_argument);
   BOOST_CHECK_THROW(boost::checks::check_visa(visa_big_size_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_visa(visa_mii_failure), std::invalid_argument);
 
   std::string visa_valid_without_checkdigit = "4417 1234 5678 911";
-  std::string visa_mii_failure_without_checkdigit = "3417 1234 5678 911";
 
   BOOST_CHECK_EQUAL(boost::checks::compute_visa(visa_valid_without_checkdigit), '3');
-  BOOST_CHECK_THROW(boost::checks::compute_visa(visa_mii_failure_without_checkdigit), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(amex_tests)
@@ -71,21 +67,14 @@ BOOST_AUTO_TEST_CASE(amex_tests)
   std::string amex_valid = "3782 822463 10005";
   std::string amex_low_size_failure = "378 822463 10005";
   std::string amex_big_size_failure = "33782 822463 10005";
-  std::string amex_mii_failure = "4782 822463 10005";
-  std::string amex_iin_failure = "3882 822463 10005";
 
   BOOST_CHECK(boost::checks::check_amex(amex_valid));
   BOOST_CHECK_THROW(boost::checks::check_amex(amex_low_size_failure), std::invalid_argument);
   BOOST_CHECK_THROW(boost::checks::check_amex(amex_big_size_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_amex(amex_mii_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_amex(amex_iin_failure), std::invalid_argument);
 
   std::string amex_valid_without_checkdigit = "3782 822463 1000";
-  std::string amex_mii_failure_without_checkdigit = "4782 822463 1000";
-  std::string amex_iin_failure_without_checkdigit = "3682 822463 1000";
 
   BOOST_CHECK_EQUAL(boost::checks::compute_amex(amex_valid_without_checkdigit), '5');
-  BOOST_CHECK_THROW(boost::checks::compute_amex(amex_mii_failure_without_checkdigit), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(mastercard_tests)
@@ -93,21 +82,14 @@ BOOST_AUTO_TEST_CASE(mastercard_tests)
   std::string mastercard_valid = "5105 1051 0510 5100";
   std::string mastercard_low_size_failure = "515 1051 0510 5100";
   std::string mastercard_big_size_failure = "51505 1051 0510 5100";
-  std::string mastercard_mii_failure = "4105 1051 0510 5100";
-  std::string mastercard_iin_failure = "5005 1051 0510 5100";
 
   BOOST_CHECK(boost::checks::check_mastercard(mastercard_valid));
   BOOST_CHECK_THROW(boost::checks::check_mastercard(mastercard_low_size_failure), std::invalid_argument);
   BOOST_CHECK_THROW(boost::checks::check_mastercard(mastercard_big_size_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_mastercard(mastercard_mii_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_mastercard(mastercard_iin_failure), std::invalid_argument);
 
   std::string mastercard_valid_without_checkdigit = "5105 1051 0510 510";
-  std::string mastercard_mii_failure_without_checkdigit = "6105 1051 0510 510";
-  std::string mastercard_iin_failure_without_checkdigit = "5605 1051 0510 510";
 
   BOOST_CHECK_EQUAL(boost::checks::compute_mastercard(mastercard_valid_without_checkdigit), '0');
-  BOOST_CHECK_THROW(boost::checks::compute_mastercard(mastercard_mii_failure_without_checkdigit), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(ean_tests)
@@ -156,17 +138,11 @@ BOOST_AUTO_TEST_CASE(isbn_tests)
   std::string isbn13_not_valid = "979-0-13-235088-4";
   std::string isbn13_low_size_failure = "978--13-235088-4";
   std::string isbn13_big_size_failure = "978-00-13-235088-4";
-  std::string isbn13_ean_id_failure = "977-0-13-235088-4";
-  std::string isbn13_ean_id_failure2 = "988-0-13-235088-4";
-  std::string isbn13_ean_id_failure3 = "878-0-13-235088-4";
 
   BOOST_CHECK(boost::checks::check_isbn13(isbn13_valid));
   BOOST_CHECK(!boost::checks::check_isbn13(isbn13_not_valid));
   BOOST_CHECK_THROW(boost::checks::check_isbn13(isbn13_low_size_failure), std::invalid_argument);
   BOOST_CHECK_THROW(boost::checks::check_isbn13(isbn13_big_size_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_isbn13(isbn13_ean_id_failure), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_isbn13(isbn13_ean_id_failure2), std::invalid_argument);
-  BOOST_CHECK_THROW(boost::checks::check_isbn13(isbn13_ean_id_failure3), std::invalid_argument);
 
   std::string isbn13_valid_without_checkdigit = "978-0-13-235088-";
   std::string isbn13_not_valid_without_checkdigit = "979-0-13-235088-";

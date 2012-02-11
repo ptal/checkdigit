@@ -30,30 +30,6 @@
 namespace boost {
     namespace checks{
 
-/*! \class mastercard_algorithm
-    \brief This class can be used to compute or validate checksum with the Luhn algorithm, but filter following the Mastercard pattern.
-
-    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
-*/
-struct mastercard_algorithm : boost::checks::luhn_algorithm 
-{
-  /*!
-    \brief Verify that a number matches the Mastercard pattern.
-
-    \param current_valid_value is the current valid value analysed.
-    \param current_value_position is the number of valid values already counted(the current value is not included).\n This is also the position(above the valid values)of the current value analysed(0 <= valid_value_counter < n).
-
-    \throws std::invalid_argument if the first character is not equal to 5 or the second is not between 1 and 5. The exception contains a descriptive message of what was expected.
-
-    \remarks This function use the macro MASTERCARD_SIZE to find the real position from left to right.
-  */
-  template <typename value_type>
-  static bool require(const value_type &value, std::size_t value_pos)
-  {
-    return (MASTERCARD_SIZE - value_pos != 1 || value == '5') && (MASTERCARD_SIZE - value_pos != 2 || (value >= '1' && value <= '5'));
-  }
-};
-
 /*!
     \brief Validate a sequence according to the mastercard_check_algorithm type.
 
@@ -70,7 +46,7 @@ struct mastercard_algorithm : boost::checks::luhn_algorithm
 template <typename check_range>
 bool check_mastercard(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mastercard_algorithm, MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_algorithm, MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -90,7 +66,7 @@ bool check_mastercard(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_mastercard(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mastercard_algorithm, MASTERCARD_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, MASTERCARD_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 
