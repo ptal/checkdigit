@@ -1,5 +1,7 @@
 [section:conventions Document Conventions]
 
+[indexterm1 conventions]
+
 * [*Tutorials] are listed in the ['Table of Contents] and
 include many examples that should help you get started quickly.
 * [*Source code] of the many ['Examples] will often be your quickest starting point.

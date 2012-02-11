@@ -9,6 +9,9 @@
     [authors [Talbot, Pierre]]
 ]
 
+
+[include ../../../../../../../boost-trunk/tools/auto_index/include/auto_index_helpers.qbk]
+
 [/ Some links to external sources.]
 [def __boost [@http://www.boost.org/ Boost]]
 [/Note the custom url schema for linking to files within the Boost distribution.]
