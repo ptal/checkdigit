@@ -73,7 +73,7 @@ bool check_isbn13 (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_isbn13 (const check_range& check_seq)
+std::size_t compute_isbn13 (const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<isbn13_algorithm, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -110,7 +110,7 @@ bool check_isbn10(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9,X].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_isbn10(const check_range& check_seq)
+std::size_t compute_isbn10(const check_range& check_seq)
 {
   return boost::checks::compute_modulus11<ISBN10_SIZE>(check_seq);
 }

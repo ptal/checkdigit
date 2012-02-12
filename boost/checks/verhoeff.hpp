@@ -1,5 +1,5 @@
 //  Boost checks/verhoeff.hpp header file  ------------------------------------//
-// (C)Copyright Pierre Talbot 2011
+// (C)Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0.(See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -23,7 +23,6 @@
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
 
-#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/checkdigit.hpp>
 #include <boost/checks/basic_checks.hpp>
@@ -103,19 +102,11 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm
 
     \returns The Verhoeff check digit of checksum.
   */
-  template <typename checkdigit>
-  static checkdigit compute_checkdigit(std::size_t checksum)
+  static std::size_t compute_checkdigit(std::size_t checksum)
   {
     static const unsigned char inv[] = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
 
-    try
-    {
-      return boost::lexical_cast<checkdigit>(inv[checksum]);
-    }
-    catch(boost::bad_lexical_cast)
-    {
-      throw boost::checks::translation_exception();
-    }
+    return inv[checksum];
   }
 };
 
@@ -171,7 +162,7 @@ bool check_verhoeff(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <size_t size_expected, typename check_range>
-typename boost::range_value<check_range>::type compute_verhoeff(const check_range& check_seq)
+std::size_t compute_verhoeff(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<verhoeff_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -190,7 +181,7 @@ typename boost::range_value<check_range>::type compute_verhoeff(const check_rang
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_verhoeff(const check_range& check_seq)
+std::size_t compute_verhoeff(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<verhoeff_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }

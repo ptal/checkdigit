@@ -17,7 +17,6 @@
 #endif
 
 #include <cstddef>
-#include <boost/lexical_cast.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
 namespace boost{
@@ -55,10 +54,9 @@ struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight>
 
     \returns The modulus 10 check digit of checksum.
   */
-  template <typename checkdigit>
-  static checkdigit compute_checkdigit(std::size_t checksum)
+  static std::size_t compute_checkdigit(std::size_t checksum)
   {
-    return boost::lexical_cast<checkdigit>((10 - checksum % 10) % 10); 
+    return ((10 - checksum % 10) % 10); 
   }
 };
 

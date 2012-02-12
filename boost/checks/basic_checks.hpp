@@ -1,5 +1,5 @@
 //  Boost checks/basic_checks.hpp header file
-//  (C) Copyright Pierre Talbot 2011
+//  (C) Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -18,15 +18,12 @@
 
 #include <cstddef> // std::size_t
 
-#include <boost/checks/translation_exception.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/checks/limits.hpp>
-
 #include <boost/checks/detail/sequence_counter.hpp>
 
 namespace boost {
   namespace checks{
 
+static const std::size_t bad_sequence = -1;
 
 /*!
     \brief Run through a sequence and calculate the checksum with the algorithm policy class.
@@ -44,13 +41,13 @@ namespace boost {
     \returns The checksum of the sequence calculated with algorithm.
   */
 template <typename algorithm, 
-          typename size_contract, 
+          std::size_t size_expected, 
           typename seq_iterator,
           typename counter_type>
 std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_type &counter)
 {
   std::size_t checksum = 0;
-  for(; seq_begin != seq_end && !size_contract::reach_one_past_the_end(*counter); ++seq_begin)
+  for(; seq_begin != seq_end && *counter < size_expected; ++seq_begin)
   {
     if(!algorithm::skip(*seq_begin))
     {
@@ -59,7 +56,26 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, count
       ++counter;
     }
   }
-  size_contract::respect_size_contract(*counter);
+  if(*counter != size_expected || seq_begin != seq_end)
+    return bad_sequence;
+  return checksum;
+}
+
+template <typename algorithm, 
+          typename seq_iterator,
+          typename counter_type>
+std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_type &counter)
+{
+  std::size_t checksum = 0;
+  for(; seq_begin != seq_end; ++seq_begin)
+  {
+    if(!algorithm::skip(*seq_begin))
+    {
+      std::size_t value = algorithm::convert(*seq_begin);
+      checksum = algorithm::process(checksum, value, *counter);
+      ++counter; 
+    } 
+  } 
   return checksum;
 }
 
@@ -81,7 +97,7 @@ template <typename algorithm,
 bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 {
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end, counter);
+  std::size_t checksum = compute_checksum<algorithm>(seq_begin, seq_end, counter);
   return algorithm::validate_checksum(checksum);
 }
 
@@ -105,8 +121,10 @@ template <typename algorithm,
 bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 {
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end, counter); 
-  return algorithm::validate_checksum(checksum);
+  std::size_t checksum = compute_checksum<algorithm, size_expected>(seq_begin, seq_end, counter); 
+  if(checksum != bad_sequence)
+    return algorithm::validate_checksum(checksum);
+  return false;
 }
 
 /*!
@@ -125,12 +143,12 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 template <typename algorithm, 
           typename checkdigit, 
           typename seq_iterator>
-typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
+std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end, counter);
-  return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
+  std::size_t checksum = compute_checksum<algorithm>(seq_begin, seq_end, counter);
+  return algorithm::compute_checkdigit(checksum);
 }
 
 /*!
@@ -151,12 +169,14 @@ template <typename algorithm,
           std::size_t size_expected, 
           typename checkdigit, 
           typename seq_iterator> 
-typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
+std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end, counter);
-  return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
+  std::size_t checksum = compute_checksum<algorithm, size_expected>(seq_begin, seq_end, counter);
+  if(checksum != size_expected)
+    return algorithm::compute_checkdigit(checksum);
+  return bad_sequence;
 }
 
 /*!
@@ -177,14 +197,13 @@ typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq
 */
 template <typename algorithm, 
           typename checkdigit,
-          typename seq_iterator, 
-          typename checkdigit_iterator> 
-checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
+          typename seq_iterator> 
+std::pair<std::size_t, std::size_t> compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end)
 {
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end, counter);
-  return algorithm::compute_multicheckdigit(checksum, checkdigits);
+  std::size_t checksum = compute_checksum<algorithm>(seq_begin, seq_end, counter);
+  return algorithm::compute_multicheckdigit(checksum);
 }
 
 /*!
@@ -206,14 +225,15 @@ checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterato
 template <typename algorithm, 
           std::size_t size_expected, 
           typename checkdigit, 
-          typename seq_iterator, 
-          typename checkdigit_iterator>
-checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
+          typename seq_iterator>
+std::pair<std::size_t, std::size_t> compute_multicheckdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end, counter);
-  return algorithm::compute_multicheckdigit(checksum, checkdigits);
+  std::size_t checksum = compute_checksum<algorithm, size_expected>(seq_begin, seq_end, counter);
+  if(checksum != bad_sequence)
+    return algorithm::compute_multicheckdigit(checksum);
+  return std::pair<std::size_t, std::size_t>(bad_sequence, bad_sequence);
 }
 
 } // namespace checks

@@ -1,5 +1,5 @@
 //  Boost checks/basic_check_algorithm.hpp header file  ------------------------------------//
-//  (C) Copyright Pierre Talbot 2011
+//  (C) Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -19,8 +19,6 @@
 #endif
 
 #include <cstddef> // std::size_t
-#include <boost/lexical_cast.hpp>
-#include <boost/checks/translation_exception.hpp>
 
 namespace boost{
   namespace checks{
@@ -82,10 +80,9 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to compute the check digit of a sequence.
   */
-  template <typename checkdigit>
-  static checkdigit compute_checkdigit(std::size_t checksum)
+  static std::size_t compute_checkdigit(std::size_t checksum)
   {
-    return checkdigit();
+    return std::size_t();
   }
 
   /*!
@@ -101,10 +98,9 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want your algorithm to compute more than one check digit (through it works for just one check digit too).
   */
-  template <typename checkdigits_iter>
-  static checkdigits_iter compute_multicheckdigit(std::size_t checksum, checkdigits_iter checkdigits)
+  static std::pair<std::size_t, std::size_t> compute_multicheckdigit(std::size_t checksum)
   {
-    return checkdigits;
+    return std::pair<std::size_t, std::size_t>();
   }
 
   /*!

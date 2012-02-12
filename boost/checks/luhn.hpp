@@ -126,7 +126,7 @@ bool check_luhn (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <size_t size_expected, typename check_range>
-typename boost::range_value<check_range>::type compute_luhn(const check_range& check_seq)
+std::size_t compute_luhn(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<luhn_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -145,7 +145,7 @@ typename boost::range_value<check_range>::type compute_luhn(const check_range& c
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_luhn (const check_range& check_seq)
+std::size_t compute_luhn (const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<luhn_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }

@@ -1,6 +1,6 @@
 //  Boost checks/modulus97.hpp header file
 
-//  (C) Copyright Pierre Talbot 2011
+//  (C) Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -18,8 +18,6 @@
 #endif
 
 #include <boost/preprocessor/repetition.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
 #include <boost/checks/weighted_sum.hpp>
 
@@ -66,22 +64,11 @@ struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight>
 
     \returns An iterator initialized at one pass to the end of the two check digits.
   */
-  template <typename checkdigits_iter>
-  static checkdigits_iter compute_multicheckdigit(std::size_t checksum, checkdigits_iter checkdigits)
+  static std::pair<std::size_t, std::size_t> compute_multicheckdigit(std::size_t checksum)
   {
     std::size_t mod97_checkdigits = 98 - (checksum % 97);
 
-    try
-    {
-      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits / 10);
-      ++checkdigits;
-      *checkdigits = boost::lexical_cast<typename checkdigits_iter::value_type>(mod97_checkdigits % 10);
-      ++checkdigits;
-    }
-    catch( boost::bad_lexical_cast ){
-      throw boost::checks::translation_exception();
-    }
-    return checkdigits;
+    return std::pair<std::size_t, std::size_t>(mod97_checkdigits / 10, mod97_checkdigits % 10);
   }
 };
 
@@ -188,10 +175,10 @@ bool check_mod97_10(const check_range& check_seq)
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
-template <size_t size_expected, typename check_range, typename checkdigits_iter>
-checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+template <size_t size_expected, typename check_range>
+std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, size_expected, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits);
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -209,10 +196,10 @@ checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
-template <typename check_range, typename checkdigits_iter>
-checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
+template <typename check_range>
+std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits); 
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
 }
 
 

@@ -1,5 +1,5 @@
 //  Boost checks/modulus11.hpp header file  ------------------------------------//
-// (C)Copyright Pierre Talbot 2011
+// (C)Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0.(See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -19,8 +19,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/checks/translation_exception.hpp>
+
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/weighted_sum.hpp>
@@ -95,21 +94,10 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight>
 
     \returns The modulus 11 check digit of checksum. 'X' is returned if the check digit value is equal to 10.
   */
-  template <typename checkdigit>
-  static checkdigit compute_checkdigit(std::size_t checksum)
+  static std::size_t compute_checkdigit(std::size_t checksum)
   {
-     return translate_checkdigit<checkdigit>((11 - checksum % 11)% 11);
+     return ((11 - checksum % 11)% 11);
   }
-
-protected:
-  template <typename checkdigit>
-  static checkdigit translate_checkdigit(std::size_t _checkdigit)
-  {
-    if(_checkdigit == 10)
-      return static_cast<checkdigit>('X');
-    return boost::lexical_cast<checkdigit>(_checkdigit);
-  }
-
 };
 
 /*!
@@ -174,7 +162,7 @@ bool check_modulus11(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9,X].
 */
 template <std::size_t size_expected, typename check_range>
-typename boost::range_value<check_range>::type compute_modulus11(const check_range& check_seq)
+std::size_t compute_modulus11(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<mod11_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -193,7 +181,7 @@ typename boost::range_value<check_range>::type compute_modulus11(const check_ran
     \returns The check digit. The check digit is in the range [0..9,X].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_modulus11(const check_range& check_seq)
+std::size_t compute_modulus11(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<mod11_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }

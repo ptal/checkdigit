@@ -1,5 +1,5 @@
 //  Boost checks/visa.hpp header file
-// (C)Copyright Pierre Talbot 2011
+// (C)Copyright Pierre Talbot 2011 - 2012
 //  Distributed under the Boost Software License, Version 1.0.(See
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
@@ -65,7 +65,7 @@ bool check_visa(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-typename boost::range_value<check_range>::type compute_visa(const check_range& check_seq)
+std::size_t compute_visa(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<luhn_algorithm, VISA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
