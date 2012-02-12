@@ -25,6 +25,7 @@
 
 #include <boost/checks/translation_exception.hpp>
 #include <boost/checks/weight.hpp>
+#include <boost/checks/checkdigit.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/basic_check_algorithm.hpp>
 
@@ -172,7 +173,7 @@ bool check_verhoeff(const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 typename boost::range_value<check_range>::type compute_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<verhoeff_algorithm, size_expected, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<verhoeff_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -191,7 +192,7 @@ typename boost::range_value<check_range>::type compute_verhoeff(const check_rang
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<verhoeff_algorithm, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<verhoeff_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }}

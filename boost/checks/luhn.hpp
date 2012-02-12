@@ -17,6 +17,7 @@
 #endif
 
 #include <boost/checks/modulus10.hpp>
+#include <boost/checks/checkdigit.hpp>
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -53,6 +54,24 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight>
     std::size_t weighted_value = value << (luhn_weight::at(value_pos) -1);
     return checksum + weighted_value % 10 + weighted_value / 10;
   }
+  /*
+  template <typename Function>
+  struct processor
+  {
+    Function counter;
+    bool weight;
+    processor(Function counter) : counter(counter), weight(!(counter()&1)) { } 
+
+    std::size_t operator()(std::size_t checksum, std::size_t value)
+    {
+      return checksum + value << weight % 10 + value << weight / 10;
+    }
+  };
+
+  validate_checksum <UnaryPredicate : for the checkdigit validation
+  compute_checksum <UnaryFunction : for the computation of the checkdigit
+
+*/
 };
 
 /*!
@@ -109,7 +128,7 @@ bool check_luhn (const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 typename boost::range_value<check_range>::type compute_luhn(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, size_expected, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -128,7 +147,7 @@ typename boost::range_value<check_range>::type compute_luhn(const check_range& c
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_luhn (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

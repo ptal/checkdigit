@@ -176,7 +176,7 @@ bool check_modulus11(const check_range& check_seq)
 template <std::size_t size_expected, typename check_range>
 typename boost::range_value<check_range>::type compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, size_expected, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -195,7 +195,7 @@ typename boost::range_value<check_range>::type compute_modulus11(const check_ran
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost  namespace checks

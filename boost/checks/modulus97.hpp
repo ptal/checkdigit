@@ -133,6 +133,8 @@ typedef boost::checks::weight<BOOST_PP_ENUM(96, MOD97_weight_maker, ~)> mod97_10
 */
 typedef modulus97_algorithm<mod97_10_weight> mod97_10_algorithm;
 
+typedef checkdigit<0, 2> mod97_10_checkdigit;
+
 /*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
 
@@ -189,7 +191,7 @@ bool check_mod97_10(const check_range& check_seq)
 template <size_t size_expected, typename check_range, typename checkdigits_iter>
 checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, size_expected, 0, 2>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits);
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, size_expected, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits);
 }
 
 /*!
@@ -210,7 +212,7 @@ checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter
 template <typename check_range, typename checkdigits_iter>
 checkdigits_iter compute_mod97_10(const check_range& check_seq, checkdigits_iter mod97_checkdigits)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, 0, 2>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits); 
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq), mod97_checkdigits); 
 }
 
 

@@ -20,6 +20,7 @@
 
 #include <boost/checks/ean.hpp>
 #include <boost/checks/modulus11.hpp>
+#include <boost/checks/checkdigit.hpp>
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -74,7 +75,7 @@ bool check_isbn13 (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<isbn13_algorithm, EAN13_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<isbn13_algorithm, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!

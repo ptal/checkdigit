@@ -21,7 +21,7 @@
 #include <boost/range/iterator_range.hpp>
 
 #include <boost/checks/luhn.hpp>
-
+#include <boost/checks/checkdigit.hpp>
 /*!
   \brief This macro defines the size of a Visa number.
 */
@@ -67,7 +67,7 @@ bool check_visa(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_visa(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, VISA_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, VISA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

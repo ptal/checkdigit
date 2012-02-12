@@ -76,7 +76,7 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_algorithm, UPCA_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<upc_algorithm, UPCA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost   namespace checks

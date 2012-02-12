@@ -123,12 +123,12 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
     \returns The check digit of the type of a value in check_seq.
 */
 template <typename algorithm, 
-          std::size_t checkdigit_pos, 
-          std::size_t checkdigit_size, 
+          typename checkdigit, 
           typename seq_iterator>
 typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  typename boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>::type counter = boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>()();
+  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
+  typename counter_type::type counter = counter_type()();
   std::size_t checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end, counter);
   return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
 }
@@ -149,12 +149,12 @@ typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq
 */
 template <typename algorithm, 
           std::size_t size_expected, 
-          std::size_t checkdigit_pos, 
-          std::size_t checkdigit_size, 
+          typename checkdigit, 
           typename seq_iterator> 
 typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
 {
-  typename boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>::type counter = boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>()();
+  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
+  typename counter_type::type counter = counter_type()();
   std::size_t checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end, counter);
   return algorithm::template compute_checkdigit<typename seq_iterator::value_type>(checksum);
 }
@@ -176,13 +176,13 @@ typename seq_iterator::value_type compute_checkdigit(seq_iterator seq_begin, seq
     \returns An iterator initialized at one pass the end of checkdigits.
 */
 template <typename algorithm, 
-          std::size_t checkdigit_pos,
-          std::size_t checkdigit_size,
+          typename checkdigit,
           typename seq_iterator, 
           typename checkdigit_iterator> 
 checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
 {
-  typename boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>::type counter = boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>()();
+  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
+  typename counter_type::type counter = counter_type()();
   std::size_t checksum = compute_checksum<algorithm, boost::checks::no_null_size_contract<> >(seq_begin, seq_end, counter);
   return algorithm::compute_multicheckdigit(checksum, checkdigits);
 }
@@ -205,13 +205,13 @@ checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterato
 */
 template <typename algorithm, 
           std::size_t size_expected, 
-          std::size_t checkdigit_pos, 
-          std::size_t checkdigit_size, 
+          typename checkdigit, 
           typename seq_iterator, 
           typename checkdigit_iterator>
 checkdigit_iterator compute_multicheckdigit (seq_iterator seq_begin, seq_iterator seq_end, checkdigit_iterator checkdigits)
 {
-  typename boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>::type counter = boost::checks::detail::skip_counter<checkdigit_pos, checkdigit_size>()();
+  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
+  typename counter_type::type counter = counter_type()();
   std::size_t checksum = compute_checksum<algorithm, boost::checks::strict_size_contract<size_expected> >(seq_begin, seq_end, counter);
   return algorithm::compute_multicheckdigit(checksum, checkdigits);
 }

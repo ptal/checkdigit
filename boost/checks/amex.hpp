@@ -18,6 +18,7 @@
 
 #include <cstddef> // std::size_t
 
+#include <boost/checks/checkdigit.hpp>
 #include <boost/checks/luhn.hpp>
 
 #include <boost/range/rbegin.hpp>
@@ -69,7 +70,7 @@ bool check_amex (const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_amex(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, AMEX_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, AMEX_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

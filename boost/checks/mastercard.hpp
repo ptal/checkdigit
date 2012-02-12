@@ -21,6 +21,7 @@
 #include <boost/range/iterator_range.hpp>
 
 #include <boost/checks/luhn.hpp>
+#include <boost/checks/checkdigit.hpp>
 
 /*!
   \brief This macro defines the size of a Mastercard number.
@@ -66,7 +67,7 @@ bool check_mastercard(const check_range& check_seq)
 template <typename check_range>
 typename boost::range_value<check_range>::type compute_mastercard(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, MASTERCARD_SIZE, 0, 1>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<luhn_algorithm, MASTERCARD_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 
