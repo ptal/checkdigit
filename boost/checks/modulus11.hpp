@@ -39,13 +39,6 @@ namespace boost{
 template <typename mod11_weight>
 struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight>
 {
-
-  template <typename value_type>
-  static bool skip(const value_type &value)
-  {
-    return !isdigit(value) && value != 'x' && value != 'X';
-  }
-
   /*!
     \brief translate the current value into an integer valid value.
 
@@ -126,7 +119,7 @@ typedef modulus11_algorithm<mod11_weight> mod11_algorithm;
 template <size_t size_expected, typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, digitx_filter, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -144,7 +137,7 @@ bool check_modulus11(const check_range& check_seq)
 template <typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, digitx_filter>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -164,7 +157,7 @@ bool check_modulus11(const check_range& check_seq)
 template <std::size_t size_expected, typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_filter, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -183,7 +176,7 @@ std::size_t compute_modulus11(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_filter, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost  namespace checks

@@ -138,7 +138,7 @@ typedef checkdigit<0, 2> mod97_10_checkdigit;
 template <size_t size_expected, typename check_range>
 bool check_mod97_10 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm, size_expected> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod97_10_algorithm, digit_filter, size_expected> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -156,7 +156,7 @@ bool check_mod97_10 (const check_range& check_seq)
 template <typename check_range>
 bool check_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod97_10_algorithm, digit_filter>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -178,7 +178,7 @@ bool check_mod97_10(const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, digit_filter, mod97_10_checkdigit, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -199,7 +199,7 @@ std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_se
 template <typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, digit_filter, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
 }
 
 

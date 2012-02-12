@@ -56,7 +56,7 @@ typedef boost::checks::modulus10_algorithm<boost::checks::ean_weight> isbn13_alg
 template <typename check_range>
 bool check_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<isbn13_algorithm, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<isbn13_algorithm, digit_filter, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -75,7 +75,7 @@ bool check_isbn13 (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<isbn13_algorithm, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<isbn13_algorithm, digit_filter, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!

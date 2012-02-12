@@ -19,6 +19,7 @@
 #endif
 
 #include <cstddef> // std::size_t
+#include <boost/checks/filter.hpp>
 
 namespace boost{
   namespace checks{
@@ -31,12 +32,6 @@ namespace boost{
 */
 struct basic_check_algorithm
 {
-  template <typename value_type>
-  static bool skip(const value_type &value)
-  {
-    return !isdigit(value);
-  }
-
   /*!
     \brief translate a value of the sequence into an integer valid value.
 
