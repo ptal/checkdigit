@@ -126,7 +126,7 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm
 template <size_t size_expected, typename check_range>
 bool check_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<verhoeff_algorithm, digit_filter, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<verhoeff_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -144,7 +144,7 @@ bool check_verhoeff(const check_range& check_seq)
 template <typename check_range>
 bool check_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<verhoeff_algorithm, digit_filter>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<verhoeff_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type> >(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -164,7 +164,11 @@ bool check_verhoeff(const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 std::size_t compute_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<verhoeff_algorithm, digit_filter, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<verhoeff_algorithm, 
+                                           typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>, 
+                                           size_expected, 
+                                           basic_checkdigit>
+         (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -183,7 +187,10 @@ std::size_t compute_verhoeff(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<verhoeff_algorithm, digit_filter, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<verhoeff_algorithm, 
+                                           typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>, 
+                                           basic_checkdigit>
+         (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }}

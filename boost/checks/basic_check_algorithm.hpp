@@ -20,9 +20,29 @@
 
 #include <cstddef> // std::size_t
 #include <boost/checks/filter.hpp>
+#include <boost/checks/conversion.hpp>
+#include <boost/checks/prechecksum.hpp>
+#include <boost/range.hpp>
 
 namespace boost{
   namespace checks{
+  
+
+template <typename Iterator>
+struct digit_prechecksum
+{
+  typedef prechecksum<digit_filter<typename Iterator::value_type>,
+                      chartodigit<typename Iterator::value_type>,
+                      Iterator> type; 
+};
+
+template <typename Iterator>
+struct digitx_prechecksum
+{
+  typedef prechecksum<digitx_filter<typename Iterator::value_type>,
+                      chartodigitx<typename Iterator::value_type>,
+                      Iterator> type;
+};
 
 /*! \class basic_check_algorithm
     \brief The main check algorithm class that provides every static function that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.
@@ -32,23 +52,6 @@ namespace boost{
 */
 struct basic_check_algorithm
 {
-  /*!
-    \brief translate a value of the sequence into an integer valid value.
-
-    \tparam value is the type of a value in the sequence.
-    \param current_value is the current value analysed in the sequence that must be translated.
-    \param valid_value_counter is the number of valid value(s) already counted (the current value is not included).\n This is also the position (beyond the valid values) of the current value analysed (0 <= valid_value_counter < n).
-
-    \throws boost::checks::translation_exception is thrown if the translation of current_value failed.\n This will automatically throw if the value is not a digit (0 <= i < 10).
-
-    \returns the translation of the current value in the range [0..9].
-*/
-  template <typename value_type>
-  static std::size_t convert(const value_type &value)
-  {
-    return value - '0';
-  }
-
   /*!
     \brief Validate the checksum.
 

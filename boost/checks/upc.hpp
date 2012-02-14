@@ -57,7 +57,7 @@ typedef boost::checks::modulus10_algorithm<upc_weight> upc_algorithm;
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<upc_algorithm, digit_filter, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<upc_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -76,7 +76,7 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_algorithm, digit_filter, UPCA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<upc_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>, UPCA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost   namespace checks

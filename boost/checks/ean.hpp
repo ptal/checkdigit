@@ -61,7 +61,7 @@ typedef boost::checks::modulus10_algorithm<ean_weight> ean_algorithm;
 template <typename check_range>
 bool check_ean13(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_algorithm, digit_filter, EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<ean_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -80,7 +80,7 @@ bool check_ean13(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_ean13(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_algorithm, digit_filter, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<ean_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, EAN13_SIZE, basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -98,7 +98,7 @@ std::size_t compute_ean13(const check_range& check_seq)
 template <typename check_range>
 bool check_ean8 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_algorithm, digit_filter, EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<ean_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -117,7 +117,7 @@ bool check_ean8 (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_ean8(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_algorithm, digit_filter, EAN8_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<ean_algorithm, typename digit_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, EAN8_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 
