@@ -23,21 +23,25 @@
 namespace boost{
   namespace checks{
 
-template <typename value_type>
-struct digit_filter : public std::unary_function<value_type, bool>
+struct digit_filter
 {
+  typedef bool result_type;
+
+  template <typename value_type>
   bool operator()(const value_type &value)
   {
-    return std::isdigit(static_cast<int>(value));
+    return value >= '0' && value <= '9';
   }
 };
 
-template <typename value_type>
-struct digitx_filter : public std::unary_function<value_type, bool>
+struct digitx_filter
 {
+  typedef bool result_type;
+
+  template <typename value_type>
   bool operator()(const value_type &value) 
   {
-    return std::isdigit(static_cast<int>(value)) || std::tolower(static_cast<int>(value)) == 'x';
+    return (value >= '0' && value <= '9') || std::tolower(value) == 'x';
   }
 };
 

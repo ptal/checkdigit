@@ -17,25 +17,29 @@
 #endif
 
 #include <cstddef> // std::size_t
-#include <cctype>
 #include <functional>
 
 
 namespace boost{
   namespace checks{
 
-template <typename value_type>
-struct chartodigit : public std::unary_function<value_type, std::size_t> 
+struct chartodigit
 {
+  typedef std::size_t result_type;
+
+  template <typename value_type>
   std::size_t operator()(const value_type &value) const 
   {
     return value - '0';
   }
 };
 
-template <typename value_type>
-struct chartodigitx : public std::unary_function<value_type, std::size_t>
+
+struct chartodigitx
 {
+  typedef std::size_t result_type;
+
+  template <typename value_type>
   std::size_t operator()(const value_type &value) const
   {
     return value <= '9' ? (value - '0') : 10;

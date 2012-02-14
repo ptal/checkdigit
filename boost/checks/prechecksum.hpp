@@ -26,53 +26,69 @@ struct no_filter_tag {};
 struct no_conversion_tag {};
 
 template <typename UnaryPredicate,
-          typename UnaryFunction,
-          typename BaseIterator>
+          typename UnaryFunction>
 struct prechecksum
 {
   typedef UnaryPredicate FilterPredicate;
   typedef UnaryFunction ConversionFunction;
 
-  typedef typename boost::filter_iterator<FilterPredicate, BaseIterator> filter_iterator;
-
-  typedef typename boost::transform_iterator<ConversionFunction, filter_iterator> iterator;
+  template <typename BaseIterator>
+  struct iterator
+  {
+    typedef typename boost::transform_iterator<ConversionFunction, 
+                                               boost::filter_iterator<FilterPredicate, 
+                                                                      BaseIterator> > type;
+  };
 
   FilterPredicate filter;
   ConversionFunction converter;
 
-  iterator operator()(BaseIterator b, BaseIterator e)
+  template <typename BaseIterator>
+  typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator(filter_iterator(filter, b, e), converter);
+    return iterator<BaseIterator>::type(boost::filter_iterator<FilterPredicate, BaseIterator>(filter, b, e),
+                                        converter);
   }
 };                                                                                              
 
-template <typename UnaryFunction,
-          typename BaseIterator>
-struct prechecksum<no_filter_tag, UnaryFunction, BaseIterator>
+template <typename UnaryFunction>
+struct prechecksum<no_filter_tag, UnaryFunction>
 {
   typedef UnaryFunction ConversionFunction;
 
-  typedef typename boost::transform_iterator<ConversionFunction, BaseIterator> iterator;
+  template <typename BaseIterator>
+  struct iterator
+  {
+    typedef typename boost::transform_iterator<ConversionFunction, 
+                                               BaseIterator> type;
+  };
 
   ConversionFunction converter;
-  iterator operator()(BaseIterator b, BaseIterator e)
+
+  template <typename BaseIterator>
+  typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator(b, converter);
+    return iterator<BaseIterator>::type(b, converter);
   }
 };                                                                                              
 
-template <typename UnaryPredicate,
-          typename BaseIterator>
-struct prechecksum<UnaryPredicate, no_conversion_tag, BaseIterator>
+template <typename UnaryPredicate>
+struct prechecksum<UnaryPredicate, no_conversion_tag>
 {
   typedef UnaryPredicate FilterPredicate;
 
-  typedef typename boost::filter_iterator<FilterPredicate, BaseIterator> iterator;
+  template <typename BaseIterator>
+  struct iterator
+  {
+    typedef typename boost::filter_iterator<FilterPredicate, BaseIterator> type;
+  };
 
   FilterPredicate filter;
-  iterator operator()(BaseIterator b, BaseIterator e)
+
+  template <typename BaseIterator>
+  typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator(filter, b, e);
+    return iterator<BaseIterator>::type(filter, b, e);
   }
 };                                                                                              
 

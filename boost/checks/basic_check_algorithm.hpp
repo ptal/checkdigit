@@ -28,21 +28,9 @@ namespace boost{
   namespace checks{
   
 
-template <typename Iterator>
-struct digit_prechecksum
-{
-  typedef prechecksum<digit_filter<typename Iterator::value_type>,
-                      chartodigit<typename Iterator::value_type>,
-                      Iterator> type; 
-};
+typedef prechecksum<digit_filter, chartodigit> digit_prechecksum; 
 
-template <typename Iterator>
-struct digitx_prechecksum
-{
-  typedef prechecksum<digitx_filter<typename Iterator::value_type>,
-                      chartodigitx<typename Iterator::value_type>,
-                      Iterator> type;
-};
+typedef prechecksum<digitx_filter, chartodigitx> digitx_prechecksum;
 
 /*! \class basic_check_algorithm
     \brief The main check algorithm class that provides every static function that can be overloaded.\n Most of the functions must be re-implemented to have the desired behavior.

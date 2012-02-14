@@ -93,7 +93,7 @@ typedef modulus11_algorithm<mod11_weight> mod11_algorithm;
 template <size_t size_expected, typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm, typename digitx_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, digitx_prechecksum, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -111,7 +111,7 @@ bool check_modulus11(const check_range& check_seq)
 template <typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm, typename digitx_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, digitx_prechecksum>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -131,7 +131,7 @@ bool check_modulus11(const check_range& check_seq)
 template <std::size_t size_expected, typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, typename digitx_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_prechecksum, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -150,7 +150,7 @@ std::size_t compute_modulus11(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, typename digitx_prechecksum<typename boost::range_reverse_iterator<check_range>::type>::type, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_prechecksum, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost  namespace checks

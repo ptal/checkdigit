@@ -27,7 +27,7 @@ namespace boost {
 
 struct no_prechecksum_tag {};
 
-static const std::size_t bad_sequence = -1;
+static const std::size_t bad_sequence = (std::size_t)-1;
 
 /*!
     \brief Run through a sequence and calculate the checksum with the algorithm policy class.
