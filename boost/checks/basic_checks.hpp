@@ -21,7 +21,6 @@
 #include <boost/checks/detail/sequence_counter.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 
-
 namespace boost {
   namespace checks{
 
@@ -44,18 +43,33 @@ static const std::size_t bad_sequence = (std::size_t)-1;
 
     \returns The checksum of the sequence calculated with algorithm.
   */
+
+// Use bind and boost::ref instead ? But how to deduce type ?
+template <typename Iterator>
+struct deref
+{
+  Iterator &iter;
+  deref(Iterator &iter) : iter(iter) { }
+
+  std::size_t operator()() const
+  {
+    return *iter;
+  }
+};
+
 template <typename algorithm, 
           std::size_t size_expected, 
           typename seq_iterator,
-          typename counter_type>
-std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_type &counter)
+          typename counter_iter>
+std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
 {
+  typedef typename algorithm::template processor<deref<counter_iter> > processor;
+  processor process = processor(deref<counter_iter>(counter));
+
   std::size_t checksum = 0;
-  for(; seq_begin != seq_end && *counter < size_expected; ++seq_begin)
-  {
-    checksum = algorithm::process(checksum, *seq_begin, *counter);
-    ++counter;
-  }
+  for(; seq_begin != seq_end && *counter < size_expected; ++seq_begin, ++counter)
+    checksum = process(checksum, *seq_begin);
+  
   if(*counter != size_expected || seq_begin != seq_end)
     return bad_sequence;
   return checksum;
@@ -63,15 +77,15 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, count
 
 template <typename algorithm, 
           typename seq_iterator,
-          typename counter_type>
-std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_type &counter)
+          typename counter_iter>
+std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
 {
+  typedef typename algorithm::template processor<deref<counter_iter> > processor;
+  processor process = processor(deref<counter_iter>(counter));
+  
   std::size_t checksum = 0; 
-  for(; seq_begin != seq_end; ++seq_begin)
-  {
-    checksum = algorithm::process(checksum, *seq_begin, *counter);
-    ++counter; 
-  } 
+  for(; seq_begin != seq_end; ++seq_begin, ++counter)
+    checksum = process(checksum, *seq_begin);
   return checksum;
 }
 

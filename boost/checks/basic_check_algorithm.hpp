@@ -99,10 +99,17 @@ struct basic_check_algorithm
 
     \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
   */
-  static std::size_t process(std::size_t, std::size_t, std::size_t)
+  template <typename Function>
+  struct processor
   {
-    return std::size_t();
-  }
+    Function counter;
+    processor(Function counter) : counter(counter) { } 
+  
+    std::size_t operator()(std::size_t checksum, std::size_t value)
+    {
+      return std::size_t();
+    }
+  };
 
 };
 

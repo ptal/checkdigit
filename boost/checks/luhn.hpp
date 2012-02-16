@@ -49,29 +49,18 @@ struct luhn_algorithm : boost::checks::modulus10_algorithm <luhn_weight>
 
     \remarks This function become obsolete if you don't use luhn_weight. It is using operator "<<" to make internal multiplication.
   */
-  static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
-  {
-    std::size_t weighted_value = value << (luhn_weight::at(value_pos) -1);
-    return checksum + weighted_value % 10 + weighted_value / 10;
-  }
-  /*
   template <typename Function>
   struct processor
   {
     Function counter;
-    bool weight;
-    processor(Function counter) : counter(counter), weight(!(counter()&1)) { } 
+    processor(Function counter) : counter(counter) { } 
 
     std::size_t operator()(std::size_t checksum, std::size_t value)
     {
-      return checksum + value << weight % 10 + value << weight / 10;
+      std::size_t weighted_value = value << (luhn_weight::at(counter()) -1);
+      return checksum + weighted_value % 10 + weighted_value / 10;
     }
   };
-
-  validate_checksum <UnaryPredicate : for the checkdigit validation
-  compute_checksum <UnaryFunction : for the computation of the checkdigit
-
-*/
 };
 
 /*!
@@ -108,7 +97,7 @@ bool check_luhn (const check_range& check_seq)
 template <typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_algorithm, digit_prechecksum (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_algorithm, digit_prechecksum> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!

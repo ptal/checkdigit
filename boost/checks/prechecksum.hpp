@@ -46,8 +46,8 @@ struct prechecksum
   template <typename BaseIterator>
   typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator<BaseIterator>::type(boost::filter_iterator<FilterPredicate, BaseIterator>(filter, b, e),
-                                        converter);
+    return typename iterator<BaseIterator>::type(boost::filter_iterator<FilterPredicate, BaseIterator>(filter, b, e),
+                                                 converter);
   }
 };                                                                                              
 
@@ -68,7 +68,7 @@ struct prechecksum<no_filter_tag, UnaryFunction>
   template <typename BaseIterator>
   typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator<BaseIterator>::type(b, converter);
+    return typename iterator<BaseIterator>::type(b, converter);
   }
 };                                                                                              
 
@@ -88,7 +88,7 @@ struct prechecksum<UnaryPredicate, no_conversion_tag>
   template <typename BaseIterator>
   typename iterator<BaseIterator>::type operator()(BaseIterator b, BaseIterator e)
   {
-    return iterator<BaseIterator>::type(filter, b, e);
+    return typename iterator<BaseIterator>::type(filter, b, e);
   }
 };                                                                                              
 

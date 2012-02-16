@@ -49,37 +49,20 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm
 
     \remarks This function use the classic table d and p of the Verhoeff algorithm.
   */
-  static std::size_t process(std::size_t checksum, std::size_t value, std::size_t value_pos)
+  template <typename Function>
+  struct processor
   {
-    static const unsigned char d[10][10] =
+    static const unsigned char d[10][10];
+    static const unsigned char p[8][10];
+
+    Function counter;
+    processor(Function counter) : counter(counter) { } 
+
+    std::size_t operator()(std::size_t checksum, std::size_t value)
     {
-      { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
-      { 1, 2, 3, 4, 0, 6, 7, 8, 9, 5 },
-      { 2, 3, 4, 0, 1, 7, 8, 9, 5, 6 },
-      { 3, 4, 0, 1, 2, 8, 9, 5, 6, 7 },
-      { 4, 0, 1, 2, 3, 9, 5, 6, 7, 8 },
-      { 5, 9, 8, 7, 6, 0, 4, 3, 2, 1 },
-      { 6, 5, 9, 8, 7, 1, 0, 4, 3, 2 },
-      { 7, 6, 5, 9, 8, 2, 1, 0, 4, 3 },
-      { 8, 7, 6, 5, 9, 3, 2, 1, 0, 4 },
-      { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
-    };
-
-    static const unsigned char p[8][10] =
-    {
-      { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
-      { 1, 5, 7, 6, 2, 8, 3, 0, 9, 4 },
-      { 5, 8, 0, 3, 7, 9, 6, 1, 4, 2 },
-      { 8, 9, 1, 6, 0, 4, 3, 5, 2, 7 },
-      { 9, 4, 5, 3, 1, 2, 6, 8, 7, 0 },
-      { 4, 2, 8, 6, 5, 7, 3, 9, 0, 1 },
-      { 2, 7, 9, 3, 8, 0, 6, 4, 1, 5 },
-      { 7, 0, 4, 6, 9, 1, 3, 2, 5, 8 }
-    };
-
-    return d[checksum][p[value_pos % 8][value]];
-  }
-
+      return d[checksum][p[counter() % 8][value]];
+    }
+  };
   /*!
     \brief Validate the Verhoeff checksum.
 
@@ -108,6 +91,34 @@ struct verhoeff_algorithm : boost::checks::basic_check_algorithm
 
     return inv[checksum];
   }
+};
+
+template <typename Function> 
+const unsigned char verhoeff_algorithm::processor<Function>::d[10][10] =
+{
+  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
+  { 1, 2, 3, 4, 0, 6, 7, 8, 9, 5 },
+  { 2, 3, 4, 0, 1, 7, 8, 9, 5, 6 },
+  { 3, 4, 0, 1, 2, 8, 9, 5, 6, 7 },
+  { 4, 0, 1, 2, 3, 9, 5, 6, 7, 8 },
+  { 5, 9, 8, 7, 6, 0, 4, 3, 2, 1 },
+  { 6, 5, 9, 8, 7, 1, 0, 4, 3, 2 },
+  { 7, 6, 5, 9, 8, 2, 1, 0, 4, 3 },
+  { 8, 7, 6, 5, 9, 3, 2, 1, 0, 4 },
+  { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
+};
+
+template <typename Function> 
+const unsigned char verhoeff_algorithm::processor<Function>::p[8][10] =
+{
+  { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 },
+  { 1, 5, 7, 6, 2, 8, 3, 0, 9, 4 },
+  { 5, 8, 0, 3, 7, 9, 6, 1, 4, 2 },
+  { 8, 9, 1, 6, 0, 4, 3, 5, 2, 7 },
+  { 9, 4, 5, 3, 1, 2, 6, 8, 7, 0 },
+  { 4, 2, 8, 6, 5, 7, 3, 9, 0, 1 },
+  { 2, 7, 9, 3, 8, 0, 6, 4, 1, 5 },
+  { 7, 0, 4, 6, 9, 1, 3, 2, 5, 8 }
 };
 
 /*!
