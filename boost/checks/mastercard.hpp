@@ -47,7 +47,10 @@ namespace boost {
 template <typename check_range>
 bool check_mastercard(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_algorithm, digit_prechecksum, MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<luhn_algorithm, 
+                        luhn_processor,
+                        digit_prechecksum, 
+                        MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -67,7 +70,11 @@ bool check_mastercard(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_mastercard(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, digit_prechecksum, MASTERCARD_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<luhn_algorithm, 
+                            luhn_processor,
+                            digit_prechecksum, 
+                            MASTERCARD_SIZE,
+                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 

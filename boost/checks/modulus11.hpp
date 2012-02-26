@@ -36,8 +36,8 @@ namespace boost{
 
     \remarks The range of the check digit is [0..10], the tenth element is translated as the letter 'X'.
 */
-template <typename mod11_weight>
-struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight>
+
+struct modulus11_algorithm
 {
   /*!
     \brief Validate a checksum with a simple modulus 11.
@@ -70,12 +70,14 @@ struct modulus11_algorithm : boost::checks::weighted_sum_algorithm<mod11_weight>
 /*!
   \brief The most common weight pattern used with a modulus 11 algorithm.
 */
-typedef boost::checks::weight<1,2,3,4,5,6,7,8,9,10> mod11_weight;
+typedef weight<1,2,3,4,5,6,7,8,9,10> mod11_weight;
 
 /*!
   \brief This is the type of the most common modulus 11 algorithm.
 */
-typedef modulus11_algorithm<mod11_weight> mod11_algorithm;
+typedef modulus11_algorithm mod11_algorithm;
+
+typedef weighted_sum<mod11_weight> mod11_processor;
 
 /*!
     \brief Validate a sequence according to the mod11_check_algorithm type.
@@ -93,7 +95,10 @@ typedef modulus11_algorithm<mod11_weight> mod11_algorithm;
 template <size_t size_expected, typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm, digitx_prechecksum, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, 
+                                       mod11_processor::processor,
+                                       digitx_prechecksum, 
+                                       size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -111,7 +116,9 @@ bool check_modulus11(const check_range& check_seq)
 template <typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_algorithm, digitx_prechecksum>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod11_algorithm, 
+                                       mod11_processor::processor,
+                                       digitx_prechecksum>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -131,7 +138,11 @@ bool check_modulus11(const check_range& check_seq)
 template <std::size_t size_expected, typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_prechecksum, size_expected, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<mod11_algorithm, 
+                            mod11_processor::processor,
+                            digitx_prechecksum, 
+                            size_expected, 
+                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -150,7 +161,10 @@ std::size_t compute_modulus11(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<mod11_algorithm, digitx_prechecksum, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<mod11_algorithm, 
+                            mod11_processor::processor,
+                            digitx_prechecksum,
+                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost  namespace checks

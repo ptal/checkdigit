@@ -34,13 +34,6 @@
 namespace boost {
     namespace checks{
 
-/*! \class isbn13_algorithm
-    \brief This class can be used to compute or validate checksum with a basic modulus 10 but using a custom filter for the ISBN-13 prefix.
-
-    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
-*/
-typedef boost::checks::modulus10_algorithm<boost::checks::ean_weight> isbn13_algorithm;
-
 /*!
     \brief Validate a sequence according to the isbn13_check_algorithm type.
 
@@ -56,7 +49,7 @@ typedef boost::checks::modulus10_algorithm<boost::checks::ean_weight> isbn13_alg
 template <typename check_range>
 bool check_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<isbn13_algorithm, digit_prechecksum, EAN13_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_ean13(check_seq);
 }
 
 /*!
@@ -75,7 +68,7 @@ bool check_isbn13 (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_isbn13 (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<isbn13_algorithm, digit_prechecksum, EAN13_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_ean13(check_seq);
 }
 
 /*!

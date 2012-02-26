@@ -88,29 +88,6 @@ struct basic_check_algorithm
   {
     return std::pair<std::size_t, std::size_t>();
   }
-
-  /*!
-    \brief Compute an operation on the checksum with the current valid value.
-    \post Do nothing. The checksum is unchanged.
-
-    \param current_valid_value is the current valid value analysed.
-    \param valid_value_counter is the number of valid value(s) already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
-    \param checksum is the current checksum.
-
-    \remarks This function should be overloaded if you want to calculate the checksum of a sequence.
-  */
-  template <typename Function>
-  struct processor
-  {
-    Function counter;
-    processor(Function counter) : counter(counter) { } 
-  
-    std::size_t operator()(std::size_t checksum, std::size_t value)
-    {
-      return std::size_t();
-    }
-  };
-
 };
 
 

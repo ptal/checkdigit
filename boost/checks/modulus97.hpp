@@ -35,8 +35,8 @@ namespace boost{
 
     \remarks This algorithm use two check digits.
 */
-template <typename mod97_weight>
-struct modulus97_algorithm : boost::checks::weighted_sum_algorithm<mod97_weight>
+
+struct modulus97_algorithm
 {
   /*!
     \brief Validate a checksum with a simple modulus 97.
@@ -113,14 +113,31 @@ typedef make_mod97_weight<1> initial_mod97_weight;
 /*!
   \brief This is weight of the mod97-10 algorithm.
 */
-typedef boost::checks::weight<BOOST_PP_ENUM(96, MOD97_weight_maker, ~)> mod97_10_weight;
+typedef weight<BOOST_PP_ENUM(96, MOD97_weight_maker, ~)> mod97_10_weight;
 
 /*!
   \brief This is the type of the modulus 97-10 algorithm.
 */
-typedef modulus97_algorithm<mod97_10_weight> mod97_10_algorithm;
+typedef modulus97_algorithm mod97_10_algorithm;
+
+// typedef weighted_sum<mod97_10_weight> mod97_10_processor;
 
 typedef checkdigit<0, 2> mod97_10_checkdigit;
+
+typedef weighted_sum<mod97_10_weight> mod97_10_processor;
+/*
+template <typename Function>
+struct mod97_10_processor
+{
+  unsigned char weight;
+  mod97_10_processor(Function counter) : weight(68) { } 
+
+  std::size_t operator()(std::size_t checksum, std::size_t value)
+  {
+    weight = weight * 10 % 97;
+    return checksum + value * weight;
+  }
+};*/
 
 /*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
@@ -138,7 +155,10 @@ typedef checkdigit<0, 2> mod97_10_checkdigit;
 template <size_t size_expected, typename check_range>
 bool check_mod97_10 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm, digit_prechecksum, size_expected> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod97_10_algorithm, 
+                                       mod97_10_processor::processor,
+                                       digit_prechecksum, 
+                                       size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -156,7 +176,9 @@ bool check_mod97_10 (const check_range& check_seq)
 template <typename check_range>
 bool check_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm, digit_prechecksum >(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<mod97_10_algorithm, 
+                                       mod97_10_processor::processor,
+                                       digit_prechecksum>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -178,7 +200,11 @@ bool check_mod97_10(const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, digit_prechecksum, mod97_10_checkdigit, size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, 
+                                                mod97_10_processor::processor,
+                                                digit_prechecksum, 
+                                                mod97_10_checkdigit, 
+                                                size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -199,7 +225,10 @@ std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_se
 template <typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, digit_prechecksum, mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
+  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, 
+                                                mod97_10_processor::processor,
+                                                digit_prechecksum, 
+                                                mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
 }
 
 

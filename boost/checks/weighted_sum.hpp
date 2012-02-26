@@ -24,24 +24,17 @@ namespace boost{
   namespace checks{
 
 /*!
-    \brief This class permits to add to the current checksum the weight multiplied by the current value.
+  \brief Compute an operation on the checksum with the current valid value.
 
-    \tparam weight must meet the weight concept requirements.
-    \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam checkdigit_size Helper function to provide same behavior on sequence with and without checkdigits. No "real" value in the sequence will be skipped.
+  \post The current weight multiplied by the current value is added to the checksum.
+
+  \param current_valid_value is the current valid value analysed.
+  \param valid_value_counter is the number of valid values already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
+  \param checksum is the current checksum.
 */
 template <typename weight>
-struct weighted_sum_algorithm : boost::checks::basic_check_algorithm
+struct weighted_sum
 {
-  /*!
-    \brief Compute an operation on the checksum with the current valid value.
-
-    \post The current weight multiplied by the current value is added to the checksum.
-
-    \param current_valid_value is the current valid value analysed.
-    \param valid_value_counter is the number of valid values already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
-    \param checksum is the current checksum.
-  */
   template <typename Function>
   struct processor
   {

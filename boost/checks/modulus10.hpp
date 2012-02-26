@@ -29,8 +29,7 @@ namespace boost{
     \tparam iteration_sense must meet the iteration_sense concept requirements.
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-template <typename mod10_weight>
-struct modulus10_algorithm : boost::checks::weighted_sum_algorithm<mod10_weight>
+struct modulus10_algorithm
 {
   /*!
     \brief Validate a checksum with a simple modulus 10.

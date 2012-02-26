@@ -23,6 +23,7 @@
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/modulus10.hpp>
+#include <boost/checks/weighted_sum.hpp>
 
 /*!
   \brief This macro defines the size of an UPC-A.
@@ -40,7 +41,9 @@ typedef boost::checks::weight<1,3> upc_weight;
 /*!
   \brief This is the type of the UPC algorithm.
 */
-typedef boost::checks::modulus10_algorithm<upc_weight> upc_algorithm;
+typedef modulus10_algorithm upc_algorithm;
+
+typedef weighted_sum<upc_weight> upc_processor;
 
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.
@@ -57,7 +60,10 @@ typedef boost::checks::modulus10_algorithm<upc_weight> upc_algorithm;
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<upc_algorithm, digit_prechecksum, UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<upc_algorithm, 
+                                       upc_processor::processor,
+                                       digit_prechecksum, 
+                                       UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -76,7 +82,11 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_algorithm, digit_prechecksum, UPCA_SIZE, boost::checks::basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::compute_checkdigit<upc_algorithm, 
+                                           upc_processor::processor,
+                                           digit_prechecksum, 
+                                           UPCA_SIZE, 
+                                           basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 }} // namespace boost   namespace checks

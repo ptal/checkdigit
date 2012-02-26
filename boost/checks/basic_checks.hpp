@@ -57,14 +57,15 @@ struct deref
   }
 };
 
-template <typename algorithm, 
+template <typename algorithm,
+          template <class> class processor,
           std::size_t size_expected, 
           typename seq_iterator,
           typename counter_iter>
 std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
 {
-  typedef typename algorithm::template processor<deref<counter_iter> > processor;
-  processor process = processor(deref<counter_iter>(counter));
+  typedef typename processor<deref<counter_iter> > counter_processor;
+  counter_processor process = counter_processor(deref<counter_iter>(counter));
 
   std::size_t checksum = 0;
   for(; seq_begin != seq_end && *counter < size_expected; ++seq_begin, ++counter)
@@ -76,12 +77,13 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, count
 }
 
 template <typename algorithm, 
+          template <class> class processor,
           typename seq_iterator,
           typename counter_iter>
 std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
 {
-  typedef typename algorithm::template processor<deref<counter_iter> > processor;
-  processor process = processor(deref<counter_iter>(counter));
+  typedef typename processor<deref<counter_iter> > counter_processor;
+  counter_processor process = counter_processor(deref<counter_iter>(counter));
   
   std::size_t checksum = 0; 
   for(; seq_begin != seq_end; ++seq_begin, ++counter)
@@ -103,6 +105,7 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, count
     \returns @c true if the checkdigit is correct, @c false otherwise.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type, 
           typename seq_iterator>
 bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
@@ -110,7 +113,8 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
  
   prechecksum_type prechecksum; 
-  std::size_t checksum = compute_checksum<algorithm>(prechecksum(seq_begin, seq_end), 
+  std::size_t checksum = compute_checksum<algorithm, 
+                                          processor>(prechecksum(seq_begin, seq_end), 
                                                      prechecksum(seq_end, seq_end), 
                                                      counter);
   return algorithm::validate_checksum(checksum);
@@ -131,6 +135,7 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
     \returns @c true if the checkdigit is correct, @c false otherwise.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type, 
           std::size_t size_expected, 
           typename seq_iterator>
@@ -139,9 +144,11 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
   
   prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<algorithm, size_expected>(prechecksum(seq_begin, seq_end), 
-                                                                    prechecksum(seq_end, seq_end), 
-                                                                    counter); 
+  std::size_t checksum = compute_checksum<algorithm, 
+                                          processor,
+                                          size_expected>(prechecksum(seq_begin, seq_end), 
+                                                         prechecksum(seq_end, seq_end), 
+                                                         counter); 
   if(checksum != bad_sequence)
     return algorithm::validate_checksum(checksum);
   return false;
@@ -161,6 +168,7 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
     \returns The check digit of the type of a value in check_seq.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type,
           typename checkdigit, 
           typename seq_iterator>
@@ -169,7 +177,8 @@ std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
   prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<algorithm>(prechecksum(seq_begin, seq_end), 
+  std::size_t checksum = compute_checksum<algorithm,
+                                          processor>(prechecksum(seq_begin, seq_end), 
                                                      prechecksum(seq_end, seq_end),
                                                      counter);
   return algorithm::compute_checkdigit(checksum);
@@ -190,6 +199,7 @@ std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
     \returns The check digit of the type of a value in check_seq.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type, 
           std::size_t size_expected, 
           typename checkdigit, 
@@ -199,10 +209,12 @@ std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
   prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<algorithm, size_expected>(prechecksum(seq_begin, seq_end), 
-                                                                    prechecksum(seq_end, seq_end),
-                                                                    counter);
-  if(checksum != size_expected)
+  std::size_t checksum = compute_checksum<algorithm, 
+                                          processor,
+                                          size_expected>(prechecksum(seq_begin, seq_end), 
+                                                         prechecksum(seq_end, seq_end),
+                                                         counter);
+  if(checksum != bad_sequence)
     return algorithm::compute_checkdigit(checksum);
   return bad_sequence;
 }
@@ -224,6 +236,7 @@ std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
     \returns An iterator initialized at one pass the end of checkdigits.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type, 
           typename checkdigit,
           typename seq_iterator> 
@@ -232,7 +245,8 @@ std::pair<std::size_t, std::size_t> compute_multicheckdigit (seq_iterator seq_be
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
   prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<algorithm>(prechecksum(seq_begin, seq_end), 
+  std::size_t checksum = compute_checksum<algorithm,
+                                          processor>(prechecksum(seq_begin, seq_end), 
                                                      prechecksum(seq_end, seq_end),
                                                      counter);
   return algorithm::compute_multicheckdigit(checksum);
@@ -255,6 +269,7 @@ std::pair<std::size_t, std::size_t> compute_multicheckdigit (seq_iterator seq_be
     \returns An iterator initialized at one pass the end of checkdigits.
 */
 template <typename algorithm,
+          template <class> class processor,
           typename prechecksum_type, 
           std::size_t size_expected, 
           typename checkdigit, 
@@ -264,9 +279,11 @@ std::pair<std::size_t, std::size_t> compute_multicheckdigit(seq_iterator seq_beg
   typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
   typename counter_type::type counter = counter_type()();
   prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<algorithm, size_expected>(prechecksum(seq_begin, seq_end), 
-                                                                    prechecksum(seq_end, seq_end),
-                                                                    counter);
+  std::size_t checksum = compute_checksum<algorithm, 
+                                          processor,
+                                          size_expected>(prechecksum(seq_begin, seq_end), 
+                                                         prechecksum(seq_end, seq_end),
+                                                         counter);
   if(checksum != bad_sequence)
     return algorithm::compute_multicheckdigit(checksum);
   return std::pair<std::size_t, std::size_t>(bad_sequence, bad_sequence);
