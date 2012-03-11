@@ -22,6 +22,8 @@
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
 #include <boost/test/included/unit_test.hpp>
 
+#include <boost/checks/prechecksum.hpp>
+
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/verhoeff.hpp>
 #include <boost/checks/modulus11.hpp>
@@ -39,6 +41,8 @@
 #include "alteration_test.hpp"
 #include "transposition_test.hpp"
 
+using namespace boost::checks;
+
 template <typename functor>
 unsigned int transposition(const functor &compute_checkdigit);
 
@@ -53,13 +57,13 @@ BOOST_AUTO_TEST_CASE(visa_tests)
   std::string visa_low_size_failure = "417 1234 5678 9113"; // A missing digit '4'.
   std::string visa_big_size_failure = "44417 1234 5678 9113"; // An extra '4' digit.
 
-  BOOST_CHECK(boost::checks::check_visa(visa_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_visa(visa_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_visa(visa_big_size_failure), false);
+  BOOST_CHECK(check_visa(make_prechecksum<digit_prechecksum>(visa_valid)));
+  BOOST_CHECK_EQUAL(check_visa(make_prechecksum<digit_prechecksum>(visa_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_visa(make_prechecksum<digit_prechecksum>(visa_big_size_failure)), false);
 
   std::string visa_valid_without_checkdigit = "4417 1234 5678 911";
   std::size_t valid_checkdigit = 3;
-  BOOST_CHECK_EQUAL(boost::checks::compute_visa(visa_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_visa(make_prechecksum<digit_prechecksum>(visa_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(amex_tests)
@@ -68,14 +72,14 @@ BOOST_AUTO_TEST_CASE(amex_tests)
   std::string amex_low_size_failure = "378 822463 10005";
   std::string amex_big_size_failure = "33782 822463 10005";
 
-  BOOST_CHECK(boost::checks::check_amex(amex_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_amex(amex_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_amex(amex_big_size_failure), false);
+  BOOST_CHECK(check_amex(make_prechecksum<digit_prechecksum>(amex_valid)));
+  BOOST_CHECK_EQUAL(check_amex(make_prechecksum<digit_prechecksum>(amex_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_amex(make_prechecksum<digit_prechecksum>(amex_big_size_failure)), false);
 
   std::string amex_valid_without_checkdigit = "3782 822463 1000";
   std::size_t valid_checkdigit = 5;
 
-  BOOST_CHECK_EQUAL(boost::checks::compute_amex(amex_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_amex(make_prechecksum<digit_prechecksum>(amex_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(mastercard_tests)
@@ -84,14 +88,14 @@ BOOST_AUTO_TEST_CASE(mastercard_tests)
   std::string mastercard_low_size_failure = "515 1051 0510 5100";
   std::string mastercard_big_size_failure = "51505 1051 0510 5100";
 
-  BOOST_CHECK(boost::checks::check_mastercard(mastercard_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_mastercard(mastercard_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_mastercard(mastercard_big_size_failure), false);
+  BOOST_CHECK(check_mastercard(make_prechecksum<digit_prechecksum>(mastercard_valid)));
+  BOOST_CHECK_EQUAL(check_mastercard(make_prechecksum<digit_prechecksum>(mastercard_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_mastercard(make_prechecksum<digit_prechecksum>(mastercard_big_size_failure)), false);
 
   std::string mastercard_valid_without_checkdigit = "5105 1051 0510 510";
   std::size_t valid_checkdigit = 0;
   
-  BOOST_CHECK_EQUAL(boost::checks::compute_mastercard(mastercard_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_mastercard(make_prechecksum<digit_prechecksum>(mastercard_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(ean_tests)
@@ -100,27 +104,27 @@ BOOST_AUTO_TEST_CASE(ean_tests)
   std::string ean13_low_size_failure = "05 412983 130028";
   std::string ean13_big_size_failure = "412983 130028";
 
-  BOOST_CHECK(boost::checks::check_ean13(ean13_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_ean13(ean13_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_ean13(ean13_big_size_failure), false);
+  BOOST_CHECK(check_ean13(make_prechecksum<digit_prechecksum>(ean13_valid)));
+  BOOST_CHECK_EQUAL(check_ean13(make_prechecksum<digit_prechecksum>(ean13_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_ean13(make_prechecksum<digit_prechecksum>(ean13_big_size_failure)), false);
 
   std::string ean13_valid_without_checkdigit = "5 412983 13002";
   std::size_t valid_checkdigit = 8;
 
-  BOOST_CHECK_EQUAL(boost::checks::compute_ean13(ean13_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_ean13(make_prechecksum<digit_prechecksum>(ean13_valid_without_checkdigit)), valid_checkdigit);
 
   std::string ean8_valid = "5449 1472"; // Bottle of Coke.
   std::string ean8_low_size_failure = "5449 472";
   std::string ean8_big_size_failure = "05449 1472";
 
-  BOOST_CHECK(boost::checks::check_ean8(ean8_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_ean8(ean8_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_ean8(ean8_big_size_failure), false);
+  BOOST_CHECK(check_ean8(make_prechecksum<digit_prechecksum>(ean8_valid)));
+  BOOST_CHECK_EQUAL(check_ean8(make_prechecksum<digit_prechecksum>(ean8_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_ean8(make_prechecksum<digit_prechecksum>(ean8_big_size_failure)), false);
 
   std::string ean8_valid_without_checkdigit = "5449 147";
   valid_checkdigit = 2;
 
-  BOOST_CHECK_EQUAL(boost::checks::compute_ean8(ean8_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_ean8(make_prechecksum<digit_prechecksum>(ean8_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(upc_tests)
@@ -129,14 +133,14 @@ BOOST_AUTO_TEST_CASE(upc_tests)
   std::string upca_low_size_failure = "36000291452";
   std::string upca_big_size_failure = "0036000291452";
 
-  BOOST_CHECK(boost::checks::check_upca(upca_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_upca(upca_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_upca(upca_big_size_failure), false);
+  BOOST_CHECK(check_upca(make_prechecksum<digit_prechecksum>(upca_valid)));
+  BOOST_CHECK_EQUAL(check_upca(make_prechecksum<digit_prechecksum>(upca_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_upca(make_prechecksum<digit_prechecksum>(upca_big_size_failure)), false);
 
   std::string upca_valid_without_checkdigit = "03600029145";
   std::size_t valid_checkdigit = 2;
   
-  BOOST_CHECK_EQUAL(boost::checks::compute_upca(upca_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_upca(make_prechecksum<digit_prechecksum>(upca_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(isbn_tests)
@@ -147,30 +151,30 @@ BOOST_AUTO_TEST_CASE(isbn_tests)
   std::string isbn13_low_size_failure = "978--13-235088-4";
   std::string isbn13_big_size_failure = "978-00-13-235088-4";
 
-  BOOST_CHECK(boost::checks::check_isbn13(isbn13_valid));
-  BOOST_CHECK(!boost::checks::check_isbn13(isbn13_not_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_isbn13(isbn13_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_isbn13(isbn13_big_size_failure), false);
+  BOOST_CHECK(check_isbn13(make_prechecksum<digit_prechecksum>(isbn13_valid)));
+  BOOST_CHECK(!check_isbn13(make_prechecksum<digit_prechecksum>(isbn13_not_valid)));
+  BOOST_CHECK_EQUAL(check_isbn13(make_prechecksum<digit_prechecksum>(isbn13_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_isbn13(make_prechecksum<digit_prechecksum>(isbn13_big_size_failure)), false);
 
   std::string isbn13_valid_without_checkdigit = "978-0-13-235088-";
   std::string isbn13_not_valid_without_checkdigit = "979-0-13-235088-";
   std::size_t valid_checkdigit = 4;
   
-  BOOST_CHECK_EQUAL(boost::checks::compute_isbn13(isbn13_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(boost::checks::compute_isbn13(isbn13_not_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_isbn13(make_prechecksum<digit_prechecksum>(isbn13_valid_without_checkdigit)), valid_checkdigit);
+  BOOST_CHECK_NE(compute_isbn13(make_prechecksum<digit_prechecksum>(isbn13_not_valid_without_checkdigit)), valid_checkdigit);
 
   std::string isbn10_valid = "0-201-70073-5"; // The C++ Programming Language, Special Edition, Bjarne Stroustrup.
   std::string isbn10_low_size_failure = "00-201-70073-5";
   std::string isbn10_big_size_failure = "-201-70073-5";
 
-  BOOST_CHECK(boost::checks::check_isbn10(isbn10_valid));
-  BOOST_CHECK_EQUAL(boost::checks::check_isbn10(isbn10_low_size_failure), false);
-  BOOST_CHECK_EQUAL(boost::checks::check_isbn10(isbn10_big_size_failure), false);
+  BOOST_CHECK(check_isbn10(make_prechecksum<digitx_prechecksum>(isbn10_valid)));
+  BOOST_CHECK_EQUAL(check_isbn10(make_prechecksum<digitx_prechecksum>(isbn10_low_size_failure)), false);
+  BOOST_CHECK_EQUAL(check_isbn10(make_prechecksum<digitx_prechecksum>(isbn10_big_size_failure)), false);
 
   std::string isbn10_valid_without_checkdigit = "0-201-70073-";
   valid_checkdigit = 5;
 
-  BOOST_CHECK_EQUAL(boost::checks::compute_isbn10(isbn10_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECK_EQUAL(compute_isbn10(make_prechecksum<digitx_prechecksum>(isbn10_valid_without_checkdigit)), valid_checkdigit);
 }
 
 BOOST_AUTO_TEST_CASE(mod97_10_tests)
@@ -180,20 +184,20 @@ BOOST_AUTO_TEST_CASE(mod97_10_tests)
   std::string mod97_10_low_size_failure = "51007547061111462";
   std::string mod97_10_big_size_failure = "5100007547061111462";
 
-  BOOST_CHECK(boost::checks::check_mod97_10(mod97_10_valid));
-  BOOST_CHECK(!boost::checks::check_mod97_10(mod97_10_not_valid));
-  BOOST_CHECK(!boost::checks::check_mod97_10(mod97_10_low_size_failure));
-  BOOST_CHECK(!boost::checks::check_mod97_10(mod97_10_big_size_failure));
+  BOOST_CHECK(check_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_valid)));
+  BOOST_CHECK(!check_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_not_valid)));
+  BOOST_CHECK(!check_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_low_size_failure)));
+  BOOST_CHECK(!check_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_big_size_failure)));
 
   std::string mod97_10_valid_without_checkdigits = "5100075470611114";
   std::string mod97_10_not_valid_without_checkdigits = "5110075470611114";
 
   std::pair<std::size_t, std::size_t> checkdigits(6, 2);
-  std::pair<std::size_t, std::size_t> valid_check_digits = boost::checks::compute_mod97_10(mod97_10_valid_without_checkdigits);
+  std::pair<std::size_t, std::size_t> valid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_valid_without_checkdigits));
   BOOST_CHECK_EQUAL(valid_check_digits.first, checkdigits.first);
   BOOST_CHECK_EQUAL(valid_check_digits.second, checkdigits.second);
 
-  std::pair<std::size_t, std::size_t> invalid_check_digits = boost::checks::compute_mod97_10(mod97_10_not_valid_without_checkdigits);
+  std::pair<std::size_t, std::size_t> invalid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_not_valid_without_checkdigits));
   BOOST_CHECK_NE(invalid_check_digits.first, checkdigits.first);
   BOOST_CHECK_NE(invalid_check_digits.second, checkdigits.second);
 }
@@ -210,7 +214,7 @@ struct luhn_functor
   template <typename range>
   typename boost::range_value<range>::type operator()(const range &check_range)const
   {
-    return boost::checks::compute_luhn(check_range);
+    return compute_luhn(make_prechecksum<digit_prechecksum>(check_range));
   }
 };
 
@@ -219,7 +223,7 @@ struct verhoeff_functor
   template <typename range>
   typename boost::range_value<range>::type operator()(const range &check_range)const
   {
-    return boost::checks::compute_verhoeff(check_range);
+    return compute_verhoeff(make_prechecksum<digit_prechecksum>(check_range));
   }
 };
 
@@ -228,7 +232,7 @@ struct modulus11_functor
   template <typename range>
   typename boost::range_value<range>::type operator()(const range &check_range)const
   {
-    return boost::checks::compute_modulus11(check_range);
+    return compute_modulus11(make_prechecksum<digitx_prechecksum>(check_range));
   }
 };
 
