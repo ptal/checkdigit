@@ -86,7 +86,7 @@ std::size_t compute_isbn13 (const check_range& check_seq)
 template <typename check_range>
 bool check_isbn10(const check_range& check_seq)
 {
-  return boost::checks::check_modulus11<ISBN10_SIZE>(check_seq);
+  return check_modulus11<ISBN10_SIZE>(check_seq);
 }
 
 /*!
@@ -105,7 +105,7 @@ bool check_isbn10(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_isbn10(const check_range& check_seq)
 {
-  return boost::checks::compute_modulus11<ISBN10_SIZE>(check_seq);
+  return compute_modulus11<ISBN10_SIZE>(check_seq);
 }
 
 

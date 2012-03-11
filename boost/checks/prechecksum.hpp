@@ -9,18 +9,50 @@
     \brief 
 */
 
-#ifndef BOOST_PRECHECKSUM_HPP
-#define BOOST_PRECHECKSUM_HPP
+#ifndef BOOST_CHECK_PRECHECKSUM_HPP
+#define BOOST_CHECK_PRECHECKSUM_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
+#include <utility>
+#include <boost/range.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
 namespace boost {
   namespace checks{
+
+template <
+          typename Prechecksum,
+          typename Iterator
+         >
+std::pair
+< 
+  typename Prechecksum::template iterator<Iterator>::type,
+  typename Prechecksum::template iterator<Iterator>::type
+> 
+make_prechecksum(Iterator begin, Iterator end)
+{ 
+  typedef typename Prechecksum::template iterator<Iterator>::type iter;
+  Prechecksum prechecksum;
+  return std::make_pair<iter, iter>(prechecksum(begin, end), prechecksum(end, end));
+}
+
+template <
+          typename Prechecksum,
+          typename T
+         >
+std::pair
+< 
+  typename Prechecksum::template iterator<typename range_iterator<T>::type>::type,
+  typename Prechecksum::template iterator<typename range_iterator<T>::type>::type
+> 
+make_prechecksum(T &sequence)
+{ 
+  return make_prechecksum<Prechecksum>(boost::begin(sequence), boost::end(sequence));
+}
 
 struct no_filter_tag {};
 struct no_conversion_tag {};
@@ -96,4 +128,4 @@ struct prechecksum<UnaryPredicate, no_conversion_tag>
 } // namespace checks
 } // namespace boost
 
-#endif // BOOST_PRECHECKSUM_HPP
+#endif // BOOST_CHECK_PRECHECKSUM_HPP

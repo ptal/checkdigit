@@ -60,7 +60,7 @@ struct modulus97_algorithm
     \param checksum is the checksum used to extract the check digit.
     \param checkdigits is the output iterator in which the two check digits will be written.
 
-    \throws boost::checks::translation_exception if the check digits cannot be translated into the check digits_iter type.
+    \throws translation_exception if the check digits cannot be translated into the check digits_iter type.
 
     \returns An iterator initialized at one pass to the end of the two check digits.
   */
@@ -155,10 +155,9 @@ struct mod97_10_processor
 template <size_t size_expected, typename check_range>
 bool check_mod97_10 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm, 
-                                       mod97_10_processor::processor,
-                                       digit_prechecksum, 
-                                       size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<mod97_10_algorithm, 
+                        mod97_10_processor::processor,
+                        size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -176,9 +175,9 @@ bool check_mod97_10 (const check_range& check_seq)
 template <typename check_range>
 bool check_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod97_10_algorithm, 
-                                       mod97_10_processor::processor,
-                                       digit_prechecksum>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<mod97_10_algorithm, 
+                        mod97_10_processor::processor
+                       >(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -193,18 +192,17 @@ bool check_mod97_10(const check_range& check_seq)
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
 
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
-    \throws boost::checks::translation_exception if the check digits cannot be translated into the checkdigits_iter type.
+    \throws translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <size_t size_expected, typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, 
-                                                mod97_10_processor::processor,
-                                                digit_prechecksum, 
-                                                mod97_10_checkdigit, 
-                                                size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_multicheckdigit<mod97_10_algorithm, 
+                                 mod97_10_processor::processor,
+                                 mod97_10_checkdigit, 
+                                 size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -218,17 +216,16 @@ std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_se
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
 
     \throws std::invalid_argument if check_seq contains no valid value.
-    \throws boost::checks::translation_exception if the check digits cannot be translated into the checkdigits_iter type.
+    \throws translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <typename check_range>
 std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq)
 {
-  return boost::checks::compute_multicheckdigit<mod97_10_algorithm, 
-                                                mod97_10_processor::processor,
-                                                digit_prechecksum, 
-                                                mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
+  return compute_multicheckdigit<mod97_10_algorithm, 
+                                 mod97_10_processor::processor,
+                                 mod97_10_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq)); 
 }
 
 

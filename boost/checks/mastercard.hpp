@@ -49,7 +49,6 @@ bool check_mastercard(const check_range& check_seq)
 {
   return check_sequence<luhn_algorithm, 
                         luhn_processor,
-                        digit_prechecksum, 
                         MASTERCARD_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -72,7 +71,6 @@ std::size_t compute_mastercard(const check_range& check_seq)
 {
   return compute_checkdigit<luhn_algorithm, 
                             luhn_processor,
-                            digit_prechecksum, 
                             MASTERCARD_SIZE,
                             basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }

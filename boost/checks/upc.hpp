@@ -62,7 +62,6 @@ bool check_upca (const check_range& check_seq)
 {
   return boost::checks::check_sequence<upc_algorithm, 
                                        upc_processor::processor,
-                                       digit_prechecksum, 
                                        UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -84,7 +83,6 @@ std::size_t compute_upca(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<upc_algorithm, 
                                            upc_processor::processor,
-                                           digit_prechecksum, 
                                            UPCA_SIZE, 
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }

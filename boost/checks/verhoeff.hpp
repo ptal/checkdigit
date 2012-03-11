@@ -140,7 +140,6 @@ bool check_verhoeff(const check_range& check_seq)
 {
   return boost::checks::check_sequence<verhoeff_algorithm, 
                                        verhoeff_processor,
-                                       digit_prechecksum, 
                                        size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -160,8 +159,7 @@ template <typename check_range>
 bool check_verhoeff(const check_range& check_seq)
 {
   return boost::checks::check_sequence<verhoeff_algorithm, 
-                                       verhoeff_processor,
-                                       digit_prechecksum >(boost::rbegin(check_seq), boost::rend(check_seq));
+                                       verhoeff_processor>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -183,7 +181,6 @@ std::size_t compute_verhoeff(const check_range& check_seq)
 {
   return compute_checkdigit<verhoeff_algorithm,
                             verhoeff_processor,
-                            digit_prechecksum, 
                             size_expected, 
                             basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -206,7 +203,6 @@ std::size_t compute_verhoeff(const check_range& check_seq)
 {
   return compute_checkdigit<verhoeff_algorithm,
                             verhoeff_processor,
-                            digit_prechecksum, 
                             basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 

@@ -64,7 +64,6 @@ bool check_ean13(const check_range& check_seq)
 {
   return boost::checks::check_sequence<ean_algorithm, 
                                        ean_processor::processor,
-                                       digit_prechecksum, 
                                        EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -86,7 +85,6 @@ std::size_t compute_ean13(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<ean_algorithm, 
                                            ean_processor::processor,
-                                           digit_prechecksum, 
                                            EAN13_SIZE, 
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -108,7 +106,6 @@ bool check_ean8 (const check_range& check_seq)
 {
   return boost::checks::check_sequence<ean_algorithm, 
                                        ean_processor::processor,
-                                       digit_prechecksum, 
                                        EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -130,7 +127,6 @@ std::size_t compute_ean8(const check_range& check_seq)
 {
   return boost::checks::compute_checkdigit<ean_algorithm, 
                                            ean_processor::processor,
-                                           digit_prechecksum, 
                                            EAN8_SIZE, 
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
