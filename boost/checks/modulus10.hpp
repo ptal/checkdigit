@@ -29,8 +29,6 @@ namespace boost{
     \tparam iteration_sense must meet the iteration_sense concept requirements.
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-struct modulus10_algorithm
-{
   /*!
     \brief Validate a checksum with a simple modulus 10.
 
@@ -38,11 +36,13 @@ struct modulus10_algorithm
 
     \returns @c true if the checksum is correct, @c false otherwise.
   */
-  static bool validate_checksum(std::size_t checksum)
+struct mod10_validation
+{
+  bool operator()(std::size_t checksum)
   {
     return !(checksum % 10);
   }
-
+};
   /*!
     \brief Compute the check digit with a simple modulus 10.
 
@@ -53,7 +53,9 @@ struct modulus10_algorithm
 
     \returns The modulus 10 check digit of checksum.
   */
-  static std::size_t compute_checkdigit(std::size_t checksum)
+struct mod10_checkdigit
+{
+  std::size_t operator()(std::size_t checksum)
   {
     return ((10 - checksum % 10) % 10); 
   }

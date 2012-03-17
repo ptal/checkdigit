@@ -123,10 +123,10 @@ template <typename check_range>
 bool check_mod97_10(const check_range& check_seq);
 
 template <size_t size_expected, typename check_range>
-std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq);
+std::size_t compute_mod97_10(const check_range& check_seq);
 
 template <typename check_range>
-std::pair<std::size_t, std::size_t> compute_mod97_10(const check_range& check_seq);
+std::size_t compute_mod97_10(const check_range& check_seq);
 
 // EAN-13 and EAN-8
 

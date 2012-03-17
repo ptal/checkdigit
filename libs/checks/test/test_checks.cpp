@@ -192,14 +192,12 @@ BOOST_AUTO_TEST_CASE(mod97_10_tests)
   std::string mod97_10_valid_without_checkdigits = "5100075470611114";
   std::string mod97_10_not_valid_without_checkdigits = "5110075470611114";
 
-  std::pair<std::size_t, std::size_t> checkdigits(6, 2);
-  std::pair<std::size_t, std::size_t> valid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_valid_without_checkdigits));
-  BOOST_CHECK_EQUAL(valid_check_digits.first, checkdigits.first);
-  BOOST_CHECK_EQUAL(valid_check_digits.second, checkdigits.second);
+  std::size_t checkdigits = 62;
+  std::size_t valid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_valid_without_checkdigits));
+  BOOST_CHECK_EQUAL(valid_check_digits, checkdigits);
 
-  std::pair<std::size_t, std::size_t> invalid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_not_valid_without_checkdigits));
-  BOOST_CHECK_NE(invalid_check_digits.first, checkdigits.first);
-  BOOST_CHECK_NE(invalid_check_digits.second, checkdigits.second);
+  std::size_t invalid_check_digits = compute_mod97_10(make_prechecksum<digit_prechecksum>(mod97_10_not_valid_without_checkdigits));
+  BOOST_CHECK_NE(invalid_check_digits, checkdigits);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

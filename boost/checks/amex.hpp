@@ -51,9 +51,7 @@ namespace boost {
 template <typename check_range>
 bool check_amex (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_algorithm, 
-                                       luhn_processor,
-                                       AMEX_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_luhn<AMEX_SIZE>(check_seq);
 }
 
 /*!
@@ -73,10 +71,7 @@ bool check_amex (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_amex(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, 
-                                           luhn_processor,
-                                           AMEX_SIZE, 
-                                           basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_luhn<AMEX_SIZE>(check_seq);
 }
 
 

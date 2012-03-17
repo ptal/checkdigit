@@ -36,8 +36,6 @@ namespace boost {
 
     \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
 */
-struct verhoeff_algorithm
-{
   /*!
     \brief Validate the Verhoeff checksum.
 
@@ -45,11 +43,13 @@ struct verhoeff_algorithm
 
     \returns @c true if the checksum is correct, @c false otherwise.
   */
-  static bool validate_checksum(std::size_t checksum)
+struct verhoeff_validation
+{
+  bool operator()(std::size_t checksum)
   {
     return !checksum;
   }
-
+};
   /*!
     \brief Compute the check digit with the Verhoeff inverse table.
 
@@ -60,13 +60,16 @@ struct verhoeff_algorithm
 
     \returns The Verhoeff check digit of checksum.
   */
-  static std::size_t compute_checkdigit(std::size_t checksum)
+struct verhoeff_checkdigit
+{
+  static const unsigned char inv[10];
+  
+  std::size_t operator()(std::size_t checksum)
   {
-    static const unsigned char inv[] = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
-
     return inv[checksum];
   }
 };
+const unsigned char verhoeff_checkdigit::inv[10] = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
 
 /*!
   \brief Compute the Verhoeff scheme on the checksum with the current valid value.
@@ -138,8 +141,8 @@ const unsigned char verhoeff_processor<Function>::p[8][10] =
 template <size_t size_expected, typename check_range>
 bool check_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<verhoeff_algorithm, 
-                                       verhoeff_processor,
+  return boost::checks::check_sequence<verhoeff_processor,
+                                       verhoeff_validation,
                                        size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -158,8 +161,8 @@ bool check_verhoeff(const check_range& check_seq)
 template <typename check_range>
 bool check_verhoeff(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<verhoeff_algorithm, 
-                                       verhoeff_processor>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<verhoeff_processor, 
+                                       verhoeff_validation>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -179,8 +182,8 @@ bool check_verhoeff(const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 std::size_t compute_verhoeff(const check_range& check_seq)
 {
-  return compute_checkdigit<verhoeff_algorithm,
-                            verhoeff_processor,
+  return compute_checkdigit<verhoeff_processor,
+                            verhoeff_checkdigit,
                             size_expected, 
                             basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -201,8 +204,8 @@ std::size_t compute_verhoeff(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_verhoeff(const check_range& check_seq)
 {
-  return compute_checkdigit<verhoeff_algorithm,
-                            verhoeff_processor,
+  return compute_checkdigit<verhoeff_processor,
+                            verhoeff_checkdigit,
                             basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 

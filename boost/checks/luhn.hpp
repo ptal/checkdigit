@@ -26,8 +26,6 @@
 namespace boost {
     namespace checks{
 
-typedef modulus10_algorithm luhn_algorithm;
-
 /*!
   \brief Compute the Luhn algorithm operation on the checksum.
 
@@ -37,7 +35,6 @@ typedef modulus10_algorithm luhn_algorithm;
   \param valid_value_counter is the number of valid value already counted (the current value is not included).\n This is also the position (above the valid values) of the current value analysed (0 <= valid_value_counter < n).
   \param checksum is the current checksum.
 
-  \remarks This function become obsolete if you don't use luhn_weight. It is using operator "<<" to make internal multiplication.
 */
 template <typename Function>
 struct luhn_processor
@@ -69,8 +66,8 @@ struct luhn_processor
 template <size_t size_expected, typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_algorithm, 
-                                       luhn_processor,
+  return boost::checks::check_sequence<luhn_processor,
+                                       mod10_validation,
                                        size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
@@ -89,9 +86,9 @@ bool check_luhn (const check_range& check_seq)
 template <typename check_range>
 bool check_luhn (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<luhn_algorithm, 
-                                       luhn_processor
-                                      >(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<luhn_processor,
+                                       mod10_validation>
+                                      (boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -111,8 +108,8 @@ bool check_luhn (const check_range& check_seq)
 template <size_t size_expected, typename check_range>
 std::size_t compute_luhn(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm,
-                                           luhn_processor,
+  return boost::checks::compute_checkdigit<luhn_processor,
+                                           mod10_checkdigit,
                                            size_expected,
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
@@ -133,8 +130,8 @@ std::size_t compute_luhn(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_luhn (const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<luhn_algorithm, 
-                                           luhn_processor,
+  return boost::checks::compute_checkdigit<luhn_processor,
+                                           mod10_checkdigit,
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 

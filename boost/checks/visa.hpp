@@ -47,9 +47,7 @@ namespace boost {
 template <typename check_range>
 bool check_visa(const check_range& check_seq)
 {
-  return check_sequence<luhn_algorithm,
-                        luhn_processor,
-                        VISA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_luhn<VISA_SIZE>(check_seq);
 }
 
 /*!
@@ -69,10 +67,7 @@ bool check_visa(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_visa(const check_range& check_seq)
 {
-  return compute_checkdigit<luhn_algorithm, 
-                            luhn_processor,
-                            VISA_SIZE,
-                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_luhn<VISA_SIZE>(check_seq);
 }
 
 

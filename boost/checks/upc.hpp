@@ -36,12 +36,7 @@ namespace boost {
 /*!
   \brief This is the weight used by UPC system.
 */
-typedef boost::checks::weight<1,3> upc_weight;
-
-/*!
-  \brief This is the type of the UPC algorithm.
-*/
-typedef modulus10_algorithm upc_algorithm;
+typedef weight<1,3> upc_weight;
 
 typedef weighted_sum<upc_weight> upc_processor;
 
@@ -60,9 +55,9 @@ typedef weighted_sum<upc_weight> upc_processor;
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<upc_algorithm, 
-                                       upc_processor::processor,
-                                       UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<upc_processor::processor,
+                        mod10_validation,
+                        UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
 
 /*!
@@ -81,8 +76,8 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_algorithm, 
-                                           upc_processor::processor,
+  return boost::checks::compute_checkdigit<upc_processor::processor,
+                                           mod10_checkdigit,
                                            UPCA_SIZE, 
                                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
 }
