@@ -35,17 +35,10 @@ namespace boost{
 template <typename weight>
 struct weighted_sum
 {
-  template <typename Function>
-  struct processor
+  std::size_t operator()(std::size_t checksum, std::size_t value, std::size_t pos)
   {
-    Function counter;
-    processor(Function counter) : counter(counter) { } 
-
-    std::size_t operator()(std::size_t checksum, std::size_t value)
-    {
-      return checksum + value * weight::at(counter());
-    }
-  };
+    return checksum + value * weight::at(pos);
+  }
 };
 
 }}// namespace boost   namespace checks

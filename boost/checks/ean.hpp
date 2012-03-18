@@ -21,6 +21,7 @@
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/modulus10.hpp>
 #include <boost/checks/weighted_sum.hpp>
+#include <boost/checks/checksum.hpp> 
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -43,6 +44,25 @@ namespace boost {
 */
 typedef weighted_sum<weight<1,3> > ean_processor;
 
+typedef checksum
+<
+  ean_processor,
+  mod10_validation,
+  mod10_checkdigit
+> ean;
+
+typedef features
+<
+  ean,
+  EAN13_SIZE
+> ean13;
+
+typedef features
+<
+  ean,
+  EAN8_SIZE
+> ean8;
+
 /*!
     \brief Validate a sequence according to the ean_check_algorithm type.
 
@@ -58,9 +78,7 @@ typedef weighted_sum<weight<1,3> > ean_processor;
 template <typename check_range>
 bool check_ean13(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_processor::processor,
-                                       mod10_validation,
-                                       EAN13_SIZE> (boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<ean13> (check_seq);
 }
 
 /*!
@@ -79,10 +97,7 @@ bool check_ean13(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_ean13(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_processor::processor,
-                                           mod10_checkdigit,
-                                           EAN13_SIZE, 
-                                           basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<ean13>(check_seq);
 }
 
 /*!
@@ -100,9 +115,7 @@ std::size_t compute_ean13(const check_range& check_seq)
 template <typename check_range>
 bool check_ean8 (const check_range& check_seq)
 {
-  return boost::checks::check_sequence<ean_processor::processor,
-                                       mod10_validation,
-                                       EAN8_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<ean8>(check_seq);
 }
 
 /*!
@@ -121,10 +134,7 @@ bool check_ean8 (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_ean8(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<ean_processor::processor,
-                                           mod10_checkdigit,
-                                           EAN8_SIZE, 
-                                           basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<ean8>(check_seq);
 }
 
 

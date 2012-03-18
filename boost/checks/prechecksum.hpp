@@ -21,8 +21,14 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
+#include <boost/checks/filter.hpp>
+#include <boost/checks/conversion.hpp>
+
 namespace boost {
   namespace checks{
+
+
+
 
 template <
           typename Prechecksum,
@@ -124,6 +130,8 @@ struct prechecksum<UnaryPredicate, no_conversion_tag>
   }
 };                                                                                              
 
+typedef prechecksum<digit_filter, chartodigit> digit_prechecksum; 
+typedef prechecksum<digitx_filter, chartodigitx> digitx_prechecksum;
 
 } // namespace checks
 } // namespace boost

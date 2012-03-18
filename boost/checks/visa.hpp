@@ -19,6 +19,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/checks/checksum.hpp>
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checkdigit.hpp>
@@ -30,6 +31,11 @@
 namespace boost {
     namespace checks{
 
+typedef features
+<
+  luhn,
+  VISA_SIZE
+> visa;
 
 /*!
     \brief Validate a sequence according to the visa_check_algorithm type.
@@ -47,7 +53,7 @@ namespace boost {
 template <typename check_range>
 bool check_visa(const check_range& check_seq)
 {
-  return check_luhn<VISA_SIZE>(check_seq);
+  return check_sequence<visa>(check_seq);
 }
 
 /*!
@@ -67,7 +73,7 @@ bool check_visa(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_visa(const check_range& check_seq)
 {
-  return compute_luhn<VISA_SIZE>(check_seq);
+  return compute_checkdigit<visa>(check_seq);
 }
 
 

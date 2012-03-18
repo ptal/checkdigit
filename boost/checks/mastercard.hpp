@@ -19,6 +19,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/checks/checksum.hpp> 
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checkdigit.hpp>
@@ -30,6 +31,12 @@
 
 namespace boost {
     namespace checks{
+
+typedef features
+<
+  luhn,
+  MASTERCARD_SIZE
+> mastercard;
 
 /*!
     \brief Validate a sequence according to the mastercard_check_algorithm type.
@@ -47,7 +54,7 @@ namespace boost {
 template <typename check_range>
 bool check_mastercard(const check_range& check_seq)
 {
-  return check_luhn<MASTERCARD_SIZE>(check_seq);
+  return check_sequence<mastercard>(check_seq);
 }
 
 /*!
@@ -67,7 +74,7 @@ bool check_mastercard(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_mastercard(const check_range& check_seq)
 {
-  return compute_luhn<MASTERCARD_SIZE>(check_seq);
+  return compute_checkdigit<mastercard>(check_seq);
 }
 
 

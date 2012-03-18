@@ -21,6 +21,7 @@
 #include <boost/checks/ean.hpp>
 #include <boost/checks/modulus11.hpp>
 #include <boost/checks/checkdigit.hpp>
+#include <boost/checks/checksum.hpp> 
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -34,6 +35,8 @@
 namespace boost {
     namespace checks{
 
+typedef ean13 isbn13;
+
 /*!
     \brief Validate a sequence according to the isbn13_check_algorithm type.
 
@@ -46,10 +49,10 @@ namespace boost {
 
     \returns @c true if the check digit is correct, @c false otherwise.
 */
-template <typename check_range>
-bool check_isbn13 (const check_range& check_seq)
+template <typename range>
+bool check_isbn13 (const range& x)
 {
-  return check_ean13(check_seq);
+  return check_sequence<isbn13>(x);
 }
 
 /*!
@@ -65,11 +68,17 @@ bool check_isbn13 (const check_range& check_seq)
 
     \returns The check digit. The check digit is in the range [0..9].
 */
-template <typename check_range>
-std::size_t compute_isbn13 (const check_range& check_seq)
+template <typename range>
+std::size_t compute_isbn13 (const range& x)
 {
-  return compute_ean13(check_seq);
+  return compute_checkdigit<isbn13>(x);
 }
+
+typedef features
+<
+  mod11,
+  ISBN10_SIZE
+> isbn10;
 
 /*!
     \brief Validate a sequence according to the mod11_check_algorithm type.
@@ -83,10 +92,10 @@ std::size_t compute_isbn13 (const check_range& check_seq)
 
     \returns @c true if the check digit is correct, @c false otherwise.
 */
-template <typename check_range>
-bool check_isbn10(const check_range& check_seq)
+template <typename range>
+bool check_isbn10(const range& x)
 {
-  return check_modulus11<ISBN10_SIZE>(check_seq);
+  return check_sequence<isbn10>(x);
 }
 
 /*!
@@ -102,10 +111,10 @@ bool check_isbn10(const check_range& check_seq)
 
     \returns The check digit. The check digit is in the range [0..9,X].
 */
-template <typename check_range>
-std::size_t compute_isbn10(const check_range& check_seq)
+template <typename range>
+std::size_t compute_isbn10(const range& x)
 {
-  return compute_modulus11<ISBN10_SIZE>(check_seq);
+  return compute_checkdigit<isbn10>(x);
 }
 
 

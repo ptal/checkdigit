@@ -22,7 +22,8 @@
 #include <boost/checks/filter.hpp>
 #include <boost/checks/checkdigit.hpp>
 #include <boost/checks/luhn.hpp>
-
+#include <boost/checks/checksum.hpp>
+ 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -35,12 +36,18 @@
 namespace boost {
     namespace checks{
 
+typedef features
+<
+  luhn,
+  AMEX_SIZE
+> amex;
+
 /*!
     \brief Validate a sequence according to the amex_check_algorithm type.
 
     \pre check_seq is a valid range.
 
-    \tparam check_range is a valid range type.
+    \tparam range is a valid range type.
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly AMEX_SIZE digits.
@@ -48,10 +55,10 @@ namespace boost {
 
     \returns @c true if the check digit is correct, @c false otherwise.
 */
-template <typename check_range>
-bool check_amex (const check_range& check_seq)
+template <typename range>
+bool check_amex (const range& x)
 {
-  return check_luhn<AMEX_SIZE>(check_seq);
+  return check_sequence<amex>(x);
 }
 
 /*!
@@ -59,7 +66,7 @@ bool check_amex (const check_range& check_seq)
 
     \pre check_seq is a valid range.
 
-    \tparam check_range is a valid range type.
+    \tparam range is a valid range type.
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly AMEX_SIZE_WITHOUT_CHECKDIGIT digits.
@@ -68,10 +75,10 @@ bool check_amex (const check_range& check_seq)
 
     \returns The check digit. The check digit is in the range [0..9].
 */
-template <typename check_range>
-std::size_t compute_amex(const check_range& check_seq)
+template <typename range>
+std::size_t compute_amex(const range& x)
 {
-  return compute_luhn<AMEX_SIZE>(check_seq);
+  return compute_checkdigit<amex>(x);
 }
 
 

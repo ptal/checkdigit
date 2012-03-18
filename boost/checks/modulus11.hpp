@@ -19,6 +19,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/checks/checksum.hpp> 
 
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
@@ -79,6 +80,13 @@ typedef weight<1,2,3,4,5,6,7,8,9,10> mod11_weight;
 */
 typedef weighted_sum<mod11_weight> mod11_processor;
 
+typedef checksum
+<
+  mod11_processor,
+  mod11_validation,
+  mod11_checkdigit
+> mod11;
+
 /*!
     \brief Validate a sequence according to the mod11_check_algorithm type.
 
@@ -95,9 +103,7 @@ typedef weighted_sum<mod11_weight> mod11_processor;
 template <size_t size_expected, typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<mod11_processor::processor,
-                                       mod11_validation,
-                                       size_expected>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return boost::checks::check_sequence<features<mod11, size_expected> >(check_seq);
 }
 
 /*!
@@ -115,9 +121,7 @@ bool check_modulus11(const check_range& check_seq)
 template <typename check_range>
 bool check_modulus11(const check_range& check_seq)
 {
-  return check_sequence<mod11_processor::processor,
-                        mod11_validation>
-                       (boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<features<mod11> >(check_seq);
 }
 
 /*!
@@ -137,10 +141,8 @@ bool check_modulus11(const check_range& check_seq)
 template <std::size_t size_expected, typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return compute_checkdigit<mod11_processor::processor,
-                            mod11_checkdigit,
-                            size_expected, 
-                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<features<mod11,
+                            size_expected> >(check_seq);
 }
 
 /*!
@@ -159,9 +161,7 @@ std::size_t compute_modulus11(const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_modulus11(const check_range& check_seq)
 {
-  return compute_checkdigit<mod11_processor::processor,
-                            mod11_checkdigit,
-                            basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<features<mod11> >(check_seq);
 }
 
 }} // namespace boost  namespace checks

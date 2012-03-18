@@ -19,6 +19,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/checks/checksum.hpp> 
 
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
@@ -40,6 +41,17 @@ typedef weight<1,3> upc_weight;
 
 typedef weighted_sum<upc_weight> upc_processor;
 
+typedef features
+<
+  checksum
+  <
+    upc_processor,
+    mod10_validation,
+    mod10_checkdigit
+  >,
+  UPCA_SIZE
+> upca;
+
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.
 
@@ -55,9 +67,7 @@ typedef weighted_sum<upc_weight> upc_processor;
 template <typename check_range>
 bool check_upca (const check_range& check_seq)
 {
-  return check_sequence<upc_processor::processor,
-                        mod10_validation,
-                        UPCA_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return check_sequence<upca>(check_seq);
 }
 
 /*!
@@ -76,10 +86,7 @@ bool check_upca (const check_range& check_seq)
 template <typename check_range>
 std::size_t compute_upca(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<upc_processor::processor,
-                                           mod10_checkdigit,
-                                           UPCA_SIZE, 
-                                           basic_checkdigit>(boost::rbegin(check_seq), boost::rend(check_seq));
+  return compute_checkdigit<upca>(check_seq);
 }
 
 }} // namespace boost   namespace checks

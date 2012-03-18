@@ -24,8 +24,6 @@
 namespace boost {
   namespace checks{
 
-struct no_prechecksum_tag {};
-
 static const std::size_t bad_sequence = (std::size_t)-1;
 
 /*!
@@ -44,50 +42,22 @@ static const std::size_t bad_sequence = (std::size_t)-1;
     \returns The checksum of the sequence calculated with algorithm.
   */
 
-template <typename Iterator>
-struct deref
-{
-  Iterator &iter;
-  deref(Iterator &iter) : iter(iter) { }
-
-  std::size_t operator()() const
-  {
-    return *iter;
-  }
-};
-
-template <template <class> class processor,
-          std::size_t size_expected, 
-          typename seq_iterator,
+template <typename processor,
+          typename sizePolicy, 
+          typename iterator,
           typename counter_iter>
-std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
+std::size_t compute_checksum(iterator begin, iterator end, counter_iter &counter)
 {
-  typedef processor<deref<counter_iter> > counter_processor;
-  counter_processor process = counter_processor(deref<counter_iter>(counter));
-
+  processor process;
   std::size_t checksum = 0;
-  for(; seq_begin != seq_end && *counter < size_expected; ++seq_begin, ++counter)
-    checksum = process(checksum, *seq_begin);
+  for(; begin != end && sizePolicy::check(*counter); ++begin, ++counter)
+    checksum = process(checksum, *begin, *counter);
   
-  if(*counter != size_expected || seq_begin != seq_end)
+  if(sizePolicy::overflow(*counter) || begin != end)
     return bad_sequence;
   return checksum;
 }
 
-template <template <class> class processor,
-          typename seq_iterator,
-          typename counter_iter>
-std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, counter_iter &counter)
-{
-  typedef processor<deref<counter_iter> > counter_processor;
-  counter_processor process = counter_processor(deref<counter_iter>(counter));
-  
-  std::size_t checksum = 0; 
-  for(; seq_begin != seq_end; ++seq_begin, ++counter)
-    checksum = process(checksum, *seq_begin);
-  return checksum;
-}
-
 /*!
     \brief Validate a sequence according to algorithm.
 
@@ -101,49 +71,19 @@ std::size_t compute_checksum(seq_iterator seq_begin, seq_iterator seq_end, count
 
     \returns @c true if the checkdigit is correct, @c false otherwise.
 */
-template <template <class> class processor,
-          typename UnaryPredicate,
-          typename seq_iterator>
-bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
+template <typename features,
+          typename range>
+bool check_sequence(range &x)
 {
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
- 
-  std::size_t checksum = compute_checksum<processor>(seq_begin,  
-                                                     seq_end, 
-                                                     counter);
-  return UnaryPredicate()(checksum);
-}
+  std::size_t checksum;
 
-/*!
-    \brief Validate a sequence according to algorithm.
-
-    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
-
-    \tparam algorithm is a set of static method use to translate, filter and calculate or verify the checkdigit.
-    \tparam size_expected is the number of valid value expected in the sequence.
-    \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
-
-    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
-
-    \returns @c true if the checkdigit is correct, @c false otherwise.
-*/
-template <template <class> class processor,
-          typename UnaryPredicate,
-          std::size_t size_expected, 
-          typename seq_iterator>
-bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
-{
-  boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
-  
- // prechecksum_type prechecksum;
-  std::size_t checksum = compute_checksum<processor,
-                                          size_expected>(seq_begin,//prechecksum(seq_begin, seq_end), 
-                                                         seq_end, //prechecksum(seq_end, seq_end), 
-                                                         counter); 
-  if(checksum != bad_sequence)
-    return UnaryPredicate()(checksum);
-  return false;
+  checksum = compute_checksum<typename features::checksum::processor,
+                              typename features::size_policy>
+                              (features::begin(x), features::end(x), counter);
+  if(checksum == bad_sequence)
+    return false;
+  return typename features::checksum::validate_checkdigit()(checksum);
 }
 
 /*!
@@ -159,50 +99,22 @@ bool check_sequence(seq_iterator seq_begin, seq_iterator seq_end)
 
     \returns The check digit of the type of a value in check_seq.
 */
-template <template <class> class processor,
-          typename UnaryFunction,
-          typename checkdigit, 
-          typename seq_iterator>
-std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
+template <typename features,
+          typename range>
+std::size_t compute_checkdigit(range &x)
 {
-  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
+  typedef typename boost::checks::detail::skip_counter<features::checksum::checkdigit_detail::pos, features::checksum::checkdigit_detail::size> counter_type;
   typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<processor>(seq_begin, 
-                                                     seq_end,
-                                                     counter);
-  return UnaryFunction()(checksum);
-}
 
-/*!
-    \brief Calculate the check digit of a sequence according to algorithm.
+  std::size_t checksum;
 
-    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
+  checksum = compute_checksum<typename features::checksum::processor,
+                              typename features::size_policy>
+                             (features::begin(x), features::end(x), counter);
 
-    \tparam algorithm is a set of static methods used to translate, filter and calculate or verify the checkdigit.
-    \tparam size_expected is the number of valid value expected in the sequence.
-    \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
-
-    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
-
-    \returns The check digit of the type of a value in check_seq.
-*/
-template <template <class> class processor,
-          typename UnaryFunction,
-          std::size_t size_expected, 
-          typename checkdigit, 
-          typename seq_iterator> 
-std::size_t compute_checkdigit(seq_iterator seq_begin, seq_iterator seq_end)
-{
-  typedef typename boost::checks::detail::skip_counter<checkdigit::pos, checkdigit::size> counter_type;
-  typename counter_type::type counter = counter_type()();
-  std::size_t checksum = compute_checksum<processor,
-                                          size_expected>(seq_begin, 
-                                                         seq_end,
-                                                         counter);
-  if(checksum != bad_sequence)
-    return UnaryFunction()(checksum);
-  return bad_sequence;
+  if(checksum == bad_sequence)
+    return bad_sequence;
+  return typename features::checksum::make_checkdigit()(checksum);
 }
 
 } // namespace checks
