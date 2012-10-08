@@ -19,44 +19,20 @@
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink.
 
 #include <boost/checks/weight.hpp>
-#include <boost/checks/limits.hpp>
+#include <boost/checks/checksum.hpp>
 
 
 BOOST_AUTO_TEST_CASE(weight_test)
 {
   typedef boost::checks::weight<0,1,2,3,4,5,6,7,8,9> number_suite ;
-  for(int i=0 ; i < 100 ; ++i)
+  for(size_t i=0 ; i < 100 ; ++i)
     BOOST_CHECK ( i%10 == number_suite::at( i ) ) ;
 
   typedef boost::checks::weight<1,1,1,1,1,1> suite_of_1 ;
-  for(int i=0 ; i < 100; ++i)
+  for(size_t i=0 ; i < 100; ++i)
     BOOST_CHECK ( 1 == suite_of_1::at( i ) ) ;
 
   typedef boost::checks::weight<> no_weight_specify ;
-  for(int i=0 ; i < 100; ++i)
+  for(size_t i=0 ; i < 100; ++i)
     BOOST_CHECK ( 0 == no_weight_specify::at( i ) ) ;
-}
-
-BOOST_AUTO_TEST_CASE(limits_test)
-{
-  typedef boost::checks::strict_size_contract<5> size_expected ;
-  typedef boost::checks::no_null_size_contract<> no_size_expected ;
-
-  size_expected::respect_size_contract( 5 ) ;
-
-  for(int i = 6 ; i < 14 ; ++i)
-    BOOST_CHECK_THROW ( size_expected::respect_size_contract( i%10+1 ) , std::invalid_argument )
-
-  for(int i=1 ; i < 10; ++i)
-    no_size_expected::respect_size_contract (i) ;
-
-  BOOST_CHECK_THROW ( no_size_expected::respect_size_contract (0), std::invalid_argument )
-
-  for(int i = 0 ; i < 6 ; ++i)
-  {
-    BOOST_CHECK ( !size_expected::reach_one_past_the_end(i) );
-    BOOST_CHECK ( !no_size_expected::reach_one_past_the_end(i) );
-  }
-  BOOST_CHECK ( size_expected::reach_one_past_the_end(6) );
-  BOOST_CHECK ( !no_size_expected::reach_one_past_the_end(6) );
 }

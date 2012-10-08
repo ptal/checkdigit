@@ -19,8 +19,15 @@
 [/Note too that it can't be used for images.]
 [def __boostlicense [@http://www.boost.org/LICENSE_1_0.txt Boost License]]
 
+[/ Links to documentation.]
+[def __CHECKS_DOC_HTML [@http://boost-sandbox.sourceforge.net/libs/checks/doc/html/index.html HTML documentation]]
+[def __CHECKS_DOC_PDF [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/checks.pdf PDF documentation]]
+
+[/ Links to source code]
+[def __CHECKS_SRC_CODE [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]]
+
 [def __CHECKS__HIERARCHY__ [$./images/checks/check_hierarchy.png]]
-[def __EXTENDS__LIBRARY__ [link checks.checks.tutorial.extending_the_library extending the library]]
+[def __EXTENDS__LIBRARY__ [link checks.checks.tutorial.extending_the_library Extending the library]]
 
 [def __BASIC__CHECK__FILE__ [@../../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
 [def __WEIGHTED__SUM__FILE__ [@../../../../boost/checks/weighted_sum.hpp weighted_sum.hpp]]
@@ -97,19 +104,20 @@ whose mentor organization was Boost. It remains a library under construction,
 the code is quite functional, but interfaces, library structure, and names
 may still be changed without notice.  The current version is available at
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/checks.pdf PDF documentation.]
+[*__CHECKS_DOC_PDF]
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/index.html HTML documentation.]
+[*__CHECKS_DOC_HTML]
 
-[*https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]
+[*__CHECKS_SRC_CODE]
+
 ] [/important]
 
-[note Comments and suggestions (even bugs!) to Pierre Talbot ( ptalbot@mopong.net ) ]
+[note Comments and suggestions (even bugs!) to Pierre Talbot ( ptalbot (at) mopong (dot) net ) ]
 
 [endsect] [/section:status Status]
 
 [include conventions.qbk]
-[include tutorial.qbk]
+[include quickstart.qbk]
 [include algorithm.qbk]
 [include errors.qbk]
 
@@ -164,23 +172,11 @@ Others might be the subject of future additions or other libraries.
 
 * For more flexibility, this library uses the range concept. So you can use old C-array or 
 std::string,...
-* If there is only one check digit in the number, this check digit is returned in the same
-raw type than in the range sequence.
-* If there is more than one check digit, an extra parameter is required. This must be an 
-OutputIterator, the function returns an iterator at one pass the end of the check digit 
-stored into this iterator.
-
-[h4 Use of template parameters to pass size and weights]
-* This feature means that much of the commonality between the various check systems
-can be implemented in one place and reused.
-* It also makes it possible to implement other check systems
-(of which there are very many in use worldwide)
-and to devise new ones without writing new code.
 
 [h4 Performance]
 
 * Performance is not a major objective, but all the current algorithms
-are implemented with a ['O(n)] complexity, where ['n] is the number of digits or characters. 
+are implemented with a ['O(n)] complexity, where ['n] is the number of characters. 
 
 [endsect] [/section:rationale Rationale]
 

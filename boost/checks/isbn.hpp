@@ -55,6 +55,11 @@ bool check_isbn13 (const range& x)
   return check_sequence<isbn13>(x);
 }
 
+bool check_isbn13 (const std::string& x)
+{
+  return check_sequence<isbn13>(make_precheck<digit>(x));
+}
+
 /*!
     \brief Calculate the check digit of a sequence according to the isbn13_compute_algorithm type.
 
@@ -72,6 +77,11 @@ template <typename range>
 std::size_t compute_isbn13 (const range& x)
 {
   return compute_checkdigit<isbn13>(x);
+}
+
+std::size_t compute_isbn13 (const std::string& x)
+{
+  return compute_checkdigit<isbn13>(make_precheck<digit>(x));
 }
 
 typedef features
@@ -98,6 +108,12 @@ bool check_isbn10(const range& x)
   return check_sequence<isbn10>(x);
 }
 
+bool check_isbn10(const std::string& x)
+{
+  return check_sequence<isbn10>(make_precheck<digitx>(x));
+}
+
+
 /*!
     \brief Calculate the check digit of a sequence according to the mod11_compute_algorithm type.
 
@@ -117,6 +133,10 @@ std::size_t compute_isbn10(const range& x)
   return compute_checkdigit<isbn10>(x);
 }
 
+std::size_t compute_isbn10(const std::string& x)
+{
+  return compute_checkdigit<isbn10>(make_precheck<digitx>(x));
+}
 
 }} // namespace boost   namespace checks
 #endif // BOOST_CHECKS_ISBN_HPP

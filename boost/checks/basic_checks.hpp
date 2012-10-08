@@ -73,7 +73,7 @@ std::size_t compute_checksum(iterator begin, iterator end, counter_iter &counter
 */
 template <typename features,
           typename range>
-bool check_sequence(range &x)
+bool check_sequence(const range &x)
 {
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
   std::size_t checksum;
@@ -101,9 +101,11 @@ bool check_sequence(range &x)
 */
 template <typename features,
           typename range>
-std::size_t compute_checkdigit(range &x)
+std::size_t compute_checkdigit(const range &x)
 {
-  typedef typename boost::checks::detail::skip_counter<features::checksum::checkdigit_detail::pos, features::checksum::checkdigit_detail::size> counter_type;
+  typedef typename boost::checks::detail::skip_counter<features::checksum::checkdigit_detail::pos, 
+                                                       features::checksum::checkdigit_detail::size
+                                                      > counter_type;
   typename counter_type::type counter = counter_type()();
 
   std::size_t checksum;

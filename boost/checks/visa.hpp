@@ -40,42 +40,51 @@ typedef features
 /*!
     \brief Validate a sequence according to the visa_check_algorithm type.
 
-    \pre check_seq is a valid range.
+    \pre x is a valid range.
 
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq doesn't contain exactly VISA_SIZE digits.
+    \throws std::invalid_argument if x doesn't contain exactly VISA_SIZE digits.
     \throws std::invalid_argument if the first digit(from the leftmost)doesn't match the Visa pattern.
 
     \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_visa(const check_range& check_seq)
+bool check_visa(const check_range& x)
 {
-  return check_sequence<visa>(check_seq);
+  return check_sequence<visa>(x);
+}
+
+bool check_visa(const std::string& x)
+{
+  return check_sequence<visa>(make_precheck<digit>(x));
 }
 
 /*!
     \brief Calculate the check digit of a sequence according to the visa_compute_algorithm type.
 
-    \pre check_seq is a valid range.
+    \pre x is a valid range.
 
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq doesn't contain exactly VISA_SIZE_WITHOUT_CHECKDIGIT digits.
+    \throws std::invalid_argument if x doesn't contain exactly VISA_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws std::invalid_argument if the first digit(from the leftmost)doESn't match the Visa pattern.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_visa(const check_range& check_seq)
+std::size_t compute_visa(const check_range& x)
 {
-  return compute_checkdigit<visa>(check_seq);
+  return compute_checkdigit<visa>(x);
 }
 
+std::size_t compute_visa(const std::string& x)
+{
+  return compute_checkdigit<visa>(make_precheck<digit>(x));
+}
 
 }}  // namespace boost   namespace checks
 #endif // BOOST_CHECKS_VISA_HPP

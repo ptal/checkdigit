@@ -17,10 +17,6 @@
 #endif
 
 #include <cstddef> // std::size_t
-#include <boost/checks/prechecksum.hpp>
-#include <boost/checks/conversion.hpp>
-#include <boost/checks/filter.hpp>
-#include <boost/checks/checkdigit.hpp>
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checksum.hpp>
  
@@ -29,12 +25,17 @@
 #include <boost/range/iterator_range.hpp>
 
 /*!
-  \brief This macro defines the size of a American Express card number (15).
+  \brief Size of an American Express card number.
 */
 #define AMEX_SIZE 15
 
 namespace boost {
     namespace checks{
+
+/*!
+  \brief American express features
+  \see luhn AMEX_SIZE
+*/
 
 typedef features
 <
@@ -43,17 +44,15 @@ typedef features
 > amex;
 
 /*!
-    \brief Validate a sequence according to the amex_check_algorithm type.
+    \brief Check the validity of an American Express card number.
 
-    \pre check_seq is a valid range.
+    \tparam range Refer to the <a href="http://www.boost.org/doc/libs/1_48_0/libs/range/doc/html/range/reference/overview.html">range concept</a>.
+    
+    \param x is the value range to check.
 
-    \tparam range is a valid range type.
-    \param check_seq is the sequence of value to check.
-
-    \throws std::invalid_argument if check_seq doesn't contain exactly AMEX_SIZE digits.
-    \throws std::invalid_argument if the two first digits (from the leftmost) don't match the Amex pattern.
-
-    \returns @c true if the check digit is correct, @c false otherwise.
+    \returns @c true if the check digit is correct and the length of @c x equals to @c AMEX_SIZE, @c false otherwise.
+    
+    \see check_sequence amex AMEX_SIZE
 */
 template <typename range>
 bool check_amex (const range& x)
@@ -61,19 +60,22 @@ bool check_amex (const range& x)
   return check_sequence<amex>(x);
 }
 
+bool check_amex(const std::string& x)
+{
+  return check_sequence<amex>(make_precheck<digit>(x));
+}
+
+
 /*!
-    \brief Calculate the check digit of a sequence according to the amex_compute_algorithm type.
+    \brief Calculate the check digit of an American Express card number.
 
-    \pre check_seq is a valid range.
+    \tparam range Refer to the <a href="http://www.boost.org/doc/libs/1_48_0/libs/range/doc/html/range/reference/overview.html">range concept</a>.
+    
+    \param x is the value range to check.
 
-    \tparam range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \returns The check digit as an integer in the range [0..9]. If the length of @c x is not equals to @c AMEX_SIZE, @c bad_sequence is returned.
 
-    \throws std::invalid_argument if check_seq doesn't contain exactly AMEX_SIZE_WITHOUT_CHECKDIGIT digits.
-    \throws std::invalid_argument if the two first digits (from the leftmost) don't match the amex pattern.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
-
-    \returns The check digit. The check digit is in the range [0..9].
+    \see compute_checkdigit bad_sequence amex AMEX_SIZE
 */
 template <typename range>
 std::size_t compute_amex(const range& x)
@@ -81,6 +83,10 @@ std::size_t compute_amex(const range& x)
   return compute_checkdigit<amex>(x);
 }
 
+std::size_t compute_amex(const std::string& x)
+{
+  return compute_checkdigit<amex>(make_precheck<digit>(x));
+}
 
 }} // namespace boost   namespace checks
 #endif

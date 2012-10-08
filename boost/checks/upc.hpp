@@ -55,38 +55,48 @@ typedef features
 /*!
     \brief Validate a sequence according to the upc_check_algorithm type.
 
-    \pre check_seq is a valid range.
+    \pre x is a valid range.
 
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq doesn't contain exactly UPCA_SIZE digits.
+    \throws std::invalid_argument if x doesn't contain exactly UPCA_SIZE digits.
 
     \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_upca (const check_range& check_seq)
+bool check_upca (const check_range& x)
 {
-  return check_sequence<upca>(check_seq);
+  return check_sequence<upca>(x);
+}
+
+bool check_upca (const std::string& x)
+{
+  return check_sequence<upca>(make_precheck<digit>(x));
 }
 
 /*!
     \brief Calculate the check digit of a sequence according to the upc_compute_algorithm type.
 
-    \pre check_seq is a valid range.
+    \pre x is a valid range.
 
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq doesn't contain exactly UPCA_SIZE_WITHOUT_CHECKDIGIT digits.
+    \throws std::invalid_argument if x doesn't contain exactly UPCA_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_upca(const check_range& check_seq)
+std::size_t compute_upca(const check_range& x)
 {
-  return compute_checkdigit<upca>(check_seq);
+  return compute_checkdigit<upca>(x);
+}
+
+std::size_t compute_upca(const std::string& x)
+{
+  return compute_checkdigit<upca>(make_precheck<digit>(x));
 }
 
 }} // namespace boost   namespace checks

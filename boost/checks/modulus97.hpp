@@ -103,81 +103,103 @@ typedef checksum
 /*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
 
-    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).
+    \pre x is a valid range.\n size_expected > 0 (enforced by static assert).
 
     \tparam size_expected is the number of valid value expected in the sequence.
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
+    \throws std::invalid_argument if x doesn't contain size_expected valid values.
 
     \returns True if the two check digits are correct, false otherwise.
 */
 template <size_t size_expected, typename check_range>
-bool check_mod97_10 (const check_range& check_seq)
+bool check_mod97_10 (const check_range& x)
 {
-  return check_sequence<features<mod97_10, size_expected> >(check_seq);
+  return check_sequence<features<mod97_10, size_expected> >(x);
+}
+
+template <size_t size_expected>
+bool check_mod97_10 (const std::string& x)
+{
+  return check_sequence<features<mod97_10, size_expected> >(make_precheck<digit>(x));
 }
 
 /*!
     \brief Validate a sequence according to the mod97_10_check_algorithm type.
 
-    \pre check_seq is a valid range.
+    \pre x is a valid range.
 
     \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
 
-    \throws std::invalid_argument if check_seq contains no valid value.
+    \throws std::invalid_argument if x contains no valid value.
 
     \returns @c true if the two check digits are correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_mod97_10(const check_range& check_seq)
+bool check_mod97_10(const check_range& x)
 {
-  return check_sequence<features<mod97_10> >(check_seq);
+  return check_sequence<features<mod97_10> >(x);
+}
+
+bool check_mod97_10(const std::string& x)
+{
+  return check_sequence<features<mod97_10> >(make_precheck<digit>(x));
 }
 
 /*!
     \brief Calculate the check digits of a sequence according to the mod97_10_compute_algorithm type.
 
-    \pre check_seq is a valid range.\n size_expected > 0 (enforced by static assert).\n mod97_checkdigits should have enough reserved place to store the two check digits.
+    \pre x is a valid range.\n size_expected > 0 (enforced by static assert).\n mod97_checkdigits should have enough reserved place to store the two check digits.
 
     \tparam size_expected is the number of valid value expected in the sequence. (So the check digits are not included.)
     \tparam check_range is a valid range type.
     \tparam checkdigits_iter must meet the OutputIterator requirements.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
 
-    \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
+    \throws std::invalid_argument if x doesn't contain size_expected valid values.
     \throws translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <size_t size_expected, typename check_range>
-std::size_t compute_mod97_10(const check_range& check_seq)
+std::size_t compute_mod97_10(const check_range& x)
 {
-  return compute_checkdigit<features<mod97_10, size_expected> >(check_seq);
+  return compute_checkdigit<features<mod97_10, size_expected> >(x);
+}
+
+template <size_t size_expected>
+std::size_t compute_mod97_10(const std::string& x)
+{
+  return compute_checkdigit<features<mod97_10, size_expected> >(make_precheck<digit>(x));
 }
 
 /*!
     \brief Calculate the check digits of a sequence according to the mod97_10_compute_algorithm type.
 
-    \pre check_seq is a valid range.\n mod97_checkdigits should have enough reserved place to store the two check digits.
+    \pre x is a valid range.\n mod97_checkdigits should have enough reserved place to store the two check digits.
 
     \tparam check_range is a valid range type.
     \tparam checkdigits_iter must meet the OutputIterator requirements.
-    \param check_seq is the sequence of value to check.
+    \param x is the sequence of value to check.
     \param mod97_checkdigits is the OutputIterator in which the two check digits will be stored.
 
-    \throws std::invalid_argument if check_seq contains no valid value.
+    \throws std::invalid_argument if x contains no valid value.
     \throws translation_exception if the check digits cannot be translated into the checkdigits_iter type.
 
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <typename check_range>
-std::size_t compute_mod97_10(const check_range& check_seq)
+std::size_t compute_mod97_10(const check_range& x)
 {
-  return compute_checkdigit<features<mod97_10> >(check_seq); 
+  return compute_checkdigit<features<mod97_10> >(x); 
+}
+
+std::size_t compute_mod97_10(const std::string& x)
+{
+  return compute_checkdigit<features<mod97_10> >(make_precheck<digit>(x)); 
 }
 
 

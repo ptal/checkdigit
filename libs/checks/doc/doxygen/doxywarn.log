@@ -1,0 +1,26 @@
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:83: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::check_isbn10(const range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:83: warning: The following parameters of boost::checks::check_isbn10(const range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:40: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::check_isbn13(const range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:40: warning: The following parameters of boost::checks::check_isbn13(const range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:61: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::check_sequence(range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:61: warning: The following parameters of boost::checks::check_sequence(range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:89: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::compute_checkdigit(range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:89: warning: The following parameters of boost::checks::compute_checkdigit(range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:29: warning: argument 'seq_begin' of command @param is not found in the argument list of boost::checks::compute_checksum(iterator begin, iterator end, counter_iter &counter)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:29: warning: argument 'seq_end' of command @param is not found in the argument list of boost::checks::compute_checksum(iterator begin, iterator end, counter_iter &counter)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/basic_checks.hpp:29: warning: The following parameters of boost::checks::compute_checksum(iterator begin, iterator end, counter_iter &counter) are not documented:
+  parameter 'begin'
+  parameter 'end'
+  parameter 'counter'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:101: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::compute_isbn10(const range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:101: warning: The following parameters of boost::checks::compute_isbn10(const range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:58: warning: argument 'check_seq' of command @param is not found in the argument list of boost::checks::compute_isbn13(const range &x)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/isbn.hpp:58: warning: The following parameters of boost::checks::compute_isbn13(const range &x) are not documented:
+  parameter 'x'
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/modulus97.hpp:140: warning: argument 'mod97_checkdigits' of command @param is not found in the argument list of boost::checks::compute_mod97_10(const check_range &check_seq)
+/home/trademark/Boost/boost-sandbox/SOC/2011/checks/boost/checks/modulus97.hpp:162: warning: argument 'mod97_checkdigits' of command @param is not found in the argument list of boost::checks::compute_mod97_10(const check_range &check_seq)

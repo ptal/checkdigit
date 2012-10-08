@@ -16,12 +16,15 @@
     #pragma once
 #endif
 
+#include <string>
+
 #include <boost/checks/weight.hpp>
 #include <boost/checks/checkdigit.hpp>
 #include <boost/checks/basic_checks.hpp>
 #include <boost/checks/modulus10.hpp>
 #include <boost/checks/weighted_sum.hpp>
 #include <boost/checks/checksum.hpp> 
+#include <boost/checks/precheck.hpp>
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -76,9 +79,14 @@ typedef features
     \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_ean13(const check_range& check_seq)
+bool check_ean13(const check_range& x)
 {
-  return check_sequence<ean13> (check_seq);
+  return check_sequence<ean13>(x);
+}
+
+bool check_ean13(const std::string& x)
+{
+  return check_sequence<ean13>(make_precheck<digit>(x));
 }
 
 /*!
@@ -95,9 +103,14 @@ bool check_ean13(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_ean13(const check_range& check_seq)
+std::size_t compute_ean13(const check_range& x)
 {
-  return compute_checkdigit<ean13>(check_seq);
+  return compute_checkdigit<ean13>(x);
+}
+
+std::size_t compute_ean13(const std::string& x)
+{
+  return compute_checkdigit<ean13>(make_precheck<digit>(x));
 }
 
 /*!
@@ -113,9 +126,14 @@ std::size_t compute_ean13(const check_range& check_seq)
     \returns @c true if the check digit is correct, @c false otherwise.
 */
 template <typename check_range>
-bool check_ean8 (const check_range& check_seq)
+bool check_ean8 (const check_range& x)
 {
-  return check_sequence<ean8>(check_seq);
+  return check_sequence<ean8>(x);
+}
+
+bool check_ean8 (const std::string& x)
+{
+  return check_sequence<ean8>(make_precheck<digit>(x));
 }
 
 /*!
@@ -132,11 +150,15 @@ bool check_ean8 (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_ean8(const check_range& check_seq)
+std::size_t compute_ean8(const check_range& x)
 {
-  return compute_checkdigit<ean8>(check_seq);
+  return compute_checkdigit<ean8>(x);
 }
 
+std::size_t compute_ean8(const std::string& x)
+{
+  return compute_checkdigit<ean8>(make_precheck<digit>(x));
+}
 
 }} // namespace boost   namespace checks
 #endif // BOOST_CHECKS_EAN_HPP

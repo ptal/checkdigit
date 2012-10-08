@@ -1,6 +1,6 @@
 [section:introduction Introduction]
 
-Checks are required in a numerous domains : distribution chain (bar codes on products),
+Checks are required in a numerous domains: distribution chain (bar codes on products),
 banking (bank account numbers, credit cards, fidelity cards, ...) and many others.
 These codes and numbers are often copied or scanned by humans or machines, and both make errors. 
 We need a way to control it and this is why some people created a check digit.

@@ -18,7 +18,6 @@
 
 #include <boost/checks/weight.hpp>
 #include <boost/checks/basic_checks.hpp>
-#include <boost/checks/basic_check_algorithm.hpp>
 
 namespace boost{
   namespace checks{

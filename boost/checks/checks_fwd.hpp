@@ -75,119 +75,142 @@ namespace boost{
 // Luhn
 
 template <size_t size_expected, typename check_range>
-bool check_luhn(const check_range& check_seq);
+bool check_luhn(const check_range& x);
 
 template <typename check_range>
-bool check_luhn(const check_range& check_seq);
+bool check_luhn(const check_range& x);
 
 template <size_t size_expected, typename check_range>
-std::size_t compute_luhn(const check_range& check_seq);
+size_t compute_luhn(const check_range& x);
 
 template <typename check_range>
-std::size_t compute_luhn(const check_range& check_seq);
+size_t compute_luhn(const check_range& x);
 
 // Verhoeff
 
 template <size_t size_expected, typename check_range>
-bool check_verhoeff(const check_range& check_seq);
+bool check_verhoeff(const check_range& x);
 
 template <typename check_range>
-bool check_verhoeff(const check_range& check_seq);
+bool check_verhoeff(const check_range& x);
 
 template <size_t size_expected, typename check_range>
-std::size_t compute_verhoeff(const check_range& check_seq);
+size_t compute_verhoeff(const check_range& x);
 
 template <typename check_range>
-std::size_t compute_verhoeff(const check_range& check_seq);
+size_t compute_verhoeff(const check_range& x);
 
 // Modulus 11
 
 template <size_t size_expected, typename check_range>
-bool check_modulus11(const check_range& check_seq);
+bool check_modulus11(const check_range& x);
 
 template <typename check_range>
-bool check_modulus11(const check_range& check_seq);
+bool check_modulus11(const check_range& x);
 
 template <size_t size_expected, typename check_range>
-std::size_t compute_modulus11(const check_range& check_seq);
+size_t compute_modulus11(const check_range& x);
 
 template <typename check_range>
-std::size_t compute_modulus11(const check_range& check_seq);
+size_t compute_modulus11(const check_range& x);
 
 // Modulus 97-10(ISO/IEC 7064:2003)
 
 template <size_t size_expected, typename check_range>
-bool check_mod97_10(const check_range& check_seq);
+bool check_mod97_10(const check_range& x);
+template <size_t size_expected>
+bool check_mod97_10 (const std::string& x);
 
 template <typename check_range>
-bool check_mod97_10(const check_range& check_seq);
+bool check_mod97_10(const check_range& x);
+bool check_mod97_10(const std::string& x);
 
 template <size_t size_expected, typename check_range>
-std::size_t compute_mod97_10(const check_range& check_seq);
+size_t compute_mod97_10(const check_range& x);
+
+template <size_t size_expected>
+size_t compute_mod97_10(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_mod97_10(const check_range& check_seq);
+size_t compute_mod97_10(const check_range& x);
+size_t compute_mod97_10(const std::string& x);
 
 // EAN-13 and EAN-8
 
 template <typename check_range>
-bool check_ean13(const check_range& check_seq);
+bool check_ean13(const check_range& x);
+
+bool check_ean13(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_ean13(const check_range& check_seq);
+size_t compute_ean13(const check_range& x);
+
+size_t compute_ean13(const std::string& x);
 
 template <typename check_range>
-bool check_ean8(const check_range& check_seq);
+bool check_ean8(const check_range& x);
+
+bool check_ean8 (const std::string& x);
 
 template <typename check_range>
-std::size_t compute_ean8(const check_range& check_seq);
+size_t compute_ean8(const check_range& x);
+
+size_t compute_ean8(const std::string& x);
 
 // IBSN-10 and ISBN-13
 
 template <typename check_range>
-bool check_isbn10(const check_range& check_seq);
+bool check_isbn10(const check_range& x);
 
 template <typename check_range>
-std::size_t compute_isbn10(const check_range& check_seq);
+size_t compute_isbn10(const check_range& x);
 
 template <typename check_range>
-bool check_isbn13(const check_range& check_seq);
+bool check_isbn13(const check_range& x);
 
 template <typename check_range>
-std::size_t compute_isbn13(const check_range& check_seq);
+size_t compute_isbn13(const check_range& x);
 
 // UPC-A
 
 template <typename check_range>
-bool check_upca(const check_range& check_seq);
+bool check_upca(const check_range& x);
+bool check_upca(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_upca(const check_range& check_seq);
+size_t compute_upca(const check_range& x);
+size_t compute_upca(const std::string& x);
 
 
 // American Express
 
 template <typename check_range>
-bool check_amex(const check_range& check_seq);
+bool check_amex(const check_range& x);
+bool check_amex(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_amex(const check_range& check_seq);
+size_t compute_amex(const check_range& x);
+size_t compute_amex(const std::string& x);
 
 // VISA
 
 template <typename check_range>
-bool check_visa(const check_range& check_seq);
+bool check_visa(const check_range& x);
+bool check_visa(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_visa(const check_range& check_seq);
+size_t compute_visa(const check_range& x);
+size_t compute_visa(const std::string& x);
 
 // Mastercard
 
 template <typename check_range>
-bool check_mastercard(const check_range& check_seq);
+bool check_mastercard(const check_range& x);
+bool check_mastercard(const std::string& x);
 
 template <typename check_range>
-std::size_t compute_mastercard(const check_range& check_seq);
+size_t compute_mastercard(const check_range& x);
+size_t compute_mastercard(const std::string& x);
 
 
 }} // namespace boost   namespace checks

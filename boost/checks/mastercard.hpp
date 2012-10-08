@@ -19,8 +19,8 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/checks/checksum.hpp> 
 
+#include <boost/checks/checksum.hpp> 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checkdigit.hpp>
 
@@ -52,9 +52,14 @@ typedef features
     \returns True if the check digit is correct, false otherwise.
 */
 template <typename check_range>
-bool check_mastercard(const check_range& check_seq)
+bool check_mastercard(const check_range& x)
 {
-  return check_sequence<mastercard>(check_seq);
+  return check_sequence<mastercard>(x);
+}
+
+bool check_mastercard(const std::string& x)
+{
+  return check_sequence<mastercard>(make_precheck<digit>(x));
 }
 
 /*!
@@ -72,11 +77,15 @@ bool check_mastercard(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_mastercard(const check_range& check_seq)
+size_t compute_mastercard(const check_range& x)
 {
-  return compute_checkdigit<mastercard>(check_seq);
+  return compute_checkdigit<mastercard>(x);
 }
 
+size_t compute_mastercard(const std::string& x)
+{
+  return compute_checkdigit<mastercard>(make_precheck<digit>(x));
+}
 
 }} // namespace boost   namespace checks
 #endif // BOOST_CHECKS_MASTERCARD_HPP
