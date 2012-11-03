@@ -111,7 +111,7 @@ struct checksum : traversal
 template
 <
   typename Checksum,
-  std::size_t size_expected = 0
+  size_t size_expected = 0
 >
 struct features : Checksum
 {

@@ -24,13 +24,13 @@
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checkdigit.hpp>
 
+namespace boost {
+    namespace checks{
+
 /*!
   \brief This macro defines the size of a Mastercard number.
 */
-#define MASTERCARD_SIZE 16
-
-namespace boost {
-    namespace checks{
+static const size_t MASTERCARD_SIZE = 16;
 
 typedef features
 <
@@ -39,17 +39,17 @@ typedef features
 > mastercard;
 
 /*!
-    \brief Validate a sequence according to the mastercard_check_algorithm type.
-
-    \pre check_seq is a valid range.
-
-    \tparam check_range is a valid range type.
-    \param check_seq is the sequence of value to check.
-
-    \throws std::invalid_argument if check_seq doesn't contain exactly MASTERCARD_SIZE digits.
-    \throws std::invalid_argument if the two first digits(from the leftmost)don't match the Mastercard pattern.
-
-    \returns True if the check digit is correct, false otherwise.
+    \brief Validate a mastercard number.
+    \tparam check_range must meet the requirements of <a href="http://www.boost.org/doc/libs/1_51_0/libs/range/doc/html/range/concepts/overview.html">range concept</a>.
+    \param x is the sequence to validate. Nothing is skipped or filtered and the atoms of the sequence are considered as unsigned integers.
+    \returns True if
+      <ul>
+        <li>The sequence has exactly MASTERCARD_SIZE digit.</li>
+        <li>The last digit is a correct checkdigit with the Luhn algorithm.</li>
+      </ul>
+      Otherwise false.
+    \note This function is identical to: check_sequence<mastercard>(x).
+    \sa mastercard, check_sequence, compute_mastercard, check_mastercard(const std::string&).
 */
 template <typename check_range>
 bool check_mastercard(const check_range& x)

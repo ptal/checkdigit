@@ -165,13 +165,13 @@ bool check_mod97_10(const std::string& x)
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <size_t size_expected, typename check_range>
-std::size_t compute_mod97_10(const check_range& x)
+size_t compute_mod97_10(const check_range& x)
 {
   return compute_checkdigit<features<mod97_10, size_expected> >(x);
 }
 
 template <size_t size_expected>
-std::size_t compute_mod97_10(const std::string& x)
+size_t compute_mod97_10(const std::string& x)
 {
   return compute_checkdigit<features<mod97_10, size_expected> >(make_precheck<digit>(x));
 }
@@ -192,12 +192,12 @@ std::size_t compute_mod97_10(const std::string& x)
     \returns The check digits are stored into mod97_checkdigits. The range of these is [0..9][0..9].
 */
 template <typename check_range>
-std::size_t compute_mod97_10(const check_range& x)
+size_t compute_mod97_10(const check_range& x)
 {
   return compute_checkdigit<features<mod97_10> >(x); 
 }
 
-std::size_t compute_mod97_10(const std::string& x)
+size_t compute_mod97_10(const std::string& x)
 {
   return compute_checkdigit<features<mod97_10> >(make_precheck<digit>(x)); 
 }
