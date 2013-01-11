@@ -26,10 +26,10 @@ namespace boost{
 namespace detail
 {
 
-template <std::size_t skip_at, std::size_t size_to_skip>
-struct skipper : public std::unary_function <std::size_t, std::size_t>
+template <size_t skip_at, size_t size_to_skip>
+struct skipper : public std::unary_function <size_t, size_t>
 {
-  std::size_t operator()(std::size_t value_pos) const
+  size_t operator()(size_t value_pos) const
   {
     return value_pos + size_to_skip * (value_pos >= skip_at);
   } 
@@ -37,14 +37,14 @@ struct skipper : public std::unary_function <std::size_t, std::size_t>
 
 struct simple_counter
 {
-  typedef boost::counting_iterator<std::size_t> type;
+  typedef boost::counting_iterator<size_t> type;
   type operator()()
   {
     return type(0);
   }
 };
 
-template <std::size_t skip_at, std::size_t size_to_skip>
+template <size_t skip_at, size_t size_to_skip>
 struct skip_counter
 {
   typedef boost::transform_iterator<skipper<skip_at, size_to_skip>, simple_counter::type> type;

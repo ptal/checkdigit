@@ -45,7 +45,7 @@ namespace boost {
   */
 struct verhoeff_validation
 {
-  bool operator()(std::size_t checksum)
+  bool operator()(size_t checksum)
   {
     return !checksum;
   }
@@ -64,7 +64,7 @@ struct verhoeff_checkdigit
 {
   static const unsigned char inv[10];
   
-  std::size_t operator()(std::size_t checksum)
+  size_t operator()(size_t checksum)
   {
     return inv[checksum];
   }
@@ -89,7 +89,7 @@ struct verhoeff_processor
 
   verhoeff_processor() { } 
 
-  std::size_t operator()(std::size_t checksum, std::size_t value, std::size_t pos)
+  size_t operator()(size_t checksum, size_t value, size_t pos)
   {
     return d[checksum][p[pos % 8][value]];
   }
@@ -180,7 +180,7 @@ bool check_verhoeff(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <size_t size_expected, typename check_range>
-std::size_t compute_verhoeff(const check_range& check_seq)
+size_t compute_verhoeff(const check_range& check_seq)
 {
   return compute_checkdigit<features<verhoeff, size_expected> >(check_seq);
 }
@@ -199,7 +199,7 @@ std::size_t compute_verhoeff(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_verhoeff(const check_range& check_seq)
+size_t compute_verhoeff(const check_range& check_seq)
 {
   return compute_checkdigit<features<verhoeff> >(check_seq);
 }

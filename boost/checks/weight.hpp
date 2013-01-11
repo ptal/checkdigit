@@ -18,7 +18,7 @@
 
 #include <boost/preprocessor/repetition.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
-#include <cstddef> // std::size_t
+#include <cstddef> // size_t
 
 /*! \def BOOST_CHECK_LIMIT_WEIGHTS
     \brief The BOOST_CHECK_LIMIT_WEIGHTS macro defines the maximum number of weights accepted by the library.
@@ -37,25 +37,25 @@ namespace boost{
 
     \remarks There are BOOST_CHECK_LIMIT_WEIGHTS partial specialisations of this class.
 */
-template <BOOST_PP_ENUM_BINARY_PARAMS(BOOST_CHECK_LIMIT_WEIGHTS, std::size_t weight_value, = 0 BOOST_PP_INTERCEPT) >
+template <BOOST_PP_ENUM_BINARY_PARAMS(BOOST_CHECK_LIMIT_WEIGHTS, size_t weight_value, = 0 BOOST_PP_INTERCEPT) >
 struct weight
 {
-/*! \fn static int at(std::size_t value_pos)
+/*! \fn static int at(size_t value_pos)
     \brief Get the weight at the current value position.
 
     \param value_pos is the position of the current value. (0 <= value_pos < n).
     \returns The weight value at the position value_pos.
   */
-  static int at(std::size_t value_pos) { return 1; }
+  static int at(size_t value_pos) { return 1; }
 };
 
 #define _WEIGHT_factory(z, weight_size ,unused) \
-  template<BOOST_PP_ENUM_PARAMS(weight_size , std::size_t weight_value)> \
+  template<BOOST_PP_ENUM_PARAMS(weight_size , size_t weight_value)> \
   struct weight<BOOST_PP_ENUM_PARAMS(weight_size, weight_value)> \
   { \
-    static std::size_t at(std::size_t value_pos) \
+    static size_t at(size_t value_pos) \
     { \
-      static const std::size_t weights[weight_size] = { BOOST_PP_ENUM_PARAMS(weight_size, weight_value) } ; \
+      static const size_t weights[weight_size] = { BOOST_PP_ENUM_PARAMS(weight_size, weight_value) } ; \
       return weights[value_pos % weight_size] ; \
     } \
   };

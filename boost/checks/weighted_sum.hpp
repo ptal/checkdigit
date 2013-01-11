@@ -34,7 +34,7 @@ namespace boost{
 template <typename weight>
 struct weighted_sum
 {
-  std::size_t operator()(std::size_t checksum, std::size_t value, std::size_t pos)
+  size_t operator()(size_t checksum, size_t value, size_t pos)
   {
     return checksum + value * weight::at(pos);
   }

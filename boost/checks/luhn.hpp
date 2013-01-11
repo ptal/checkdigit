@@ -42,9 +42,9 @@ struct luhn_processor
 {
   luhn_processor() {} 
 
-  std::size_t operator()(std::size_t checksum, std::size_t value, std::size_t pos)
+  size_t operator()(size_t checksum, size_t value, size_t pos)
   {
-    std::size_t weighted_value = value << (pos & 1);
+    size_t weighted_value = value << (pos & 1);
     return checksum + weighted_value % 10 + weighted_value / 10;
   }
 };
@@ -109,7 +109,7 @@ bool check_luhn (const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <size_t size_expected, typename check_range>
-std::size_t compute_luhn(const check_range& check_seq)
+size_t compute_luhn(const check_range& check_seq)
 {
   return compute_checkdigit<features<luhn, size_expected> >(check_seq);
 }
@@ -128,7 +128,7 @@ std::size_t compute_luhn(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_luhn (const check_range& check_seq)
+size_t compute_luhn (const check_range& check_seq)
 {
   return compute_checkdigit<features<luhn> >(check_seq);
 }

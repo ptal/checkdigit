@@ -16,7 +16,7 @@
     #pragma once
 #endif
 
-#include <cstddef> // std::size_t
+#include <cstddef> // size_t
 #include <cctype>
 #include <functional>
 

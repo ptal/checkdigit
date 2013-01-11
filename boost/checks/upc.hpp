@@ -89,12 +89,12 @@ bool check_upca (const std::string& x)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_upca(const check_range& x)
+size_t compute_upca(const check_range& x)
 {
   return compute_checkdigit<upca>(x);
 }
 
-std::size_t compute_upca(const std::string& x)
+size_t compute_upca(const std::string& x)
 {
   return compute_checkdigit<upca>(make_precheck<digit>(x));
 }

@@ -47,7 +47,7 @@ namespace boost{
   */
 struct mod11_validation
 {
-  bool operator()(std::size_t checksum)
+  bool operator()(size_t checksum)
   {
     return !(checksum % 11);
   }
@@ -64,7 +64,7 @@ struct mod11_validation
   */
 struct mod11_checkdigit
 {
-  std::size_t operator()(std::size_t checksum)
+  size_t operator()(size_t checksum)
   {
      return ((11 - checksum % 11)% 11);
   }
@@ -138,8 +138,8 @@ bool check_modulus11(const check_range& check_seq)
 
     \returns The check digit. The check digit is in the range [0..9,X].
 */
-template <std::size_t size_expected, typename check_range>
-std::size_t compute_modulus11(const check_range& check_seq)
+template <size_t size_expected, typename check_range>
+size_t compute_modulus11(const check_range& check_seq)
 {
   return compute_checkdigit<features<mod11,
                             size_expected> >(check_seq);
@@ -159,7 +159,7 @@ std::size_t compute_modulus11(const check_range& check_seq)
     \returns The check digit. The check digit is in the range [0..9,X].
 */
 template <typename check_range>
-std::size_t compute_modulus11(const check_range& check_seq)
+size_t compute_modulus11(const check_range& check_seq)
 {
   return compute_checkdigit<features<mod11> >(check_seq);
 }

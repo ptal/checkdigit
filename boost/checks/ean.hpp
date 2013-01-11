@@ -103,12 +103,12 @@ bool check_ean13(const std::string& x)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_ean13(const check_range& x)
+size_t compute_ean13(const check_range& x)
 {
   return compute_checkdigit<ean13>(x);
 }
 
-std::size_t compute_ean13(const std::string& x)
+size_t compute_ean13(const std::string& x)
 {
   return compute_checkdigit<ean13>(make_precheck<digit>(x));
 }
@@ -150,12 +150,12 @@ bool check_ean8 (const std::string& x)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename check_range>
-std::size_t compute_ean8(const check_range& x)
+size_t compute_ean8(const check_range& x)
 {
   return compute_checkdigit<ean8>(x);
 }
 
-std::size_t compute_ean8(const std::string& x)
+size_t compute_ean8(const std::string& x)
 {
   return compute_checkdigit<ean8>(make_precheck<digit>(x));
 }

@@ -69,24 +69,24 @@ struct forward_traversal
 
 struct no_size_policy
 {
-  static bool check(std::size_t pos)
+  static bool check(size_t pos)
   {
     return true;
   }
-  static bool overflow(std::size_t pos)
+  static bool overflow(size_t pos)
   {
     return false;
   }
 };
 
-template <std::size_t size_expected>
+template <size_t size_expected>
 struct enforce_size_policy
 {
-  static bool check(std::size_t pos)
+  static bool check(size_t pos)
   {
     return pos < size_expected;
   }
-  static bool overflow(std::size_t pos)
+  static bool overflow(size_t pos)
   {
     return pos != size_expected;
   }

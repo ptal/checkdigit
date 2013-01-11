@@ -74,12 +74,12 @@ bool check_isbn13 (const std::string& x)
     \returns The check digit. The check digit is in the range [0..9].
 */
 template <typename range>
-std::size_t compute_isbn13 (const range& x)
+size_t compute_isbn13 (const range& x)
 {
   return compute_checkdigit<isbn13>(x);
 }
 
-std::size_t compute_isbn13 (const std::string& x)
+size_t compute_isbn13 (const std::string& x)
 {
   return compute_checkdigit<isbn13>(make_precheck<digit>(x));
 }
@@ -128,12 +128,12 @@ bool check_isbn10(const std::string& x)
     \returns The check digit. The check digit is in the range [0..9,X].
 */
 template <typename range>
-std::size_t compute_isbn10(const range& x)
+size_t compute_isbn10(const range& x)
 {
   return compute_checkdigit<isbn10>(x);
 }
 
-std::size_t compute_isbn10(const std::string& x)
+size_t compute_isbn10(const std::string& x)
 {
   return compute_checkdigit<isbn10>(make_precheck<digitx>(x));
 }

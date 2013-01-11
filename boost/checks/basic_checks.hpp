@@ -16,7 +16,7 @@
     #pragma once
 #endif
 
-#include <cstddef> // std::size_t
+#include <cstddef> // size_t
 
 #include <boost/checks/detail/sequence_counter.hpp>
 #include <boost/iterator/filter_iterator.hpp>
@@ -24,7 +24,7 @@
 namespace boost {
   namespace checks{
 
-static const std::size_t bad_sequence = (std::size_t)-1;
+static const size_t bad_sequence = (size_t)-1;
 
 /*!
     \brief Run through a sequence and calculate the checksum with the algorithm policy class.
@@ -46,10 +46,10 @@ template <typename processor,
           typename sizePolicy, 
           typename iterator,
           typename counter_iter>
-std::size_t compute_checksum(iterator begin, iterator end, counter_iter &counter)
+size_t compute_checksum(iterator begin, iterator end, counter_iter &counter)
 {
   processor process;
-  std::size_t checksum = 0;
+  size_t checksum = 0;
   for(; begin != end && sizePolicy::check(*counter); ++begin, ++counter)
     checksum = process(checksum, *begin, *counter);
   
@@ -76,7 +76,7 @@ template <typename features,
 bool check_sequence(const range &x)
 {
   boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
-  std::size_t checksum;
+  size_t checksum;
 
   checksum = compute_checksum<typename features::checksum::processor,
                               typename features::size_policy>
@@ -101,14 +101,14 @@ bool check_sequence(const range &x)
 */
 template <typename features,
           typename range>
-std::size_t compute_checkdigit(const range &x)
+size_t compute_checkdigit(const range &x)
 {
   typedef typename boost::checks::detail::skip_counter<features::checksum::checkdigit_detail::pos, 
                                                        features::checksum::checkdigit_detail::size
                                                       > counter_type;
   typename counter_type::type counter = counter_type()();
 
-  std::size_t checksum;
+  size_t checksum;
 
   checksum = compute_checksum<typename features::checksum::processor,
                               typename features::size_policy>

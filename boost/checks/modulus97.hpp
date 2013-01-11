@@ -45,7 +45,7 @@ namespace boost{
   */
 struct mod97_validation
 {
-  bool operator()(std::size_t checksum)
+  bool operator()(size_t checksum)
   {
     return checksum % 97 == 1;
   }
@@ -66,7 +66,7 @@ struct mod97_validation
   */
 struct mod97_checkdigit
 {
-  std::size_t operator()(std::size_t checksum)
+  size_t operator()(size_t checksum)
   {
     return 98 - (checksum % 97);
   }
@@ -82,7 +82,7 @@ struct mod97_10_processor
   {
   } 
 
-  std::size_t operator()(std::size_t checksum, std::size_t value, std::size_t pos)
+  size_t operator()(size_t checksum, size_t value, size_t pos)
   {
     if(pos == 0)
       weight = 1;

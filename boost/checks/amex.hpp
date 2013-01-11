@@ -16,7 +16,7 @@
     #pragma once
 #endif
 
-#include <cstddef> // std::size_t
+#include <cstddef> // size_t
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checksum.hpp>
  
@@ -78,12 +78,12 @@ bool check_amex(const std::string& x)
     \see compute_checkdigit bad_sequence amex AMEX_SIZE
 */
 template <typename range>
-std::size_t compute_amex(const range& x)
+size_t compute_amex(const range& x)
 {
   return compute_checkdigit<amex>(x);
 }
 
-std::size_t compute_amex(const std::string& x)
+size_t compute_amex(const std::string& x)
 {
   return compute_checkdigit<amex>(make_precheck<digit>(x));
 }

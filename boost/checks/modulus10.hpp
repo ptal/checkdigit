@@ -38,7 +38,7 @@ namespace boost{
   */
 struct mod10_validation
 {
-  bool operator()(std::size_t checksum)
+  bool operator()(size_t checksum)
   {
     return !(checksum % 10);
   }
@@ -55,7 +55,7 @@ struct mod10_validation
   */
 struct mod10_checkdigit
 {
-  std::size_t operator()(std::size_t checksum)
+  size_t operator()(size_t checksum)
   {
     return ((10 - checksum % 10) % 10); 
   }

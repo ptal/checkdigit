@@ -16,17 +16,17 @@
     #pragma once
 #endif
 
-#include <cstddef> // std::size_t
+#include <cstddef> // size_t
 
 namespace boost{
   namespace checks{
 
-template <std::size_t checkdigit_pos,
-          std::size_t checkdigit_size>
+template <size_t checkdigit_pos,
+          size_t checkdigit_size>
 struct checkdigit
 {
-  static const std::size_t pos = checkdigit_pos;
-  static const std::size_t size = checkdigit_size;
+  static const size_t pos = checkdigit_pos;
+  static const size_t size = checkdigit_size;
 };
 
 // A checkdigit at the end of the number for reverse traversal.
