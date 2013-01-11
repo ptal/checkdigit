@@ -19,6 +19,7 @@
 #include <string>
 #include <exception>
 #include <iterator>
+#include <boost/lexical_cast.hpp>
 
 //[credit_cards_include_files
 #include <boost/checks/visa.hpp>
@@ -43,71 +44,60 @@
 int main()
 {
   //[checks_example_1
+  using namespace boost::checks;
+  std::string visa = "4000 0807 0620 0007";
+  if(check_visa(visa))
+    std::cout << "The VISA credit card number : " << visa << " is valid." << std::endl;
 
-  std::string visa_credit_card_number = "4000 0807 0620 0007" ;
-  if( boost::checks::check_visa( visa_credit_card_number ) )
-    std::cout << "The VISA credit card number : " << visa_credit_card_number << " is valid." << std::endl ;
+  std::string amex = "3458 2531 9273 09";
+  size_t amex_checkdigit = compute_amex(amex);
+  std::cout << "The check digit of the American Express number \"" << amex << "\" is \'" << amex_checkdigit << "\'." << std::endl;
 
-  std::string amex_credit_card_number = "3458 2531 9273 09" ;
-  char amex_checkdigit = boost::checks::compute_amex( amex_credit_card_number ) ;
-  std::cout << "The check digit of the American Express number : " << amex_credit_card_number << " is " << amex_checkdigit << "." << std::endl ;
-
-  std::string mastercard_credit_card_number = "5320 1274 8562 157" ;
-  mastercard_credit_card_number += boost::checks::compute_mastercard( mastercard_credit_card_number );
-  std::cout << "This is a valid Mastercard number : " << mastercard_credit_card_number << std::endl ;
+  std::string mastercard = "5320 1274 8562 157";
+  mastercard += boost::lexical_cast<std::string>(compute_mastercard(mastercard));
+  std::cout << "\"" << mastercard << "\" is a valid mastercard number." << std::endl;
 
   //] [/checks_example_1]
 
-  std::cout << std::endl ;
+  std::cout << std::endl;
 
   //[checks_example_2
 
-  std::string mod97_10_number = "1234567890123456789" ;
-  std::string mod97_10_checkdigits = "  " ;
-  boost::checks::compute_mod97_10 ( mod97_10_number , mod97_10_checkdigits.begin() ) ;
-  std::cout << "The number : " << mod97_10_number << " have the check digits : " << mod97_10_checkdigits << "." << std::endl ;
+  std::string mod97_10 = "1234567890123456789";
+  size_t mod97_10_checkdigits = compute_mod97_10(mod97_10);
+  std::cout << "The number \"" << mod97_10 << "\" has the check digits \"" << mod97_10_checkdigits << "\"." << std::endl;
 
-  mod97_10_number = "85212547851652  " ;
-  boost::checks::compute_mod97_10 ( mod97_10_number , mod97_10_number.end() - 2);
-  std::cout << "A complete mod97-10 number : " << mod97_10_number << std::endl ;
+  mod97_10 = "85212547851652";
+  mod97_10 += boost::lexical_cast<std::string>(compute_mod97_10(mod97_10));
+  std::cout << "A complete mod97-10 number is \"" << mod97_10 << "\"." << std::endl;
 
   //] [/checks_example_2]
 
-  std::cout << std::endl ;
+  std::cout << std::endl;
 
   //[checks_example_3
 
-  std::string ean13_number = "540011301748" ; // Incorrect size.
-  try
-  {
-    boost::checks::check_ean13 ( ean13_number ) ;
-  }
-  catch ( std::invalid_argument e )
-  {
-    std::cout << e.what() << std::endl ;
-  }
+  std::string ean13 = "540011301748"; // Incorrect size.
+  if(!check_ean13(ean13))
+    std::cout << "The EAN \"" << ean13 << "\" is not valid." << std::endl;
 
-  std::string isbn13_number = "977-0321227256" ; // Third digit altered.
-  try
-  {
-    boost::checks::check_isbn13( isbn13_number );
-  }
-  catch ( std::invalid_argument e )
-  {
-    std::cout << e.what() << std::endl ;
-  }
+
+  std::string isbn13 = "977-0321227256"; // Third digit altered.
+  if(!check_isbn13(isbn13))
+    std::cout << "The ISBN-13 \"" << isbn13 << "\" is not valid." << std::endl;
+
 
   //] [/checks_example_3]
 
-  std::cout << std::endl ;
+  std::cout << std::endl;
 
   //[checks_example_4
 
-  std::string isbn10_number = "020163371" ; // More Effective C++: 35 New Ways to Improve Your Programs and Designs, Scott Meyers.
-  int isbn10_integer_number[] = {0,2,0,1,6,3,3,7,1} ;
+  std::string isbn10 = "020163371"; // More Effective C++: 35 New Ways to Improve Your Programs and Designs, Scott Meyers.
+  int isbn10_int_array[] = {0,2,0,1,6,3,3,7,1};
 
-  std::cout << "ISBN10 : " << isbn10_number << ". Check digit : " << boost::checks::compute_isbn10( isbn10_number ) << std::endl ;
-  std::cout << "ISBN10 integer version. Check digit : " << boost::checks::compute_isbn10( isbn10_integer_number ) << std::endl ;
+  std::cout << "ISBN10 : " << isbn10 << ". Check digit : " << compute_isbn10(isbn10) << std::endl;
+  std::cout << "ISBN10 integer version. Check digit : " << compute_isbn10(isbn10_int_array) << std::endl;
 
   //] [/checks_example_4]
 
