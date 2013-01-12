@@ -29,25 +29,26 @@
 
 // Files containing the 'new' checksum definitions.
 #include "rtn.hpp"
-#include "vin.hpp"
+//#include "vin.hpp"
 
 int main()
 {
+  using namespace boost::checks;
   //[rtn_example
-  std::string rtn_number =  "111000025" ;
-  if ( check_rtn ( rtn_number ) )
-    std::cout << "The Routing Transit Number: " << rtn_number << " is valid." << std::endl ;
-  rtn_number = "11100002";
-  std::cout << "The check digit of the number: " << rtn_number << " is " << compute_rtn (rtn_number ) << "." << std::endl ;
+  std::string rtn =  "111000025";
+  if(check_rtn(rtn))
+    std::cout << "The Routing Transit Number (RTN) \"" << rtn << "\" is valid." << std::endl;
+  rtn = "11100002";
+  std::cout << "The check digit of \"" << rtn << "\" is " << compute_rtn(rtn) << "." << std::endl;
   //]
 
   //[vin_example
-  std::string vin_number = "1M8GDM9AXKP042788";
-  if ( check_vin ( vin_number ) )
-    std::cout << "The Vehicle Identification Number: " << vin_number << " is correct." << std::endl ;
+  /*std::string vin = "1M8GDM9AXKP042788";
+  if(check_vin(vin))
+    std::cout << "The Vehicle Identification Number (VIN) \"" << vin << "\" is valid." << std::endl;
 
-  vin_number = "1M8GDM9AKP042788" ;
-  std::cout << "The check digit of " << vin_number << " is " << compute_vin ( vin_number) << std::endl ;
+  vin = "1M8GDM9AKP042788";
+  std::cout << "The check digit of \"" << vin << "\" is " << compute_vin(vin) << std::endl;*/
   //]
   return 0;
 }

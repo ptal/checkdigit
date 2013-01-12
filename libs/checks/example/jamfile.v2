@@ -29,5 +29,5 @@ project
     ;
 
 run checks_examples.cpp ; # Example of some function in Boost.Checks.
-#run checks_tutorial.cpp ; # Examples for the "Extending the library" section of the tutorial.
+run checks_tutorial.cpp ; # Examples for the "Extending the library" section of the tutorial.
 

@@ -17,36 +17,50 @@
 #define BOOST_CHECKS_RTN_HPP
 
 //[rtn_include_files
+#include <cstddef>
 #include <boost/checks/modulus10.hpp>
-#include <boost/checks/basic_checks.hpp>
+#include <boost/checks/checksum.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 //]
 
 //[rtn_preprocessor_tools
 #define RTN_SIZE 9
-#define RTN_SIZE_WITHOUT_CHECKDIGIT 8
 
-typedef boost::checks::weight<3,7,1> rtn_weight;
+namespace boost{
+namespace checks{
+
+typedef weighted_sum<weight<3,7,1> > rtn_processor;
 //]
 
 //[rtn_preprocessor_algorithm
-typedef boost::checks::modulus10_algorithm<rtn_weight, 0> rtn_check_algorithm;
-typedef boost::checks::modulus10_algorithm<rtn_weight, 0> rtn_compute_algorithm;
+typedef checksum
+<
+  rtn_processor,
+  mod10_validation,
+  mod10_checkdigit
+> rtn_checksum;
+
+typedef features
+<
+  rtn_checksum,
+  RTN_SIZE
+> rtn;
+
 //]
 
 //[rtn_functions
 template <typename check_range>
 bool check_rtn(const check_range& check_seq)
 {
-  return boost::checks::check_sequence<rtn_check_algorithm, RTN_SIZE>(boost::begin(check_seq), boost::end(check_seq));
+  return check_sequence<rtn>(check_seq);
 }
 
 template <typename check_range>
-typename rtn_compute_algorithm::checkdigit<check_range>::type compute_rtn(const check_range& check_seq)
+size_t compute_rtn(const check_range& check_seq)
 {
-  return boost::checks::compute_checkdigit<rtn_compute_algorithm, RTN_SIZE_WITHOUT_CHECKDIGIT>(boost::begin(check_seq), boost::end(check_seq));
+  return compute_checkdigit<rtn>(check_seq);
 }
 //]
-
+}}
 #endif
