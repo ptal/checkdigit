@@ -1,0 +1,178 @@
+[/ 
+Copyright Pierre Talbot 2013.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+
+[import ../example/vin.hpp]
+[import ../example/rtn.hpp]
+
+[section:extending_the_library Extending the library]
+
+You may use the facilities of this library to implement functions not provided yet by this library.
+
+[note Please do not hesitate to contact us if you think your check function is not a part (yet) of Boost.Checks.] 
+
+The first example is the implementation of the __RTN__, which is really easy and will not ask a lot of effort to code.
+The second is the __VIN__'s implementation, it's a bit more difficult to code due to the specificities
+of this algorithm. But it's an excellent example to show you how to extend this library.
+
+[section:implement_rtn Implement the RTN algorithm]
+
+We begin with the implementation of the __RTN__ algorithm. We follow the __DESCRIPTION__ given earlier to find similar point with it and our algorithm.
+
+[h4]Filter[/h4]
+
+We don't need any specific filter, the default "filter everything" is enough here.
+
+[h4]Check digit[/h4]
+
+The check digit is very basic because it's the checksum modulus 10.
+
+[rtn_checkdigit]
+
+[h4]Checksum[/h4]
+
+The transliteration convert character into digit which is the default behavior.
+The size of the RTN is 9 and the traversal is from right to left which is also the default.
+The core algorithm is a weighted sum with the weight sequence [3,7,1].
+Finally, we obtain the following checksum type.
+
+[rtn_checksum]
+
+[h4]RTN algorithm[/h4]
+
+The last step is to put all type definition together to form a algorithm type.
+
+[rtn_algorithm]
+
+[h4]Example[/h4]
+
+We can now use the RTN algorithm with `compute_checkdigit` and `validate`.
+
+[rtn_example]
+
+and the output is
+
+[rtn_example_res]
+
+[section:implement_vin Implement the VIN algorithm]
+
+This section will guide you though the implementation of the __VIN__ algorithm.
+The VIN is especially difficult to implement in a generic context
+due to its numerous corner cases. Because of it, the design of Boost.Check has been changed few times, 
+and hopefully improved to handle a larger set of check functions, including this one.
+
+The first step is to match the __DESCRIPTION__ we give earlier.
+
+[h4]Filter[/h4]
+
+We don't need any specific filter. So the default filter will fit our use.
+
+[h4]Check digit[/h4]
+
+The check digit is quite special in this algorithm because it isn't in the end, but in the middle.
+More precisely, it is at the eighth position starting from end and it's a single digit.
+
+Furthermore, the function that compute the check digit is a classic mod11 calculation. The VIN use a simple `checksum % 11`.
+
+Now we can compose the check digit structure of VIN. Here the sample of code doing this task.
+
+[vin_checkdigit]
+
+We use the default values for the size of the check digit (which is 1).
+For description purpose, we use a `#define` for the check digit size.
+
+[h4]Checksum[/h4]
+
+Now we must code the core of the algorithm.
+
+[h5]Transliteration[/h5]
+First, the VIN checksum algorithm work with transliterated value, corresponding to the following table:
+
+[table:id Letter to digit VIN conversion table
+    [[Conversion value] [1] [2] [3] [4] [5] [6] [7] [8] [9] ]
+    [[] [A (1)] [B (2)] [C (3)] [D (4)] [E (5)] [F (6)] [G (7)] [H (8)] [ I (N/A) ] ]
+    [[] [J (10)] [K (11)] [L (12)] [M (13)] [N (14)] [O (N/A)] [P (16)] [Q (N/A)] [R (18)] ]
+    [[] [] [S (19)] [T (20)] [U (21)] [V (22)] [W (23)] [X (24)] [Y (25)] [Z (26)] ] 
+]
+
+As we know we receive ASCII encoded character, the conversion is quite easy. We could use
+a table with an array `table`, where `table[character - 'a'] == value`. We just have to check if
+`character` is a digit or a letter (and put it in lower case). It's ok to do it like this, but we found
+a function that permit us to avoid the memory cost of the table.
+
+Another problem is that I, O and Q have no matching value. If they appear, the number is not valid.
+You might ask why we don't check it in the filter function. This is because this rule is a part of
+the algorithm and the filter just skip the character. But we don't want to skip it, we want to stop the
+algorithm if we encountered such a value. Here is the transliteration function.
+
+[vin_transliteration]
+
+[h5]Processor[/h5]
+
+The processor is the function that compute the checksum. VIN is a weighted sum algorithm, it's nice
+because a re-usable piece of code doing this job already exist. Because we go though the sequence from
+the end, we can say that the weight sequence is [2,3,4,5,6,7,8,9,10]. Note that the check digit is not
+processed. The processor is quite easy to code, as you can see below.
+
+[vin_processor]
+
+[h5]Sequence size[/h5]
+
+The sequence size is important here. The VIN must exactly be composed of 17 digits.
+But what are we doing if the sequence is not of exactly 17 digits ? You can return an
+error code or send an exception. The policy used return an error code (or simply 
+false if you validate).
+
+[vin_size]
+
+[h5]Traversal[/h5]
+
+The traversal is very important, the position of the check digit and the weight sequence depend on it.
+Most of the check algorithm will use a right to left traversal, so it's the default value. The VIN algorithm is quite basic here and use this default value.
+
+[h5]Checksum[/h5]
+
+Finally, we can create the checksum type of this algorithm.
+
+[vin_checksum]
+
+[h4]VIN algorithm[/h4]
+
+Finally we have all the pieces and we need to put these together. A last type definition is 
+used to describe our VIN algorithm.
+
+[vin_algorithm]
+
+It's a VIN algorithm that raises exception on transliteration error and returns error
+code on size error. You can easily change what you want in it.
+
+We defined several function and few typedef, but the VIN is very specific, and you shouldn't have
+so many works on other check algorithms.
+
+[h4]Tests[/h4]
+
+The tests are very important but also quite difficult to find. The easiest solution is to get
+some existing and trusted generators and to compare your algorithm with it. If you can't find some,
+just compute some examples by hand.
+
+In some cases, other solutions exists. For the VIN, a test is to check the result of the sequence
+of seventies 1 digit. The check digit should be 1.
+
+[h4]Example[/h4]
+
+You can use it in the same way you use all the other.
+
+[vin_example]
+
+and the output is
+
+[vin_example_res]
+
+[endsect][/section:implement_vin Implement the VIN algorithm]
+
+[endsect][/section:extending_the_library Extending the library]

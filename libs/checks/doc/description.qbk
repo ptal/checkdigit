@@ -1,0 +1,38 @@
+[/ 
+Copyright Pierre Talbot 2013.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+
+[section:description Description]
+
+This chapter will give you a basic approach to understand this library.
+
+For the re-usability and genericity sake, all algorithms are split in several pieces of code:
+
+* Filtering undesirable characters. [*Default:] Everything that is not expected is skipped.
+* Transliterate characters to digits, possibly with the help of a table. [*Default:] The characters are transliterated into unsigned digits, an exception can be raised if the transliteration is impossible.
+* Processing the checksum.
+* An optional size checking.
+* Producing the check digit with the checksum.
+
+There is also other modifiable pieces of code:
+
+* The position and length of the check digit. [*Default: ] Last digit in the sequence.
+* The traversal type, forward or backward. [*Default: ] Backward traversal.
+
+These steps are done in a single iteration.
+
+You might want to read the section that fit your use:
+
+* If you want to use functions provided by the library, see __QUICKSTART__ ;
+* If you want to modify existing algorithm, see __MODIFYING_COMPONENTS__ ;
+* If you want to check international string, see __INTERNATIONALIZATION__ ;
+* Finally, if you want a guideline to write your own check function, see __EXTENDING_LIBRARY__.
+
+A __REFERENCE__ section is available and you can find further documentation on specific algorithm or component.
+
+[endsect][/section:description Description]

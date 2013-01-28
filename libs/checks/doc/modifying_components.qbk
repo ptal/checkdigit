@@ -1,0 +1,28 @@
+[/ 
+Copyright Pierre Talbot 2013.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+
+[section:modifying_components Modifying Components]
+
+You sometimes want to change one or two pieces of code of an existing algorithm.
+For example, you would like a filter which only accept the separator '-' and digits.
+This functor look like:
+
+[strict_filter]
+
+You can now use the type adaptor to change this component in VISA.
+
+[type_adaptor]
+
+And finally the example:
+
+[visa_example]
+
+You can find all the modifying tag in the __TYPE_ADAPTOR__ reference section.
+
+[endsect][/section:modifying_components Modifying Components]

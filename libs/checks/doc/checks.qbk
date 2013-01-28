@@ -1,6 +1,6 @@
 [article Checks
     [quickbook 1.5]
-    [copyright 2011 Pierre Talbot]
+    [copyright 2011-2013 Pierre Talbot]
     [license
         Distributed under the Boost Software License, Version 1.0.
         (See accompanying file LICENSE_1_0.txt or copy at
@@ -43,10 +43,26 @@
 [def __ISBN [@http://en.wikipedia.org/wiki/Isbn International Standard Book Number (ISBN)]]
 [def __ISSN [@http://en.wikipedia.org/wiki/International_Standard_Serial_Number International Standard Serial Number (ISSN)]]
 [def __IBAN [@http://en.wikipedia.org/wiki/International_Bank_Account_Number International Bank Account Number (IBAN)]]
-[def __VIN [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
-[def __RTN [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
 [def __CODE39 [@http://en.wikipedia.org/wiki/Code_39 Code 39]]
 [def __EAN [@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]]
+
+[/ Links to C++ reference.]
+[def __BOOST_REGEX__ [@http://www.boost.org/doc/libs/1_52_0/libs/regex/doc/html/index.html Boost regex]]
+[def __STD_REGEX__ [@http://en.cppreference.com/w/cpp/regex Standard regex]]
+
+[/ Links to different check description]
+[def __VIN__ [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
+[def __AMEX__ [@http://en.wikipedia.org/wiki/American_Express American Express (AMEX)]]
+[def __RTN__ [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
+
+[/ Links to different sections]
+[def __DESCRIPTION__ [link checks.checks.description Description]]
+[def __QUICKSTART__ [link checks.checks.quick_start Quick start]]
+[def __MODIFYING_COMPONENTS__ [link checks.checks.modifying_components Modifying components]]
+[def __EXTENDING_LIBRARY__ [link checks.checks.extending_the_library Extending the library]]
+[def __INTERNATIONALIZATION__ [link checks.checks.internationalization Internationalization]]
+[def __REFERENCE__ [link checks.checks.reference Reference]]
+[def __TYPE_ADAPTOR__ [link checks.checks.reference.type_adaptor Type adaptor]]
 
 [def __types_of_errors [link checks.checks.errors types of error]]
 [def __overview [link checks.checks.overview Overview]]
@@ -125,7 +141,7 @@ may still be changed without notice.  The current version is available at
 
 The author thanks
 
-* Paul A. Bristow who was the mentor of this Google Summer of Code project for his infinite patience and his wise advice.
+* Paul A. Bristow who was the mentor of this Google Summer of Code project for his infinite patience and its wise advices.
 * Google for funding this Google Summer of Code 2011 project.
 * Joseph A Gallian for his assistance with tables of values for the Verhoeff algorithm.
 

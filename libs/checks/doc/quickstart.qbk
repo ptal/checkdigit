@@ -1,0 +1,50 @@
+[/ 
+Copyright Pierre Talbot 2011.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+
+[import ../example/checks_examples.cpp]
+[import ../example/checks_tutorial.cpp]
+[import ../example/rtn.hpp]
+[import ../example/vin.hpp]
+
+[section:quickstart Quick Start]
+There are two main functionalities provided by this library. The first is used to 
+[*validate] a sequence of character :
+
+``
+template <typename check_algo, 
+          typename range>    
+bool check_sequence(const range &x);
+``
+
+If `x` doesn't match the set of rules specified by `check_algo` it returns false. Generally,
+it's because `x` doesn't have the size required or because the check digit is wrong.
+
+The second aimed to [*calculate] the check digit.
+
+``
+template <typename check_algo,            
+          typename range>               
+boost::optional<typename check_algo::checkdigit_type>
+compute_checkdigit(const range &x);
+``
+
+The return value contains the check digit if `x` is a valid sequence according to `check_algo`.
+A simple example of these two functions is provided below with the __AMEX__ algorithm.
+
+[amex_example] 
+
+[note You noticed the template parameter `check_algo` is exactly the same for validation or computation.]
+
+[warning Boost.Check [*does not provide] support for string pattern matching such as a require starting number (example: "978" or "979" in an ISBN number). Refer to __BOOST_REGEX__ or __STD_REGEX__ or a homecraft pre-checking.]
+
+Basically, the `check_algo` is the acronym of the algorithm you want to use.
+
+The default behavior is to skip every character not recognized as belonging to the number. So you can use your favorite digit separator.
+
+[endsect] [/section:quickstart Quick Start]

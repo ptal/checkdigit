@@ -28,7 +28,7 @@ struct digit_filter
   typedef bool result_type;
 
   template <typename value_type>
-  bool operator()(const value_type &value)
+  bool operator()(const value_type &value) const
   {
     return value >= '0' && value <= '9';
   }
@@ -39,7 +39,7 @@ struct digitx_filter
   typedef bool result_type;
 
   template <typename value_type>
-  bool operator()(const value_type &value) 
+  bool operator()(const value_type &value) const
   {
     return (value >= '0' && value <= '9') || std::tolower(value) == 'x';
   }

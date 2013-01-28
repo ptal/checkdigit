@@ -1,0 +1,22 @@
+[/ 
+Copyright Pierre Talbot 2013.
+
+Use, modification and distribution are subject to the
+Boost Software License, Version 1.0.
+(See accompanying file LICENSE_1_0.txt
+or copy at http://www.boost.org/LICENSE_1_0.txt)
+]
+
+[section:internationalization Internationalization]
+
+Each check sequence has a minimal character type in which every characters can be represented.
+For most, the char type is sufficient.
+
+If the minimal character type is char, your sequence is supposed to be of that type. If it's not,
+you must transcode this character into the minimal character type of the algorithm.
+
+There is no decoding/encoding in Boost.Check as we assume we manipulate a sequence of the type required by the algorithm.
+
+The transformation of your specific encoding into ASCII-char is not handle by the core functionnalities.
+
+[endsect][/section:description Description]

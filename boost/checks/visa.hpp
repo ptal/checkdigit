@@ -23,6 +23,8 @@
 
 #include <boost/checks/luhn.hpp>
 #include <boost/checks/checkdigit.hpp>
+#include <boost/checks/precheck.hpp>
+
 /*!
   \brief This macro defines the size of a Visa number.
 */

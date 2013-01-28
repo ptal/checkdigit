@@ -29,7 +29,7 @@
 
 // Files containing the 'new' checksum definitions.
 #include "rtn.hpp"
-//#include "vin.hpp"
+#include "vin.hpp"
 
 int main()
 {
@@ -43,12 +43,14 @@ int main()
   //]
 
   //[vin_example
-  /*std::string vin = "1M8GDM9AXKP042788";
+  std::string vin = "1M8GDM9A6KP042788";
+  vin =             "11111111111111111";
   if(check_vin(vin))
     std::cout << "The Vehicle Identification Number (VIN) \"" << vin << "\" is valid." << std::endl;
 
   vin = "1M8GDM9AKP042788";
-  std::cout << "The check digit of \"" << vin << "\" is " << compute_vin(vin) << std::endl;*/
+  vin = "1111111111111111";
+  std::cout << "The check digit of \"" << vin << "\" is " << compute_vin(vin) << std::endl;
   //]
   return 0;
 }

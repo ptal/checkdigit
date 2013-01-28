@@ -28,28 +28,15 @@
 namespace boost{
   namespace checks{
 
-/*! \class modulus11_algorithm
-    \brief This class can be used to compute or validate checksum with a basic modulus 11.
-
-    \tparam mod11_weight must meet the weight concept requirements.
-    \tparam iteration_sense must meet the iteration_sense concept requirements.
-    \tparam checkdigit_size Help functions to provide same behavior on sequence with and without check digits. No "real" value in the sequence will be skipped.
-
-    \remarks The range of the check digit is [0..10], the tenth element is translated as the letter 'X'.
-*/
-
-  /*!
-    \brief Validate a checksum with a simple modulus 11.
-
-    \param checksum is the checksum to validate.
-
-    \returns true if the checksum is correct, false otherwise.
-  */
-struct mod11_validation
+struct mod11_checkdigit
 {
-  bool operator()(size_t checksum)
+  char operator()(size_t checksum)
   {
-    return !(checksum % 11);
+    checksum %= 11;
+    if(checksum == 10)
+      return 'X';
+    else
+      return checksum + '0';
   }
 };
   /*!
@@ -64,9 +51,13 @@ struct mod11_validation
   */
 struct mod11_checkdigit
 {
-  size_t operator()(size_t checksum)
+  char operator()(size_t checksum)
   {
-     return ((11 - checksum % 11)% 11);
+    checksum = ((11 - checksum % 11)% 11);
+    if(checksum == 10)
+      return 'X';
+    else
+      return checksum + '0';
   }
 };
 

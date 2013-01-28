@@ -17,114 +17,102 @@
 #define BOOST_CHECKS_VIN_HPP
 
 //[vin_preprocessor_tools
+#include <stdexcept>
+#include <boost/checks/precheck.hpp>
+#include <boost/checks/checksum.hpp>
 #include <boost/checks/modulus11.hpp>
-#include <boost/checks/basic_checks.hpp>
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 
-#define VIN_SIZE 17
-#define VIN_SIZE_WITHOUT_CHECKDIGIT 16
+namespace boost{
+namespace checks{
+
+
+//[vin_checkdigit
 #define VIN_CHECKDIGIT_POS 8
+#define VIN_CHECKDIGIT_SIZE 1
 
-typedef boost::checks::weight<2,3,4,5,6,7,8,9,10> vin_weight;
+typedef checkdigit
+<
+  mod11_checkdigit,
+  VIN_CHECKDIGIT_POS
+> 
+vin_checkdigit;
 //]
 
-//[vin_struct_header
-template <unsigned int number_of_virtual_value_skipped = 0>
-struct vin_algorithm : boost::checks::modulus11_algorithm<vin_weight, number_of_virtual_value_skipped>
-//]
+//[vin_transliteration
+struct vin_transliteration
 {
-  //[vin_translation_module
-  template <typename value>
-  static int translate_to_valid_value(const value &current_value)
+  size_t operator()(char value) const 
   {
-    int valid_value = 0;
-    try
-    {
-      valid_value = boost::lexical_cast<int>(current_value);
-    }
-    catch(boost::bad_lexical_cast)
-    {
-      // Transform the value to be between 1 and 26.
-      if(current_value >= 'a' && current_value <= 'z')
-        valid_value = current_value - 'a' + 1;
-      else if(current_value >= 'A' && current_value <= 'Z')
-        valid_value = current_value - 'A' + 1;
-      else
-        throw boost::checks::translation_exception();
+    char lower_value = std::tolower(value);
+    if(value_lower == 'o' || value_lower == 'i' || value_lower == 'q')
+      throw transliteration_exception("The letters I, O and Q are not allowed.");
+    // If the value is less or equal than 9, we are sure it's a number thanks to the filter.
+    if(value <= '9')
+      return value - '0';
 
-      if(valid_value == 9 || valid_value == 15 || valid_value == 17)
-        throw std::invalid_argument("The letters I, O and Q are not allowed.");
-
-      if(valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
-      {
-        if(valid_value != 24)
-          throw std::invalid_argument("The check digit should be a digit or X or x.");
-        else
-          valid_value = 10;
-        valid_value = 11 - valid_value;
-      }
-      else
-        valid_value = valid_value % 10 + valid_value / 10 + (valid_value > 18);
-    }
-    if(valid_value > 10)
-      throw boost::checks::translation_exception();
-
-    return valid_value;
+    size_t res = value_lower - 'a' + 1;
+    return res % 10 + res / 10 + (res > 18);
   }
-
-  static void filter_valid_value_with_pos(unsigned int current_valid_value, unsigned int current_value_position)
-  {
-    if(valid_value_counter == VIN_CHECKDIGIT_POS && number_of_virtual_value_skipped == 0)
-    {
-      if(valid_value != 24)
-        throw std::invalid_argument("The check digit should be a digit or X or x.");  
-    } 
-  }
-  //]
-
-  //[vin_operation_module
-  static void operate_on_valid_value(const int current_valid_value, const unsigned int valid_value_counter, int &checksum)
-  {
-    if(number_of_virtual_value_skipped == 0 && valid_value_counter == VIN_CHECKDIGIT_POS)
-      checksum += current_valid_value;
-    else
-    {
-      unsigned int weight_position = valid_value_counter - (number_of_virtual_value_skipped == 0 && valid_value_counter > VIN_CHECKDIGIT_POS);
-      int current_weight = vin_weight::weight_associated_with_pos(weight_position);
-      checksum += current_valid_value * current_weight;
-    }
-  }
-  //]
-
-  //[vin_compute_checkdigit
-  template <typename checkdigit>
-  static typename checkdigit compute_checkdigit(int checksum)
-  {
-    typedef typename boost::checks::modulus11_algorithm<vin_weight, number_of_virtual_value_skipped> mod11;
-    return mod11::translate_checkdigit<checkdigit>(checksum % 11);
-  }
-  //]
 };
-
-//[vin_preprocessor_algorithm
-typedef vin_algorithm <0> vin_check_algorithm;
-typedef vin_algorithm <1> vin_compute_algorithm;
 //]
 
-//[vin_functions
-template <typename check_range>
-bool check_vin(const check_range& check_seq)
-{
-  return boost::checks::check_sequence<vin_check_algorithm, VIN_SIZE>(boost::rbegin(check_seq), boost::rend(check_seq));
-}
+//[vin_size
+#define VIN_SIZE 17
 
-template <typename check_range>
-typename vin_compute_algorithm::checkdigit<check_range>::type compute_vin(const check_range& check_seq)
+typedef strict_size_policy<VIN_SIZE> vin_size;
+//]
+
+//[vin_processor
+typedef weight<2,3,4,5,6,7,8,9,10> vin_weight;
+typedef weighted_sum<vin_weight> vin_processor;
+//]
+
+//[vin_checksum
+typedef checksum
+<
+  vin_processor,
+  vin_checkdigit,
+  vin_size,
+  vin_transliteration
+> 
+vin_checksum;
+//]
+
+//[vin_algorithm
+typedef check_algorithm
+<
+  vin_checksum
+> 
+vin;
+//]
+
+/*
+//[vin_example
+int main()
 {
-  return boost::checks::compute_checkdigit<vin_compute_algorithm, VIN_SIZE_WITHOUT_CHECKDIGIT>(boost::rbegin(check_seq), boost::rend(check_seq));
+  using namespace boost::checks;
+  std::string vin_number("11111111 1 11111111");
+  std::string vin_number_without_checkdigit("11111111 11111111");
+
+  if(validate<vin>(vin_number))
+    std::cout << vin_number << " is a valid VIN." << std::endl;
+
+  boost::optional<vin::checkdigit_type> checkdigit =
+    compute_checkdigit<vin>(vin_number_without_checkdigit);
+  if(checkdigit)
+    std::cout << "The check digit of the VIN \'" << vin_number_without_checkdigit
+              << "\' is \'" << *checkdigit << "\'.\n";
+
+  return 0;
 }
 //]
 
-
+//[vin_example_res
+11111111 1 11111111 is a valid VIN.
+The check digit of the VIN '11111111 11111111' is '1'.
+//]
+*/
+}}
 #endif

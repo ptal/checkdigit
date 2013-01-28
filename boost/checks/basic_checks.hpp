@@ -83,7 +83,8 @@ bool check_sequence(const range &x)
                               (features::begin(x), features::end(x), counter);
   if(checksum == bad_sequence)
     return false;
-  return typename features::checksum::validate_checkdigit()(checksum);
+
+  return chec
 }
 
 /*!

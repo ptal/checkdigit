@@ -16,51 +16,72 @@
 #ifndef BOOST_CHECKS_RTN_HPP
 #define BOOST_CHECKS_RTN_HPP
 
-//[rtn_include_files
-#include <cstddef>
 #include <boost/checks/modulus10.hpp>
 #include <boost/checks/checksum.hpp>
+#include <boost/checks/precheck.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-//]
-
-//[rtn_preprocessor_tools
-#define RTN_SIZE 9
 
 namespace boost{
 namespace checks{
 
-typedef weighted_sum<weight<3,7,1> > rtn_processor;
+//[rtn_checkdigit
+typedef checkdigit
+<
+  mod10_checkdigit
+> 
+rtn_checkdigit;
 //]
 
-//[rtn_preprocessor_algorithm
+//[rtn_checksum
+#define RTN_SIZE 9
+typedef strict_size_policy<RTN_SIZE> rtn_size;
+typedef weighted_sum<weight<3,7,1> > rtn_processor;
+
 typedef checksum
 <
   rtn_processor,
-  mod10_validation,
-  mod10_checkdigit
-> rtn_checksum;
+  rtn_checkdigit,
+  rtn_size
+> 
+rtn_checksum;
+//]
 
-typedef features
+//[rtn_algorithm
+typedef check_algorithm
 <
-  rtn_checksum,
-  RTN_SIZE
-> rtn;
-
+  rtn_checksum
+> 
+rtn;
 //]
 
-//[rtn_functions
-template <typename check_range>
-bool check_rtn(const check_range& check_seq)
+/*
+//[rtn_example
+int main()
 {
-  return check_sequence<rtn>(check_seq);
-}
+  using namespace boost::checks;
+  std::string rtn_number("111000025");
+  std::string rtn_number_without_checkdigit("11100002");
 
-template <typename check_range>
-size_t compute_rtn(const check_range& check_seq)
-{
-  return compute_checkdigit<rtn>(check_seq);
+  if(validate<rtn>(rtn_number))
+    std::cout << rtn_number << " is a valid RTN." << std::endl;
+
+  boost::optional<rtn::checkdigit_type> checkdigit =
+    compute_checkdigit<rtn>(rtn_number_without_checkdigit);
+  if(checkdigit)
+    std::cout << "The check digit of the RTN \'" << rtn_number_without_checkdigit
+              << "\' is \'" << *checkdigit << "\'.\n";
+
+
+  return 0;
 }
 //]
+
+//[rtn_example_res
+111000025 is a valid RTN.
+The check digit of the RTN '11100002' is '5'.
+//]
+*/
+
 }}
 #endif
