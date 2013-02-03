@@ -49,6 +49,8 @@ unsigned int transposition(const functor &compute_checkdigit);
 template <typename functor>
 unsigned int alteration(const functor &compute_checkdigit , unsigned int number_of_position_to_test);
 
+
+
 BOOST_AUTO_TEST_SUITE(use_cases_tests)
 
 BOOST_AUTO_TEST_CASE(visa_tests)

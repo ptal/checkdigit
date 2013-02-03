@@ -22,7 +22,7 @@ of this algorithm. But it's an excellent example to show you how to extend this 
 
 [section:implement_rtn Implement the RTN algorithm]
 
-We begin with the implementation of the __RTN__ algorithm. We follow the __DESCRIPTION__ given earlier to find similar point with it and our algorithm.
+We begin with the implementation of the __RTN__ algorithm. We follow the __DESCRIPTION__ given earlier to find similitude with it and our algorithm.
 
 [h4]Filter[/h4]
 
@@ -79,7 +79,9 @@ More precisely, it is at the eighth position starting from end and it's a single
 
 Furthermore, the function that compute the check digit is a classic mod11 calculation. The VIN use a simple `checksum % 11`.
 
-Now we can compose the check digit structure of VIN. Here the sample of code doing this task.
+The library already have a basic mod11 checkdigit structure, the only things which change is the position of the checkdigit. 
+We can use a type adaptor which permit to change a single template parameter without taking care of the other defaults.
+Here the sample of code doing this task.
 
 [vin_checkdigit]
 

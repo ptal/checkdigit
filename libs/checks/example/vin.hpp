@@ -32,11 +32,12 @@ namespace checks{
 #define VIN_CHECKDIGIT_POS 8
 #define VIN_CHECKDIGIT_SIZE 1
 
-typedef checkdigit
+typedef type_adaptor
 <
-  mod11_checkdigit,
+  mod11_basic_checkdigit, 
+  checkdigit_pos, 
   VIN_CHECKDIGIT_POS
-> 
+>::type
 vin_checkdigit;
 //]
 

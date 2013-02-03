@@ -26,11 +26,7 @@ namespace boost{
 namespace checks{
 
 //[rtn_checkdigit
-typedef checkdigit
-<
-  mod10_checkdigit
-> 
-rtn_checkdigit;
+typedef mod10_basic_checkdigit rtn_checkdigit;
 //]
 
 //[rtn_checksum

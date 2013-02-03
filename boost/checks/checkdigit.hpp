@@ -5,10 +5,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file
-    \brief Provides a type "checkdigit"
-*/
-
 #ifndef BOOST_CHECK_CHECKDIGIT_HPP
 #define BOOST_CHECK_CHECKDIGIT_HPP
 
@@ -17,21 +13,77 @@
 #endif
 
 #include <cstddef> // size_t
+#include <boost/lexical_cast.hpp>
 
 namespace boost{
   namespace checks{
 
-template <size_t checkdigit_pos,
-          size_t checkdigit_size>
-struct checkdigit
+template <typename Result=char>
+struct checkdigit_encoder
 {
-  static const size_t pos = checkdigit_pos;
-  static const size_t size = checkdigit_size;
+  typedef Result result_type;
+  typedef size_t argument_type;
+
+  result_type operator()(argument_type checksum)
+  {
+    return boost::lexical_cast<result_type>(checksum);
+  }
 };
 
-// A checkdigit at the end of the number for reverse traversal.
-typedef checkdigit<0, 1> basic_checkdigit;
+struct checkdigitx_encoder
+{
+  typedef char result_type;
+  typedef size_t argument_type;
 
+  result_type operator()(argument_type checksum)
+  {
+    if(checksum == 10)
+      return 'X';
+    else
+      return checkdigit_encoder<result_type>()(checksum);
+  }
+};
+
+template
+<
+  typename Processor,
+  typename Encoder,
+  size_t position = 0,
+  size_t size = 1
+>
+struct checkdigit
+{
+  typedef Processor processor_type;
+  typedef Encoder encoder_type;
+  static const size_t position_value;
+  static const size_t size_value;
+
+  typedef typename Encoder::result_type result_type;
+  typedef typename Processor::argument_type argument_type;
+
+  result_type operator()(argument_type value)
+  {
+    return Encoder()(Processor()(value));
+  }
+};
+
+template
+<
+  typename Processor,
+  typename Encoder,
+  size_t position,
+  size_t size
+>
+const size_t checkdigit<Processor, Encoder, position, size>::position_value = position;
+
+template
+<
+  typename Processor,
+  typename Encoder,
+  size_t position,
+  size_t size
+>
+const size_t checkdigit<Processor, Encoder, position, size>::size_value = size;
 
 }} // namespace boost   namespace checks
 
