@@ -35,37 +35,44 @@ int main()
 {
   using namespace boost::checks;
   //[rtn_example
-  std::string rtn =  "111000025";
-  if(check_rtn(rtn))
-    std::cout << "The Routing Transit Number (RTN) \"" << rtn << "\" is valid." << std::endl;
-  rtn = "11100002";
-  std::cout << "The check digit of \"" << rtn << "\" is " << compute_rtn(rtn) << "." << std::endl;
+  std::string rtn_number("111000025");
+  std::string rtn_number_without_checkdigit("11100002");
+
+  if(validate<rtn>(rtn_number))
+    std::cout << rtn_number << " is a valid RTN." << std::endl;
+
+  boost::optional<rtn::checkdigit_type> checkdigit =
+    compute_checkdigit<rtn>(rtn_number_without_checkdigit);
+  if(checkdigit)
+    std::cout << "The check digit of the RTN \'" << rtn_number_without_checkdigit
+              << "\' is \'" << *checkdigit << "\'.\n";
   //]
 
   //[vin_example
-  std::string vin = "1M8GDM9A6KP042788";
-  vin =             "11111111111111111";
-  if(check_vin(vin))
-    std::cout << "The Vehicle Identification Number (VIN) \"" << vin << "\" is valid." << std::endl;
+  std::string vin_number("11111111 1 11111111");
+  std::string vin_number_without_checkdigit("11111111 11111111");
 
-  vin = "1M8GDM9AKP042788";
-  vin = "1111111111111111";
-  std::cout << "The check digit of \"" << vin << "\" is " << compute_vin(vin) << std::endl;
+  if(validate<vin>(vin_number))
+    std::cout << vin_number << " is a valid VIN." << std::endl;
+
+  boost::optional<vin::checkdigit_type> checkdigit =
+    compute_checkdigit<vin>(vin_number_without_checkdigit);
+  if(checkdigit)
+    std::cout << "The check digit of the VIN \'" << vin_number_without_checkdigit
+              << "\' is \'" << *checkdigit << "\'.\n";
   //]
   return 0;
 }
 /*
 
 //[rtn_example_output
-
-The Routing Transit Number: 111000025 is valid.
-The check digit of the number: 11100002 is 5.
-
+111000025 is a valid RTN.
+The check digit of the RTN '11100002' is '5'.
 //]
 
 //[vin_example_output
-The Vehicle Identification Number: 1M8GDM9AXKP042788 is correct.
-The check digit of 1M8GDM9AKP042788 is X
+11111111 1 11111111 is a valid VIN.
+The check digit of the VIN '11111111 11111111' is '1'.
 //]
 
 */

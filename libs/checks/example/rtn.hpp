@@ -51,33 +51,5 @@ typedef check_algorithm
 rtn;
 //]
 
-/*
-//[rtn_example
-int main()
-{
-  using namespace boost::checks;
-  std::string rtn_number("111000025");
-  std::string rtn_number_without_checkdigit("11100002");
-
-  if(validate<rtn>(rtn_number))
-    std::cout << rtn_number << " is a valid RTN." << std::endl;
-
-  boost::optional<rtn::checkdigit_type> checkdigit =
-    compute_checkdigit<rtn>(rtn_number_without_checkdigit);
-  if(checkdigit)
-    std::cout << "The check digit of the RTN \'" << rtn_number_without_checkdigit
-              << "\' is \'" << *checkdigit << "\'.\n";
-
-
-  return 0;
-}
-//]
-
-//[rtn_example_res
-111000025 is a valid RTN.
-The check digit of the RTN '11100002' is '5'.
-//]
-*/
-
 }}
 #endif

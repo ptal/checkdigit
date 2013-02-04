@@ -17,6 +17,6 @@ you must transcode this character into the minimal character type of the algorit
 
 There is no decoding/encoding in Boost.Check as we assume we manipulate a sequence of the type required by the algorithm.
 
-The transformation of your specific encoding into ASCII-char is not handle by the core functionnalities.
+The transformation of your specific encoding into ASCII-char is not handle by the core functionalities.
 
-[endsect][/section:description Description]
+[endsect][/section:internationalization Internationalization]

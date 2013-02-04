@@ -1,6 +1,5 @@
 //[amex_example
 #include <string>
-#include <boost/optional.hpp>
 #include <boost/checks/amex.hpp>
 
 using namespace boost::checks;

@@ -7,9 +7,6 @@ Boost Software License, Version 1.0.
 or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
 
-[import ../example/vin.hpp]
-[import ../example/rtn.hpp]
-
 [section:extending_the_library Extending the library]
 
 You may use the facilities of this library to implement functions not provided yet by this library.
@@ -22,19 +19,19 @@ of this algorithm. But it's an excellent example to show you how to extend this 
 
 [section:implement_rtn Implement the RTN algorithm]
 
-We begin with the implementation of the __RTN__ algorithm. We follow the __DESCRIPTION__ given earlier to find similitude with it and our algorithm.
+We begin with the implementation of the __RTN__ algorithm. We follow the __OVERVIEW__ given earlier to find similitude with it and our algorithm.
 
-[h4]Filter[/h4]
+[h4 Filter]
 
 We don't need any specific filter, the default "filter everything" is enough here.
 
-[h4]Check digit[/h4]
+[h4 Check digit]
 
 The check digit is very basic because it's the checksum modulus 10.
 
 [rtn_checkdigit]
 
-[h4]Checksum[/h4]
+[h4 Checksum]
 
 The transliteration convert character into digit which is the default behavior.
 The size of the RTN is 9 and the traversal is from right to left which is also the default.
@@ -43,21 +40,23 @@ Finally, we obtain the following checksum type.
 
 [rtn_checksum]
 
-[h4]RTN algorithm[/h4]
+[h4 RTN algorithm]
 
-The last step is to put all type definition together to form a algorithm type.
+The last step is to put all type definition together to form an algorithm type.
 
 [rtn_algorithm]
 
-[h4]Example[/h4]
+[h4 Example]
 
-We can now use the RTN algorithm with `compute_checkdigit` and `validate`.
+We can now use the RTN algorithm with the `compute_checkdigit` and `validate` generic function.
 
 [rtn_example]
 
 and the output is
 
-[rtn_example_res]
+[rtn_example_output]
+
+[endsect][/section:implement_rtn Implement the RTN algorithm]
 
 [section:implement_vin Implement the VIN algorithm]
 
@@ -66,21 +65,21 @@ The VIN is especially difficult to implement in a generic context
 due to its numerous corner cases. Because of it, the design of Boost.Check has been changed few times, 
 and hopefully improved to handle a larger set of check functions, including this one.
 
-The first step is to match the __DESCRIPTION__ we give earlier.
+The first step is to match the __OVERVIEW__ we give earlier.
 
-[h4]Filter[/h4]
+[h4 Filter]
 
 We don't need any specific filter. So the default filter will fit our use.
 
-[h4]Check digit[/h4]
+[h4 Check digit]
 
 The check digit is quite special in this algorithm because it isn't in the end, but in the middle.
 More precisely, it is at the eighth position starting from end and it's a single digit.
 
 Furthermore, the function that compute the check digit is a classic mod11 calculation. The VIN use a simple `checksum % 11`.
 
-The library already have a basic mod11 checkdigit structure, the only things which change is the position of the checkdigit. 
-We can use a type adaptor which permit to change a single template parameter without taking care of the other defaults.
+The library already have a basic mod11 check digit structure, the only things that change is the position of the check digit. 
+We can use a type adapter which permit to change a single template parameter without taking care of the other defaults.
 Here the sample of code doing this task.
 
 [vin_checkdigit]
@@ -88,11 +87,11 @@ Here the sample of code doing this task.
 We use the default values for the size of the check digit (which is 1).
 For description purpose, we use a `#define` for the check digit size.
 
-[h4]Checksum[/h4]
+[h4 Checksum]
 
 Now we must code the core of the algorithm.
 
-[h5]Transliteration[/h5]
+[h5 Transliteration]
 First, the VIN checksum algorithm work with transliterated value, corresponding to the following table:
 
 [table:id Letter to digit VIN conversion table
@@ -114,7 +113,7 @@ algorithm if we encountered such a value. Here is the transliteration function.
 
 [vin_transliteration]
 
-[h5]Processor[/h5]
+[h5 Processor]
 
 The processor is the function that compute the checksum. VIN is a weighted sum algorithm, it's nice
 because a re-usable piece of code doing this job already exist. Because we go though the sequence from
@@ -123,7 +122,7 @@ processed. The processor is quite easy to code, as you can see below.
 
 [vin_processor]
 
-[h5]Sequence size[/h5]
+[h5 Sequence size]
 
 The sequence size is important here. The VIN must exactly be composed of 17 digits.
 But what are we doing if the sequence is not of exactly 17 digits ? You can return an
@@ -132,18 +131,18 @@ false if you validate).
 
 [vin_size]
 
-[h5]Traversal[/h5]
+[h5 Traversal]
 
 The traversal is very important, the position of the check digit and the weight sequence depend on it.
 Most of the check algorithm will use a right to left traversal, so it's the default value. The VIN algorithm is quite basic here and use this default value.
 
-[h5]Checksum[/h5]
+[h5 Checksum]
 
 Finally, we can create the checksum type of this algorithm.
 
 [vin_checksum]
 
-[h4]VIN algorithm[/h4]
+[h4 VIN algorithm]
 
 Finally we have all the pieces and we need to put these together. A last type definition is 
 used to describe our VIN algorithm.
@@ -156,7 +155,7 @@ code on size error. You can easily change what you want in it.
 We defined several function and few typedef, but the VIN is very specific, and you shouldn't have
 so many works on other check algorithms.
 
-[h4]Tests[/h4]
+[h4 Tests]
 
 The tests are very important but also quite difficult to find. The easiest solution is to get
 some existing and trusted generators and to compare your algorithm with it. If you can't find some,
@@ -165,7 +164,7 @@ just compute some examples by hand.
 In some cases, other solutions exists. For the VIN, a test is to check the result of the sequence
 of seventies 1 digit. The check digit should be 1.
 
-[h4]Example[/h4]
+[h4 Example]
 
 You can use it in the same way you use all the other.
 
@@ -173,7 +172,7 @@ You can use it in the same way you use all the other.
 
 and the output is
 
-[vin_example_res]
+[vin_example_output]
 
 [endsect][/section:implement_vin Implement the VIN algorithm]
 

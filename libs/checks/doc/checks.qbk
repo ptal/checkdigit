@@ -26,24 +26,12 @@
 [/ Links to source code]
 [def __CHECKS_SRC_CODE [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]]
 
-[def __CHECKS__HIERARCHY__ [$./images/checks/check_hierarchy.png]]
-[def __EXTENDS__LIBRARY__ [link checks.checks.tutorial.extending_the_library Extending the library]]
-
-[def __BASIC__CHECK__FILE__ [@../../../../boost/checks/basic_checks.hpp basic_checks.hpp]]
-[def __WEIGHTED__SUM__FILE__ [@../../../../boost/checks/weighted_sum.hpp weighted_sum.hpp]]
-[def __RTN__FILE__ [@../../example/rtn.hpp rtn.hpp]]
-[def __VIN__FILE__ [@../../example/vin.hpp vin.hpp]]
-[def __CHECKS__TUTO__FILE__ [@../../example/checks_tutorial.cpp checks_tutorial.cpp]]
-[def __CHECKS__EXAMPLE__FILE__ [@../../example/checks_examples.cpp checks_examples.cpp]]
-
 [def __GSOC [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]]
 [def __VISA [@http://en.wikipedia.org/wiki/Visa_credit_card Visa credit card]]
 [def __MASTERCARD [@http://en.wikipedia.org/wiki/Mastercard Mastercard credit card]]
-[def __AMEX [@http://en.wikipedia.org/wiki/American_Express  American Express]]
 [def __ISBN [@http://en.wikipedia.org/wiki/Isbn International Standard Book Number (ISBN)]]
 [def __ISSN [@http://en.wikipedia.org/wiki/International_Standard_Serial_Number International Standard Serial Number (ISSN)]]
 [def __IBAN [@http://en.wikipedia.org/wiki/International_Bank_Account_Number International Bank Account Number (IBAN)]]
-[def __CODE39 [@http://en.wikipedia.org/wiki/Code_39 Code 39]]
 [def __EAN [@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]]
 
 [/ Links to C++ reference.]
@@ -54,18 +42,17 @@
 [def __VIN__ [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
 [def __AMEX__ [@http://en.wikipedia.org/wiki/American_Express American Express (AMEX)]]
 [def __RTN__ [@http://en.wikipedia.org/wiki/Routing_transit_number Routing transit number (RTN)]]
+[def __VERHOEFF__ [@http://en.wikipedia.org/wiki/Verhoeff_algorithm Verhoeff algorithm]]
 
 [/ Links to different sections]
-[def __DESCRIPTION__ [link checks.checks.description Description]]
-[def __QUICKSTART__ [link checks.checks.quick_start Quick start]]
+[def __OVERVIEW__ [link checks.checks.overview Overview]]
+[def __QUICKSTART__ [link checks.checks.quickstart Quick start]]
 [def __MODIFYING_COMPONENTS__ [link checks.checks.modifying_components Modifying components]]
 [def __EXTENDING_LIBRARY__ [link checks.checks.extending_the_library Extending the library]]
 [def __INTERNATIONALIZATION__ [link checks.checks.internationalization Internationalization]]
 [def __REFERENCE__ [link checks.checks.reference Reference]]
 [def __TYPE_ADAPTOR__ [link checks.checks.reference.type_adaptor Type adaptor]]
 
-[def __types_of_errors [link checks.checks.errors types of error]]
-[def __overview [link checks.checks.overview Overview]]
 [def __overview [link checks.checks.preface Preface]]
 
 [def __spaces '''&#x2000;&#x2000;'''] [/ two spaces - useful for an indent.]
@@ -83,33 +70,27 @@ is why check digits have been designed.
 
 A check digit aims to control the validity of a alphanumeric string 
 and catch the as many changes as possible.
-(__types_of_errors discuss possible alterations and the efficiency of their detection).
 
 This library provides a collection of functions for validating and creating check digits.
 
-Scott McMurray has identifed four fairly distinct types of check:
+Scott McMurray has identified four fairly distinct types of check:
 
 # ISBN/ISSN/UPC/EAN/VISA/etc, for catching human-entry errors.
 # hash functions as in hash tables, which only care about distribution.
 # checksums like CRC32, for catching data transmission errors.
 # and cryptographic hash functions, the only ones useful against malicious adversaries.
 
-The functions in this Boost.Checks library are primarily for the first category :
+The functions in Boost.Checks library are primarily for the first category :
 catching human-entry errors
 (though it obviously also provides against a mis-scan or mis-transmit 
 by a device like a bar code or card reader.) 
 
-This library supports four families of check : Modulus 10, Modulus 11, Modulus 97-10 
-and Verhoeff. A lot of other check systems are inherited from these families.
-
-The following diagram shows the hierarchy used in Boost.Checks:
-
-__CHECKS__HIERARCHY__
+This library supports three main algorithms : weigthed sum, Luhn and Verhoeff.
+A lot of other check systems use these algorithms.
 
 Numerous check algorithms are in use worldwide,
 and this is why this library is designed to help you to cater
 for less common checks, and even to create your own check systems.
-If you are interested, see __EXTENDS__LIBRARY__.
 
 [endsect] [/section:preface Preface]
 
@@ -118,7 +99,7 @@ If you are interested, see __EXTENDS__LIBRARY__.
 [important This is not (yet) an official Boost library. It was a __GSOC
 whose mentor organization was Boost. It remains a library under construction,
 the code is quite functional, but interfaces, library structure, and names
-may still be changed without notice.  The current version is available at
+may still be changed without notice. The current version is available at
 
 [*__CHECKS_DOC_PDF]
 
@@ -132,10 +113,14 @@ may still be changed without notice.  The current version is available at
 
 [endsect] [/section:status Status]
 
+[include import.qbk]
 [include conventions.qbk]
+[include overview.qbk]
 [include quickstart.qbk]
-[include algorithm.qbk]
-[include errors.qbk]
+[include modifying_components.qbk]
+[include internationalization.qbk]
+[include extending_library.qbk]
+[include reference.qbk]
 
 [section:acks Acknowledgements]
 
@@ -149,12 +134,11 @@ The author thanks
 
 [section:refs References]
 
-# __RTN
-# __VIN 
-# __CODE39
+# __RTN__
+# __VIN__
 
 # Verhoeff, J, Error Detecting Codes, Mathmatical Centre Tract 29, The Mathematical Centre, Amsterdam 1969.
-# [@http://en.wikipedia.org/wiki/Verhoeff_algorithm Verhoeff_algorithm]
+# __VERHOEFF__
 # H. Peter Gumm, New class of check-digit methods for arbitrary number systems,
 IEEE Trans. on Information Theory, 31(1985) 102-105.
 # Paul Putter, & Neal R Wagner, Communication of ther ACM, Jan 1989, Vol 32, pages 106 - 110.
@@ -181,7 +165,7 @@ This section records the rationale and compromises for some design decisions.
   # checksums like CRC32, for catching data transmission errors.
   # and cryptographic hash functions, the only ones useful against malicious adversaries.
 
-This project is directed first at the first class.
+This project is directed at the first class.
 Others might be the subject of future additions or other libraries.
 
 [h4 Function parameter]
@@ -214,7 +198,7 @@ Last edit to Quickbook file __FILENAME__ was at __TIME__ on __DATE__.
 
 [endsect] [/section:checks Boost.Checks]
 
-[xinclude autodoc.xml] [/ Using Doxygen reference documentation.]
+[/xinclude autodoc.xml] [/ Using Doxygen reference documentation.]
 
 [/This (if enabled) creates an Index section that include the class, function ... indexes, and also a full index with <index/>]
 [? enable_index

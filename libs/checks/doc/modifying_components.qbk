@@ -15,7 +15,7 @@ This functor look like:
 
 [strict_filter]
 
-You can now use the type adaptor to change this component in VISA.
+You can now use the type adapter to change this component in VISA.
 
 [type_adaptor]
 
@@ -23,6 +23,10 @@ And finally the example:
 
 [visa_example]
 
-You can find all the modifying tag in the __TYPE_ADAPTOR__ reference section.
+which output:
+
+[visa_output]
+
+You can find all the modifying tags and further information in the __TYPE_ADAPTOR__ reference section.
 
 [endsect][/section:modifying_components Modifying Components]

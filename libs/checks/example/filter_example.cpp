@@ -53,3 +53,10 @@ int main()
   }
   //]
 }
+
+/*
+//[visa_output
+4111-111-11111-1111 is a valid VISA card number.
+An invalid character has been hit.
+//]
+*/

@@ -35,7 +35,7 @@ namespace checks{
 typedef type_adaptor
 <
   mod11_basic_checkdigit, 
-  checkdigit_pos, 
+  checkdigit_pos_tag, 
   VIN_CHECKDIGIT_POS
 >::type
 vin_checkdigit;
@@ -89,31 +89,5 @@ typedef check_algorithm
 vin;
 //]
 
-/*
-//[vin_example
-int main()
-{
-  using namespace boost::checks;
-  std::string vin_number("11111111 1 11111111");
-  std::string vin_number_without_checkdigit("11111111 11111111");
-
-  if(validate<vin>(vin_number))
-    std::cout << vin_number << " is a valid VIN." << std::endl;
-
-  boost::optional<vin::checkdigit_type> checkdigit =
-    compute_checkdigit<vin>(vin_number_without_checkdigit);
-  if(checkdigit)
-    std::cout << "The check digit of the VIN \'" << vin_number_without_checkdigit
-              << "\' is \'" << *checkdigit << "\'.\n";
-
-  return 0;
-}
-//]
-
-//[vin_example_res
-11111111 1 11111111 is a valid VIN.
-The check digit of the VIN '11111111 11111111' is '1'.
-//]
-*/
 }}
 #endif

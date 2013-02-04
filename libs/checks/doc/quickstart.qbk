@@ -7,11 +7,6 @@ Boost Software License, Version 1.0.
 or copy at http://www.boost.org/LICENSE_1_0.txt)
 ]
 
-[import ../example/checks_examples.cpp]
-[import ../example/checks_tutorial.cpp]
-[import ../example/rtn.hpp]
-[import ../example/vin.hpp]
-
 [section:quickstart Quick Start]
 There are two main functionalities provided by this library. The first is used to 
 [*validate] a sequence of character :
@@ -41,7 +36,14 @@ A simple example of these two functions is provided below with the __AMEX__ algo
 
 [note You noticed the template parameter `check_algo` is exactly the same for validation or computation.]
 
-[warning Boost.Check [*does not provide] support for string pattern matching such as a require starting number (example: "978" or "979" in an ISBN number). Refer to __BOOST_REGEX__ or __STD_REGEX__ or a homecraft pre-checking.]
+You may ask why the return type is not a simple char. By default, we want an exception free code as much as possible.
+But error can appear when computing the check digit. So this return type is very adapted for a simple computation and is
+very easy to use.
+
+In fact, the character type could be something else than a char, if a check require non-ASCII characters to be computed. By the way,
+for all the current algorithm, a char is sufficient.
+
+[warning Boost.Check [*does not provide] support for string pattern matching such as a require starting number (example: "978" or "979" in an ISBN number). Refer to __BOOST_REGEX__ or __STD_REGEX__ or a home-craft pre-checking.]
 
 Basically, the `check_algo` is the acronym of the algorithm you want to use.
 
