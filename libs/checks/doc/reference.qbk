@@ -9,15 +9,153 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 [section:reference Reference]
 
-[section:checkdigit Checkdigit]
+[section:checkdigit Check digit]
 
+[section:checkdigit_processor_concept Check Digit Processor Concept]
 
+[h1 Description]
+The check digit processor concept defines a structure used to compute a non-encoded check digit from the checksum.
 
-[endsect][/section:checkdigit Checkdigit]
+The structure must expose:
+``
+/*unspecified*/ operator(size_t);
+``
+
+[h1 Example]
+
+Example given in __MODULUS_CHECKDIGIT__.
+
+[h1 See also]
+__MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_ENCODER_CONCEPT__.
+
+[endsect][/section:checkdigit_processor_concept Check Digit Processor Concept]
+
+[section:checkdigit_encoder_concept Check Digit Encoder Concept]
+[h1 Description]
+The check digit encoder concept defines a structure used to encode a check digit into a readable character.
+
+The structure must expose:
+``
+template <typename T>
+/*unspecified*/ operator(T);
+``
+
+`T` is equal to `CheckDigitProcessor::result_type`. Note that by default, all check digit processor returns a ['size_t].
+
+[h1 Examples]
+
+Example given in __CHECKDIGIT_ENCODER__ and __CHECKDIGITX_ENCODER__.
+
+[h1 See also]
+__CHECKDIGIT_ENCODER__, __CHECKDIGITX_ENCODER__, __MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__.
+
+[endsect][/section:checkdigit_encoder_concept Check digit Encoder concept]
+
+[section:checkdigitref checkdigit]
+
+[h1 Synopsis]
+``
+template
+<
+  typename Processor,
+  typename Encoder,
+  size_t position = 0,
+  size_t size = 1
+>
+struct checkdigit
+{
+  // ...
+};
+``
+[h1 Description]
+Structure describing a check digit.
+[h1 Header]
+``
+#include <boost/checks/checkdigit.hpp>
+``
+[h1 Template parameters]
+
+* [*Processor] is used to compute a non-encoded check digit from the checksum. Must meet the __CHECKDIGIT_PROCESSOR_CONCEPT__ requirements.
+* [*Encoder] is used to encode the check digit obtained from the Processor. Must meet the __CHECKDIGIT_ENCODER_CONCEPT__ requirements.
+* [*position] is the position of the check digit in the sequence. This position ['must depends] on the __TRAVERSAL_TYPE__. [*Default] to 0 (because the default traversal is from right to left).
+* [*size] is the size of the check digit. [*Default] to 1.
+
+[h1 Example]
+The example shows how to make a check digit that is computed with a modulus 12 and where the encoding is [0..9, X, Y].
+
+[checkdigit_mod12_example]
+
+[h1 See also]
+
+__MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__, __CHECKDIGIT_ENCODER_CONCEPT__.
+
+[endsect][/section:checkdigitref checkdigit]
+
+[section:checkdigit_encoder checkdigit_encoder]
+[h1 Synopsis]
+``
+template <typename Result=char>
+struct checkdigit_encoder
+{
+  typedef Result result_type;
+
+  template <typename T>
+  result_type operator()(T checksum);
+};
+``
+[h1 Description]
+
+The checkdigit_encoder structure encodes a checksum (possibly already processed by a check digit processor) to a 7-bits ASCII encoding.
+
+[h1 Header]
+``
+#include <boost/checks/checkdigit.hpp>
+``
+[h1 Template parameters]
+
+* [*Result] is the type in which the checksum will be encoded.
+* [*T] is the type of the checksum.
+
+[h1 Parameters]
+
+* [*checksum] is the checksum received from a check digit processor.
+
+[h1 Exception]
+
+This code can launch exception under the condition of the __BOOST_LEXICAL_CAST__ library. That is, if the return type cannot contains the encoded version of the check digit.
+
+[note An exception here is a programming error. No exception should be launched.]
+
+[h1 See also]
+
+__BOOST_LEXICAL_CAST__, __CHECKDIGITX_ENCODER__, __CHECKDIGIT_ENCODER_CONCEPT__.
+
+[endsect][/section:checkdigit_encoder checkdigit_encoder]
+
+[section:checkdigitx_encoder checkdigitx_encoder]
+[endsect][/section:checkdigitx_encoder checkdigitx_encoder]
+
+[section:mod_checkdigit modulus]
+[endsect][/section:mod_checkdigit modulus]
+
+[section:mod_inv_checkdigit modulus_inv]
+[endsect][/section:mod_inv_checkdigit modulus_inv]
+
+[section:mod10_checkdigit Mod10 check digit]
+[endsect][/section:mod10_checkdigit Mod10 check digit]
+
+[section:mod11_checkdigit Mod11 check digit]
+[endsect][/section:mod11_checkdigit Mod11 check digit]
+
+[section:mod97_checkdigit Mod97 check digit]
+[endsect][/section:mod97_checkdigit Mod97 check digit]
+
+[endsect][/section:checkdigit Check digit]
+
+[section:traversal_type Traversal type]
+[endsect][/section:traversal_type Traversal type]
+
 [section:type_adaptor Type adaptor]
-
-
-
 [endsect][/section:type_adaptor Type adaptor]
 
 [endsect][/section:reference Reference]

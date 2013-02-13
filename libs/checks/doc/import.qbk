@@ -4,3 +4,4 @@
 [import ../example/vin.hpp]
 [import ../example/filter_example.cpp]
 [import ../example/amex_example.cpp]
+[import ../example/checkdigit_mod12_example.hpp]

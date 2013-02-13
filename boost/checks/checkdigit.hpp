@@ -22,20 +22,21 @@ template <typename Result=char>
 struct checkdigit_encoder
 {
   typedef Result result_type;
-  typedef size_t argument_type;
 
-  result_type operator()(argument_type checksum)
+  template <typename T>
+  result_type operator()(T checksum)
   {
     return boost::lexical_cast<result_type>(checksum);
   }
 };
 
+template <typename Result=char>
 struct checkdigitx_encoder
 {
-  typedef char result_type;
-  typedef size_t argument_type;
+  typedef Result result_type;
 
-  result_type operator()(argument_type checksum)
+  template <typename T>
+  result_type operator()(T checksum)
   {
     if(checksum == 10)
       return 'X';

@@ -35,8 +35,9 @@
 [def __EAN [@http://en.wikipedia.org/wiki/European_Article_Number International Article Number (EAN)]]
 
 [/ Links to C++ reference.]
-[def __BOOST_REGEX__ [@http://www.boost.org/doc/libs/1_52_0/libs/regex/doc/html/index.html Boost regex]]
+[def __BOOST_REGEX__ [@http://www.boost.org/doc/libs/1_53_0/libs/regex/doc/html/index.html Boost.Regex]]
 [def __STD_REGEX__ [@http://en.cppreference.com/w/cpp/regex Standard regex]]
+[def __BOOST_LEXICAL_CAST__ [@http://www.boost.org/doc/libs/1_53_0/doc/html/boost_lexical_cast.html Boost.Lexical_Cast]]
 
 [/ Links to different check description]
 [def __VIN__ [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]
@@ -51,7 +52,20 @@
 [def __EXTENDING_LIBRARY__ [link checks.checks.extending_the_library Extending the library]]
 [def __INTERNATIONALIZATION__ [link checks.checks.internationalization Internationalization]]
 [def __REFERENCE__ [link checks.checks.reference Reference]]
+
+[/ Links to reference section]
 [def __TYPE_ADAPTOR__ [link checks.checks.reference.type_adaptor Type adaptor]]
+[def __MOD10_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod10_checkdigit Mod10 Check digit]]
+[def __MOD11_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod11_checkdigit Mod11 Check digit]]
+[def __MOD97_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod97_checkdigit Mod97 Check digit]]
+[def __MODULUS_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod_checkdigit modulus]]
+[def __MODULUS_INV_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod_inv_checkdigit modulus_inv]]
+[def __CHECKDIGIT_PROCESSOR_CONCEPT__ [link checks.checks.reference.checkdigit.checkdigit_processor_concept Check digit Processor concept]]
+[def __CHECKDIGIT_ENCODER_CONCEPT__ [link checks.checks.reference.checkdigit.checkdigit_encoder_concept Check digit Encoder concept]]
+[def __CHECKDIGIT_ENCODER__ [link checks.checks.reference.checkdigit.checkdigit_encoder checkdigit_encoder]]
+[def __CHECKDIGITX_ENCODER__ [link checks.checks.reference.checkdigit.checkdigitx_encoder checkdigitx_encoder]]
+
+[def __TRAVERSAL_TYPE__ [link checks.checks.reference.traversal_type Traversal type]]
 
 [def __overview [link checks.checks.preface Preface]]
 

@@ -11,18 +11,30 @@
 // Caution: this file contains Quickbook markup as well as code
 // and comments: don't change any of the special comment markups!
 
-//[amex_example
-#include <string>
-#include <boost/checks/amex.hpp>
+//[checkdigit_mod12_example
+#include <boost/checks/modulus.hpp>
+#include <boost/checks/checkdigit.hpp>
 
 using namespace boost::checks;
 
-int main()
+// The check digit processor.
+typedef modulus<12> mod12_basic;
+
+// The check digit encoder.
+struct checkdigit_12_encoder
 {
-  std::string amex_no("3782-822463-1000");
-  boost::optional<char> checkdigit = compute_checkdigit<amex>(amex_no);
-  amex_no += *checkdigit;
-  if(validate<amex>(amex_no))
-    std::cout << amex_no << " is a valid american express card number." << std::endl;
-}
+  typedef char result_type;
+  typedef size_t argument_type;
+
+  result_type operator()(argument_type checksum)
+  {
+    if(checksum == 11)
+      return 'Y';
+    else
+      return checkdigitx_encoder<result_type>()(checksum);
+  }
+};
+
+// The check digit type.
+typedef checkdigit<mod12_basic, checkdigit_12_encoder> mod12_basic_checkdigit;
 //]
