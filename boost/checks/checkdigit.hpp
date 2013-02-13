@@ -30,10 +30,9 @@ struct checkdigit_encoder
   }
 };
 
-template <typename Result=char>
 struct checkdigitx_encoder
 {
-  typedef Result result_type;
+  typedef char result_type;
 
   template <typename T>
   result_type operator()(T checksum)

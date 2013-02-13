@@ -13,6 +13,7 @@
 #endif
 
 #include <cstddef>
+#include <boost/static_assert.hpp>
 
 namespace boost{
   namespace checks{
@@ -20,6 +21,8 @@ namespace boost{
 template <size_t mod>
 struct modulus
 {
+  BOOST_STATIC_ASSERT_MSG(mod != 0, "Cannot divide by 0.");
+
   typedef size_t result_type;
   typedef size_t argument_type;
 
@@ -34,6 +37,8 @@ struct modulus
 template <size_t mod>
 struct modulus_inv
 {
+  BOOST_STATIC_ASSERT_MSG(mod != 0, "Cannot divide by 0.");
+
   typedef size_t result_type;
   typedef size_t argument_type;
 

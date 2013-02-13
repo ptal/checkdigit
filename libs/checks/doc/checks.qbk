@@ -38,6 +38,8 @@
 [def __BOOST_REGEX__ [@http://www.boost.org/doc/libs/1_53_0/libs/regex/doc/html/index.html Boost.Regex]]
 [def __STD_REGEX__ [@http://en.cppreference.com/w/cpp/regex Standard regex]]
 [def __BOOST_LEXICAL_CAST__ [@http://www.boost.org/doc/libs/1_53_0/doc/html/boost_lexical_cast.html Boost.Lexical_Cast]]
+[def __BOOST_BAD_LEXICAL_CAST__ [@http://www.boost.org/doc/libs/1_53_0/doc/html/boost_lexical_cast/synopsis.html#boost_lexical_cast.synopsis.bad_lexical_cast bad_lexical_cast]]
+
 
 [/ Links to different check description]
 [def __VIN__ [@http://en.wikipedia.org/wiki/Vehicle_identification_number Vehicle Identification Number (VIN)]]

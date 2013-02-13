@@ -13,7 +13,7 @@ or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 [section:checkdigit_processor_concept Check Digit Processor Concept]
 
-[h1 Description]
+[h3 Description]
 The check digit processor concept defines a structure used to compute a non-encoded check digit from the checksum.
 
 The structure must expose:
@@ -21,17 +21,17 @@ The structure must expose:
 /*unspecified*/ operator(size_t);
 ``
 
-[h1 Example]
+[h3 Example]
 
 Example given in __MODULUS_CHECKDIGIT__.
 
-[h1 See also]
+[h3 See also]
 __MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_ENCODER_CONCEPT__.
 
 [endsect][/section:checkdigit_processor_concept Check Digit Processor Concept]
 
 [section:checkdigit_encoder_concept Check Digit Encoder Concept]
-[h1 Description]
+[h3 Description]
 The check digit encoder concept defines a structure used to encode a check digit into a readable character.
 
 The structure must expose:
@@ -40,20 +40,20 @@ template <typename T>
 /*unspecified*/ operator(T);
 ``
 
-`T` is equal to `CheckDigitProcessor::result_type`. Note that by default, all check digit processor returns a ['size_t].
+`T` is equal to `CheckDigitProcessor::result_type`. Note that by default, all check digit processor returns a ['size_t]. The return type should be a character type such as ['char'] or ['wchar_t].
 
-[h1 Examples]
+[h3 Examples]
 
 Example given in __CHECKDIGIT_ENCODER__ and __CHECKDIGITX_ENCODER__.
 
-[h1 See also]
+[h3 See also]
 __CHECKDIGIT_ENCODER__, __CHECKDIGITX_ENCODER__, __MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__.
 
 [endsect][/section:checkdigit_encoder_concept Check digit Encoder concept]
 
 [section:checkdigitref checkdigit]
 
-[h1 Synopsis]
+[h3 Synopsis]
 ``
 template
 <
@@ -67,32 +67,32 @@ struct checkdigit
   // ...
 };
 ``
-[h1 Description]
+[h3 Description]
 Structure describing a check digit.
-[h1 Header]
+[h3 Header]
 ``
 #include <boost/checks/checkdigit.hpp>
 ``
-[h1 Template parameters]
+[h3 Template parameters]
 
 * [*Processor] is used to compute a non-encoded check digit from the checksum. Must meet the __CHECKDIGIT_PROCESSOR_CONCEPT__ requirements.
 * [*Encoder] is used to encode the check digit obtained from the Processor. Must meet the __CHECKDIGIT_ENCODER_CONCEPT__ requirements.
 * [*position] is the position of the check digit in the sequence. This position ['must depends] on the __TRAVERSAL_TYPE__. [*Default] to 0 (because the default traversal is from right to left).
 * [*size] is the size of the check digit. [*Default] to 1.
 
-[h1 Example]
+[h3 Example]
 The example shows how to make a check digit that is computed with a modulus 12 and where the encoding is [0..9, X, Y].
 
 [checkdigit_mod12_example]
 
-[h1 See also]
+[h3 See also]
 
 __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__, __CHECKDIGIT_ENCODER_CONCEPT__.
 
 [endsect][/section:checkdigitref checkdigit]
 
 [section:checkdigit_encoder checkdigit_encoder]
-[h1 Synopsis]
+[h3 Synopsis]
 ``
 template <typename Result=char>
 struct checkdigit_encoder
@@ -103,42 +103,165 @@ struct checkdigit_encoder
   result_type operator()(T checksum);
 };
 ``
-[h1 Description]
+[h3 Description]
 
 The checkdigit_encoder structure encodes a checksum (possibly already processed by a check digit processor) to a 7-bits ASCII encoding.
 
-[h1 Header]
+[h3 Header]
 ``
 #include <boost/checks/checkdigit.hpp>
 ``
-[h1 Template parameters]
+[h3 Template parameters]
 
 * [*Result] is the type in which the checksum will be encoded.
 * [*T] is the type of the checksum.
 
-[h1 Parameters]
+[h3 Parameters]
 
 * [*checksum] is the checksum received from a check digit processor.
 
-[h1 Exception]
+[h3 Return]
 
-This code can launch exception under the condition of the __BOOST_LEXICAL_CAST__ library. That is, if the return type cannot contains the encoded version of the check digit.
+The 7-bits ASCII encoded checksum into a Result type.
 
-[note An exception here is a programming error. No exception should be launched.]
+[h3 Exception]
 
-[h1 See also]
+This code can launch __BOOST_BAD_LEXICAL_CAST__ exception under the condition of the __BOOST_LEXICAL_CAST__ function. That is, if the return type cannot contains the encoded version of the check digit.
+
+[note An exception should never happens unless there is a programming error.]
+
+[h3 See also]
 
 __BOOST_LEXICAL_CAST__, __CHECKDIGITX_ENCODER__, __CHECKDIGIT_ENCODER_CONCEPT__.
 
 [endsect][/section:checkdigit_encoder checkdigit_encoder]
 
 [section:checkdigitx_encoder checkdigitx_encoder]
+[h3 Synopsis]
+``
+struct checkdigitx_encoder
+{
+  typedef char result_type;
+
+  template <typename T>
+  result_type operator()(T checksum);
+};
+``
+[h3 Description]
+
+The checkdigitx_encoder structure encodes a checksum (possibly already processed by a check digit processor) in the range [0..10] to a 7-bits ASCII encoding.
+
+[h3 Header]
+``
+#include <boost/checks/checkdigit.hpp>
+``
+[h3 Template parameters]
+
+* [*Result] is the type in which the checksum will be encoded.
+* [*T] is the type of the checksum.
+
+[h3 Parameters]
+
+* [*checksum] is the checksum received from a check digit processor. It should be between [0..10].
+
+[h3 Return]
+
+Return the 7-bits ASCII encoded checksum. [0..9] is translated to ['0'..'9'] and 10 to 'X'.
+
+[h3 Exception]
+
+__BOOST_BAD_LEXICAL_CAST__ is raised if the checksum is not in the range [0..10].
+
+[note An exception should never happens unless there is a programming error.]
+
+[h3 Return]
+
+[h3 See also]
+
+__BOOST_LEXICAL_CAST__, __CHECKDIGIT_ENCODER__, __CHECKDIGIT_ENCODER_CONCEPT__.
 [endsect][/section:checkdigitx_encoder checkdigitx_encoder]
 
 [section:mod_checkdigit modulus]
+[h3 Synopsis]
+``
+template <size_t mod>
+struct modulus
+{
+  BOOST_STATIC_ASSERT_MSG(mod != 0, "Cannot divide by 0.");
+
+  typedef size_t result_type;
+  typedef size_t argument_type;
+
+  static const size_t modulus_value = mod;
+
+  result_type operator()(argument_type value);
+};
+``
+[h3 Description]
+
+The modulus structure is an arithmetic functor where the right value of `a % b` is static. It respects the __CHECKDIGIT_PROCESSOR_CONCEPT__. The sequence generated for the sequence `[0..n]` with a modulus of `n` is `[0,1.., (n-1), 0]`.
+
+[h3 Header]
+``
+#include <boost/checks/modulus.hpp>
+``
+[h3 Template parameters]
+
+* [*mod] is the right value used in `value % mod`.
+
+[h3 Parameters]
+
+* [*value] is the left value used in `value % mod`.
+
+[h3 Return]
+
+`value % mod`.
+
+[h3 See also]
+
+__MOD_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
+
 [endsect][/section:mod_checkdigit modulus]
 
 [section:mod_inv_checkdigit modulus_inv]
+[h3 Synopsis]
+``
+template <size_t mod>
+struct modulus_inv
+{
+  BOOST_STATIC_ASSERT_MSG(mod != 0, "Cannot divide by 0.");
+  
+  typedef size_t result_type;
+  typedef size_t argument_type;
+
+  static const size_t modulus_value = mod;
+
+  result_type operator()(argument_type value);
+};
+``
+[h3 Description]
+
+The modulus_inv structure provides a modular-based computation for check digit. It respects the __CHECKDIGIT_PROCESSOR_CONCEPT__. The sequence generated for the sequence `[0..n]` with a modulus of `n` is `[0, (n-1), (n-2),.., 0]`. You can notice that this sequence is the inverse of the sequence generated by __MODULUS_CHECKDIGIT__.
+
+[h3 Header]
+``
+#include <boost/checks/modulus.hpp>
+``
+[h3 Template parameters]
+
+* [*mod] is the modular value.
+
+[h3 Parameters]
+
+* [*value] is the value to compute.
+
+[h3 Return]
+
+`(mod - (value % mod)) % mod`.
+
+[h3 See also]
+
+__MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
 [endsect][/section:mod_inv_checkdigit modulus_inv]
 
 [section:mod10_checkdigit Mod10 check digit]
