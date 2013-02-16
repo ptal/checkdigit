@@ -59,13 +59,14 @@
 [def __TYPE_ADAPTOR__ [link checks.checks.reference.type_adaptor Type adaptor]]
 [def __MOD10_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod10_checkdigit Mod10 Check digit]]
 [def __MOD11_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod11_checkdigit Mod11 Check digit]]
-[def __MOD97_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod97_checkdigit Mod97 Check digit]]
+[def __MOD97_10_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod97_10_checkdigit Mod97-10 Check digit]]
 [def __MODULUS_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod_checkdigit modulus]]
 [def __MODULUS_INV_CHECKDIGIT__ [link checks.checks.reference.checkdigit.mod_inv_checkdigit modulus_inv]]
 [def __CHECKDIGIT_PROCESSOR_CONCEPT__ [link checks.checks.reference.checkdigit.checkdigit_processor_concept Check digit Processor concept]]
 [def __CHECKDIGIT_ENCODER_CONCEPT__ [link checks.checks.reference.checkdigit.checkdigit_encoder_concept Check digit Encoder concept]]
 [def __CHECKDIGIT_ENCODER__ [link checks.checks.reference.checkdigit.checkdigit_encoder checkdigit_encoder]]
 [def __CHECKDIGITX_ENCODER__ [link checks.checks.reference.checkdigit.checkdigitx_encoder checkdigitx_encoder]]
+[def __CHECKDIGIT_REF__ [link checks.checks.reference.checkdigit.checkdigitref checkdigit]]
 
 [def __TRAVERSAL_TYPE__ [link checks.checks.reference.traversal_type Traversal type]]
 

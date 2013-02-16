@@ -26,7 +26,7 @@ The structure must expose:
 Example given in __MODULUS_CHECKDIGIT__.
 
 [h3 See also]
-__MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_ENCODER_CONCEPT__.
+__MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_10_CHECKDIGIT__, __CHECKDIGIT_ENCODER_CONCEPT__.
 
 [endsect][/section:checkdigit_processor_concept Check Digit Processor Concept]
 
@@ -47,7 +47,7 @@ template <typename T>
 Example given in __CHECKDIGIT_ENCODER__ and __CHECKDIGITX_ENCODER__.
 
 [h3 See also]
-__CHECKDIGIT_ENCODER__, __CHECKDIGITX_ENCODER__, __MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__.
+__CHECKDIGIT_ENCODER__, __CHECKDIGITX_ENCODER__, __MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_10_CHECKDIGIT__.
 
 [endsect][/section:checkdigit_encoder_concept Check digit Encoder concept]
 
@@ -87,7 +87,7 @@ The example shows how to make a check digit that is computed with a modulus 12 a
 
 [h3 See also]
 
-__MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__, __CHECKDIGIT_ENCODER_CONCEPT__.
+__MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_10_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__, __CHECKDIGIT_ENCODER_CONCEPT__.
 
 [endsect][/section:checkdigitref checkdigit]
 
@@ -219,7 +219,7 @@ The modulus structure is an arithmetic functor where the right value of `a % b` 
 
 [h3 See also]
 
-__MOD_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
+__MODULUS_INV_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_10_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
 
 [endsect][/section:mod_checkdigit modulus]
 
@@ -261,16 +261,121 @@ The modulus_inv structure provides a modular-based computation for check digit. 
 
 [h3 See also]
 
-__MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
+__MODULUS_CHECKDIGIT__, __MOD10_CHECKDIGIT__, __MOD11_CHECKDIGIT__, __MOD97_10_CHECKDIGIT__, __CHECKDIGIT_PROCESSOR_CONCEPT__.
 [endsect][/section:mod_inv_checkdigit modulus_inv]
 
 [section:mod10_checkdigit Mod10 check digit]
+[h3 Synopsis]
+``
+typedef modulus<10> mod10_basic;
+typedef modulus_inv<10> mod10_inv_basic;
+typedef checkdigit_encoder<> mod10_basic_encoder;
+
+typedef checkdigit<mod10_basic, mod10_basic_encoder> mod10_basic_checkdigit;
+typedef checkdigit<mod10_inv_basic, mod10_basic_encoder> mod10_inv_basic_checkdigit;
+``
+[h3 Description]
+
+The modulus 10 "typedef suite" helps users who want to build a modulus 10 based algorithm. It provides
+some basic typedef shortcuts.
+
+[h3 Header]
+``
+#include <boost/checks/modulus10.hpp>
+``
+[h3 Typedef]
+
+* [*mod10_basic] See __MODULUS_CHECKDIGIT__.
+* [*mod10_inv_basic] See __MODULUS_INV_CHECKDIGIT__.
+* [*mod10_basic_encoder] See __CHECKDIGIT_ENCODER__.
+* [*mod10_basic_checkdigit] is a simple check digit type for modulus 10 based algorithm.
+* [*mod10_inv_basic_checkdigit] is a simple check digit type for inverse modulus 10 based algorithm.
+
+[note `mod10_basic_checkdigit` and `mod10_inv_basic_checkdigit` use default value for the position and check digit's size. See __CHECKDIGIT_REF__ for more informations.]
+
+[h3 See also]
+
+__MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 [endsect][/section:mod10_checkdigit Mod10 check digit]
 
 [section:mod11_checkdigit Mod11 check digit]
+[h3 Synopsis]
+``
+typedef modulus<11> mod11_basic;
+typedef modulus_inv<11> mod11_inv_basic;
+typedef checkdigitx_encoder mod11_basic_encoder;
+
+typedef checkdigit<mod11_basic, mod11_basic_encoder> mod11_basic_checkdigit;
+typedef checkdigit<mod11_inv_basic, mod11_basic_encoder> mod11_inv_basic_checkdigit;
+``
+[h3 Description]
+
+The modulus 11 "typedef suite" helps users who want to build a modulus 11 based algorithm. It provides
+some basic typedef shortcuts.
+
+[h3 Header]
+``
+#include <boost/checks/modulus11.hpp>
+``
+[h3 Typedef]
+
+* [*mod11_basic] See __MODULUS_CHECKDIGIT__.
+* [*mod11_inv_basic] See __MODULUS_INV_CHECKDIGIT__.
+* [*mod11_basic_encoder] See __CHECKDIGIT_ENCODER__.
+* [*mod11_basic_checkdigit] is a simple check digit type for modulus 11 based algorithm.
+* [*mod11_inv_basic_checkdigit] is a simple check digit type for inverse modulus 11 based algorithm.
+
+[note `mod11_basic_checkdigit` and `mod11_inv_basic_checkdigit` use default value for the position and check digit's size. See __CHECKDIGIT_REF__ for more informations.]
+
+[h3 See also]
+
+__MODULUS_CHECKDIGIT__, __MODULUS_INV_CHECKDIGIT__, __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 [endsect][/section:mod11_checkdigit Mod11 check digit]
 
-[section:mod97_checkdigit Mod97 check digit]
+[section:mod97_10_checkdigit Mod97-10 check digit]
+[h3 Synopsis]
+``
+struct mod97_10
+{
+  typedef size_t result_type;
+  typedef size_t argument_type;
+
+  static const size_t modulus_value = 97;
+
+  result_type operator()(argument_type value);
+};
+
+typedef checkdigit_encoder<std::string> mod97_10_basic_encoder;
+typedef checkdigit<mod97_10, mod97_10_basic_encoder, 0, 2> mod97_10_checkdigit;
+``
+[h3 Description]
+
+The modulus 97-10 algorithm is defined by the norm ISO 7604. We document here the part related
+to the check digit computation.
+
+[h3 Header]
+``
+#include <boost/checks/modulus97_10.hpp>
+``
+[h3 mod97_10]
+It meets the __CHECKDIGIT_PROCESSOR_CONCEPT__ requirements.
+
+[h4 Parameters]
+
+* [*value] is the value to compute.
+
+[h4 Return]
+
+`98 - (value % 97)`.
+
+[h3 Other typedef]
+
+* [*mod97_10_basic_encoder] encodes in a ASCII format two digits in a string.
+* [*mod97_10_checkdigit] represents a mod97-10 check digit of size 2, positionned at the first and second position the algorithm hits.
+
+[h3 See also]
+
+__CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 [endsect][/section:mod97_checkdigit Mod97 check digit]
 
 [endsect][/section:checkdigit Check digit]

@@ -24,7 +24,7 @@ typedef modulus_inv<10> mod10_inv_basic;
 typedef checkdigit_encoder<> mod10_basic_encoder;
 
 typedef checkdigit<mod10_basic, mod10_basic_encoder> mod10_basic_checkdigit;
-typedef checkdigit<mod10_inv_basic, mod10_basic_encoder> mod10_inv_checkdigit;
+typedef checkdigit<mod10_inv_basic, mod10_basic_encoder> mod10_inv_basic_checkdigit;
 
 }}  // namespace boost   namespace checks
 

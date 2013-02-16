@@ -24,7 +24,7 @@ typedef modulus_inv<11> mod11_inv_basic;
 typedef checkdigitx_encoder mod11_basic_encoder;
 
 typedef checkdigit<mod11_basic, mod11_basic_encoder> mod11_basic_checkdigit;
-typedef checkdigit<mod11_inv_basic, mod11_basic_encoder> mod11_inv_checkdigit;
+typedef checkdigit<mod11_inv_basic, mod11_basic_encoder> mod11_inv_basic_checkdigit;
 
 typedef weight<1,2,3,4,5,6,7,8,9,10> mod11_weight;
 

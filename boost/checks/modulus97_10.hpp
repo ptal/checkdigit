@@ -6,12 +6,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-/*! \file
-    \brief This file provides tools to compute and validate the classic modulus 97 checksum. It provides functions for convenience with the mod97-10 algorithm (ISO/IEC 7064:2003).
-*/
-
-#ifndef BOOST_CHECKS_MOD97_HPP
-#define BOOST_CHECKS_MOD97_HPP
+#ifndef BOOST_CHECKS_MOD97_10_HPP
+#define BOOST_CHECKS_MOD97_10_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -23,7 +19,7 @@
 namespace boost{
   namespace checks{
 
-struct mod97
+struct mod97_10
 {
   typedef size_t result_type;
   typedef size_t argument_type;
@@ -36,8 +32,8 @@ struct mod97
   }
 };
 
-typedef checkdigit_encoder<std::string> mod97_basic_encoder;
-typedef checkdigit<mod97, mod97_basic_encoder, 0, 2> mod97_10_checkdigit;
+typedef checkdigit_encoder<std::string> mod97_10_basic_encoder;
+typedef checkdigit<mod97_10, mod97_10_basic_encoder, 0, 2> mod97_10_checkdigit;
 
 struct mod97_10_processor
 {
@@ -59,4 +55,4 @@ struct mod97_10_processor
 
 }} // namespace boost   namespace checks
 
-#endif //BOOST_CHECKS_MOD97_HPP
+#endif //BOOST_CHECKS_MOD97_10_HPP
