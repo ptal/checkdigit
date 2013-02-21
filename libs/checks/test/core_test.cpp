@@ -20,7 +20,7 @@
 #include <boost/checks/checkdigit.hpp>
 #include <boost/checks/modulus10.hpp>
 #include <boost/checks/modulus11.hpp>
-#include <boost/checks/modulus97.hpp>
+#include <boost/checks/modulus97_10.hpp>
 #include <boost/checks/type_adaptor.hpp>
 
 BOOST_AUTO_TEST_SUITE(core_tests)
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(mod10_checkdigit_test)
 BOOST_AUTO_TEST_CASE(mod10_inv_checkdigit_test)
 {
   using namespace boost::checks;
-  mod10_inv_checkdigit c;
+  mod10_inv_basic_checkdigit c;
 
   char results_expected[] = {'0', '9', '8', '7', '6', '5', '4', '3', '2', '1'};
 
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(mod11_checkdigit_test)
 BOOST_AUTO_TEST_CASE(mod11_inv_checkdigit_test)
 {
   using namespace boost::checks;
-  mod11_inv_checkdigit c;
+  mod11_inv_basic_checkdigit c;
 
   char results_expected[] = {'0', 'X', '9', '8', '7', '6', '5', '4', '3', '2', '1'};
 
@@ -88,6 +88,45 @@ BOOST_AUTO_TEST_CASE(mod97_10_checkdigit_test)
     std::string result_expected = boost::lexical_cast<std::string>(res);
     BOOST_CHECK_EQUAL(c(checksum), result_expected);
   }
+}
+
+BOOST_AUTO_TEST_CASE(checkdigit_encoder_test)
+{
+  using namespace boost::checks;
+  char c = '0';
+  int i = 0;
+
+  checkdigit_encoder<> encoder;
+
+  for(; i < 10; ++i, ++c)
+  {
+    BOOST_CHECK_EQUAL(encoder(i), c);
+  }
+  BOOST_CHECK_THROW(encoder(i), boost::bad_lexical_cast);
+
+  checkdigit_encoder<std::string> string_encoder;
+  for(i = 0; i < 100; ++i)
+  {
+    std::string res = boost::lexical_cast<std::string>(i);
+    BOOST_CHECK_EQUAL(string_encoder(i), res);
+  }
+}
+
+BOOST_AUTO_TEST_CASE(checkdigitx_encoder_test)
+{
+  using namespace boost::checks;
+  char c = '0';
+  int i = 0;
+
+  checkdigitx_encoder encoder;
+
+  for(; i < 10; ++i, ++c)
+  {
+    BOOST_CHECK_EQUAL(encoder(i), c);
+  }
+  BOOST_CHECK_EQUAL(encoder(i), 'X');
+  ++i;
+  BOOST_CHECK_THROW(encoder(i), boost::bad_lexical_cast);
 }
 
 BOOST_AUTO_TEST_CASE(type_adaptor_test)

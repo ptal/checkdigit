@@ -64,7 +64,7 @@ struct forward_traversal
   static typename iterator<Range>::type end(Range &x)
   {
     return boost::end(x);
-  }                                                                       
+  }
 };
 
 struct no_size_policy

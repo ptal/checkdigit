@@ -380,6 +380,24 @@ __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 
 [endsect][/section:checkdigit Check digit]
 
+[section:traversal_type no_size_checking]
+[endsect][/section:traversal_type no_size_checking]
+
+[section:traversal_type size_checking]
+[endsect][/section:traversal_type size_checking]
+
+[section:traversal_type size_failure_error_code_policy]
+[endsect][/section:traversal_type size_failure_error_code_policy]
+
+[section:traversal_type size_failure_exception_policy]
+[endsect][/section:traversal_type size_failure_exception_policy]
+
+[section:traversal_type size_failure_exception]
+[endsect][/section:traversal_type size_failure_exception]
+
+[section:traversal_type Traversal type]
+[endsect][/section:traversal_type Traversal type]
+
 [section:traversal_type Traversal type]
 [endsect][/section:traversal_type Traversal type]
 
