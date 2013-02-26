@@ -1,13 +1,4 @@
-// rtn.hpp
-//! \file
-//! \brief Check and compute the Routing Transit Number(RTN)
-//! as an example of implementing a new checksum type.
-/*! \detail Routing Transit Number
-      http://en.wikipedia.org/wiki/Routing_transit_number
-*/
-
-// Copyright Pierre Talbot 2011.
-
+// Copyright Pierre Talbot 2011-2013.
 // Use, modification and distribution are subject to the
 // Boost Software License, Version 1.0.
 //(See accompanying file LICENSE_1_0.txt
@@ -31,7 +22,7 @@ typedef mod10_basic_checkdigit rtn_checkdigit;
 
 //[rtn_checksum
 #define RTN_SIZE 9
-typedef strict_size_policy<RTN_SIZE> rtn_size;
+typedef size_checking<RTN_SIZE> rtn_size;
 typedef weighted_sum<weight<3,7,1> > rtn_processor;
 
 typedef checksum

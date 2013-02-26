@@ -68,6 +68,12 @@
 [def __CHECKDIGITX_ENCODER__ [link checks.checks.reference.checkdigit.checkdigitx_encoder checkdigitx_encoder]]
 [def __CHECKDIGIT_REF__ [link checks.checks.reference.checkdigit.checkdigitref checkdigit]]
 
+[def __SIZE_CHECKING__ [link checks.checks.reference.size_checking size_checking]]
+[def __NO_SIZE_CHECKING__ [link checks.checks.reference.no_size_checking no_size_checking]]
+[def __SIZE_FAILURE_ERROR_CODE_POLICY__ [link checks.checks.reference.size_failure_error_code_policy size_failure_error_code_policy]]
+[def __SIZE_FAILURE_EXCEPTION_POLICY__ [link checks.checks.reference.size_failure_exception_policy size_failure_exception_policy]]
+[def __SIZE_FAILURE_EXCEPTION__ [link checks.checks.reference.size_failure_exception size_failure_exception]]
+
 [def __TRAVERSAL_TYPE__ [link checks.checks.reference.traversal_type Traversal type]]
 
 [def __overview [link checks.checks.preface Preface]]

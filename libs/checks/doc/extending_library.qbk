@@ -126,8 +126,8 @@ processed. The processor is quite easy to code, as you can see below.
 
 The sequence size is important here. The VIN must exactly be composed of 17 digits.
 But what are we doing if the sequence is not of exactly 17 digits ? You can return an
-error code or send an exception. The policy used return an error code (or simply 
-false if you validate).
+error code or send an exception. The default policy used with `size_checking` return 
+an error code (or simply false if you validate).
 
 [vin_size]
 

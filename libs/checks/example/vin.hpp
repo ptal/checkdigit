@@ -1,13 +1,4 @@
-// vin.hpp
-//! \file
-//! \brief Check and compute the Vehicle Identification Number.
-//! This is an example of extending the library for a new checksum type.
-/*! \detail  Vehicle Identification Number
-      http://en.wikipedia.org/wiki/Vehicle_Identification_Number
-*/
-
-// Copyright Pierre Talbot 2011.
-
+// Copyright Pierre Talbot 2011-2013.
 // Use, modification and distribution are subject to the
 // Boost Software License, Version 1.0.
 //(See accompanying file LICENSE_1_0.txt
@@ -62,7 +53,7 @@ struct vin_transliteration
 //[vin_size
 #define VIN_SIZE 17
 
-typedef strict_size_policy<VIN_SIZE> vin_size;
+typedef size_checking<VIN_SIZE> vin_size;
 //]
 
 //[vin_processor

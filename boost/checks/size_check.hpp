@@ -31,12 +31,12 @@ struct size_failure_error_code_policy
   static void fail(){}
 };
 
-template <class Exception = size_failure_exception>
+template <class FailureException = size_failure_exception>
 struct size_failure_exception_policy
 {
   static void fail()
   {
-    throw Exception;
+    throw FailureException;
   }
 };
 

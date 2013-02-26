@@ -380,20 +380,127 @@ __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 
 [endsect][/section:checkdigit Check digit]
 
-[section:traversal_type no_size_checking]
-[endsect][/section:traversal_type no_size_checking]
+[section:no_size_checking no_size_checking]
+[h3 Synopsis]
+``
+struct no_size_checking{};
+``
+[h3 Description]
 
-[section:traversal_type size_checking]
-[endsect][/section:traversal_type size_checking]
+This tag can be used in the `checksum` structure if the algorithm doesn't need any size checking.
 
-[section:traversal_type size_failure_error_code_policy]
-[endsect][/section:traversal_type size_failure_error_code_policy]
+[h3 Header]
+``
+#include <boost/checks/size_check.hpp>
+``
 
-[section:traversal_type size_failure_exception_policy]
-[endsect][/section:traversal_type size_failure_exception_policy]
+[h3 See also]
+__SIZE_CHECKING__, __CHECKSUM_REF__.
 
-[section:traversal_type size_failure_exception]
-[endsect][/section:traversal_type size_failure_exception]
+[endsect][/section:no_size_checking no_size_checking]
+
+[section:size_checking size_checking]
+[h3 Synopsis]
+``
+template <size_t N, class SizeFailurePolicy = size_failure_error_code_policy>
+struct size_checking
+{
+  /* unspecified */
+};
+``
+[h3 Description]
+
+This tag can be used in the `checksum` structure if you want to restrict the size of the sequence.
+If the size is not respected then the failure policy is called.
+
+[h3 Header]
+``
+#include <boost/checks/size_check.hpp>
+``
+
+[h3 Template parameters]
+
+* [*N] is the expected size of the check sequence.
+* [*SizeFailurePolicy] is a policy describing the behavior if the size is not respected. The [*default] policy is __SIZE_FAILURE_ERROR_CODE_POLICY__.
+
+[h3 See also]
+__NO_SIZE_CHECKING__, __SIZE_FAILURE_ERROR_CODE_POLICY__, __SIZE_FAILURE_EXCEPTION_POLICY__, __CHECKSUM_REF__.
+
+[endsect][/section:size_checking size_checking]
+
+[section:size_failure_error_code_policy size_failure_error_code_policy]
+[h3 Synopsis]
+``
+struct size_failure_error_code_policy
+{
+  /* unspecified */
+};
+``
+[h3 Description]
+
+This policy tell the check algorithm to return an error code if the size contract is not respected. The error code doesn't describe the type of the error. It must be use inside __SIZE_CHECKING__.
+
+[h3 Header]
+``
+#include <boost/checks/size_check.hpp>
+``
+
+[h3 See also]
+__SIZE_CHECKING__, __SIZE_FAILURE_CODE_ERROR_POLICY__, __CHECKSUM_REF__.
+
+[endsect][/section:size_failure_error_code_policy size_failure_error_code_policy]
+
+[section:size_failure_exception_policy size_failure_exception_policy]
+[h3 Synopsis]
+``
+template <class FailureException = size_failure_exception>
+struct size_failure_exception_policy
+{
+  /* unspecified */
+};
+``
+[h3 Description]
+
+This policy tell the check algorithm to launch an exception if the size contract is not respected. It must be use inside __SIZE_CHECKING__.
+
+[h3 Header]
+``
+#include <boost/checks/size_check.hpp>
+``
+
+[h3 Template paramater]
+
+[*FailureException] is the exception to be launch in case of failure. The [*default] exception is __SIZE_FAILURE_EXCEPTION__.
+
+[h3 See also]
+__SIZE_FAILURE_EXCEPTION__,  __SIZE_CHECKING__, __SIZE_FAILURE_EXCEPTION_POLICY__, __CHECKSUM_REF__.
+
+[endsect][/section:size_failure_exception_policy size_failure_exception_policy]
+
+[section:size_failure_exception size_failure_exception]
+[h3 Synopsis]
+``
+class size_failure_exception : public std::exception
+{
+public:
+  virtual const char * what() const throw()
+  {
+    return "Unexpected size of the sequence.";
+  }
+};
+``
+[h3 Description]
+
+This exception is used with __SIZE_FAILURE_EXCEPTION_POLICY__ and launched when the size contract is not respected.
+
+[h3 Header]
+``
+#include <boost/checks/size_check.hpp>
+``
+
+[h3 See also]
+__SIZE_FAILURE_EXCEPTION_POLICY__.
+[endsect][/section:size_failure_exception size_failure_exception]
 
 [section:traversal_type Traversal type]
 [endsect][/section:traversal_type Traversal type]
@@ -404,4 +511,7 @@ __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 [section:type_adaptor Type adaptor]
 [endsect][/section:type_adaptor Type adaptor]
 
-[endsect][/section:reference Reference]
+[section:checksum_ref checksum]
+[endsect][/section:checksum_ref checksum]
+
+[endsect][/section:reference Reference] 
