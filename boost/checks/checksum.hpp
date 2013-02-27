@@ -16,81 +16,10 @@
     #pragma once
 #endif
 
-#include <boost/range/rbegin.hpp>
-#include <boost/range/rend.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/checks/checkdigit.hpp>
 
 namespace boost {
   namespace checks{
-
-
-struct reverse_traversal 
-{
-  template <typename Range>
-  struct iterator
-  {
-    typedef typename boost::range_reverse_iterator<Range>::type type;
-  };
-
-  template <typename Range>
-  static typename iterator<Range>::type begin(Range &x)
-  {
-    return boost::rbegin(x);
-  }
-
-  template <typename Range>
-  static typename iterator<Range>::type end(Range &x)
-  {
-    return boost::rend(x);
-  }                                                                       
-};
-
-struct forward_traversal 
-{
-  template <typename Range>
-  struct iterator
-  {
-    typedef typename boost::range_iterator<Range>::type type;
-  };
-
-  template <typename Range>
-  static typename iterator<Range>::type begin(Range &x)
-  {
-    return boost::begin(x);
-  }
-
-  template <typename Range>
-  static typename iterator<Range>::type end(Range &x)
-  {
-    return boost::end(x);
-  }
-};
-
-struct no_size_policy
-{
-  static bool check(size_t pos)
-  {
-    return true;
-  }
-  static bool overflow(size_t pos)
-  {
-    return false;
-  }
-};
-
-template <size_t size_expected>
-struct enforce_size_policy
-{
-  static bool check(size_t pos)
-  {
-    return pos < size_expected;
-  }
-  static bool overflow(size_t pos)
-  {
-    return pos != size_expected;
-  }
-};
 
 template
 <

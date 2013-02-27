@@ -380,6 +380,7 @@ __CHECKDIGIT_ENCODER__, __CHECKDIGIT_REF__.
 
 [endsect][/section:checkdigit Check digit]
 
+[section:size_ref Size]
 [section:no_size_checking no_size_checking]
 [h3 Synopsis]
 ``
@@ -410,7 +411,7 @@ struct size_checking
 ``
 [h3 Description]
 
-This tag can be used in the `checksum` structure if you want to restrict the size of the sequence.
+This structure can be used in the `checksum` structure if you want to restrict the size of the sequence.
 If the size is not respected then the failure policy is called.
 
 [h3 Header]
@@ -446,7 +447,7 @@ This policy tell the check algorithm to return an error code if the size contrac
 ``
 
 [h3 See also]
-__SIZE_CHECKING__, __SIZE_FAILURE_CODE_ERROR_POLICY__, __CHECKSUM_REF__.
+__SIZE_CHECKING__, __SIZE_FAILURE_ERROR_CODE_POLICY__, __CHECKSUM_REF__.
 
 [endsect][/section:size_failure_error_code_policy size_failure_error_code_policy]
 
@@ -501,11 +502,52 @@ This exception is used with __SIZE_FAILURE_EXCEPTION_POLICY__ and launched when 
 [h3 See also]
 __SIZE_FAILURE_EXCEPTION_POLICY__.
 [endsect][/section:size_failure_exception size_failure_exception]
+[endsect][/section:size_ref Size]
 
 [section:traversal_type Traversal type]
-[endsect][/section:traversal_type Traversal type]
 
-[section:traversal_type Traversal type]
+[section:forward_traversal forward_traversal]
+[h3 Synopsis]
+``
+struct forward_traversal
+{
+  /* unspecified */
+};
+``
+[h3 Description]
+
+This policy tell the check algorithm to go though the sequence from start to end (typically from left to right).
+
+[h3 Header]
+``
+#include <boost/checks/traversal.hpp>
+``
+
+[h3 See also]
+__REVERSE_TRAVERSAL__, __CHECKSUM_REF__.
+[endsect][/section:forward_traversal forward_traversal]
+
+[section:reverse_traversal reverse_traversal]
+[h3 Synopsis]
+``
+struct reverse_traversal
+{
+  /* unspecified */
+};
+``
+[h3 Description]
+
+This policy tell the check algorithm to go though the sequence from end to start (typically from right to left).
+
+[h3 Header]
+``
+#include <boost/checks/traversal.hpp>
+``
+
+[h3 See also]
+__FORWARD_TRAVERSAL__, __CHECKSUM_REF__.
+[endsect][/section:reverse_traversal reverse_traversal]
+
 [endsect][/section:traversal_type Traversal type]
 
 [section:type_adaptor Type adaptor]
