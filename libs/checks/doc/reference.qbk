@@ -547,8 +547,81 @@ This policy tell the check algorithm to go though the sequence from end to start
 [h3 See also]
 __FORWARD_TRAVERSAL__, __CHECKSUM_REF__.
 [endsect][/section:reverse_traversal reverse_traversal]
-
 [endsect][/section:traversal_type Traversal type]
+
+[section:filter Filter]
+[section:digit_filter digit_filter]
+[h3 Synopsis]
+``
+struct digit_filter
+{
+  typedef bool result_type;
+
+  template <typename value_type>
+  bool operator()(value_type value) const;
+};
+``
+[h3 Description]
+
+Predicate returning true if value is a digit between 0 and 9.
+
+[h3 Header]
+``
+#include <boost/checks/filter.hpp>
+``
+
+[h3 Template parameter]
+
+[*value_type] is the type of the value we want to test.
+
+[h3 Parameter]
+
+[*value] is the value we want to test.
+
+[h3 Return]
+
+True if [*value] is between 0 and 9, otherwise false.
+
+[h3 See also]
+__DIGITX_FILTER__, __CHECKSUM_REF__.
+[endsect][/section:digit_filter digit_filter]
+
+[section:digitx_filter digitx_filter]
+[h3 Synopsis]
+``
+struct digitx_filter
+{
+  typedef bool result_type;
+
+  template <typename value_type>
+  bool operator()(value_type value) const;
+};
+``
+[h3 Description]
+
+Predicate returning true if value is a digit between 0 and 9 or equal to 'x' or 'X'.
+
+[h3 Header]
+``
+#include <boost/checks/filter.hpp>
+``
+
+[h3 Template parameter]
+
+[*value_type] is the type of the value we want to test.
+
+[h3 Parameter]
+
+[*value] is the value we want to test.
+
+[h3 Return]
+
+True if [*value] is between 0 and 9 or equal to 'x' or 'X', otherwise false.
+
+[h3 See also]
+__DIGIT_FILTER__, __CHECKSUM_REF__.
+[endsect][/section:digitx_filter digitx_filter]
+[endsect][/section:filter Filter]
 
 [section:type_adaptor Type adaptor]
 [endsect][/section:type_adaptor Type adaptor]

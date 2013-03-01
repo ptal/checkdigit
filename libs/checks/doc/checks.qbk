@@ -80,6 +80,9 @@
 [def __FORWARD_TRAVERSAL__ [link checks.checks.reference.traversal_type.forward_traversal forward_traversal]]
 [def __REVERSE_TRAVERSAL__ [link checks.checks.reference.traversal_type.reverse_traversal reverse_traversal]]
 
+[def __DIGIT_FILTER__ [link checks.checks.reference.filter.digit_filter digit_filter]]
+[def __DIGITX_FILTER__ [link checks.checks.reference.filter.digitx_filter digitx_filter]]
+
 [def __overview [link checks.checks.preface Preface]]
 
 [def __spaces '''&#x2000;&#x2000;'''] [/ two spaces - useful for an indent.]
