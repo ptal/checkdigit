@@ -623,6 +623,111 @@ __DIGIT_FILTER__, __CHECKSUM_REF__.
 [endsect][/section:digitx_filter digitx_filter]
 [endsect][/section:filter Filter]
 
+[section:transliteration Transliteration]
+[section:ascii_to_digit ascii_to_digit]
+[h3 Synopsis]
+``
+struct ascii_to_digit
+{
+  typedef size_t result_type;
+
+  template <typename value_type>
+  size_t operator()(const value_type &value) const;
+};
+``
+[h3 Description]
+
+Transliterate the value of an ASCII character between '0' and '9' into a integer between 0 and 9.
+
+[h3 Header]
+``
+#include <boost/checks/transliteration.hpp>
+``
+
+[h3 Post condition]
+
+The value is supposed to be correctly bounded. No check are performed since we assume that a filter has been called first.
+
+[h3 Template parameter]
+
+[*value_type] is the type of the value we want to transliterate.
+
+[h3 Parameter]
+
+[*value] is the value we want to transliterate.
+
+[h3 Return]
+
+The transliteration value of the ASCII character.
+
+[h3 See also]
+__ASCII_TO_DIGITX__, __CHECKSUM_REF__.
+[endsect][/section:ascii_to_digit]
+
+[section:ascii_to_digitx ascii_to_digitx]
+[h3 Synopsis]
+``
+struct ascii_to_digitx
+{
+  typedef size_t result_type;
+
+  template <typename value_type>
+  size_t operator()(const value_type &value) const;
+};
+``
+[h3 Description]
+
+Transliterate the value of an ASCII character between '0' and '9' or 'x'/'X' into a integer between 0 and 10.
+
+[h3 Header]
+``
+#include <boost/checks/transliteration.hpp>
+``
+[h3 Post condition]
+
+The value is supposed to be correctly bounded. No check are performed since we assume that a filter has been called first.
+
+[h3 Template parameter]
+
+[*value_type] is the type of the value we want to transliterate.
+
+[h3 Parameter]
+
+[*value] is the value we want to transliterate.
+
+[h3 Return]
+
+The transliteration value of the ASCII character, if it's a character representing a digit. If it's 'x' or 'X', than the result is 10.
+
+[h3 See also]
+__ASCII_TO_DIGIT__, __CHECKSUM_REF__.
+[endsect][/section:ascii_to_digitx]
+
+[section:transliteration_exception transliteration_exception]
+[h3 Synopsis]
+``
+class transliteration_exception : public std::exception
+{
+public:
+  transliteration_exception(const std::string& message);
+  transliteration_exception();
+  virtual const char* what() const;
+};
+``
+[h3 Description]
+
+Exception used to indicate runtime transliteration failure.
+
+[h3 Header]
+``
+#include <boost/checks/transliteration.hpp>
+``
+
+[h3 See also]
+__ASCII_TO_DIGIT__, __ASCII_TO_DIGITX__.
+[endsect][/section:transliteration_exception]
+[endsect][/section:transliteration]
+
 [section:type_adaptor Type adaptor]
 [endsect][/section:type_adaptor Type adaptor]
 

@@ -14,7 +14,7 @@ There are two main functionalities provided by this library. The first is used t
 ``
 template <typename check_algo, 
           typename range>    
-bool check_sequence(const range &x);
+bool validate(const range &x);
 ``
 
 If `x` doesn't match the set of rules specified by `check_algo` it returns false. Generally,

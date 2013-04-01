@@ -8,9 +8,7 @@
     ]
     [authors [Talbot, Pierre]]
 ]
-
-
-[include ../../../../../../../boost-trunk/tools/auto_index/include/auto_index_helpers.qbk]
+[include ../../../../../../../boost-sandbox/tools/auto_index/include/auto_index_helpers.qbk]
 
 [/ Some links to external sources.]
 [def __boost [@http://www.boost.org/ Boost]]
@@ -82,6 +80,9 @@
 
 [def __DIGIT_FILTER__ [link checks.checks.reference.filter.digit_filter digit_filter]]
 [def __DIGITX_FILTER__ [link checks.checks.reference.filter.digitx_filter digitx_filter]]
+
+[def __ASCII_TO_DIGIT__ [link checks.checks.reference.transliteration.ascii_to_digit ascii_to_digit]]
+[def __ASCII_TO_DIGITX__ [link checks.checks.reference.transliteration.ascii_to_digitx ascii_to_digitx]]
 
 [def __overview [link checks.checks.preface Preface]]
 

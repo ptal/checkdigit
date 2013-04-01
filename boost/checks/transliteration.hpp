@@ -18,12 +18,29 @@
 
 #include <cstddef> // size_t
 #include <functional>
+#include <exception>
 
 
 namespace boost{
   namespace checks{
 
-struct chartodigit
+class transliteration_exception : public std::exception
+{
+  std::string message;
+public:
+  transliteration_exception(const std::string& message)
+  : message(message)
+  {}
+
+  transliteration_exception(){}
+
+  virtual const char* what() const
+  {
+    return message.c_str();
+  }
+};
+
+struct ascii_to_digit
 {
   typedef size_t result_type;
 
@@ -35,7 +52,7 @@ struct chartodigit
 };
 
 
-struct chartodigitx
+struct ascii_to_digitx
 {
   typedef size_t result_type;
 

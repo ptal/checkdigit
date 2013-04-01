@@ -7,7 +7,6 @@
 #ifndef BOOST_CHECKS_VIN_HPP
 #define BOOST_CHECKS_VIN_HPP
 
-//[vin_preprocessor_tools
 #include <stdexcept>
 #include <boost/checks/precheck.hpp>
 #include <boost/checks/checksum.hpp>
