@@ -10,7 +10,7 @@
 # so spaces or newlines BEFORE ; and : and AFTER too.
 # (because : and ; are keywords!)
 
-project checks ; # Insert your project name here.
+project checkdigit ; # Insert your project name here.
 
 using quickbook ;  # Required if you want to use Quickbook.
 using doxygen ;  # Required if you want to use Doxygen.
@@ -43,15 +43,15 @@ if --enable-index in  [ modules.peek : ARGV ]
         <format>pdf:<xsl:param>index.on.type=1 # For the native stylesheets to generate the different indexes.
         # PDF native index support is probably better for PDFs as then you actually get page numbers.
 
-        <auto-index-script>checks.idx # Specifies the name of the index script to load. 
+        <auto-index-script>checkdigit.idx # Specifies the name of the index script to load. 
         # <auto-index-prefix>../../../ # OK for Boost /boost and /libs normal directory layout 
-        # using scan-path in checks.idx, for example:
+        # using scan-path in checkdigit.idx, for example:
         
         # Assume all header files are in boost/checkdigit and sub-folders.
 				#!scan-path boost/checkdigit ".*\.hpp" true
 				
 				# Assume all Quickbook files are in /docs (none in sub-folders).
-				#!scan-path "libs/checks" ".*\.qbk"
+				#!scan-path "libs/checkdigit" ".*\.qbk"
 
         <auto-index-prefix>../../.. 
         
@@ -163,9 +163,9 @@ doxygen autodoc
 ;
 
 
-xml checks
+xml checkdigit
   :
-    checks.qbk # This is your 'root' Quickbook file (that may include other .qbk files).
+    checkdigit.qbk # This is your 'root' Quickbook file (that may include other .qbk files).
   :
 ;
 
@@ -290,6 +290,6 @@ install svg-install : [ glob $(boost-root)/doc/src/images/*.svg ] : <location>ht
 # will rename the file to the expected filename, here quick_auto_dox_index.pdf.
 # <location>. means installed in same place as this jamfile, /doc.
 
-install pdf-install : standalone : <install-type>PDF <location>. <name>checks.pdf ;
+install pdf-install : standalone : <install-type>PDF <location>. <name>checkdigit.pdf ;
 
 install callouts : [ glob src/images/callouts/*.png ] : <location>html/images/callouts ;

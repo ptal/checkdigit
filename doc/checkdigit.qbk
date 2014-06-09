@@ -8,7 +8,6 @@
     ]
     [authors [Talbot, Pierre]]
 ]
-[include ../../../../../../../boost-sandbox/tools/auto_index/include/auto_index_helpers.qbk]
 
 [/ Some links to external sources.]
 [def __boost [@http://www.boost.org/ Boost]]
@@ -140,7 +139,7 @@ may still be changed without notice. The current version is available at
 
 ] [/important]
 
-[note Comments and suggestions (even bugs!) to Pierre Talbot ( ptalbot (at) mopong (dot) net ) ]
+[note Comments and suggestions (even bugs!) to Pierre Talbot ( ptalbot (at) hyc (dot) io ) ]
 
 [endsect] [/section:status Status]
 
@@ -257,7 +256,7 @@ Last edit to Quickbook file __FILENAME__ was at __TIME__ on __DATE__.
 ] 
 [/if enable_index]
 
-[/ checks.qbk
+[/ checkdigit.qbk
   Copyright 2011 Pierre Talbot.
   Distributed under the Boost Software License, Version 1.0.
   (See accompanying file LICENSE_1_0.txt or copy at
