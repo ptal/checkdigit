@@ -1,8 +1,6 @@
-# \boost-sandbox\SOC\2011\checks\doc jamfile.v2
-
 # Creating Boost documentation for Checks.
 
-# Copyright Pierre Talbot 2011
+# Copyright Pierre Talbot 2011-2014
 
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt
@@ -19,23 +17,6 @@ using doxygen ;  # Required if you want to use Doxygen.
 
 import modules ;
 import path ;
-import os ; # Needed to get environment variables.
-
-# Set up Boost root folder.
-# For example, might be current release, a previous release, or trunk.
-#  Assumes you have set an environment variable $BOOST_ROOT.
-local BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
-ECHO "os.environ BOOST_ROOT boost-root = " $(BOOST_ROOT) ; #  Upper case for the value of environment variable(s).
-# For example: os.environ BOOST_ROOT boost-root =  /boost_1_47_0
-ECHO "BOOST_ROOT " $(BOOST_ROOT) ;
-path-constant local-boost-root : $(BOOST_ROOT) ; # Or you can access your chosen boost version here.
-ECHO "local-boost-root = " $(local-boost-root) ; # local-boost-root =  I:\boost_1_47_0
-
-local boost_sandbox = [ os.environ BOOST_SANDBOX ] ;
-ECHO "os.environ boost-sandbox = " $(boost_sandbox) ; #  Upper case for the value of environment variable(s).
-
-path-constant here : . ; # Convenient to refer to files in the same directory as this jamfile.v2.
-ECHO "here = " $(here) ; 
 
 path-constant nav_images : html/images/ ; # png and svg images for home, next, note, tip...
 path-constant images_location : html ; # location of SVG and PNG images referenced by Quickbook.
@@ -86,8 +67,7 @@ else
 
 doxygen autodoc
   :
-    [ glob ../../../boost/checks/*.hpp ] # These are your hpp header include files.
-    [ glob ../../../boost/checks/*.cpp ] # These are your cpp source files.
+    [ glob ../include/boost/checkdigit/*.hpp ] # These are your hpp header include files.
   : 
     # Lots of parameters passed to Doxygen.  You can see these in the doxygen docs, or the Wizard Expert tab displays them.
     # If you have successfuly built your Doxygen docs standalone using the Wizard (strongly recommended as it is much quicker).
@@ -178,7 +158,7 @@ doxygen autodoc
     # Users can place (or edit) their own personal choice CSS file here.
     
     # Default is just Reference but you can provide your own title for reference section here.
-    <xsl:param>"boost.doxygen.reftitle=Checks Reference"
+    <xsl:param>"boost.doxygen.reftitle=Checkdigit Reference"
 
 ;
 
@@ -191,7 +171,7 @@ xml checks
 
 boostbook standalone
   :
-     checks
+     checkdigit
   :
   
   # Path for links to Boost:
@@ -199,14 +179,8 @@ boostbook standalone
   # Links are relative and trying to make absolute does NOT work.
   # And remember that all links MUST (unless in quotes) use  backslash, not forward that is trip char.
 
-  <xsl:param>boost.root=../../../../../../../boost_trunk # OK but link to I:/boost_trunk/boost.png
+  <xsl:param>boost.root=$(boost-root) # OK but link to I:/boost_trunk/boost.png
 
-  # Also control links to admonitions, so need to set separately.
-  #<xsl:param>boost.root=../../../../../../../boost_1_47_0 # OK file:///I:/boost_1_48_0/boost.png
-  # Quickbook [@boost:/boost/units/detail/utility.hpp] should make it relative to xsl parameter boost.root.
-
-  # Path for libraries index:
-  <xsl:param>boost.libraries=../../../../../../../boost-trunk/libs/libraries.htm
   # Use the main Boost stylesheet:
   <xsl:param>html.stylesheet=./boostbook.css # in /doc folder.
 
@@ -229,7 +203,6 @@ boostbook standalone
   <xsl:param>boost.image.src=images/proposed_for_boost.png #
   <xsl:param>boost.image.w=180 # Width of logo in pixels.
   <xsl:param>boost.image.h=90 # Height of logo in pixels.
-  # https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/html/images/proposed_for_boost.png
 
   # HTML options:
   # ------------
