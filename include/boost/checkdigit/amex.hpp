@@ -9,16 +9,16 @@
     \brief This file provides tools to compute and validate an American Express credit card number.
 */
 
-#ifndef BOOST_CHECKS_AMEX_HPP
-#define BOOST_CHECKS_AMEX_HPP
+#ifndef BOOST_CHECKDIGIT_AMEX_HPP
+#define BOOST_CHECKDIGIT_AMEX_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
 #include <cstddef> // size_t
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/checksum.hpp>
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/checksum.hpp>
  
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -30,7 +30,7 @@
 #define AMEX_SIZE 15
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 /*!
   \brief American express features
@@ -88,5 +88,5 @@ size_t compute_amex(const std::string& x)
   return compute_checkdigit<amex>(make_precheck<digit>(x));
 }
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 #endif

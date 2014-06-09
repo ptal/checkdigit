@@ -5,8 +5,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECKS_MODULUS_HPP
-#define BOOST_CHECKS_MODULUS_HPP
+#ifndef BOOST_CHECKDIGIT_MODULUS_HPP
+#define BOOST_CHECKDIGIT_MODULUS_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -16,7 +16,7 @@
 #include <boost/static_assert.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 template <size_t mod>
 struct modulus
@@ -50,6 +50,6 @@ struct modulus_inv
   }
 };
 
-}}  // namespace boost   namespace checks
+}}  // namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECKS_MODULUS_HPP
+#endif //BOOST_CHECKDIGIT_MODULUS_HPP

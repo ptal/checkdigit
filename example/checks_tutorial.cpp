@@ -33,7 +33,7 @@
 
 int main()
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   //[rtn_example
   std::string rtn_number("111000025");
   std::string rtn_number_without_checkdigit("11100002");

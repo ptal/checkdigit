@@ -9,8 +9,8 @@
     \brief This file provides tools to compute and validate an European Article Numbering (EAN) of size 8 or 13.
 */
 
-#ifndef BOOST_CHECKS_EAN_HPP
-#define BOOST_CHECKS_EAN_HPP
+#ifndef BOOST_CHECKDIGIT_EAN_HPP
+#define BOOST_CHECKDIGIT_EAN_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -18,13 +18,13 @@
 
 #include <string>
 
-#include <boost/checks/weight.hpp>
-#include <boost/checks/checkdigit.hpp>
-#include <boost/checks/basic_checks.hpp>
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/weighted_sum.hpp>
-#include <boost/checks/checksum.hpp> 
-#include <boost/checks/precheck.hpp>
+#include <boost/checkdigit/weight.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
+#include <boost/checkdigit/basic_checks.hpp>
+#include <boost/checkdigit/modulus10.hpp>
+#include <boost/checkdigit/weighted_sum.hpp>
+#include <boost/checkdigit/checksum.hpp> 
+#include <boost/checkdigit/precheck.hpp>
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -40,7 +40,7 @@
 #define EAN8_SIZE 8
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 /*!
   \brief This is the weight used by EAN system.
@@ -98,7 +98,7 @@ bool check_ean13(const std::string& x)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly EAN13_SIZE_WITHOUT_CHECKDIGIT digits.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -145,7 +145,7 @@ bool check_ean8 (const std::string& x)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly EAN8_SIZE_WITHOUT_CHECKDIGIT digits.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -160,5 +160,5 @@ size_t compute_ean8(const std::string& x)
   return compute_checkdigit<ean8>(make_precheck<digit>(x));
 }
 
-}} // namespace boost   namespace checks
-#endif // BOOST_CHECKS_EAN_HPP
+}} // namespace boost   namespace checkdigit
+#endif // BOOST_CHECKDIGIT_EAN_HPP

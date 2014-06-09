@@ -5,8 +5,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_SIZE_CHECK_HPP
-#define BOOST_CHECK_SIZE_CHECK_HPP
+#ifndef BOOST_CHECKDIGIT_SIZE_CHECK_HPP
+#define BOOST_CHECKDIGIT_SIZE_CHECK_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -15,7 +15,7 @@
 #include <exception>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 class size_failure_exception : public std::exception
 {
@@ -49,7 +49,7 @@ struct size_checking
 
 struct no_size_checking{};
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_SIZE_CHECK_HPP
+#endif // BOOST_CHECKDIGIT_SIZE_CHECK_HPP

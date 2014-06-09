@@ -12,10 +12,10 @@
 // and comments: don't change any of the special comment markups!
 
 //[checkdigit_mod12_example
-#include <boost/checks/modulus.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/modulus.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
-using namespace boost::checks;
+using namespace boost::checkdigit;
 
 // The check digit processor.
 typedef modulus<12> mod12_basic;

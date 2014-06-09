@@ -10,8 +10,8 @@
 
 //! \brief To test the efficiency of check algorithms in detecting alterations.
 
-#ifndef BOOST_CHECK_TEST_ALTERATION_HPP
-#define BOOST_CHECK_TEST_ALTERATION_HPP
+#ifndef BOOST_CHECKDIGIT_TEST_ALTERATION_HPP
+#define BOOST_CHECKDIGIT_TEST_ALTERATION_HPP
 
 template <typename functor>
 unsigned int alteration( const functor &compute_checkdigit , int number_of_position_to_test )
@@ -44,4 +44,4 @@ unsigned int alteration( const functor &compute_checkdigit , int number_of_posit
   return alteration_failures ;
 }
 
-#endif // BOOST_CHECK_TEST_ALTERATION_HPP
+#endif // BOOST_CHECKDIGIT_TEST_ALTERATION_HPP

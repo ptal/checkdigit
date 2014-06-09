@@ -4,17 +4,17 @@
 //(See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CHECKS_RTN_HPP
-#define BOOST_CHECKS_RTN_HPP
+#ifndef BOOST_CHECKDIGIT_RTN_HPP
+#define BOOST_CHECKDIGIT_RTN_HPP
 
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/checksum.hpp>
-#include <boost/checks/precheck.hpp>
+#include <boost/checkdigit/modulus10.hpp>
+#include <boost/checkdigit/checksum.hpp>
+#include <boost/checkdigit/precheck.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 
 namespace boost{
-namespace checks{
+namespace checkdigit{
 
 //[rtn_checkdigit
 typedef mod10_basic_checkdigit rtn_checkdigit;

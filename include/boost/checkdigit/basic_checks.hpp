@@ -9,8 +9,8 @@
     \brief This file provides a set of basic functions used to compute and validate check digit(s) and checksum.
 */
 
-#ifndef BOOST_CHECK_BASIC_HPP
-#define BOOST_CHECK_BASIC_HPP
+#ifndef BOOST_CHECKDIGIT_BASIC_HPP
+#define BOOST_CHECKDIGIT_BASIC_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -18,11 +18,11 @@
 
 #include <cstddef> // size_t
 
-#include <boost/checks/detail/sequence_counter.hpp>
+#include <boost/checkdigit/detail/sequence_counter.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 static const size_t bad_sequence = (size_t)-1;
 
@@ -75,7 +75,7 @@ template <typename features,
           typename range>
 bool check_sequence(const range &x)
 {
-  boost::checks::detail::simple_counter::type counter = boost::checks::detail::simple_counter()();
+  boost::checkdigit::detail::simple_counter::type counter = boost::checkdigit::detail::simple_counter()();
   size_t checksum;
 
   checksum = compute_checksum<typename features::checksum::processor,
@@ -104,7 +104,7 @@ template <typename features,
           typename range>
 size_t compute_checkdigit(const range &x)
 {
-  typedef typename boost::checks::detail::skip_counter<features::checksum::checkdigit_detail::pos, 
+  typedef typename boost::checkdigit::detail::skip_counter<features::checksum::checkdigit_detail::pos, 
                                                        features::checksum::checkdigit_detail::size
                                                       > counter_type;
   typename counter_type::type counter = counter_type()();
@@ -120,7 +120,7 @@ size_t compute_checkdigit(const range &x)
   return typename features::checksum::make_checkdigit()(checksum);
 }
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_BASIC_HPP
+#endif // BOOST_CHECKDIGIT_BASIC_HPP

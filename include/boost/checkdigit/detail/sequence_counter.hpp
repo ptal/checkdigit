@@ -9,8 +9,8 @@
     \brief Counting iterator and skipping iterator.
 */
 
-#ifndef BOOST_CHECKS_SEQUENCE_COUNTER_HPP
-#define BOOST_CHECKS_SEQUENCE_COUNTER_HPP
+#ifndef BOOST_CHECKDIGIT_SEQUENCE_COUNTER_HPP
+#define BOOST_CHECKDIGIT_SEQUENCE_COUNTER_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -21,7 +21,7 @@
 #include <functional>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 namespace detail
 {
@@ -56,6 +56,6 @@ struct skip_counter
 };
 
 }
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
 #endif 

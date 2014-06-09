@@ -22,7 +22,7 @@
 [def __CHECKS_DOC_PDF [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/libs/checks/doc/checks.pdf PDF documentation]]
 
 [/ Links to source code]
-[def __CHECKS_SRC_CODE [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/boost/ Boost Sandbox checks source code.]]
+[def __CHECKS_SRC_CODE [@https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checkdigit/boost/ Boost Sandbox checks source code.]]
 
 [def __GSOC [@http://code.google.com/soc/2011/boost/about.html Google Summer of Code project (2011)]]
 [def __VISA [@http://en.wikipedia.org/wiki/Visa_credit_card Visa credit card]]

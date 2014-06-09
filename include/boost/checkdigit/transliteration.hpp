@@ -9,8 +9,8 @@
     \brief
 */
 
-#ifndef BOOST_CHECK_CONVERSION_HPP
-#define BOOST_CHECK_CONVERSION_HPP
+#ifndef BOOST_CHECKDIGIT_CONVERSION_HPP
+#define BOOST_CHECKDIGIT_CONVERSION_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -22,7 +22,7 @@
 
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 class transliteration_exception : public std::exception
 {
@@ -63,6 +63,6 @@ struct ascii_to_digitx
   }
 };
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECK_CONVERSION_HPP
+#endif //BOOST_CHECKDIGIT_CONVERSION_HPP

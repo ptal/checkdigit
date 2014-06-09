@@ -1,10 +1,10 @@
 #include <string>
 #include <exception> 
 #include <boost/optional.hpp>
-#include <boost/checks/visa.hpp>
-#include <boost/checks/type_adaptor.hpp>
+#include <boost/checkdigit/visa.hpp>
+#include <boost/checkdigit/type_adaptor.hpp>
 
-using namespace boost::checks;
+using namespace boost::checkdigit;
 
 //[strict_filter
 class invalid_character : public std::exception

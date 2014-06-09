@@ -22,26 +22,26 @@
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink
 #include <boost/test/included/unit_test.hpp>
 
-#include <boost/checks/precheck.hpp>
+#include <boost/checkdigit/precheck.hpp>
 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/verhoeff.hpp>
-#include <boost/checks/modulus11.hpp>
-#include <boost/checks/modulus97.hpp>
-#include <boost/checks/ean.hpp>
-#include <boost/checks/isbn.hpp>
-#include <boost/checks/upc.hpp>
-#include <boost/checks/amex.hpp>
-#include <boost/checks/visa.hpp>
-#include <boost/checks/mastercard.hpp>
-#include <boost/checks/checks_fwd.hpp> // Forward declarations.
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/verhoeff.hpp>
+#include <boost/checkdigit/modulus11.hpp>
+#include <boost/checkdigit/modulus97.hpp>
+#include <boost/checkdigit/ean.hpp>
+#include <boost/checkdigit/isbn.hpp>
+#include <boost/checkdigit/upc.hpp>
+#include <boost/checkdigit/amex.hpp>
+#include <boost/checkdigit/visa.hpp>
+#include <boost/checkdigit/mastercard.hpp>
+#include <boost/checkdigit/checks_fwd.hpp> // Forward declarations.
 
 #include <utility>
 
 #include "alteration_test.hpp"
 #include "transposition_test.hpp"
 
-using namespace boost::checks;
+using namespace boost::checkdigit;
 
 template <typename functor>
 unsigned int transposition(const functor &compute_checkdigit);
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(visa_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_visa(visa_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_visa(visa_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_visa(visa_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_visa(visa_size_error), bad_sequence);
 }
 
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(amex_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_amex(amex_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_amex(amex_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_amex(amex_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_amex(amex_size_error), bad_sequence);
 }
 
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(mastercard_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_mastercard(mastercard_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_mastercard(mastercard_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_mastercard(mastercard_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_mastercard(mastercard_size_error), bad_sequence);
 }
 
@@ -180,7 +180,7 @@ BOOST_AUTO_TEST_CASE(ean13_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_ean13(ean13_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_ean13(ean13_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_ean13(ean13_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_ean13(ean13_size_error), bad_sequence);
 }
 
@@ -213,7 +213,7 @@ BOOST_AUTO_TEST_CASE(ean8_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_ean8(ean8_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_ean8(ean8_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_ean8(ean8_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_ean8(ean8_size_error), bad_sequence);
 }
 
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_CASE(upc_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_upca(upca_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_upca(upca_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_upca(upca_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_upca(upca_size_error), bad_sequence);
 }
 
@@ -284,7 +284,7 @@ BOOST_AUTO_TEST_CASE(isbn13_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_isbn13(isbn13_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_isbn13(isbn13_not_valid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_isbn13(isbn13_not_valid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_isbn13(isbn13_size_error), bad_sequence);
 }
 
@@ -319,7 +319,7 @@ BOOST_AUTO_TEST_CASE(isbn10_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_isbn10(isbn10_valid_without_checkdigit), valid_checkdigit);
-  BOOST_CHECK_NE(compute_isbn10(isbn10_invalid_without_checkdigit), valid_checkdigit);
+  BOOST_CHECKDIGIT_NE(compute_isbn10(isbn10_invalid_without_checkdigit), valid_checkdigit);
   BOOST_CHECK_EQUAL(compute_isbn10(isbn10_size_error), bad_sequence);
 }
 
@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_CASE(mod97_10_tests)
 
   // Verify the check digit computation.
   BOOST_CHECK_EQUAL(compute_mod97_10(mod97_10_valid_without_checkdigits), checkdigits);
-  BOOST_CHECK_NE(compute_mod97_10(mod97_10_invalid_without_checkdigits), checkdigits);
+  BOOST_CHECKDIGIT_NE(compute_mod97_10(mod97_10_invalid_without_checkdigits), checkdigits);
   BOOST_CHECK_EQUAL(compute_mod97_10<16>(mod97_10_size_error), bad_sequence);
 }
 
@@ -394,28 +394,28 @@ struct modulus11_functor
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition(luhn_functor());
-  BOOST_CHECK_MESSAGE(transpositions_failures == 2, "" <<(90-transpositions_failures)<< " caught on 90.");
+  BOOST_CHECKDIGIT_MESSAGE(transpositions_failures == 2, "" <<(90-transpositions_failures)<< " caught on 90.");
 
   unsigned int alterations_failures = alteration(luhn_functor(), 2);
-  BOOST_CHECK_MESSAGE(alterations_failures == 0, "" <<(18-alterations_failures)<< " caught on 18.");
+  BOOST_CHECKDIGIT_MESSAGE(alterations_failures == 0, "" <<(18-alterations_failures)<< " caught on 18.");
 }
 
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition(verhoeff_functor());
-  BOOST_CHECK_MESSAGE(transpositions_failures == 0, "" <<(90-transpositions_failures)<< " caught on 90.");
+  BOOST_CHECKDIGIT_MESSAGE(transpositions_failures == 0, "" <<(90-transpositions_failures)<< " caught on 90.");
 
   unsigned int alterations_failures = alteration(verhoeff_functor(), 20);
-  BOOST_CHECK_MESSAGE(alterations_failures == 0, "" <<(180-alterations_failures)<< " caught on 180.");
+  BOOST_CHECKDIGIT_MESSAGE(alterations_failures == 0, "" <<(180-alterations_failures)<< " caught on 180.");
 }
 
 BOOST_AUTO_TEST_CASE(modulus11_test)
 {
   unsigned int transpositions_failures = transposition(modulus11_functor());
-  BOOST_CHECK_MESSAGE(transpositions_failures == 0, "" <<(90-transpositions_failures)<< " caught on 90.");
+  BOOST_CHECKDIGIT_MESSAGE(transpositions_failures == 0, "" <<(90-transpositions_failures)<< " caught on 90.");
 
   unsigned int alterations_failures = alteration(modulus11_functor(), 10);
-  BOOST_CHECK_MESSAGE(alterations_failures == 0, "" <<(90-alterations_failures)<< " caught on 90.");
+  BOOST_CHECKDIGIT_MESSAGE(alterations_failures == 0, "" <<(90-alterations_failures)<< " caught on 90.");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -5,18 +5,18 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_TYPE_ADAPTOR_HPP
-#define BOOST_CHECK_TYPE_ADAPTOR_HPP
+#ifndef BOOST_CHECKDIGIT_TYPE_ADAPTOR_HPP
+#define BOOST_CHECKDIGIT_TYPE_ADAPTOR_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
 #include <boost/mpl/size_t.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 // Some tags.
 struct checkdigit_pos_tag{};
@@ -54,7 +54,7 @@ struct type_adaptor<checkdigit<P,E,p,s>, checkdigit_processor_tag, NewProcessor>
   typedef checkdigit<NewProcessor,E,p,s> type;
 };
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_CHECKSUM_HPP
+#endif // BOOST_CHECKDIGIT_CHECKSUM_HPP

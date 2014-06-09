@@ -13,9 +13,9 @@
 
 //[amex_example
 #include <string>
-#include <boost/checks/amex.hpp>
+#include <boost/checkdigit/amex.hpp>
 
-using namespace boost::checks;
+using namespace boost::checkdigit;
 
 int main()
 {

@@ -29,7 +29,7 @@ This documentation makes use of the following naming and formatting conventions.
 * Names that refer to ['concepts] in the generic programming sense are
   specified in CamelCase.
 
-* Many code snippets assume an implicit namespace, for example, `std::` or `boost::checks`.
+* Many code snippets assume an implicit namespace, for example, `std::` or `boost::checkdigit`.
 
 * If you have a feature request, or if it appears that the implementation
 is in error, please check the TODO section first, as well

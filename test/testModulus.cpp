@@ -24,9 +24,9 @@
 
 #include <boost/test/unit_test.hpp> // Enhanced for unit_test framework autolink.
 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/checks_fwd.hpp> // Forward declarations.
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/modulus10.hpp>
+#include <boost/checkdigit/checks_fwd.hpp> // Forward declarations.
 
 #include "alteration_test.hpp"
 #include "transposition_test.hpp"
@@ -37,29 +37,29 @@ unsigned int transposition( const functor &compute_checkdigit );
 struct luhn_functor
 {
   template <typename range>
-  typename boost::checks::luhn_compute_algorithm::checkdigit<range>::type operator ()( const range &check_range ) const
+  typename boost::checkdigit::luhn_compute_algorithm::checkdigit<range>::type operator ()( const range &check_range ) const
   {
-    return boost::checks::compute_luhn( check_range ) ;
+    return boost::checkdigit::compute_luhn( check_range ) ;
   }
 };
 
 struct verhoeff_functor
 {
   template <typename range>
-  typename boost::checks::verhoeff_compute_algorithm::checkdigit<range>::type operator ()( const range &check_range ) const
+  typename boost::checkdigit::verhoeff_compute_algorithm::checkdigit<range>::type operator ()( const range &check_range ) const
   {
-    return boost::checks::compute_verhoeff( check_range ) ;
+    return boost::checkdigit::compute_verhoeff( check_range ) ;
   }
 };
 
 BOOST_AUTO_TEST_CASE(luhn_test)
 {
   unsigned int transpositions_failures = transposition( luhn_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 2, "" << transpositions_failures << " caught on 90.") ;
+  BOOST_CHECKDIGIT_MESSAGE( transpositions_failures == 2, "" << transpositions_failures << " caught on 90.") ;
 }
 
 BOOST_AUTO_TEST_CASE(verhoeff_test)
 {
   unsigned int transpositions_failures = transposition( verhoeff_functor() ) ;
-  BOOST_CHECK_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " caught on 90.") ;
+  BOOST_CHECKDIGIT_MESSAGE( transpositions_failures == 0, "" << transpositions_failures << " caught on 90.") ;
 }

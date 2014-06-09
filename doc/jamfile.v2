@@ -47,8 +47,8 @@ if --enable-index in  [ modules.peek : ARGV ]
         # <auto-index-prefix>../../../ # OK for Boost /boost and /libs normal directory layout 
         # using scan-path in checks.idx, for example:
         
-        # Assume all header files are in boost/checks and sub-folders.
-				#!scan-path boost/checks ".*\.hpp" true
+        # Assume all header files are in boost/checkdigit and sub-folders.
+				#!scan-path boost/checkdigit ".*\.hpp" true
 				
 				# Assume all Quickbook files are in /docs (none in sub-folders).
 				#!scan-path "libs/checks" ".*\.qbk"

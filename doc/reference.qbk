@@ -71,7 +71,7 @@ struct checkdigit
 Structure describing a check digit.
 [h3 Header]
 ``
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 ``
 [h3 Template parameters]
 
@@ -109,7 +109,7 @@ The checkdigit_encoder structure encodes a checksum (possibly already processed 
 
 [h3 Header]
 ``
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 ``
 [h3 Template parameters]
 
@@ -153,7 +153,7 @@ The checkdigitx_encoder structure encodes a checksum (possibly already processed
 
 [h3 Header]
 ``
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 ``
 [h3 Template parameters]
 
@@ -203,7 +203,7 @@ The modulus structure is an arithmetic functor where the right value of `a % b` 
 
 [h3 Header]
 ``
-#include <boost/checks/modulus.hpp>
+#include <boost/checkdigit/modulus.hpp>
 ``
 [h3 Template parameters]
 
@@ -245,7 +245,7 @@ The modulus_inv structure provides a modular-based computation for check digit. 
 
 [h3 Header]
 ``
-#include <boost/checks/modulus.hpp>
+#include <boost/checkdigit/modulus.hpp>
 ``
 [h3 Template parameters]
 
@@ -281,7 +281,7 @@ some basic typedef shortcuts.
 
 [h3 Header]
 ``
-#include <boost/checks/modulus10.hpp>
+#include <boost/checkdigit/modulus10.hpp>
 ``
 [h3 Typedef]
 
@@ -315,7 +315,7 @@ some basic typedef shortcuts.
 
 [h3 Header]
 ``
-#include <boost/checks/modulus11.hpp>
+#include <boost/checkdigit/modulus11.hpp>
 ``
 [h3 Typedef]
 
@@ -355,7 +355,7 @@ to the check digit computation.
 
 [h3 Header]
 ``
-#include <boost/checks/modulus97_10.hpp>
+#include <boost/checkdigit/modulus97_10.hpp>
 ``
 [h3 mod97_10]
 It meets the __CHECKDIGIT_PROCESSOR_CONCEPT__ requirements.
@@ -392,7 +392,7 @@ This tag can be used in the `checksum` structure if the algorithm doesn't need a
 
 [h3 Header]
 ``
-#include <boost/checks/size_check.hpp>
+#include <boost/checkdigit/size_check.hpp>
 ``
 
 [h3 See also]
@@ -416,7 +416,7 @@ If the size is not respected then the failure policy is called.
 
 [h3 Header]
 ``
-#include <boost/checks/size_check.hpp>
+#include <boost/checkdigit/size_check.hpp>
 ``
 
 [h3 Template parameters]
@@ -443,7 +443,7 @@ This policy tell the check algorithm to return an error code if the size contrac
 
 [h3 Header]
 ``
-#include <boost/checks/size_check.hpp>
+#include <boost/checkdigit/size_check.hpp>
 ``
 
 [h3 See also]
@@ -466,7 +466,7 @@ This policy tell the check algorithm to launch an exception if the size contract
 
 [h3 Header]
 ``
-#include <boost/checks/size_check.hpp>
+#include <boost/checkdigit/size_check.hpp>
 ``
 
 [h3 Template paramater]
@@ -496,7 +496,7 @@ This exception is used with __SIZE_FAILURE_EXCEPTION_POLICY__ and launched when 
 
 [h3 Header]
 ``
-#include <boost/checks/size_check.hpp>
+#include <boost/checkdigit/size_check.hpp>
 ``
 
 [h3 See also]
@@ -520,7 +520,7 @@ This policy tell the check algorithm to go though the sequence from start to end
 
 [h3 Header]
 ``
-#include <boost/checks/traversal.hpp>
+#include <boost/checkdigit/traversal.hpp>
 ``
 
 [h3 See also]
@@ -541,7 +541,7 @@ This policy tell the check algorithm to go though the sequence from end to start
 
 [h3 Header]
 ``
-#include <boost/checks/traversal.hpp>
+#include <boost/checkdigit/traversal.hpp>
 ``
 
 [h3 See also]
@@ -567,7 +567,7 @@ Predicate returning true if value is a digit between 0 and 9.
 
 [h3 Header]
 ``
-#include <boost/checks/filter.hpp>
+#include <boost/checkdigit/filter.hpp>
 ``
 
 [h3 Template parameter]
@@ -603,7 +603,7 @@ Predicate returning true if value is a digit between 0 and 9 or equal to 'x' or 
 
 [h3 Header]
 ``
-#include <boost/checks/filter.hpp>
+#include <boost/checkdigit/filter.hpp>
 ``
 
 [h3 Template parameter]
@@ -641,7 +641,7 @@ Transliterate the value of an ASCII character between '0' and '9' into a integer
 
 [h3 Header]
 ``
-#include <boost/checks/transliteration.hpp>
+#include <boost/checkdigit/transliteration.hpp>
 ``
 
 [h3 Post condition]
@@ -681,7 +681,7 @@ Transliterate the value of an ASCII character between '0' and '9' or 'x'/'X' int
 
 [h3 Header]
 ``
-#include <boost/checks/transliteration.hpp>
+#include <boost/checkdigit/transliteration.hpp>
 ``
 [h3 Post condition]
 
@@ -720,7 +720,7 @@ Exception used to indicate runtime transliteration failure.
 
 [h3 Header]
 ``
-#include <boost/checks/transliteration.hpp>
+#include <boost/checkdigit/transliteration.hpp>
 ``
 
 [h3 See also]

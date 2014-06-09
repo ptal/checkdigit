@@ -25,7 +25,7 @@ project
       <toolset>msvc:<cxxflags>/wd4127 # expression is constant.
       <toolset>msvc:<cxxflags>/wd4503 # decorated name length exceeded, name was truncated.
       <toolset>msvc:<cxxflags>/wd4180 # qualifier applied to function type has no meaning; ignored.
-      <include>../../.. # checks
+      <include>../include/ # checks
       <include>$(BOOST_ROOT)
     ;
 

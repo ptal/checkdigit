@@ -9,8 +9,8 @@
     \brief This file provides tools to compute and validate a Mastercard credit card number.
 */
 
-#ifndef BOOST_CHECKS_MASTERCARD_HPP
-#define BOOST_CHECKS_MASTERCARD_HPP
+#ifndef BOOST_CHECKDIGIT_MASTERCARD_HPP
+#define BOOST_CHECKDIGIT_MASTERCARD_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -20,12 +20,12 @@
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
 
-#include <boost/checks/checksum.hpp> 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checksum.hpp> 
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 /*!
   \brief This macro defines the size of a Mastercard number.
@@ -72,7 +72,7 @@ bool check_mastercard(const std::string& x)
 
     \throws std::invalid_argument if check_seq doesn't contain exactly MASTERCARD_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws std::invalid_argument if the two first digits(from the leftmost)do not match the Mastercard pattern.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -87,6 +87,6 @@ size_t compute_mastercard(const std::string& x)
   return compute_checkdigit<mastercard>(make_precheck<digit>(x));
 }
 
-}} // namespace boost   namespace checks
-#endif // BOOST_CHECKS_MASTERCARD_HPP
+}} // namespace boost   namespace checkdigit
+#endif // BOOST_CHECKDIGIT_MASTERCARD_HPP
 

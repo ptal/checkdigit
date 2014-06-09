@@ -22,29 +22,29 @@
 #include <boost/lexical_cast.hpp>
 
 //[credit_cards_include_files
-#include <boost/checks/visa.hpp>
-#include <boost/checks/amex.hpp>
-#include <boost/checks/mastercard.hpp>
+#include <boost/checkdigit/visa.hpp>
+#include <boost/checkdigit/amex.hpp>
+#include <boost/checkdigit/mastercard.hpp>
 //]
 
 //[mod97_10_include_file
-#include <boost/checks/modulus97.hpp>
+#include <boost/checkdigit/modulus97.hpp>
 //]
 
 //[ean_include_file
-#include <boost/checks/ean.hpp>
+#include <boost/checkdigit/ean.hpp>
 //]
 
 //[isbn_include_file
-#include <boost/checks/isbn.hpp>
+#include <boost/checkdigit/isbn.hpp>
 //]
 
-#include <boost/checks/checks_fwd.hpp> // Forward declarations.
+#include <boost/checkdigit/checks_fwd.hpp> // Forward declarations.
 
 int main()
 {
   //[checks_example_1
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   std::string visa = "4000 0807 0620 0007";
   if(check_visa(visa))
     std::cout << "The VISA credit card number : " << visa << " is valid." << std::endl;

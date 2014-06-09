@@ -17,17 +17,17 @@
 #include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
 
-#include <boost/checks/checkdigit.hpp>
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/modulus11.hpp>
-#include <boost/checks/modulus97_10.hpp>
-#include <boost/checks/type_adaptor.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
+#include <boost/checkdigit/modulus10.hpp>
+#include <boost/checkdigit/modulus11.hpp>
+#include <boost/checkdigit/modulus97_10.hpp>
+#include <boost/checkdigit/type_adaptor.hpp>
 
 BOOST_AUTO_TEST_SUITE(core_tests)
 
 BOOST_AUTO_TEST_CASE(mod10_checkdigit_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   mod10_basic_checkdigit c;
 
   char results_expected[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(mod10_checkdigit_test)
 
 BOOST_AUTO_TEST_CASE(mod10_inv_checkdigit_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   mod10_inv_basic_checkdigit c;
 
   char results_expected[] = {'0', '9', '8', '7', '6', '5', '4', '3', '2', '1'};
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(mod10_inv_checkdigit_test)
 
 BOOST_AUTO_TEST_CASE(mod11_checkdigit_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   mod11_basic_checkdigit c;
 
   char results_expected[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X'};
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(mod11_checkdigit_test)
 
 BOOST_AUTO_TEST_CASE(mod11_inv_checkdigit_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   mod11_inv_basic_checkdigit c;
 
   char results_expected[] = {'0', 'X', '9', '8', '7', '6', '5', '4', '3', '2', '1'};
@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE(mod11_inv_checkdigit_test)
 
 BOOST_AUTO_TEST_CASE(mod97_10_checkdigit_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   mod97_10_checkdigit c;
 
   for(size_t checksum=0, res = 98; checksum < 100; ++checksum, --res)
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(mod97_10_checkdigit_test)
 
 BOOST_AUTO_TEST_CASE(checkdigit_encoder_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   char c = '0';
   int i = 0;
 
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(checkdigit_encoder_test)
 
 BOOST_AUTO_TEST_CASE(checkdigitx_encoder_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   char c = '0';
   int i = 0;
 
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE(checkdigitx_encoder_test)
 
 BOOST_AUTO_TEST_CASE(type_adaptor_test)
 {
-  using namespace boost::checks;
+  using namespace boost::checkdigit;
   BOOST_CHECK_EQUAL(mod11_basic_checkdigit::position_value, size_t(0));
   BOOST_CHECK_EQUAL(mod11_basic_checkdigit::size_value, size_t(1));
 

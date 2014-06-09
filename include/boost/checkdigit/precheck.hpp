@@ -9,8 +9,8 @@
     \brief 
 */
 
-#ifndef BOOST_CHECK_PRECHECK_HPP
-#define BOOST_CHECK_PRECHECK_HPP
+#ifndef BOOST_CHECKDIGIT_PRECHECK_HPP
+#define BOOST_CHECKDIGIT_PRECHECK_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -21,11 +21,11 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
-#include <boost/checks/filter.hpp>
-#include <boost/checks/conversion.hpp>
+#include <boost/checkdigit/filter.hpp>
+#include <boost/checkdigit/conversion.hpp>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 template <
           typename Precheck,
@@ -130,7 +130,7 @@ struct precheck<UnaryPredicate, no_conversion_tag>
 typedef precheck<digit_filter, chartodigit> digit; 
 typedef precheck<digitx_filter, chartodigitx> digitx;
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_PRECHECK_HPP
+#endif // BOOST_CHECKDIGIT_PRECHECK_HPP

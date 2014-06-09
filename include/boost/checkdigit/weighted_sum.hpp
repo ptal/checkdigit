@@ -9,18 +9,18 @@
     \brief This file provides tools to compute weighted sum.
 */
 
-#ifndef BOOST_CHECKS_WEIGHTED_SUM_HPP
-#define BOOST_CHECKS_WEIGHTED_SUM_HPP
+#ifndef BOOST_CHECKDIGIT_WEIGHTED_SUM_HPP
+#define BOOST_CHECKDIGIT_WEIGHTED_SUM_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/weight.hpp>
-#include <boost/checks/basic_checks.hpp>
+#include <boost/checkdigit/weight.hpp>
+#include <boost/checkdigit/basic_checks.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 /*!
   \brief Compute an operation on the checksum with the current valid value.
@@ -40,6 +40,6 @@ struct weighted_sum
   }
 };
 
-}}// namespace boost   namespace checks
+}}// namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECKS_MOD10_HPP
+#endif //BOOST_CHECKDIGIT_MOD10_HPP

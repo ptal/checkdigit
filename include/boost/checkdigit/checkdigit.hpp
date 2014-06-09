@@ -5,8 +5,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_CHECKDIGIT_HPP
-#define BOOST_CHECK_CHECKDIGIT_HPP
+#ifndef BOOST_CHECKDIGIT_CHECKDIGIT_HPP
+#define BOOST_CHECKDIGIT_CHECKDIGIT_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -16,7 +16,7 @@
 #include <boost/lexical_cast.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 template <typename Result=char>
 struct checkdigit_encoder
@@ -85,6 +85,6 @@ template
 >
 const size_t checkdigit<Processor, Encoder, position, size>::size_value = size;
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECK_CHECKDIGIT_HPP
+#endif //BOOST_CHECKDIGIT_CHECKDIGIT_HPP

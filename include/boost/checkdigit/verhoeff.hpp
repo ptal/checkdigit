@@ -22,14 +22,14 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/checks/checksum.hpp>
+#include <boost/checkdigit/checksum.hpp>
 
-#include <boost/checks/weight.hpp>
-#include <boost/checks/checkdigit.hpp>
-#include <boost/checks/basic_checks.hpp>
+#include <boost/checkdigit/weight.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
+#include <boost/checkdigit/basic_checks.hpp>
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 /*! \class verhoeff_algorithm
     \brief This class can be used to compute or validate checksum with the Verhoeff algorithm.
@@ -56,7 +56,7 @@ struct verhoeff_validation
     \tparam checkdigit is the type of the check digit desired.
     \param checksum is the checksum used to extract the check digit.
 
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The Verhoeff check digit of checksum.
   */
@@ -175,7 +175,7 @@ bool check_verhoeff(const check_range& check_seq)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -194,7 +194,7 @@ size_t compute_verhoeff(const check_range& check_seq)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq contains no valid value.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */

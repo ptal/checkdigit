@@ -9,17 +9,17 @@
     \brief 
 */
 
-#ifndef BOOST_CHECK_CHECKSUM_HPP
-#define BOOST_CHECK_CHECKSUM_HPP
+#ifndef BOOST_CHECKDIGIT_CHECKSUM_HPP
+#define BOOST_CHECKDIGIT_CHECKSUM_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 template
 <
@@ -59,7 +59,7 @@ struct features<Checksum, 0> : Checksum
 };
 
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_CHECKSUM_HPP
+#endif // BOOST_CHECKDIGIT_CHECKSUM_HPP

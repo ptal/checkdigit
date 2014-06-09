@@ -4,18 +4,18 @@
 //(See accompanying file LICENSE_1_0.txt
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef BOOST_CHECKS_VIN_HPP
-#define BOOST_CHECKS_VIN_HPP
+#ifndef BOOST_CHECKDIGIT_VIN_HPP
+#define BOOST_CHECKDIGIT_VIN_HPP
 
 #include <stdexcept>
-#include <boost/checks/precheck.hpp>
-#include <boost/checks/checksum.hpp>
-#include <boost/checks/modulus11.hpp>
+#include <boost/checkdigit/precheck.hpp>
+#include <boost/checkdigit/checksum.hpp>
+#include <boost/checkdigit/modulus11.hpp>
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 
 namespace boost{
-namespace checks{
+namespace checkdigit{
 
 
 //[vin_checkdigit

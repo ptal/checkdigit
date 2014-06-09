@@ -8,8 +8,8 @@
 // or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef BOOST_CHECK_TEST_TRANSPOSITION_HPP
-#define BOOST_CHECK_TEST_TRANSPOSITION_HPP
+#ifndef BOOST_CHECKDIGIT_TEST_TRANSPOSITION_HPP
+#define BOOST_CHECKDIGIT_TEST_TRANSPOSITION_HPP
 
 template <typename functor>
 unsigned int transposition( const functor &compute_checkdigit )
@@ -42,4 +42,4 @@ unsigned int transposition( const functor &compute_checkdigit )
   return transposition_failures ;
 }
 
-#endif // BOOST_CHECK_TEST_TRANSPOSITION_HPP
+#endif // BOOST_CHECKDIGIT_TEST_TRANSPOSITION_HPP

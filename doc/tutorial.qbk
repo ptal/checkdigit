@@ -140,7 +140,7 @@ As the hard part is already done, we can build our check functions now:
 
 And that's all!
 
-[note `boost::checks::compute_checkdigit` and `boost::checks::check_sequence` are both defined in __BASIC__CHECK__FILE__]
+[note `boost::checkdigit::compute_checkdigit` and `boost::checkdigit::check_sequence` are both defined in __BASIC__CHECK__FILE__]
 
 
 We can code a RTN sample in the file __CHECKS__TUTO__FILE__:
@@ -163,7 +163,7 @@ and then we can extract a few elements:
 * This uses a custom modulus 11 algorithm, so the check digit range is [0..9, X]
 
 The library already has support for modulus 11 algorithm in the header:
-``#include <boost/checks/modulus11.hpp>``
+``#include <boost/checkdigit/modulus11.hpp>``
 
 We create the __VIN__FILE__ file. Step by step, let's now complete this file.
 

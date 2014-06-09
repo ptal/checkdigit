@@ -11,17 +11,17 @@
     \remarks The ISBN-13 is derived from the EAN number, so EAN macro or type are used.
 */
 
-#ifndef BOOST_CHECKS_ISBN_HPP
-#define BOOST_CHECKS_ISBN_HPP
+#ifndef BOOST_CHECKDIGIT_ISBN_HPP
+#define BOOST_CHECKDIGIT_ISBN_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/ean.hpp>
-#include <boost/checks/modulus11.hpp>
-#include <boost/checks/checkdigit.hpp>
-#include <boost/checks/checksum.hpp> 
+#include <boost/checkdigit/ean.hpp>
+#include <boost/checkdigit/modulus11.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
+#include <boost/checkdigit/checksum.hpp> 
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
@@ -33,7 +33,7 @@
 #define ISBN10_SIZE 10
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 typedef ean13 isbn13;
 
@@ -69,7 +69,7 @@ bool check_isbn13 (const std::string& x)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly EAN13_SIZE_WITHOUT_CHECKDIGIT digits.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -123,7 +123,7 @@ bool check_isbn10(const std::string& x)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain exactly ISBN10_SIZE_WITHOUT_CHECKDIGIT digits.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9,X].
 */
@@ -138,5 +138,5 @@ size_t compute_isbn10(const std::string& x)
   return compute_checkdigit<isbn10>(make_precheck<digitx>(x));
 }
 
-}} // namespace boost   namespace checks
-#endif // BOOST_CHECKS_ISBN_HPP
+}} // namespace boost   namespace checkdigit
+#endif // BOOST_CHECKDIGIT_ISBN_HPP

@@ -5,8 +5,8 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECK_TRAVERSAL_HPP
-#define BOOST_CHECK_TRAVERSAL_HPP
+#ifndef BOOST_CHECKDIGIT_TRAVERSAL_HPP
+#define BOOST_CHECKDIGIT_TRAVERSAL_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -17,7 +17,7 @@
 #include <boost/range/iterator_range.hpp>
 
 namespace boost {
-  namespace checks{
+  namespace checkdigit{
 
 struct reverse_traversal 
 {
@@ -61,7 +61,7 @@ struct forward_traversal
   }
 };
 
-} // namespace checks
+} // namespace checkdigit
 } // namespace boost
 
-#endif // BOOST_CHECK_TRAVERSAL_HPP
+#endif // BOOST_CHECKDIGIT_TRAVERSAL_HPP

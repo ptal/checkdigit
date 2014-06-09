@@ -9,24 +9,24 @@
     \brief This file provides tools to compute and validate sequence with the Luhn algorithm.
 */
 
-#ifndef BOOST_CHECKS_LUHN_INCLUDED
-#define BOOST_CHECKS_LUHN_INCLUDED
+#ifndef BOOST_CHECKDIGIT_LUHN_INCLUDED
+#define BOOST_CHECKDIGIT_LUHN_INCLUDED
 
 #ifdef _MSC_VER
   #pragma once
 #endif
 
-#include <boost/checks/modulus10.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/modulus10.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
 
-#include <boost/checks/checksum.hpp> 
+#include <boost/checkdigit/checksum.hpp> 
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 /*!
   \brief Compute the Luhn algorithm operation on the checksum.
@@ -104,7 +104,7 @@ bool check_luhn (const check_range& check_seq)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq doesn't contain size_expected valid values.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -123,7 +123,7 @@ size_t compute_luhn(const check_range& check_seq)
     \param check_seq is the sequence of value to check.
 
     \throws std::invalid_argument if check_seq contains no valid value.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -134,6 +134,6 @@ size_t compute_luhn (const check_range& check_seq)
 }
 
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
-#endif // BOOST_CHECKS_LUHN_HPP
+#endif // BOOST_CHECKDIGIT_LUHN_HPP

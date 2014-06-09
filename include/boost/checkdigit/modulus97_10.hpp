@@ -6,18 +6,18 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECKS_MOD97_10_HPP
-#define BOOST_CHECKS_MOD97_10_HPP
+#ifndef BOOST_CHECKDIGIT_MOD97_10_HPP
+#define BOOST_CHECKDIGIT_MOD97_10_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/weight.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/weight.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 struct mod97_10
 {
@@ -53,6 +53,6 @@ struct mod97_10_processor
   }
 };
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECKS_MOD97_10_HPP
+#endif //BOOST_CHECKDIGIT_MOD97_10_HPP

@@ -9,8 +9,8 @@
     \brief This file provides tools to compute and validate a Visa credit card number.
 */
 
-#ifndef BOOST_CHECKS_VISA_HPP
-#define BOOST_CHECKS_VISA_HPP
+#ifndef BOOST_CHECKDIGIT_VISA_HPP
+#define BOOST_CHECKDIGIT_VISA_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -19,11 +19,11 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/checks/checksum.hpp>
+#include <boost/checkdigit/checksum.hpp>
 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/checkdigit.hpp>
-#include <boost/checks/precheck.hpp>
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
+#include <boost/checkdigit/precheck.hpp>
 
 /*!
   \brief This macro defines the size of a Visa number.
@@ -31,7 +31,7 @@
 #define VISA_SIZE 16
 
 namespace boost {
-    namespace checks{
+    namespace checkdigit{
 
 typedef features
 <
@@ -73,7 +73,7 @@ bool check_visa(const std::string& x)
 
     \throws std::invalid_argument if x doesn't contain exactly VISA_SIZE_WITHOUT_CHECKDIGIT digits.
     \throws std::invalid_argument if the first digit(from the leftmost)doESn't match the Visa pattern.
-    \throws boost::checks::translation_exception if the check digit cannot be translated into the checkdigit type.
+    \throws boost::checkdigit::translation_exception if the check digit cannot be translated into the checkdigit type.
 
     \returns The check digit. The check digit is in the range [0..9].
 */
@@ -88,5 +88,5 @@ size_t compute_visa(const std::string& x)
   return compute_checkdigit<visa>(make_precheck<digit>(x));
 }
 
-}}  // namespace boost   namespace checks
-#endif // BOOST_CHECKS_VISA_HPP
+}}  // namespace boost   namespace checkdigit
+#endif // BOOST_CHECKDIGIT_VISA_HPP

@@ -9,8 +9,8 @@
     \brief Provides a type "checkdigit"
 */
 
-#ifndef BOOST_CHECK_FILTER_HPP
-#define BOOST_CHECK_FILTER_HPP
+#ifndef BOOST_CHECKDIGIT_FILTER_HPP
+#define BOOST_CHECKDIGIT_FILTER_HPP
 
 #ifdef _MSC_VER
     #pragma once
@@ -21,7 +21,7 @@
 #include <functional>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 struct digit_filter
 {
@@ -45,6 +45,6 @@ struct digitx_filter
   }
 };
 
-}} // namespace boost   namespace checks
+}} // namespace boost   namespace checkdigit
 
-#endif //BOOST_CHECK_CHECKDIGIT_HPP
+#endif //BOOST_CHECKDIGIT_CHECKDIGIT_HPP

@@ -47,30 +47,30 @@ Examples are in folder:
 
 and C++ include files are in folder:
 
-  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checks/
+  https://svn.boost.org/svn/boost/sandbox/SOC/2011/checks/boost/checkdigit/
 
 */
 
-#ifndef BOOST_CHECK_CHECKS_FWD_HPP
-#define BOOST_CHECK_CHECKS_FWD_HPP
+#ifndef BOOST_CHECKDIGIT_CHECKS_FWD_HPP
+#define BOOST_CHECKDIGIT_CHECKS_FWD_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/luhn.hpp>
-#include <boost/checks/verhoeff.hpp>
-#include <boost/checks/modulus11.hpp>
-#include <boost/checks/modulus97.hpp>
-#include <boost/checks/ean.hpp>
-#include <boost/checks/isbn.hpp>
-#include <boost/checks/upc.hpp>
-#include <boost/checks/amex.hpp>
-#include <boost/checks/visa.hpp>
-#include <boost/checks/mastercard.hpp>
+#include <boost/checkdigit/luhn.hpp>
+#include <boost/checkdigit/verhoeff.hpp>
+#include <boost/checkdigit/modulus11.hpp>
+#include <boost/checkdigit/modulus97.hpp>
+#include <boost/checkdigit/ean.hpp>
+#include <boost/checkdigit/isbn.hpp>
+#include <boost/checkdigit/upc.hpp>
+#include <boost/checkdigit/amex.hpp>
+#include <boost/checkdigit/visa.hpp>
+#include <boost/checkdigit/mastercard.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 // Luhn
 
@@ -213,5 +213,5 @@ size_t compute_mastercard(const check_range& x);
 size_t compute_mastercard(const std::string& x);
 
 
-}} // namespace boost   namespace checks
-#endif // BOOST_CHECK_CHECKS_FWD_HPP
+}} // namespace boost   namespace checkdigit
+#endif // BOOST_CHECKDIGIT_CHECKS_FWD_HPP

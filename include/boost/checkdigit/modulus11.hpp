@@ -5,19 +5,19 @@
 //  http://www.boost.org/LICENSE_1_0.txt
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#ifndef BOOST_CHECKS_MOD11_HPP
-#define BOOST_CHECKS_MOD11_HPP
+#ifndef BOOST_CHECKDIGIT_MOD11_HPP
+#define BOOST_CHECKDIGIT_MOD11_HPP
 
 #ifdef _MSC_VER
     #pragma once
 #endif
 
-#include <boost/checks/weight.hpp>
-#include <boost/checks/modulus.hpp>
-#include <boost/checks/checkdigit.hpp>
+#include <boost/checkdigit/weight.hpp>
+#include <boost/checkdigit/modulus.hpp>
+#include <boost/checkdigit/checkdigit.hpp>
 
 namespace boost{
-  namespace checks{
+  namespace checkdigit{
 
 typedef modulus<11> mod11_basic;
 typedef modulus_inv<11> mod11_inv_basic;
@@ -28,7 +28,7 @@ typedef checkdigit<mod11_inv_basic, mod11_basic_encoder> mod11_inv_basic_checkdi
 
 typedef weight<1,2,3,4,5,6,7,8,9,10> mod11_weight;
 
-}} // namespace boost  namespace checks
+}} // namespace boost  namespace checkdigit
 
 
-#endif //BOOST_CHECKS_MOD10_HPP
+#endif //BOOST_CHECKDIGIT_MOD10_HPP
